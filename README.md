@@ -11,7 +11,7 @@ You can then see the package manual with:
 
 ```
 library(simmr)
-viegnette('simmr')
+vignette('simmr')
 ```
 
 If you want the official stable version of the package from CRAN then go to R and type:
