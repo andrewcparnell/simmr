@@ -7,15 +7,24 @@ library(devtools)
 install_github('andrewcparnell/simmr')
 ```
 
-You can then see the package manual with:
+You can then load the package with
 
 ```
 library(simmr)
-vignette('simmr')
 ```
+
+A vignette (i.e. a simple user manual) is included in the `vignetes` folder above. Click on the .Rmd file to see it.
+
 
 If you want the official stable version of the package from CRAN then go to R and type:
 
 ```
 install.packages('simmr')
+```
+
+You can then load the package and view the vignette with:
+
+```
+library(simmr)
+vignettes(simmr)
 ```
