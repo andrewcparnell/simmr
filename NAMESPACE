@@ -1,0 +1,17 @@
+exportPattern("^[[:alpha:]]+")
+
+import(rjags,ggplot2)
+importFrom(coda,gelman.diag)
+importFrom(compositions,clrInv)
+importFrom(boot,logit)
+importFrom(reshape2,melt)
+importFrom(MASS,kde2d)
+importFrom("graphics", "contour", "hist", "pairs", "par", "rect",
+            "strwidth", "text")
+importFrom("stats", "cor", "optim", "rnorm", "sd")
+
+S3method(plot, simmr_input)
+S3method(plot, simmr_output)
+S3method(print, simmr_input)
+S3method(print, simmr_output)
+S3method(summary, simmr_output)
