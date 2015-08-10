@@ -1,5 +1,5 @@
 simmr_load <-
-function(mixtures, source_names, source_means, source_sds, correction_means=NULL, correction_sds=NULL, concentration_means=NULL) {
+function(mixtures, source_names, source_means, source_sds, correction_means=NULL, correction_sds=NULL, concentration_means=NULL, group=NULL) {
 
 # Function to load in data for simmr and check whether it's appropriate for running through simmr_mcmc
 
@@ -53,8 +53,17 @@ if(!is.null(concentration_means)) {
   concentration_means = matrix(1,ncol=n_tracers,nrow=n_sources)
 }
 
+# Check the groups are the right length and structure
+if(!is.integer(group)) stop("group variable needs to be of integer type. Perhaps use as.integer?")
+if(!is.null(group)) {
+  if(length(group)!=n_obs) stop("Number of group values not equal to number of observations")
+} else {
+  group = rep(1,n_obs)
+}
+n_groups = length(unique(group))
+
 # Prepare output and give class
-out = list(mixtures=mixtures, source_names=source_names, source_means=source_means, source_sds=source_sds, correction_means=correction_means, correction_sds=correction_sds, concentration_means=concentration_means, n_obs=n_obs, n_tracers=n_tracers, n_sources=n_sources)
+out = list(mixtures=mixtures, source_names=source_names, source_means=source_means, source_sds=source_sds, correction_means=correction_means, correction_sds=correction_sds, concentration_means=concentration_means, group=group, n_obs=n_obs, n_tracers=n_tracers, n_sources=n_sources, n_groups=n_groups)
 
 # Look through to see whether there are any missing values in anything
 if(any(unlist(lapply(out,'is.na')))) stop("Missing values provided for some values. Check your inputs")
