@@ -8,7 +8,8 @@ This function allows for 4 different types of plots of the simmr output created 
 }
 \usage{
 \method{plot}{simmr_output}(x, 
-type = c("histogram", "density", "matrix", "boxplot"), 
+type = c("histogram", "density", "matrix", "boxplot"),
+group = 1,
 binwidth = 0.05, 
 alpha = 0.5, 
 title = "simmr output plot",...)
@@ -21,6 +22,9 @@ An object of class \code{simmr_output} created via \code{\link{simmr_mcmc}}
   \item{type}{
 The type of plot required. Can be one or more of 'histogram', 'density', 'matrix', 'boxplot'.
 }
+  \item{type}{
+Which group to plot. Currently only one group allowed at a time.
+}
   \item{binwidth}{
 The width of the bins for the histogram. Defaults to 0.05
 }
@@ -31,7 +35,7 @@ The degree of transparency of the plots. Not relevant for matrix plots
 The title of the plot. 
 }
   \item{...}{
-Not used
+Currently not used
 }
 
 }

@@ -1,4 +1,4 @@
-simmr_load <-
+simmr_load =
 function(mixtures, source_names, source_means, source_sds, correction_means=NULL, correction_sds=NULL, concentration_means=NULL, group=NULL) {
 
 # Function to load in data for simmr and check whether it's appropriate for running through simmr_mcmc
@@ -53,9 +53,11 @@ if(!is.null(concentration_means)) {
   concentration_means = matrix(1,ncol=n_tracers,nrow=n_sources)
 }
 
-# Check the groups are the right length and structure
-if(!is.integer(group)) stop("group variable needs to be of integer type. Perhaps use as.integer?")
+# Check the groups are the right length and structure if given
 if(!is.null(group)) {
+  if(!is.integer(group)) stop("group variable needs to be of integer type. Perhaps use as.integer?")
+  if(min(group)!=1) stop("Group number must start at 1")
+  if(!all(diff(sort(unique(group)))==1)) stop("Group numbers must proceed sequentially from 1, 2, 3, etc")
   if(length(group)!=n_obs) stop("Number of group values not equal to number of observations")
 } else {
   group = rep(1,n_obs)

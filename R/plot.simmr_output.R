@@ -1,14 +1,17 @@
 plot.simmr_output <-
-function(x,type=c('histogram','density','matrix','boxplot'),binwidth=0.05,alpha=0.5,title='simmr output plot',...) {
+function(x,type=c('histogram','density','matrix','boxplot'),group=1,binwidth=0.05,alpha=0.5,title='simmr output plot',...) {
 
   # Get the specified type
   type=match.arg(type,several.ok=TRUE)
 
+  # Don't allow for more than 1 group to be plotted at a time
+  if(length(group)>1) stop("Please specify a single group for the plot.")
+  
   # Stupid CRAN fix for variables - see here http://stackoverflow.com/questions/9439256/how-can-i-handle-r-cmd-check-no-visible-binding-for-global-variable-notes-when
   Proportion = Source = ..density.. = NULL
   
   # Prep data
-  out_all = do.call(rbind,x$output)[,1:x$input$n_sources]
+  out_all = do.call(rbind,x$output[[group]][,1:x$input$n_sources])
   df = reshape2::melt(out_all)
   colnames(df) = c('Num','Source','Proportion')
   
@@ -73,6 +76,5 @@ function(x,type=c('histogram','density','matrix','boxplot'),binwidth=0.05,alpha=
     }
     graphics::pairs(out_all,xlim=c(0,1),ylim=c(0,1),main=title,diag.panel=panel.hist,lower.panel=panel.cor,upper.panel=panel.contour)
   }
-
 
 }

@@ -14,7 +14,8 @@ source_means,
 source_sds, 
 correction_means = NULL, 
 correction_sds = NULL, 
-concentration_means = NULL)
+concentration_means = NULL,
+group = NULL)
 }
 \arguments{
   \item{mixtures}{
@@ -38,22 +39,25 @@ The standard deviations of the correction values, given as a matrix where the nu
   \item{concentration_means}{
 The means of the concentration values, given as a matrix where the number of rows is the number of sources and the number of columns is the number of tracers. These should be between 0 and 1. If not provided these are all set to 1.
 }
+  \item{group}{
+A grouping variable given in integer values starting at 1.
+}
 }
 \details{
 For standard stable isotope mixture modelling, the mixture matrix will contain a row for each individual and a column for each isotopic value. \code{simmr} will allow for any number of isotopes and any number of observations, within computational limits. The source means/sds should be provided for each food source on each isotope. The correction means (usually trophic enrichment factors) can be set as zero if required, and should be of the same shape as the source values. The concentration dependence means should be estimated values of the proportion of each element in the food source in question and should be given in proportion format between 0 and 1. At present there is no means to include concentration standard deviations.
 }
 \value{
 An object of class \code{simmr_input} with the following elements:
-\item{mixtures }{Description of 'comp1'}
-\item{source_neams }{Description of 'comp1'}
-\item{source_means }{Description of 'comp1'}
-\item{sources_sds }{Description of 'comp1'}
-\item{correction_means }{Description of 'comp1'}
-\item{correction_sds }{Description of 'comp1'}
-\item{concentration_means }{Description of 'comp1'}
-\item{n_obs }{Description of 'comp1'}
-\item{n_tracers }{Description of 'comp1'}
-\item{n_sources }{Description of 'comp1'}
+\item{mixtures }{The mixture data}
+\item{source_neams }{Source means}
+\item{sources_sds }{Source standard deviations}
+\item{correction_means }{Correction means}
+\item{correction_sds }{Correction standard deviations}
+\item{concentration_means }{Concentration dependence means}
+\item{n_obs }{The number of observations}
+\item{n_tracers }{The number of tracers/isotopes}
+\item{n_sources }{The number of sources}
+\item{n_groups }{The number of groups}
 }
 
 \author{
