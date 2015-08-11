@@ -320,7 +320,7 @@ grp = as.integer(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
         8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8))
 
 # Load this in:
-simmr_3 = simmr_load(mixtures=mix,
+simmr_5 = simmr_load(mixtures=mix,
                      source_names=s_names,
                      source_means=s_means,
                      source_sds=s_sds,
@@ -329,28 +329,22 @@ simmr_3 = simmr_load(mixtures=mix,
                      concentration_means = conc,
                      group=grp)
 
-# Print
-simmr_in
-
 # Plot
-plot(simmr_in,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
+plot(simmr_5,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
      ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
      title='Isospace plot of Inger et al Geese data')
 
 # Run MCMC for each group
-simmr_out = simmr_mcmc(simmr_in)
-
-# Print output
-simmr_out
+simmr_5_out = simmr_mcmc(simmr_5)
 
 # Summarise output
-summary(simmr_out,type='quantiles',group=1)
-summary(simmr_out,type='quantiles',group=c(1,3))
-summary(simmr_out,type=c('quantiles','statistics'),group=c(1,3))
+summary(simmr_5_out,type='quantiles',group=1)
+summary(simmr_5_out,type='quantiles',group=c(1,3))
+summary(simmr_5_out,type=c('quantiles','statistics'),group=c(1,3))
 
 # Plot - only a single group allowed
-plot(simmr_out,type='boxplot',group=2,title='simmr output group 2')
-plot(simmr_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
+plot(simmr_5_out,type='boxplot',group=2,title='simmr output group 2')
+plot(simmr_5_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 
 }
 }

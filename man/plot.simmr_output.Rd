@@ -22,7 +22,7 @@ An object of class \code{simmr_output} created via \code{\link{simmr_mcmc}}
   \item{type}{
 The type of plot required. Can be one or more of 'histogram', 'density', 'matrix', 'boxplot'.
 }
-  \item{type}{
+  \item{group}{
 Which group to plot. Currently only one group allowed at a time.
 }
   \item{binwidth}{

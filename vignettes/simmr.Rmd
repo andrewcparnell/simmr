@@ -187,13 +187,13 @@ str(simmr_in)
 which will show their contents. The `simmr_out` object in particular allows for full access to all of the posterior dietary proportion samples. We can calculate for example the mean of the first dietary proportion:
 
 ```{r}
-mean(simmr_out$output[[1]][,1])
+mean(simmr_out$output[[1]][[1]][,1])
 ```
 
 Or we can find the probability that the posterior dietary proportion for source 1 is bigger than for source 2:
 
 ```{r}
-mean(simmr_out$output[[1]][,1]>simmr_out$output[[1]][,2])
+mean(simmr_out$output[[1]][[1]][,1]>simmr_out$output[[1]][[1]][,2])
 ```
 
 With more detailed R knowledge, it is possible to create scripts which run multiple data sets and compare dietary proportions across groups. See the help file `help(simmr_mcmc)` for some other more complex examples.

@@ -204,7 +204,7 @@ grp = as.integer(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
         8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8))
 
 # Load this in:
-simmr_3 = simmr_load(mixtures=mix,
+simmr_4 = simmr_load(mixtures=mix,
                      source_names=s_names,
                      source_means=s_means,
                      source_sds=s_sds,
@@ -214,9 +214,9 @@ simmr_3 = simmr_load(mixtures=mix,
                      group=grp)
 
 # Print
-simmr_in
+simmr_4
 
 # Plot
-plot(simmr_in,group=1:8,title='Isospace plot of Inger et al Geese data')
+plot(simmr_4,group=1:8,title='Isospace plot of Inger et al Geese data')
 
 }
