@@ -8,7 +8,8 @@ Produces textual summaries and convergence diagnostics for an object created wit
 }
 \usage{
 \method{summary}{simmr_output}(object, 
-type = c("diagnostics", "quantiles", "statistics", "correlations"),...)
+type = c("diagnostics", "quantiles", "statistics", "correlations"),
+group = 1,...)
 }
 \arguments{
   \item{object}{
