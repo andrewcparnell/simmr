@@ -48,10 +48,11 @@ if(length(groups)>2) {
   Ordering = rep(NA,length=nrow(ordering_num))
   for(i in 1:length(Ordering)) Ordering[i] = paste0('Grp',groups[ordering_num[i,]],collapse=" > ")
   cat('Most popular orderings are as follows:\n')
-  tab = sort(table(Ordering,dnn=NULL),decreasing=TRUE)
+  tab = t(t(sort(table(Ordering,dnn=NULL),decreasing=TRUE)))
+  colnames(tab) = 'Probability'
   # Do not print all of it if too long
-  if(length(tab)>30) {
-    print(round(tab[1:30]/length(Ordering),4))
+  if(nrow(tab)>30) {
+    print(round(tab[1:30,]/length(Ordering),4))
   } else {
     print(round(tab/length(Ordering),4))
   }
