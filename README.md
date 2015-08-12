@@ -16,7 +16,7 @@ library(simmr)
 A vignette (i.e. a simple user manual) is available via:
 ```
 vignette('simmr')
-
+```
 
 If you want the official stable version of the package from CRAN then go to R and type:
 
