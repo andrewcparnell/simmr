@@ -346,5 +346,11 @@ summary(simmr_5_out,type=c('quantiles','statistics'),group=c(1,3))
 plot(simmr_5_out,type='boxplot',group=2,title='simmr output group 2')
 plot(simmr_5_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 
+# Compare groups
+compare_groups(simmr_5_out,source='Zostera',groups=1:2)
+compare_groups(simmr_5_out,source='Zostera',groups=1:3)
+compare_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
+
+
 }
 }
