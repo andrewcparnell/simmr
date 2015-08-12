@@ -28,5 +28,5 @@ You can then load the package and view the vignette with:
 
 ```
 library(simmr)
-vignettes("simmr")
+vignette("simmr")
 ```
