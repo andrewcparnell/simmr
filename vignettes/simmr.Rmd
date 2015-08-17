@@ -9,8 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Stable Isotope Mixing Models in R with simmr
-
 ## Introduction
 
 simmr is a package designed to solve mixing equations for stable isotopic data within a Bayesian framework. This guide is designed to get researchers up and running with the package as quickly as possible. No expertise is required in the use of R.
