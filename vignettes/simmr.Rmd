@@ -183,13 +183,13 @@ This shows the source histograms on the diagonal, contour plots of the relations
 
 If you want to compare the dietary proportions between two different sources, you can use the `compare_sources` function. This takes two or more sources and compares the dietary proportions with an optional plot. For example:
 
-```{r}
+```{r,fig.align='center',fig.width=7, fig.height=5}
 compare_sources(simmr_out,source_names=c('Source A','Source C'))
 ```
 
 This produces a direct probability that the dietary proportion for the first source is bigger than that of the second. If you want to compare more than two sources, specify them with:
 
-```{r}
+```{r,fig.align='center',fig.width=7, fig.height=5}
 compare_sources(simmr_out,source_names=c('Source A','Source C','Source D'))
 ```
 
