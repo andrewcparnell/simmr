@@ -9,20 +9,21 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-# Stable Isotope Mixing Models in R with simmr
-
 ## Introduction
 
 simmr is a package designed to solve mixing equations for stable isotopic data within a Bayesian framework. This guide is designed to get researchers up and running with the package as quickly as possible. No expertise is required in the use of R.
 
 simmr is designed as an upgrade to the [SIAR](http://cran.r-project.org/package=siar) package and contains many of the same features. This new version contains a slightly more sophisticated mixing model, a simpler user interface, and more advanced plotting features. The key differences between SIAR and simmr are:
-- simmr has a slightly richer mixing model based on code from the Parnell et al 2013 Environmetrics paper
-- simmr does not have a menu system; all commands must be run through the console or script windows
-- simmr uses ggplot2 to create graphs and JAGS to run the mixing model
+
+  - simmr has a slightly richer mixing model based on code from the Parnell et al 2013 Environmetrics paper
+  - simmr does not have a menu system; all commands must be run through the console or script windows
+  - simmr uses ggplot2 to create graphs and JAGS to run the mixing model
 
 We assume that you have a sound working knowledge of stable isotopic mixing models, and the assumptions and potential pitfalls associated with these models.A list of required reading is presented in Appendix A of this guide. We strongly recommend reading Philips et al 2015, Canadian Journal of Zoology for the basic assumptions and dos and don'ts or running mixing models
 
 We assume that if you have got this far you have [installed R](http://www.r-project.org). We also recommend installing [Rstudio](http://www.rstudio.com) as this provides a very neat interface to use R and simmr. The instructions below all assume you are using Rstudio.
+
+If you find bugs in the software, or wish to suggest new features, please add your input to the simmr [GitHub page](https://github.com/andrewcparnell/simmr/issues).
 
 ## Installation of the simmr package
 
@@ -59,17 +60,17 @@ simmr can handle three different types of data structure:
 - Multiple consumers. This may occur if you have multiple individuals in a single sampling period
 - Multiple groups of consumers. This may occur if you have multiple consumers which are observed over different sampling periods/locations, different demographic groups, etc.
 
-Unless you specify a grouping variable simmr assumes that all the observations are from the same group. If you have extra variables (e.g. explanatory variables) that you think may influence the dietary proportions, you should consider using (MixSIAR)[] instead.
+Unless you specify a grouping variable simmr assumes that all the observations are from the same group. If you have extra variables (e.g. explanatory variables) that you think may influence the dietary proportions, you should consider using (MixSIAR)[https://github.com/brianstock/MixSIAR] instead.
 
 ## Structure of the input files
 
 The general structure for running simmr is as follows:
 
-  1 Call `simmr_load` on the data to get it into the right format
-  2 Plot the data in isotope space ('iso-space') using `plot`
-  3 Run the mixing model with `simmr_mcmc`
-  4 Explore the results with `plot` and `summary`
-  5 If you have multiple groups and want to compare output between them, use the `compare_groups' function
+1. Call `simmr_load` on the data to get it into the right format
+2. Plot the data in isotope space ('iso-space') using `plot`
+3. Run the mixing model with `simmr_mcmc`
+4. Explore the results with `plot` and `summary`
+5. If you have multiple groups and want to compare output between them, use the `compare_groups' function
 
 For the next part of this document, we concentrate on simple examples without grouping structure. 
 
@@ -79,8 +80,8 @@ simmr requires at minimum 3 input objects; the consumers or _mixtures_, the _sou
 
 ```{r}
 mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
--10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
-11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
+               -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
+               11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
 colnames(mix) = c('d13C','d15N')
 s_names=c('Source A','Source B','Source C','Source D')
 s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4)
@@ -117,13 +118,13 @@ Remember that the `correction_means`, `correction_sds`, and `concentration_means
 
 We can now plot the raw isotopic data with:
 
-```{r,fig.align='center',fig.width=6}
+```{r,fig.align='center',fig.width=7,fig.height=5}
 plot(simmr_in)
 ```
 
 This will produce a biplot with the isotope that is in the first column on the x-axis, and the isotope in the second column on the y-axis. You can make the plot slightly nicer with some extra arguments:
 
-```{r,fig.align='center',fig.width=6}
+```{r,fig.align='center',fig.width=7,fig.height=5}
 plot(simmr_in,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
      ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
      title='Isospace plot of example data')
@@ -166,7 +167,7 @@ These suggest that the dietary proportions for this model are quite uncertain. H
 
 simmr can also produce histograms, boxplots, density plots, and matrix plots of the output. Starting with the density plot:
 
-```{r,fig.align='center',fig.width=6}
+```{r,fig.align='center',fig.width=7,fig.height=5}
 plot(simmr_out,type='density')
 ```
 
@@ -286,7 +287,7 @@ simmr_groups = simmr_load(mixtures=mix,
 
 When we  create the isospace plot we can specify which groups we wish to plot:
 
-```{r}
+```{r,fig.align='center',fig.width=7, fig.height=5}
 plot(simmr_groups,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
      ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
      title='Isospace plot of Inger et al Geese data')
@@ -312,14 +313,14 @@ summary(simmr_groups_out,type=c('quantiles','statistics'),group=c(1,3))
 
 For plotting output with multiple groups you can only specify a single group to plot. This is so that you are not overwhelmed with plots:
 
-```{r}
+```{r,fig.align='center',fig.width=7, fig.height=5}
 plot(simmr_groups_out,type='boxplot',group=2,title='simmr output group 2')
 plot(simmr_groups_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 ```
 
 The key extra function for working with multiple groups is the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
 
-```{r}
+```{r,fig.align='center',fig.width=7, fig.height=5}
 compare_groups(simmr_groups_out,source='Zostera',groups=1:2)
 ```
 
@@ -327,7 +328,7 @@ This produces the probability of the group 1 dietary proportion of Zostera being
 
 If you specify more than two groups simmr will produce the most likely probabilistic orderings of the groups as well as the boxplot as before:
 
-```{r}
+```{r,fig.align='center',fig.width=7, fig.height=5}
 compare_groups(simmr_groups_out,source='Zostera',groups=1:3)
 ```
 
@@ -358,13 +359,16 @@ With more detailed R knowledge, it is possible to create scripts which run multi
 
 ## Appendix - suggested reading
 
-For the maths on the original SIAR model:
+For the maths on the original SIAR model:  
 Andrew C Parnell, Richard Inger, Stuart Bearhop, and Andrew L Jackson. Source partitioning using stable isotopes: coping with too much variation. PLoS ONE, 5(3):5, 2010.
 
-For the maths behind the more advanced JAGS models:
+For the geese data:  
+Inger, R., Ruxton, G. D., Newton, J., Colhoun, K., Robinson, J. A., Jackson, A. L., & Bearhop, S. (2006). Temporal and intrapopulation variation in prey choice of wintering geese determined by stable isotope analysis. Journal of Animal Ecology, 75, 1190–1200.
+
+For the maths behind the more advanced JAGS models:  
 Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X. Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey, David J. Kelly, and Richard Inger. Bayesian stable isotope mixing models. Environmetrics, 24(6):387–399, 2013.
 
-For some good advice about mixing models:
+For some good advice about mixing models:  
 Donald L Phillips, Richard Inger, Stuart Bearhop, Andrew L Jackson, Jonathan W Moore, Andrew C Parnell, Brice X Semmens, and Eric J Ward. Best practices for use of stable isotope mixing models in food-web studies. Canadian Journal of Zoology, 92(10):823–835, 2014.
 
 
