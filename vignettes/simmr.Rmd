@@ -181,6 +181,21 @@ plot(simmr_out,type='matrix')
 
 This shows the source histograms on the diagonal, contour plots of the relationship between the sources on the upper diagonal, and the correlation between the sources on the lower diagonal. Large negative correlations indicate that the model cannot discern between the two sources; they may lie close together in iso-space. Large positive correlations are also possible when mixture data lie in a polygon consisting of multiple competing sources. Here the largest negative correlation is between source A and D. This is because they lie closest together in isospace. In general, high correlations (negative or positive) are indicative of the model being unable to determine which food sources are being consumed, and are an unavoidable part of stable isotope mixing models.
 
+If you want to compare the dietary proportions between two different sources, you can use the `compare_sources` function. This takes two or more sources and compares the dietary proportions with an optional plot. For example:
+
+```{r}
+compare_sources(simmr_out,source_names=c('Source A','Source C'))
+```
+
+This produces a direct probability that the dietary proportion for the first source is bigger than that of the second. If you want to compare more than two sources, specify them with:
+
+```{r}
+compare_sources(simmr_out,source_names=c('Source A','Source C','Source D'))
+```
+
+For further information and options on comparing sources, see `help(compare_sources)`.
+
+
 ## Running simmr on multiple groups
 
 In many cases we have data from different sampling locations, or different types of individuals (e.g. male/female) and we to compare between these groups. simmr can handle these data sets provided they all share the same sources, corrections and concentration dependence values. 
@@ -318,10 +333,10 @@ plot(simmr_groups_out,type='boxplot',group=2,title='simmr output group 2')
 plot(simmr_groups_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 ```
 
-The key extra function for working with multiple groups is the `compare_between_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
+Whilst you can use the `compare_sources` function for multi-group data, there is also an  extra function for comparing a single source between groups via the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
 
 ```{r,fig.align='center',fig.width=7, fig.height=5}
-compare_between_groups(simmr_groups_out,source='Zostera',groups=1:2)
+compare_groups(simmr_groups_out,source='Zostera',groups=1:2)
 ```
 
 This produces the probability of the group 1 dietary proportion of Zostera being greater than that of group 2. It also produces a boxplot of the difference between the dietary proportions and will save this into a new object if specified. You can turn the plot off by adding the argument `plot=FALSE`.

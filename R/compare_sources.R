@@ -23,7 +23,7 @@ if(length(source_names)==2) {
   out_all_src_2 = do.call(rbind,simmr_out$output[[group]])[,source_names[2]]
   # Produce the difference between the two
   out_diff = out_all_src_1 - out_all_src_2
-  cat(paste("Prob ( proportion of",source_names[1],'> proportion of ',source_names[2],') =',round(mean(out_diff>0),3)))
+  cat(paste("Prob ( proportion of",source_names[1],'> proportion of',source_names[2],') =',round(mean(out_diff>0),3)))
   
   if(plot) {
     # Stupid fix for packaging ggplot things
