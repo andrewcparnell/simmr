@@ -70,7 +70,7 @@ The general structure for running simmr is as follows:
 2. Plot the data in isotope space ('iso-space') using `plot`
 3. Run the mixing model with `simmr_mcmc`
 4. Explore the results with `plot` and `summary`
-5. If you have multiple groups and want to compare output between them, use the `compare_groups' function
+5. If you have multiple groups and want to compare output between them, use the `compare_between_groups' function
 
 For the next part of this document, we concentrate on simple examples without grouping structure. 
 
@@ -318,10 +318,10 @@ plot(simmr_groups_out,type='boxplot',group=2,title='simmr output group 2')
 plot(simmr_groups_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 ```
 
-The key extra function for working with multiple groups is the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
+The key extra function for working with multiple groups is the `compare_between_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
 
 ```{r,fig.align='center',fig.width=7, fig.height=5}
-compare_groups(simmr_groups_out,source='Zostera',groups=1:2)
+compare_between_groups(simmr_groups_out,source='Zostera',groups=1:2)
 ```
 
 This produces the probability of the group 1 dietary proportion of Zostera being greater than that of group 2. It also produces a boxplot of the difference between the dietary proportions and will save this into a new object if specified. You can turn the plot off by adding the argument `plot=FALSE`.
@@ -329,7 +329,7 @@ This produces the probability of the group 1 dietary proportion of Zostera being
 If you specify more than two groups simmr will produce the most likely probabilistic orderings of the groups as well as the boxplot as before:
 
 ```{r,fig.align='center',fig.width=7, fig.height=5}
-compare_groups(simmr_groups_out,source='Zostera',groups=1:3)
+compare_between_groups(simmr_groups_out,source='Zostera',groups=1:3)
 ```
 
 
