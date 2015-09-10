@@ -1,9 +1,17 @@
 plot.simmr_input <-
+<<<<<<< HEAD
 function(x,tracers=c(1,2),title='Tracers plot',xlab='d13C',ylab='d15N', sigmas=1, group=1, colour=TRUE,...) {
+=======
+function(x,tracers=c(1,2),title='Tracers plot',xlab=colnames(x$mixtures)[tracers[1]],ylab=colnames(x$mixtures)[tracers[2]], sigmas=1, group=1, colour=TRUE,...) {
+>>>>>>> ce2ac9509d181f941172e717e892c0c7c2842730
 
 # Get mixtures to match current group(s)
 curr_rows = which(x$group%in%group)  
 curr_mix = x$mixtures[curr_rows,,drop=FALSE]
+<<<<<<< HEAD
+=======
+curr_n_groups = length(group)
+>>>>>>> ce2ac9509d181f941172e717e892c0c7c2842730
 
 # Throw error if too many groups (can only handle max 6 before it runs out of shapes)
 #if((length(group)+x$n_sources)>6) stop("Too many groups specified. Total number of groups plus number of sources cannot exceed 6")
@@ -37,7 +45,11 @@ g=ggplot(data=df, aes(x = x,y = y,colour=Source)) +
   geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source)) +
   scale_shape_manual(values=1:nlevels(df$Source)) +
   theme(legend.title=element_blank(),legend.key = element_blank()) +
+<<<<<<< HEAD
   guides(color=guide_legend(override.aes=list(linetype=c(rep(0,x$n_groups),rep(1,x$n_sources))))) +
+=======
+  guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) +
+>>>>>>> ce2ac9509d181f941172e717e892c0c7c2842730
   if(!colour) scale_colour_grey()
 
 print(g)
