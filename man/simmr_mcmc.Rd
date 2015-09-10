@@ -94,6 +94,12 @@ plot(simmr_1_out,type='histogram')
 plot(simmr_1_out,type='density')
 plot(simmr_1_out,type='matrix')
 
+# Compare two sources
+compare_sources(simmr_1_out,sources=c('Zostera','U.lactuca'))
+
+# Compare multiple sources
+compare_sources(simmr_1_out)
+
 #####################################################################################
 
 # A version with just one observation
@@ -345,6 +351,16 @@ summary(simmr_5_out,type=c('quantiles','statistics'),group=c(1,3))
 # Plot - only a single group allowed
 plot(simmr_5_out,type='boxplot',group=2,title='simmr output group 2')
 plot(simmr_5_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
+
+# Compare sources within a group
+compare_sources(simmr_5_out,sources=c('Zostera','U.lactuca'),group=2)
+compare_sources(simmr_5_out,group=2)
+
+# Compare between groups
+compare_between_groups(simmr_5_out,source='Zostera',groups=1:2)
+compare_between_groups(simmr_5_out,source='Zostera',groups=1:3)
+compare_between_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
+
 
 }
 }

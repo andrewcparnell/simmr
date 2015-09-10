@@ -4,7 +4,7 @@ simmr is a Bayesian stable isotope mixing model implemented in R which also uses
 
 ```
 library(devtools)
-install_github('andrewcparnell/simmr')
+install_github('andrewcparnell/simmr',build_vignettes =TRUE)
 ```
 
 You can then load the package with
@@ -13,8 +13,10 @@ You can then load the package with
 library(simmr)
 ```
 
-A vignette (i.e. a simple user manual) is included in the `vignetes` folder above. Click on the .Rmd file to see it.
-
+A vignette (i.e. a simple user manual) is available via:
+```
+vignette('simmr')
+```
 
 If you want the official stable version of the package from CRAN then go to R and type:
 
@@ -26,5 +28,5 @@ You can then load the package and view the vignette with:
 
 ```
 library(simmr)
-vignettes("simmr")
+vignette("simmr")
 ```

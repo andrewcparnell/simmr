@@ -4,6 +4,7 @@ function(x,tracers=c(1,2),title='Tracers plot',xlab=colnames(x$mixtures)[1],ylab
 # Get mixtures to match current group(s)
 curr_rows = which(x$group%in%group)  
 curr_mix = x$mixtures[curr_rows,,drop=FALSE]
+curr_n_groups = length(group)
 
 # Throw error if too many groups (can only handle max 6 before it runs out of shapes)
 #if((length(group)+x$n_sources)>6) stop("Too many groups specified. Total number of groups plus number of sources cannot exceed 6")
@@ -27,10 +28,18 @@ if(x$n_groups==1) {
 } else {
   Source=factor(c(x$source_names,paste(' Mixtures grp',x$group[curr_rows])))
 }
-size=c(rep(0.8,x$n_sources),rep(0.5,nrow(curr_mix)))
+size=c(rep(0.5,x$n_sources),rep(0.5,nrow(curr_mix)))
 df=data.frame(x=x2,y=y,x_lower,y_lower,x_upper,y_upper,Source,size)
 
-g=ggplot(data=df,aes(x = x,y = y,colour=Source))+theme_bw()+labs(x=xlab,y=ylab,title=title)+geom_errorbarh(aes(xmax=x_upper,xmin=x_lower,height=0))+geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source),size=0.7)+scale_shape_manual(values=1:nlevels(df$Source))+theme(legend.title=element_blank(),legend.key = element_blank())+if(!colour) scale_colour_grey()
+g=ggplot(data=df, aes(x = x,y = y,colour=Source)) + 
+  theme_bw() +
+  labs(x=xlab,y=ylab,title=title) +
+  geom_errorbarh(aes(xmax=x_upper,xmin=x_lower,height=0)) +
+  geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source)) +
+  scale_shape_manual(values=1:nlevels(df$Source)) +
+  theme(legend.title=element_blank(),legend.key = element_blank()) +
+  guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) +
+  if(!colour) scale_colour_grey()
 
 print(g)
 
