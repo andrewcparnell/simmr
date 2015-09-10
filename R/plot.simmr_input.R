@@ -1,5 +1,5 @@
 plot.simmr_input <-
-function(x,tracers=c(1,2),title='Tracers plot',xlab='d13C',ylab='d15N', sigmas=1, group=1, colour=TRUE,...) {
+function(x,tracers=c(1,2),title='Tracers plot',xlab=colnames(x$mixtures)[1],ylab=colnames(x$mixtures)[2], sigmas=1, group=1, colour=TRUE,...) {
 
 # Get mixtures to match current group(s)
 curr_rows = which(x$group%in%group)  
