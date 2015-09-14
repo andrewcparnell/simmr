@@ -24,9 +24,9 @@ x_upper=c(source_means_c[,tracers[1]]+sigmas*source_sds_c[,tracers[1]],curr_mix[
 y_lower=c(source_means_c[,tracers[2]]-sigmas*source_sds_c[,tracers[2]],curr_mix[,tracers[2]])
 y_upper=c(source_means_c[,tracers[2]]+sigmas*source_sds_c[,tracers[2]],curr_mix[,tracers[2]])
 if(x$n_groups==1) {
-  Source=factor(c(x$source_names,rep(' Mixtures',nrow(curr_mix))))
+  Source=factor(c(x$source_names,rep('Mixtures',nrow(curr_mix))),levels=c('Mixtures',x$source_names))
 } else {
-  Source=factor(c(x$source_names,paste(' Mixtures grp',x$group[curr_rows])))
+  Source=factor(c(x$source_names,paste('Mixtures grp',x$group[curr_rows])),levels=c(paste('Mixtures grp',unique(x$group[curr_rows])),x$source_names))
 }
 size=c(rep(0.5,x$n_sources),rep(0.5,nrow(curr_mix)))
 df=data.frame(x=x2,y=y,x_lower,y_lower,x_upper,y_upper,Source,size)
