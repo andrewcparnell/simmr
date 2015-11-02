@@ -14,7 +14,7 @@ if(ncol(curr_mix)==1) stop("This function only works for two or more tracers")
 
 # First get the mean corrected sources and the sd corrected sources
 source_means_c = x$source_means + x$correction_means
-source_sds_c = x$source_sds^2 + x$correction_sds^2
+source_sds_c = sqrt(x$source_sds^2 + x$correction_sds^2)
 
 # Set up data frame for ggplot - have to do it this stupid way because of cran
 x2=c(source_means_c[,tracers[1]],curr_mix[,tracers[1]])
