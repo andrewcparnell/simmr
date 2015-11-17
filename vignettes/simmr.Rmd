@@ -330,7 +330,7 @@ For plotting output with multiple groups you can only specify a single group to 
 
 ```{r,fig.align='center',fig.width=7, fig.height=5}
 plot(simmr_groups_out,type='boxplot',group=2,title='simmr output group 2')
-plot(simmr_groups_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
+plot(simmr_groups_out,type=c('density','matrix'),group=6,title='simmr output group 6')
 ```
 
 Whilst you can use the `compare_sources` function for multi-group data, there is also an  extra function for comparing a single source between groups via the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
