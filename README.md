@@ -1,3 +1,7 @@
+[![cran version](http://www.r-pkg.org/badges/version/simmr)](http://cran.rstudio.com/web/packages/simmr) 
+[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/simmr?)](https://github.com/metacran/cranlogs.app)
+[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/simmr?color=82b4e8)](https://github.com/metacran/cranlogs.app)
+
 Welcome to simmr!
 
 Update November 2015. We are running another SIAR/SiBER/MixSIAR/simmr course in January 2016. There are still a few places left - see [here](http://prstatistics.co.uk/stable-isotope-analysis-in-R/index.html) for more details. 
