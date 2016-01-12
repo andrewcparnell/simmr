@@ -352,14 +352,18 @@ compare_groups(simmr_groups_out,source='Zostera',groups=1:3)
 A common request is that of combining sources. We would recommend always doing this after running simmr, known as _a-posteriori_ combining. Suppose for example, you wish to combine the U.lactuca and Eneteremorpha sources which lie in a similar region in the isospace plot of the Geese data. To proceed, we can create a new simmr object using the `combine_sources` function:
 
 ```{r,fig.align='center',fig.width=7, fig.height=5}
-simmr_out_combine = combine_sources(simmr_out,to_combine=c('U.lactuca','Enteromorpha'),new_source_name='U.lac+Ent')
+simmr_out_combine = combine_sources(simmr_out,
+                                    to_combine=c('U.lactuca','Enteromorpha'),
+                                    new_source_name='U.lac+Ent')
 plot(simmr_out_combine$input)
 plot(simmr_out_combine,type='boxplot',title='simmr output: combined sources')
 ```
 
 This will also work with multiple groups:
 ```{r,fig.align='center',fig.width=7, fig.height=5}
-simmr_groups_out_combine = combine_sources(simmr_groups_out,to_combine=c('U.lactuca','Enteromorpha'),new_source_name='U.Lac+Ent')
+simmr_groups_out_combine = combine_sources(simmr_groups_out,
+                                           to_combine=c('U.lactuca','Enteromorpha'),
+                                           new_source_name='U.Lac+Ent')
 plot(simmr_groups_out_combine$input,group=1:8)
 plot(simmr_groups_out_combine,type='boxplot',title='simmr output: combined sources',group=8)
 plot(simmr_groups_out_combine,type='matrix',title='simmr output: combined sources',group=8)
