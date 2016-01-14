@@ -7,7 +7,7 @@ Author: Andrew Parnell
 Maintainer: Andrew Parnell <andrew.parnell@ucd.ie>
 Description: Fits a stable isotope mixing model via JAGS in R. The package allows for any number of isotopes or sources, as well as concentration dependencies.
 Depends: rjags, ggplot2
-Imports: MASS, compositions, boot, reshape2, coda, graphics, stats
+Imports: MASS, compositions, boot, reshape2, coda, graphics, stats, viridis
 Encoding: UTF-8
 License: GPL (>=2)
 LazyData: TRUE

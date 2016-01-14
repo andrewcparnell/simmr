@@ -8,7 +8,7 @@ This function allows for 4 different types of plots of the simmr output created 
 }
 \usage{
 \method{plot}{simmr_output}(x, 
-type = c("histogram", "density", "matrix", "boxplot"),
+type = c("histogram", "density", "matrix", "boxplot", "convergence"),
 group = 1,
 binwidth = 0.05, 
 alpha = 0.5, 
@@ -20,10 +20,10 @@ title = "simmr output plot",...)
 An object of class \code{simmr_output} created via \code{\link{simmr_mcmc}}
 }
   \item{type}{
-The type of plot required. Can be one or more of 'histogram', 'density', 'matrix', 'boxplot'.
+The type of plot required. Can be one or more of 'histogram', 'density', 'matrix', 'boxplot', or 'convergence'
 }
   \item{group}{
-Which group to plot. Currently only one group allowed at a time.
+Which group to plot. Currently only one group allowed at a time
 }
   \item{binwidth}{
 The width of the bins for the histogram. Defaults to 0.05
@@ -81,9 +81,10 @@ plot(simmr_1)
 simmr_1_out = simmr_mcmc(simmr_1)
 
 # Plot
-plot(simmr_1_out) # Creates all 4 plots
+plot(simmr_1_out) # Creates all 5 plots
 plot(simmr_1_out,type='boxplot')
 plot(simmr_1_out,type='histogram')
 plot(simmr_1_out,type='density')
 plot(simmr_1_out,type='matrix')
+plot(simmr_1_out,type='convergence')
 }}

@@ -9,6 +9,7 @@ importFrom(MASS,kde2d)
 importFrom("graphics", "contour", "hist", "pairs", "par", "rect",
             "strwidth", "text")
 importFrom("stats", "cor", "optim", "rnorm", "sd")
+importFrom("viridis", "scale_color_viridis", "scale_fill_viridis")
 
 S3method(plot, simmr_input)
 S3method(plot, simmr_output)

@@ -1,5 +1,5 @@
 plot.simmr_output <-
-function(x,type=c('isospace','histogram','density','matrix','boxplot'),group=1,binwidth=0.05,alpha=0.5,title='simmr output plot',...) {
+function(x,type=c('isospace','histogram','density','matrix','boxplot','convergence'),group=1,binwidth=0.05,alpha=0.5,title='simmr output plot',...) {
 
   # Get the specified type
   type=match.arg(type,several.ok=TRUE)
@@ -20,6 +20,7 @@ function(x,type=c('isospace','histogram','density','matrix','boxplot'),group=1,b
     
     if ('histogram'%in%type) {
       g=ggplot(df,aes(x=Proportion,y=..density..,fill=Source)) +
+        scale_fill_viridis(discrete=TRUE) + 
         geom_histogram(binwidth=binwidth,alpha=alpha) +
         theme_bw() +
         ggtitle(title) +
@@ -30,6 +31,7 @@ function(x,type=c('isospace','histogram','density','matrix','boxplot'),group=1,b
     
     if ('density'%in%type) {
       g=ggplot(df,aes(x=Proportion,y=..density..,fill=Source)) +
+        scale_fill_viridis(discrete=TRUE) + 
         geom_density(alpha=alpha,linetype=0) +
         theme_bw() +
         theme(legend.position='none') +
@@ -41,12 +43,17 @@ function(x,type=c('isospace','histogram','density','matrix','boxplot'),group=1,b
     
     if ('boxplot'%in%type) {
       g=ggplot(df,aes(y=Proportion,x=Source,fill=Source,alpha=alpha)) +
+        scale_fill_viridis(discrete=TRUE) + 
         geom_boxplot(alpha=alpha,notch=TRUE,outlier.size=0) +
         theme_bw() +
         ggtitle(title) +
         theme(legend.position='none') +
         coord_flip()
       print(g)
+    }
+    
+    if ('convergence'%in%type) {
+      coda::gelman.plot(x$output[[group[i]]],transform=TRUE)
     }
     
     if ('matrix'%in%type) {
@@ -79,6 +86,7 @@ function(x,type=c('isospace','histogram','density','matrix','boxplot'),group=1,b
       }
       graphics::pairs(out_all,xlim=c(0,1),ylim=c(0,1),main=title,diag.panel=panel.hist,lower.panel=panel.cor,upper.panel=panel.contour)
     }
+    
   }  
 
 
