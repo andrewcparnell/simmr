@@ -62,7 +62,11 @@ if(length(groups)>2) {
     Group = Proportion = NULL
     df = reshape2::melt(out_all)[,2:3]
     colnames(df) = c('Group','Proportion')
-    p = ggplot(df,aes(x=Group,y=Proportion,fill=Group)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of dietary proportions for source",source_name))
+    p = ggplot(df,aes(x=Group,y=Proportion,fill=Group)) + 
+      scale_fill_viridis(discrete=TRUE) + 
+      geom_boxplot(alpha=0.5,outlier.size=0) + 
+      theme_bw() + theme(legend.position='none') + 
+      ggtitle(paste("Comparison of dietary proportions for source",source_name))
     print(p)
   }
   

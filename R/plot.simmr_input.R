@@ -33,7 +33,7 @@ df=data.frame(x=x2,y=y,x_lower,y_lower,x_upper,y_upper,Source,size)
 
 if(colour) {
   g=ggplot(data=df, aes(x = x,y = y,colour=Source)) + 
-    scale_color_viridis(discrete=TRUE,option=) + 
+    scale_color_viridis(discrete=TRUE) + 
     theme_bw() +
     labs(x=xlab,y=ylab,title=title) +
     geom_errorbarh(aes(xmax=x_upper,xmin=x_lower,height=0)) +
