@@ -373,7 +373,7 @@ plot(simmr_groups_out_combine,type='boxplot',title='simmr output: combined sourc
 plot(simmr_groups_out_combine,type='matrix',title='simmr output: combined sources',group=8)
 ```
 
-## Advanced use of simmr
+## Other advanced use of simmr
 
 Whilst the above gives an introduction to the basic functions of simmr, the package is open source and all code is open to editing. The two objects created as part of this vignette `simmr_in` and `simmr_out` are R lists. They can be explored with e.g.
 
