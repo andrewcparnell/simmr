@@ -1,11 +1,11 @@
 ---
 title: "Stable Isotope Mixing Models in R with simmr"
-author: "Andrew Parnell and Richard Inger"
+author: "Andrew Parnell, Andrew Jackson, and Richard Inger"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
+  %\VignetteEngine{rmarkdown::render}
   %\VignetteIndexEntry{simmr}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 

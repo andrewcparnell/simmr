@@ -1,17 +1,31 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-Version: 0.2
-Date: 2015-08-10
+Version: 0.3
+Date: 2016-01-15
 Author: Andrew Parnell
 Maintainer: Andrew Parnell <andrew.parnell@ucd.ie>
-Description: Fits a stable isotope mixing model via JAGS in R. The package allows for any number of isotopes or sources, as well as concentration dependencies.
-Depends: rjags, ggplot2
-Imports: MASS, compositions, boot, reshape2, coda, graphics, stats, viridis
+Description: Fits a stable isotope mixing model via JAGS in R. The package
+    allows for any number of isotopes or sources, as well as concentration
+    dependencies.
+Depends:
+    rjags,
+    ggplot2
+Imports:
+    MASS,
+    compositions,
+    boot,
+    reshape2,
+    coda,
+    graphics,
+    stats,
+    viridis
 Encoding: UTF-8
 License: GPL (>=2)
 LazyData: TRUE
-Suggests: knitr
+Suggests:
+    knitr
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2015-08-06 12:31:53 UTC; aparnell
+Packaged: 2016-10-15 11:00:00 UTC; aparnell
+RoxygenNote: 5.0.0

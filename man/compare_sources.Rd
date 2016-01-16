@@ -19,7 +19,7 @@ An object of class \code{simmr_output} created from \code{\link{simmr_mcmc}}.
   \item{source_names}{
 The names of at least two sources. These should match the names exactly given to \code{\link{simmr_load}}.
 }
-  \item{groups}{
+  \item{group}{
 The integer values of the group numbers to be compared. If not specified assumes the first or only group
 }
   \item{plot}{
