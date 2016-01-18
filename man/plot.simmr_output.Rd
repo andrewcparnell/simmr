@@ -8,7 +8,7 @@ This function allows for 4 different types of plots of the simmr output created 
 }
 \usage{
 \method{plot}{simmr_output}(x, 
-type = c("histogram", "density", "matrix", "boxplot", "convergence"),
+type = c("isospace", "histogram", "density", "matrix", "boxplot", "convergence"),
 group = 1,
 binwidth = 0.05, 
 alpha = 0.5, 
