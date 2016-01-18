@@ -8,7 +8,7 @@ This function takes in an object of class \code{simmr_output} and creates probab
 }
 \usage{
 compare_groups(simmr_out, 
-source_name=simmr_out$input$source_names[1],groups=1:2,plot=TRUE)
+source_name=simmr_out$source_names[1],groups=1:2,plot=TRUE)
 }
 \arguments{
   \item{simmr_out}{

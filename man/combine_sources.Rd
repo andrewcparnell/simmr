@@ -9,7 +9,7 @@ This function takes in an object of class \code{simmr_output} and combines two o
 \usage{
 combine_sources(simmr_out, 
 to_combine=simmr_out$input$source_names[1:2],
-new_source_name="combined_source")
+new_source_name='combined_source'
 }
 \arguments{
   \item{simmr_out}{
@@ -26,7 +26,7 @@ A name to give to the new combined source
 Often two sources either (1) lie in similar location on the iso-space plot, or (2) are very similar in phylogenetic terms. In case (1) it is common to experience high (negative) posterior correlations between the sources. Combining them can reduce this correlation and improve precision of the estimates. In case (2) we might wish to determine the joint amount eaten of the two sources when combined. This function thus combines two sources after a run of \code{\link{simmr_mcmc}} (known as a posteriori combination). The new object can then be called with \code{\link{plot.simmr_input}} or \code{\link{plot.simmr_output}} to produce iso-space plots of summaries of the output after combination.
 }
 \value{
-A new \code{simmr_output} object
+A new \code{\link{simmr_output}} object
 }
 
 \author{
@@ -85,12 +85,9 @@ plot(simmr_1_out,type='histogram')
 plot(simmr_1_out,type='density')
 plot(simmr_1_out,type='matrix')
 
-simmr_out_combine = combine_sources(simmr_1_out,
-to_combine=c('U.lactuca','Enteromorpha'),
-new_source_name='U.lac+Ent')
+simmr_out_combine = combine_sources(simmr_1_out,to_combine=c('U.lactuca','Enteromorpha'),new_source_name='U.lac+Ent')
 plot(simmr_out_combine$input)
-plot(simmr_out_combine,type='boxplot',
-title='simmr output: combined sources')
+plot(simmr_out_combine,type='boxplot',title='simmr output: combined sources')
 
 }
 }
