@@ -6,7 +6,7 @@ function(x,type=c('isospace','histogram','density','matrix','boxplot','convergen
 
   # Iso-space plot is special as all groups go on one plot
   # Add in extra dots here as they can be sent to this plot function
-  if('isospace' %in% type) plot(x$input,group=group,title=title,...)
+  if('isospace' %in% type) graphics::plot(x$input,group=group,title=title,...)
   
   for(i in 1:length(group)) {
     
