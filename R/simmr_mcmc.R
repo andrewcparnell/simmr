@@ -6,6 +6,9 @@ if(class(simmr_in)!='simmr_input') stop("Input argument simmr_in must have come 
 # Throw warning if n.chain =1
 if(mcmc.control$n.chain==1) warning("Running only 1 MCMC chain will cause an error in the convergence diagnostics")
 
+# Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run
+if(min(table(simmr_in$group))>1 & min(table(simmr_in$group))<4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
+
 # Set up the model string
 model_string = '
 model {
