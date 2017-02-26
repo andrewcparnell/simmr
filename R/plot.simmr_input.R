@@ -37,7 +37,8 @@ if(colour) {
     theme_bw() +
     labs(x=xlab,y=ylab,title=title) +
     geom_errorbarh(aes(xmax=x_upper,xmin=x_lower,height=0)) +
-    geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source)) +
+    #geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source)) +
+    geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,shape=Source)) +
     scale_shape_manual(values=1:nlevels(df$Source)) +
     theme(legend.title=element_blank(),legend.key = element_blank()) +
     guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) 
@@ -46,7 +47,8 @@ if(colour) {
     theme_bw() +
     labs(x=xlab,y=ylab,title=title) +
     geom_errorbarh(aes(xmax=x_upper,xmin=x_lower,height=0)) +
-    geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source)) +
+    #geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,height=0.2,shape=Source)) +
+    geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,shape=Source)) +
     scale_shape_manual(values=1:nlevels(df$Source)) +
     theme(legend.title=element_blank(),legend.key = element_blank()) +
     guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) + 
