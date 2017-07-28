@@ -41,14 +41,14 @@ if(x$n_groups==1) {
 }
 size=c(rep(0.5,x$n_sources),rep(0.5,nrow(curr_mix)))
 
-if(ncol(mix) == 1) {
+if(ncol(curr_mix) == 1) {
   df=data.frame(x=x2,x_lower,x_upper,Source,size, y = Source)
 } else {
   df=data.frame(x=x2,y=y,x_lower,y_lower,x_upper,y_upper,Source,size)
 }
 
 # Plot for bivariate mixtures
-if(ncol(mix) > 1) {
+if(ncol(curr_mix) > 1) {
   if(colour) {
     g=ggplot(data=df, aes(x = x,y = y,colour=Source)) + 
       scale_color_viridis(discrete=TRUE) + 
@@ -75,7 +75,7 @@ if(ncol(mix) > 1) {
 }
 
 # Plot for univariate mixtures
-if(ncol(mix) == 1) {
+if(ncol(curr_mix) == 1) {
   if(colour) {
     g = ggplot(data=df, aes(x = x, y = y, colour = Source)) + 
       scale_color_viridis(discrete=TRUE) + 
