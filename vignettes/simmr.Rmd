@@ -289,7 +289,7 @@ grp = as.integer(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
         8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8))
 ```
 
-Note that the `grp` object above is specified to be an integer. 
+Note that the `grp` object above is specified to be an integer but can also be a factor, the levels of which will appear in plots. However, when specifying groups in later commands you should use the integer values to reference which groups to plot
 
 Next it is a matter of following the simmr commands as before to load in, with an extra argument specifying the groups:
 
@@ -375,9 +375,8 @@ plot(simmr_groups_out_combine,type='matrix',title='simmr output: combined source
 
 ## Running simmr with only one isotope
 
-`simmr` will run fine with only one isotope, and no changes should be required to any of the functions. Here is an example with only one isotope:
+`simmr` will run fine with only one tracer, and no changes should be required to any of the functions. Here is an example with only one isotope:
 
-First create the data set. I'm just going to use d13C from the Geese data:
 ```{r}
 mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
                -10.48, -9.93, -9.37), ncol=1, nrow=10)
@@ -392,7 +391,7 @@ conc = matrix(c(0.02, 0.1, 0.12, 0.04), ncol=1, nrow=4)
 
 Now load in with `simmr_load`:
 ```{r}
-simmr_in = simmr_load(mixtures=mix,
+simmr_in_1D = simmr_load(mixtures=mix,
                      source_names=s_names,
                      source_means=s_means,
                      source_sds=s_sds,
@@ -403,22 +402,46 @@ simmr_in = simmr_load(mixtures=mix,
 
 Create a plot. `plot.simmr_input` automatically creates a 1D version of these plots:
 ```{r,results='hide'}
-plot(simmr_in)
+plot(simmr_in_1D)
 ```
 
 Now run simmr:
 
 ```{r}
-simmr_run = simmr_mcmc(simmr_in)
+simmr_run_1D = simmr_mcmc(simmr_in_1D)
 ```
 
 Plot output
 
 ```{r}
-plot(simmr_run, type = 'boxplot')
+plot(simmr_run_1D, type = 'boxplot')
 ```
 
 The other `summary`, `compare` and `plot` functions should all work the same.
+
+## Looking at individual effects
+
+It's possible to save the output for individuals as well as the default of the mean diet. To get individual effects add in `individual_effects = TRUE` to the call to `simmr_mcmc`:
+```{r}
+simmr_run_ind = simmr_mcmc(simmr_in, 
+                       individual_effects = TRUE)
+```
+
+We can summarise as before:
+```{r, results = 'hide'}
+summary(simmr_run_ind, type = c('diagnostics', 'statistics'))
+```
+
+or plot
+```{r}
+plot(simmr_run_ind, type = 'boxplot')
+```
+
+```{r}
+compare_groups(simmr_run_ind, groups = 1:2)
+```
+
+
 
 ## Other advanced use of simmr
 
@@ -441,7 +464,6 @@ We can thus find the probability that the posterior dietary proportion for sourc
 ```{r}
 mean(simmr_out$output[[1]][[1]][,1]>simmr_out$output[[1]][[1]][,2])
 ```
-
 
 With more detailed R knowledge, it is possible to create scripts which run multiple data sets in richer fashions than the default simmr functions. See the help file `help(simmr_mcmc)` for a full list of examples.
 

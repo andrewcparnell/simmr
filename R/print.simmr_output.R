@@ -1,3 +1,12 @@
+#' Print a simmr output object
+#'
+#' @param x An object of class \code{simmr_output}
+#' @param ... Other arguments (not supported)
+#'
+#' @return Returns a neat summary of the object
+#' 
+#' @seealso \code{\link{simmr_mcmc}} for creating \code{simmr_output} objects
+#' @export
 print.simmr_output <-
 function(x,...) {
   cat('This is a valid simmr output object with ')

@@ -1,5 +1,92 @@
+#' Plot different features of an object created from \code{\link{simmr_mcmc}}.
+#' 
+#' This function allows for 4 different types of plots of the simmr output
+#' created from \code{\link{simmr_mcmc}}. The types are: histogram, kernel
+#' density plot, matrix plot (mose useful) and boxplot. There are some minor
+#' customisation options.
+#' 
+#' The matrix plot should form a necessary part of any SIMM analysis since it
+#' allows the user to judge which sources are idenitifiable by the model.
+#' Further detail about these plots is provided in the vignette.
+#' 
+#' @param x An object of class \code{simmr_output} created via
+#' \code{\link{simmr_mcmc}}
+#' @param type The type of plot required. Can be one or more of 'histogram',
+#' 'density', 'matrix', 'boxplot', or 'convergence'
+#' @param group Which group to plot. Currently only one group allowed at a time
+#' @param binwidth The width of the bins for the histogram. Defaults to 0.05
+#' @param alpha The degree of transparency of the plots. Not relevant for
+#' matrix plots
+#' @param title The title of the plot.
+#' @param ...  Currently not used
+#' 
+#' @import ggplot2
+#' @import graphics
+#' @import viridis
+#' @importFrom reshape2 "melt"
+#' @importFrom coda "gelman.plot"
+#' @importFrom stats "cor"
+#' 
+#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @seealso See \code{\link{simmr_mcmc}} for creating objects suitable for this
+#' function, and many more examples. See also \code{\link{simmr_load}} for
+#' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
+#' plots, \code{\link{summary.simmr_output}} for summarising output.
+#' @examples
+#' 
+#' \dontrun{
+#' # A simple example with 10 observations, 2 tracers and 4 sources
+#' 
+#' # The data
+#' mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
+#' -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
+#' 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
+#' colnames(mix) = c('d13C','d15N')
+#' s_names=c('Source A','Source B','Source C','Source D')
+#' s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4)
+#' s_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4)
+#' c_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4)
+#' c_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4)
+#' conc = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4)
+#' 
+#' # Load into simmr
+#' simmr_1 = simmr_load(mixtures=mix,
+#'                      source_names=s_names,
+#'                      source_means=s_means,
+#'                      source_sds=s_sds,
+#'                      correction_means=c_means,
+#'                      correction_sds=c_sds,
+#'                      concentration_means = conc)
+#' 
+#' # Plot
+#' plot(simmr_1)
+#' 
+#' 
+#' # MCMC run
+#' simmr_1_out = simmr_mcmc(simmr_1)
+#' 
+#' # Plot
+#' plot(simmr_1_out) # Creates all 5 plots
+#' plot(simmr_1_out,type='boxplot')
+#' plot(simmr_1_out,type='histogram')
+#' plot(simmr_1_out,type='density')
+#' plot(simmr_1_out,type='matrix')
+#' plot(simmr_1_out,type='convergence')
+#' }
+#' @export
 plot.simmr_output <-
-function(x,type=c('isospace','histogram','density','matrix','boxplot','convergence'),group=1,binwidth=0.05,alpha=0.5,title='simmr output plot',...) {
+function(x, 
+         type = c('isospace',
+                  'histogram',
+                  'density',
+                  'matrix',
+                  'boxplot',
+                  'convergence'),
+         group = 1,
+         binwidth = 0.05,
+         alpha = 0.5,
+         title = 'simmr output plot',
+          ...) {
 
   # Get the specified type
   type=match.arg(type,several.ok=TRUE)
