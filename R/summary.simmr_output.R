@@ -19,7 +19,7 @@
 #' @param object An object of class \code{simmr_output} produced by the
 #' function \code{\link{simmr_mcmc}}
 #' @param type The type of output required. At least none of 'diagnostics',
-#' 'quantiles', 'statistics', or 'correlations'
+#' 'quantiles', 'statistics', 'correlations', or 'individuals'
 #' @param group Which group or groups the output is required for.
 #' @param ...  Not used
 #' @return An list containing the following components: \item{gelman }{The

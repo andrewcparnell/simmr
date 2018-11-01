@@ -26,6 +26,7 @@
 #' objects, e.g. Geese.
 #' @param colour If TRUE (default) creates a plot. If not, puts the plot in
 #' black and white
+#' @param ggargs Extra arguments to be included in the ggplot (e.g. axis limits)
 #' @param ...  Not used
 #' 
 #' @import ggplot2
@@ -215,7 +216,9 @@ function(x,
          sigmas = 1, 
          group = 1, 
          mix_name = 'Mixtures', 
-         colour = TRUE, ...) {
+         ggargs = NULL,
+         colour = TRUE, 
+         ...) {
 
 # Get mixtures to match current group(s)
 curr_rows = which(x$group_int%in%group)  
@@ -268,7 +271,8 @@ if(ncol(curr_mix) > 1) {
       geom_pointrange(aes(x=x,y=y,ymax=y_upper,ymin=y_lower,shape=Source)) +
       scale_shape_manual(values=1:nlevels(df$Source)) +
       theme(legend.title=element_blank(),legend.key = element_blank()) +
-      guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) 
+      guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) +
+      ggargs
   } else {
     g=ggplot(data=df, aes(x = x,y = y,colour=Source)) + 
       theme_bw() +
@@ -279,7 +283,8 @@ if(ncol(curr_mix) > 1) {
       scale_shape_manual(values=1:nlevels(df$Source)) +
       theme(legend.title=element_blank(),legend.key = element_blank()) +
       guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) + 
-      scale_colour_grey()
+      scale_colour_grey() +
+      ggargs
   }
 }
 
@@ -296,7 +301,8 @@ if(ncol(curr_mix) == 1) {
       geom_point(aes(shape = Source)) +
       scale_shape_manual(values=1:nlevels(df$Source)) +
       theme(legend.position = 'None') +
-      guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) 
+      guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources)))))  +
+      ggargs
   } else {
     g = ggplot(data=df, aes(x = x, y = y, colour = Source)) + 
       scale_color_grey() + 
@@ -310,7 +316,8 @@ if(ncol(curr_mix) == 1) {
       geom_point(aes(shape = Source)) +
       scale_shape_manual(values=1:nlevels(df$Source)) +
       theme(legend.title=element_blank(),legend.key = element_blank()) +
-      guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) 
+      guides(color=guide_legend(override.aes=list(linetype=c(rep(0,curr_n_groups),rep(1,x$n_sources))))) +
+      ggargs
   }
 }
 
