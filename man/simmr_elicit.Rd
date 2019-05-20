@@ -55,8 +55,8 @@ deviations exactly. If this problem is severe, try increasing the
 
 \dontrun{
 # Data set: 10 observations, 2 tracers, 4 sources
-mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
-               -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
+mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+               -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
                11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
 colnames(mix) = c('d13C','d15N')
 s_names=c('Source A','Source B','Source C','Source D')
@@ -88,12 +88,12 @@ summary(simmr_1_out,'quantiles')
 # Source C 0.216 0.255 0.275 0.296 0.342
 # Source D 0.032 0.123 0.205 0.299 0.465
 
-# Now suppose I had prior information that: 
-# proportion means = 0.5,0.2,0.2,0.1 
+# Now suppose I had prior information that:
+# proportion means = 0.5,0.2,0.2,0.1
 # proportion sds = 0.08,0.02,0.01,0.02
 prior=simmr_elicit(simmr_1,c(0.5,0.2,0.2,0.1),c(0.08,0.02,0.01,0.02))
 
-simmr_1a_out = simmr_mcmc(simmr_1,prior.control=list(means=prior$mean,sd=prior$sd))
+simmr_1a_out = simmr_mcmc(simmr_1,prior_control=list(means=prior$mean,sd=prior$sd))
 
 summary(simmr_1a_out,'quantiles')
 # Much more precise:

@@ -5,9 +5,10 @@
 \title{Run a \code{simmr_input} object through the main simmr Markov chain Monte
 Carlo (MCMC) function}
 \usage{
-simmr_mcmc(simmr_in, prior_control = list(means = rep(0, simmr_in$n_sources),
-  sd = rep(1, simmr_in$n_sources)), mcmc_control = list(iter = 20000, burn =
-  2000, thin = 20, n.chain = 4), individual_effects = FALSE)
+simmr_mcmc(simmr_in, prior_control = list(means = rep(0,
+  simmr_in$n_sources), sd = rep(1, simmr_in$n_sources)),
+  mcmc_control = list(iter = 20000, burn = 2000, thin = 20, n.chain = 4),
+  individual_effects = FALSE)
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}

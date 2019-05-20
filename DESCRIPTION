@@ -17,4 +17,4 @@ Suggests: knitr,
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2016-01-18 12:00:00 UTC; aparnell
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

@@ -6,7 +6,8 @@
 \usage{
 simmr_load(mixtures, source_names, source_means, source_sds,
   correction_means = NULL, correction_sds = NULL,
-  concentration_means = NULL, group = NULL)
+  concentration_means = NULL, group = NULL, covar_matrix = matrix(1,
+  ncol = 1, nrow = nrow(mixtures)))
 }
 \arguments{
 \item{mixtures}{The mixture data given as a matrix where the number of rows
@@ -38,6 +39,10 @@ columns is the number of tracers. These should be between 0 and 1. If not
 provided these are all set to 1.}
 
 \item{group}{A grouping variable given in integer values starting at 1.}
+
+\item{covar_matrix}{A matrix of covariate values}
+
+\item{covars}{Whether covariates are required or not}
 }
 \value{
 An object of class \code{simmr_input} with the following elements:
@@ -71,8 +76,8 @@ At present there is no means to include concentration standard deviations.
 \examples{
 
 # A simple example with 10 observations, 2 tracers and 4 sources
-mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
--10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
+mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+-10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
 colnames(mix) = c('d13C','d15N')
 s_names=c('Source A','Source B','Source C','Source D')
@@ -90,7 +95,7 @@ simmr_1 = simmr_load(mixtures=mix,
                      correction_means=c_means,
                      correction_sds=c_sds,
                      concentration_means = conc)
-                     
+
 print(simmr_1)
 
 }

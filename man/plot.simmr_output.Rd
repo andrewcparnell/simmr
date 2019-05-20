@@ -4,9 +4,11 @@
 \alias{plot.simmr_output}
 \title{Plot different features of an object created from \code{\link{simmr_mcmc}}.}
 \usage{
-\method{plot}{simmr_output}(x, type = c("isospace", "histogram", "density",
-  "matrix", "boxplot", "convergence"), group = 1, binwidth = 0.05,
-  alpha = 0.5, title = "simmr output plot", ...)
+\method{plot}{simmr_output}(x, type = c("isospace", "histogram",
+  "density", "matrix", "boxplot", "convergence"), group = 1,
+  binwidth = 0.05, alpha = 0.5, title = if (length(group) == 1) {    
+  "simmr output plot" } else {     paste("simmr output plot: group", group)
+  }, ggargs = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class \code{simmr_output} created via
@@ -23,6 +25,8 @@
 matrix plots}
 
 \item{title}{The title of the plot.}
+
+\item{ggargs}{Extra arguments to be included in the ggplot (e.g. axis limits)}
 
 \item{...}{Currently not used}
 }
@@ -43,8 +47,8 @@ Further detail about these plots is provided in the vignette.
 # A simple example with 10 observations, 2 tracers and 4 sources
 
 # The data
-mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
--10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
+mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+-10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
 colnames(mix) = c('d13C','d15N')
 s_names=c('Source A','Source B','Source C','Source D')

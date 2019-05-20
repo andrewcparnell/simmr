@@ -439,10 +439,6 @@ or plot
 plot(simmr_run_ind, type = 'boxplot')
 ```
 
-```{r}
-compare_groups(simmr_run_ind, groups = 1:2)
-```
-
 
 
 ## Other advanced use of simmr

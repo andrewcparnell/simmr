@@ -4,10 +4,10 @@
 \alias{plot.simmr_input}
 \title{Plot the \code{simmr_input} data created from \code{simmr_load}}
 \usage{
-\method{plot}{simmr_input}(x, tracers = c(1, 2), title = "Tracers plot",
-  xlab = colnames(x$mixtures)[tracers[1]],
+\method{plot}{simmr_input}(x, tracers = c(1, 2),
+  title = "Tracers plot", xlab = colnames(x$mixtures)[tracers[1]],
   ylab = colnames(x$mixtures)[tracers[2]], sigmas = 1, group = 1,
-  mix_name = "Mixtures", colour = TRUE, ...)
+  mix_name = "Mixtures", ggargs = NULL, colour = TRUE, ...)
 }
 \arguments{
 \item{x}{An object created via the function \code{\link{simmr_load}}}
@@ -31,6 +31,8 @@ values. Defaults to 1.}
 
 \item{mix_name}{A optional string containing the name of the mixture
 objects, e.g. Geese.}
+
+\item{ggargs}{Extra arguments to be included in the ggplot (e.g. axis limits)}
 
 \item{colour}{If TRUE (default) creates a plot. If not, puts the plot in
 black and white}
