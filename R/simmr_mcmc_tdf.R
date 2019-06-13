@@ -123,7 +123,7 @@ simmr_mcmc_tdf = function(simmr_in,
                                        burn=1000,
                                        thin=10,
                                        n.chain=4)) {
-  UseMethod('simmr_mcmc_tdf') 
+  UseMethod('simmr_mcmc_tdf')
 }  
 #' @export
 simmr_mcmc_tdf.simmr_input = function(simmr_in, 
