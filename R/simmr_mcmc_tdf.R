@@ -22,7 +22,7 @@
 #' are included below to help assist with this check and further plots
 #' 
 #' If, after running \code{\link{simmr_mcmc_tdf}} the convergence diagnostics in
-#' \code{\link{summary.simmr_tdf}} are not satisfactory, the values of
+#' \code{\link{summary.simmr_output_tdf}} are not satisfactory, the values of
 #' \code{iter}, \code{burn} and \code{thin} in \code{mcmc_control} should be
 #' increased by e.g. a factor of 10.
 #' 
