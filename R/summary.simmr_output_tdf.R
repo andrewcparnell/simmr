@@ -16,7 +16,6 @@
 #' function \code{\link{simmr_mcmc_tdf}}
 #' @param type The type of output required. At least none of 'diagnostics',
 #' 'quantiles', 'statistics', 'correlations'
-#' @param group Which group or groups the output is required for.
 #' @param ...  Not used
 #' @return An list containing the following components: \item{gelman }{The
 #' convergence diagnostics} \item{quantiles }{The quantiles of each parameter

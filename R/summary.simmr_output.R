@@ -35,7 +35,6 @@
 #' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
 #' plots, \code{\link{plot.simmr_output}} for plotting output.
 #' 
-#' @importFrom coda gelman.diag
 #' @importFrom stats sd cor
 #' 
 #' @examples

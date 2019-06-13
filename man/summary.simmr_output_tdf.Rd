@@ -15,8 +15,6 @@ function \code{\link{simmr_mcmc_tdf}}}
 'quantiles', 'statistics', 'correlations'}
 
 \item{...}{Not used}
-
-\item{group}{Which group or groups the output is required for.}
 }
 \value{
 An list containing the following components: \item{gelman }{The

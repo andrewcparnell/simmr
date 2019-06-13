@@ -38,9 +38,7 @@
 #' matrix where the number of rows is the number of sources and the number of
 #' columns is the number of tracers. These should be between 0 and 1. If not
 #' provided these are all set to 1.
-#' @param group A grouping variable given in integer values starting at 1.
-#' @param covars Whether covariates are required or not
-#' @param covar_matrix A matrix of covariate values
+#' @param group A grouping variable. These can be a character or factor variable
 #' 
 #' @return An object of class \code{simmr_input} with the following elements:
 #' \item{mixtures }{The mixture data} \item{source_neams }{Source means}
@@ -85,10 +83,7 @@ simmr_load = function(mixtures,
                       correction_means = NULL,
                       correction_sds = NULL,
                       concentration_means = NULL,
-                      group = NULL,
-                      covar_matrix = matrix(1,
-                                            ncol = 1,
-                                            nrow = nrow(mixtures))) {
+                      group = NULL) {
   # Function to load in data for simmr and check whether it's appropriate for running through simmr_mcmc
   
   # Go through each object and check that it matches the requirements
@@ -198,7 +193,6 @@ simmr_load = function(mixtures,
     concentration_means = concentration_means,
     group = group,
     group_int = group_int,
-    covar_matrix = covar_matrix,
     n_obs = n_obs,
     n_tracers = n_tracers,
     n_sources = n_sources,

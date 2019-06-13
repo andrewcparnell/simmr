@@ -6,8 +6,7 @@
 \usage{
 simmr_load(mixtures, source_names, source_means, source_sds,
   correction_means = NULL, correction_sds = NULL,
-  concentration_means = NULL, group = NULL, covar_matrix = matrix(1,
-  ncol = 1, nrow = nrow(mixtures)))
+  concentration_means = NULL, group = NULL)
 }
 \arguments{
 \item{mixtures}{The mixture data given as a matrix where the number of rows
@@ -38,11 +37,7 @@ matrix where the number of rows is the number of sources and the number of
 columns is the number of tracers. These should be between 0 and 1. If not
 provided these are all set to 1.}
 
-\item{group}{A grouping variable given in integer values starting at 1.}
-
-\item{covar_matrix}{A matrix of covariate values}
-
-\item{covars}{Whether covariates are required or not}
+\item{group}{A grouping variable. These can be a character or factor variable}
 }
 \value{
 An object of class \code{simmr_input} with the following elements:

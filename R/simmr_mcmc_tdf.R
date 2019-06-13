@@ -27,6 +27,7 @@
 #' increased by e.g. a factor of 10.
 #' 
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
+#' @param p The known dietary proportions for the feeding study
 #' @param prior_control A list of values including arguments named \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
 #' correction factors. These can usually be left at their default values unless 
@@ -35,19 +36,19 @@
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
 #' of thinning), and \code{n.chain} (number of MCMC chains).
 #' @return An object of class \code{simmr_tdf} with two named top-level
-#' components: \item{input }{The \code{simmr_input} object given to the
-#' \code{simmr_mcmc} function} \item{output}{A set of MCMC chains of class
-#' \code{mcmc.list} from the coda package. These can be analysed using the
-#' \code{\link{summary.simmr_tdf}} and \code{\link{plot.simmr_tdf}}
-#' functions.}
+#' components: 
+#' \item{input}{The \code{simmr_input} object given to the
+#' \code{simmr_mcmc} function} 
+#' \item{output}{A set of MCMC chains of class
+#' \code{mcmc.list} from the coda package. These can be analysed using 
+#' \code{\link{summary.simmr_output_tdf}}}.
 #' 
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' 
 #' @seealso \code{\link{simmr_load}} for creating objects suitable for this
 #' function, \code{\link{simmr_mcmc}} for estimating dietary proportions, 
 #' \code{\link{plot.simmr_input}} for creating isospace plots,
-#' \code{\link{summary.simmr_tdf}} for summarising output, and
-#' \code{\link{plot.simmr_tdf}} for plotting output.
+#' \code{\link{summary.simmr_output_tdf}} for summarising output
 #' 
 #' @references Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.
 #' Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey,
@@ -58,7 +59,6 @@
 #' Source partitioning using stable isotopes: coping with too much variation.
 #' PLoS ONE, 5(3):5, 2010.
 #' 
-#' @importFrom rjags jags.model coda.samples
 #' 
 #' @examples
 #' \dontrun{

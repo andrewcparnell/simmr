@@ -25,7 +25,6 @@
 #' @import graphics
 #' @import viridis
 #' @importFrom reshape2 "melt"
-#' @importFrom coda "gelman.plot"
 #' @importFrom stats "cor"
 #'
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
