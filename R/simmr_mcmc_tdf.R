@@ -89,10 +89,10 @@
 #' plot(simmr_tdf)
 #' 
 #' # MCMC run
-#' simmr_tdf_out = simmr_mcmc_tdf.simmr_tdf(simmr_tdf, p = rep(1/simmr_tdf$n_sources, simmr_tdf$n_sources))
+#' simmr_tdf_out = simmr_mcmc_tdf.simmr_input(simmr_tdf, p = rep(1/simmr_tdf$n_sources, simmr_tdf$n_sources))
 #' 
 #' # Summary
-#' summary.simmr_output(simmr_tdf_out,type='diagnostics')
+#' summary(simmr_tdf_out,type='diagnostics')
 #' summary(simmr_tdf_out,type='quantiles')
 #' ans = summary(simmr_tdf_out,type=c('quantiles','statistics'))
 #' 
@@ -106,10 +106,12 @@
 #'                      correction_sds = simmr_tdf_out$c_sd_est,
 #'                      concentration_means = conc)
 #' 
-#' # The true values were
-#' c_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4)
-#' c_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4)
-
+#' # Plot with corrections now
+#' plot(simmr_tdf_2)
+#' 
+#' simmr_tdf_2_out = simmr_mcmc(simmr_tdf_2)
+#' summary(simmr_tdf_2_out, type = 'diagnostics')
+#' plot(simmr_tdf_2_out, type = 'boxplot')
 #' 
 #' @export
 simmr_mcmc_tdf = function(simmr_in, 
@@ -123,7 +125,7 @@ simmr_mcmc_tdf = function(simmr_in,
   UseMethod('simmr_tdf') 
 }  
 #' @export
-simmr_mcmc_tdf.simmr_tdf = function(simmr_in, 
+simmr_mcmc_tdf.simmr_input = function(simmr_in, 
                                  p = rep(1/simmr_in$n_sources, simmr_in$n_sources),
                                  prior_control=list(c_mean_est=rep(2, simmr_in$n_tracers),
                                                     c_sd_est=rep(2, simmr_in$n_tracers)),
@@ -208,7 +210,7 @@ output_all$input = simmr_in
 output_all$output = output
 output_all$c_mean_est = output$BUGSoutput$median$c_mean
 output_all$c_sd_est = output$BUGSoutput$median$c_sd
-class(output_all) = c('simmr_output', 'simmr_output_tdf')
+class(output_all) = c('simmr_output_tdf')
 
 return(output_all)
 
