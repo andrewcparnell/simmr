@@ -50,7 +50,7 @@
 #' }{The number of observations} \item{n_tracers }{The number of
 #' tracers/isotopes} \item{n_sources }{The number of sources} \item{n_groups
 #' }{The number of groups}
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
 #'

@@ -28,7 +28,7 @@
 #' possible orderings of the dietary proportions across groups} \item{out_all
 #' }{The dietary proportions for this source across the groups specified as
 #' columns in a matrix}
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
 #' \dontrun{
@@ -112,7 +112,7 @@
 #'         8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8))
 #' 
 #' # Load this in:
-#' simmr_3 = simmr_load(mixtures=mix,
+#' simmr_in = simmr_load(mixtures=mix,
 #'                      source_names=s_names,
 #'                      source_means=s_means,
 #'                      source_sds=s_sds,
@@ -185,8 +185,9 @@ group_names = levels(simmr_out$input$group)[groups]
 # Start with two groups version
 if(length(groups)==2) {
   # Get the output for this particular source on these two groups  
-  out_all_grp_1 = do.call(rbind,simmr_out$output[[groups[1]]])[,source_name]
-  out_all_grp_2 = do.call(rbind,simmr_out$output[[groups[2]]])[,source_name]
+  match_name = match(source_name, simmr_out$input$source_names)
+  out_all_grp_1 = simmr_out$output[[groups[1]]]$BUGSoutput$sims.matrix[,match_name]
+  out_all_grp_2 = simmr_out$output[[groups[2]]]$BUGSoutput$sims.matrix[,match_name]
   # Produce the difference between the two
   out_diff = out_all_grp_1 - out_all_grp_2
 
@@ -205,9 +206,10 @@ if(length(groups)==2) {
 # Now for more groups  
 if(length(groups)>2) {
   # Get the output for all the groups
-  len = length(do.call(rbind,simmr_out$output[[groups[1]]])[,source_name])
+  match_name = match(source_name, simmr_out$input$source_names)
+  len = length(simmr_out$output[[groups[1]]]$BUGSoutput$sims.matrix[,match_name])
   out_all = matrix(NA,nrow=len,ncol=length(groups))
-  for(j in 1:length(groups)) out_all[,j] = do.call(rbind,simmr_out$output[[groups[j]]])[,source_name]
+  for(j in 1:length(groups)) out_all[,j] = simmr_out$output[[groups[j]]]$BUGSoutput$sims.matrix[,match_name]
   colnames(out_all) = paste(group_names)
   
   # Now find the ordering of each one

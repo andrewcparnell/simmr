@@ -29,7 +29,7 @@
 #' \item{Ordering }{The different possible orderings of the dietary proportions
 #' across sources} \item{out_all }{The dietary proportions for these sources
 #' specified as columns in a matrix}
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
 #' \dontrun{
@@ -76,14 +76,13 @@
 #' ans = summary(simmr_1_out,type=c('quantiles','statistics'))
 #' 
 #' # Plot
-#' plot(simmr_1_out)
 #' plot(simmr_1_out,type='boxplot')
 #' plot(simmr_1_out,type='histogram')
 #' plot(simmr_1_out,type='density')
 #' plot(simmr_1_out,type='matrix')
 #' 
 #' # Compare two sources
-#' compare_sources(simmr_1_out,sources=c('Zostera','U.lactuca'))
+#' compare_sources(simmr_1_out,source_names=c('Source B','Source D'))
 #' 
 #' # Compare multiple sources
 #' compare_sources(simmr_1_out)
@@ -121,8 +120,9 @@ if(!all(source_names%in%simmr_out$input$source_names)) stop("Some source names n
 # Start with two groups version
 if(length(source_names)==2) {
   # Get the output for this particular source on these two groups  
-  out_all_src_1 = do.call(rbind,simmr_out$output[[group]])[,source_names[1]]
-  out_all_src_2 = do.call(rbind,simmr_out$output[[group]])[,source_names[2]]
+  match_names = match(source_names, simmr_out$input$source_names)
+  out_all_src_1 = simmr_out$output[[group]]$BUGSoutput$sims.list$p[,match_names[1]]
+  out_all_src_2 = simmr_out$output[[group]]$BUGSoutput$sims.list$p[,match_names[2]]
   # Produce the difference between the two
   out_diff = out_all_src_1 - out_all_src_2
   cat(paste("Prob ( proportion of",source_names[1],'> proportion of',source_names[2],') =',round(mean(out_diff>0),3)))
@@ -140,8 +140,9 @@ if(length(source_names)==2) {
 # Now for more groups  
 if(length(source_names)>2) {
   # Get the output for all the groups
-  out_all = do.call(rbind,simmr_out$output[[group]])[,source_names]
-
+  match_names = match(source_names, simmr_out$input$source_names)
+  out_all = simmr_out$output[[group]]$BUGSoutput$sims.list$p[,match_names]
+  
   # Now find the ordering of each one
   ordering_num = t(apply(out_all,1,order,decreasing=TRUE))
   Ordering = rep(NA,length=nrow(ordering_num))

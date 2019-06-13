@@ -32,7 +32,7 @@
 #' @import ggplot2
 #' @import viridis
 #' 
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{plot.simmr_output}} for plotting the output of a
 #' simmr run. See \code{\link{simmr_mcmc}} for running a simmr object once the
 #' iso-space is deemed acceptable.

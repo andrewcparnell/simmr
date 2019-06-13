@@ -74,7 +74,8 @@ plot(geese_simmr, group = 1:8)
 
 ```{r, results = 'hide', message = FALSE}
 geese_simmr_out = simmr_mcmc(geese_simmr)
-summary(simmr_mcmc, type = 'convergence')
+summary(geese_simmr_out, type = 'diagnostics',
+        group = 1)
 ```
 
 ## Step 6: look at the output

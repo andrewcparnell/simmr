@@ -421,26 +421,6 @@ plot(simmr_run_1D, type = 'boxplot')
 
 The other `summary`, `compare` and `plot` functions should all work the same.
 
-## Looking at individual effects
-
-It's possible to save the output for individuals as well as the default of the mean diet. To get individual effects add in `individual_effects = TRUE` to the call to `simmr_mcmc`:
-```{r}
-simmr_run_ind = simmr_mcmc(simmr_in, 
-                       individual_effects = TRUE)
-```
-
-We can summarise as before:
-```{r, results = 'hide'}
-summary(simmr_run_ind, type = c('diagnostics', 'statistics'))
-```
-
-or plot
-```{r}
-plot(simmr_run_ind, type = 'boxplot')
-```
-
-
-
 ## Other advanced use of simmr
 
 Whilst the above gives an introduction to the basic functions of simmr, the package is open source and all code is open to editing. The two objects created as part of this vignette `simmr_in` and `simmr_out` are R lists. They can be explored with e.g.

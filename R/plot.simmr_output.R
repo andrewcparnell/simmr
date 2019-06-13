@@ -12,7 +12,7 @@
 #' @param x An object of class \code{simmr_output} created via
 #' \code{\link{simmr_mcmc}}
 #' @param type The type of plot required. Can be one or more of 'histogram',
-#' 'density', 'matrix', 'boxplot', or 'convergence'
+#' 'density', 'matrix', or 'boxplot'
 #' @param group Which group to plot. Currently only one group allowed at a time
 #' @param binwidth The width of the bins for the histogram. Defaults to 0.05
 #' @param alpha The degree of transparency of the plots. Not relevant for
@@ -28,7 +28,7 @@
 #' @importFrom coda "gelman.plot"
 #' @importFrom stats "cor"
 #'
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for creating objects suitable for this
 #' function, and many more examples. See also \code{\link{simmr_load}} for
 #' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
@@ -67,12 +67,11 @@
 #' simmr_1_out = simmr_mcmc(simmr_1)
 #'
 #' # Plot
-#' plot(simmr_1_out) # Creates all 5 plots
+#' plot(simmr_1_out) # Creates all 4 plots
 #' plot(simmr_1_out,type='boxplot')
 #' plot(simmr_1_out,type='histogram')
 #' plot(simmr_1_out,type='density')
 #' plot(simmr_1_out,type='matrix')
-#' plot(simmr_1_out,type='convergence')
 #' }
 #' @export
 plot.simmr_output <-
@@ -81,8 +80,7 @@ function(x,
                   'histogram',
                   'density',
                   'matrix',
-                  'boxplot',
-                  'convergence'),
+                  'boxplot'),
          group = 1,
          binwidth = 0.05,
          alpha = 0.5,
@@ -103,10 +101,10 @@ function(x,
     Proportion = Source = ..density.. = NULL
 
     # Prep data
-    out_all = do.call(rbind,x$output[[group[i]]][,1:x$input$n_sources])
+    out_all = x$output[[i]]$BUGSoutput$sims.list$p
+    colnames(out_all) = x$input$source_names
     df = reshape2::melt(out_all)
     colnames(df) = c('Num','Source','Proportion')
-
     if ('histogram'%in%type) {
       g=ggplot(df,aes(x=Proportion,y=..density..,fill=Source)) +
         scale_fill_viridis(discrete=TRUE) +
@@ -144,9 +142,9 @@ function(x,
       print(g)
     }
 
-    if ('convergence'%in%type) {
-      coda::gelman.plot(x$output[[group[i]]],transform=TRUE)
-    }
+    # if ('convergence'%in%type) {
+    #   coda::gelman.plot(x$output[[group[i]]],transform=TRUE)
+    # }
 
     if ('matrix'%in%type) {
       # These taken from the help(pairs) file

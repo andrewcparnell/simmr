@@ -29,7 +29,7 @@
 #' correlations between the parameters} Note that this object is reported
 #' silently so will be discarded unless the function is called with an object
 #' as in the example below.
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for creating objects suitable for this
 #' function, and many more examples. See also \code{\link{simmr_load}} for
 #' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
@@ -82,6 +82,7 @@ summary.simmr_output =
     # Get the specified type
     type=match.arg(type,several.ok=TRUE)
 
+    # Set up containers
     out_bgr = out_quantiles = out_statistics = out_cor = vector('list',length=length(group))
     group_names = levels(object$input$group)
     names(out_bgr) = paste0('group_',group)
@@ -91,12 +92,12 @@ summary.simmr_output =
     
     # Loop through groups
     for(i in 1:length(group)) {
-
+      
       cat(paste("\nSummary for",group_names[group[i]],'\n'))
-      out_all = do.call(rbind,object$output[[group[i]]])
+      out_all = object$output[[i]]$BUGSoutput$sims.matrix
 
       # Get objects
-      out_bgr[[i]] = coda::gelman.diag(object$output[[group[i]]],multivariate=FALSE)$psrf
+      out_bgr[[i]] = object$output[[i]]$BUGSoutput$summary[,'Rhat']
       out_quantiles[[i]] = t(apply(out_all,2,'quantile',probs=c(0.025,0.25,0.5,0.75,0.975)))
       #  coda:::summary.mcmc.list(object$output)$quantiles
       out_statistics[[i]] = t(apply(out_all,2,function(x) {return(c(mean=mean(x),sd=stats::sd(x)))}))

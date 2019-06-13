@@ -29,7 +29,7 @@
 #' \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 #' functions.}
 #' 
-#' @author Andrew Parnell <andrew.parnell@mu.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' 
 #' @seealso \code{\link{simmr_load}} for creating objects suitable for this
 #' function, \code{\link{plot.simmr_input}} for creating isospace plots,
@@ -45,7 +45,7 @@
 #' Source partitioning using stable isotopes: coping with too much variation.
 #' PLoS ONE, 5(3):5, 2010.
 #' 
-#' @importFrom rjags jags.model coda.samples
+#' @importFrom R2jags jags
 #' 
 #' @examples
 #' \dontrun{
@@ -87,21 +87,19 @@
 #' print(simmr_1_out)
 #' 
 #' # Summary
-#' summary(simmr_1_out)
 #' summary(simmr_1_out,type='diagnostics')
 #' summary(simmr_1_out,type='correlations')
 #' summary(simmr_1_out,type='statistics')
 #' ans = summary(simmr_1_out,type=c('quantiles','statistics'))
 #' 
 #' # Plot
-#' plot(simmr_1_out)
 #' plot(simmr_1_out,type='boxplot')
 #' plot(simmr_1_out,type='histogram')
 #' plot(simmr_1_out,type='density')
 #' plot(simmr_1_out,type='matrix')
 #' 
 #' # Compare two sources
-#' compare_sources(simmr_1_out,sources=c('Zostera','U.lactuca'))
+#' compare_sources(simmr_1_out,source_names=c('Source A','Source D'))
 #' 
 #' # Compare multiple sources
 #' compare_sources(simmr_1_out)
@@ -244,8 +242,8 @@
 #' plot(simmr_4_out)
 #' plot(simmr_4_out,type='boxplot')
 #' plot(simmr_4_out,type='histogram')
-#' plot(simmr_4_out,type='density') # Look at the massive correlations here
-#' plot(simmr_4_out,type='matrix')
+#' plot(simmr_4_out,type='density')
+#' plot(simmr_4_out,type='matrix') # Look at the massive correlations here
 #' 
 #' #####################################################################################
 #' 
@@ -359,13 +357,13 @@
 #' plot(simmr_5_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 #' 
 #' # Compare sources within a group
-#' compare_sources(simmr_5_out,sources=c('Zostera','U.lactuca'),group=2)
+#' compare_sources(simmr_5_out,source_names=c('Zostera','U.lactuca'),group=2)
 #' compare_sources(simmr_5_out,group=2)
 #' 
 #' # Compare between groups
-#' compare_between_groups(simmr_5_out,source='Zostera',groups=1:2)
-#' compare_between_groups(simmr_5_out,source='Zostera',groups=1:3)
-#' compare_between_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
+#' compare_groups(simmr_5_out,source='Zostera',groups=1:2)
+#' compare_groups(simmr_5_out,source='Zostera',groups=1:3)
+#' compare_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
 #' 
 #' 
 #' }
@@ -419,12 +417,13 @@ model {
   p[1:K] <- expf/sum(expf)
   for(k in 1:K) {
     expf[k] <- exp(f[k])
-    f[k] ~ dnorm(mu_f[k],1/pow(sigma_f[k],2))
+    f[k] ~ dnorm(mu_f_mean[k],1/pow(sigma_f_sd[k],2))
   }
 }
 '
   
-output = output_2 = vector('list',length=simmr_in$n_groups)
+output = vector('list',length=simmr_in$n_groups)
+names(output) = levels(simmr_in$group)
 
 # Loop through all the groups
 for(i in 1:simmr_in$n_groups) {
@@ -457,25 +456,31 @@ for(i in 1:simmr_in$n_groups) {
     sig_upp=ifelse(solo,0.001,1000)))
   
   # Run in JAGS
-  model = rjags::jags.model(textConnection(model_string), 
-                            data=data, 
-                            n.chain=mcmc_control$n.chain, 
-                            n.adapt=mcmc_control$burn)
+  output[[i]] = R2jags::jags(data=data, 
+                       parameters.to.save = c("p", "sigma"),
+                       model.file = textConnection(model_string),
+                       n.chains = mcmc_control$n.chain,
+                       n.iter = mcmc_control$iter,
+                       n.burnin = mcmc_control$burn,
+                       n.thin = mcmc_control$thin)
   
-  vars_to_save = c("p", "sigma")
-  output[[i]] = rjags::coda.samples(model=model, 
-                                    variable.names=vars_to_save, 
-                                    n.iter=mcmc_control$iter, 
-                                    thin=mcmc_control$thin)
-  output_2[[i]] = lapply(output[[i]],"colnames<-",
-                           c(simmr_in$source_names, 
-                             paste0('sd_',colnames(simmr_in$mixtures))))
-  class(output_2[[i]]) = c('mcmc.list')
+  # Get the names right and interpretable everywhere
+  # Set the posterior names right
+  n_tracers = simmr_in$n_tracers
+  n_sources = simmr_in$n_sources
+  colnames(output[[i]]$BUGSoutput$sims.matrix)[2:(2 + n_sources - 1)] = s_names
+  colnames(output[[i]]$BUGSoutput$sims.list$p) = s_names
+  # Also do it in the summary
+  rownames(output[[i]]$BUGSoutput$summary)[2:(2 + n_sources - 1)] = s_names
+  sd_names = paste0('sd[',colnames(simmr_in$mixtures),']')
+  colnames(output[[i]]$BUGSoutput$sims.matrix)[(n_sources + 2):(n_sources + n_tracers + 1)] = sd_names
+  colnames(output[[i]]$BUGSoutput$sims.list$sigma) = sd_names
+  rownames(output[[i]]$BUGSoutput$summary)[(n_sources + 2):(n_sources + n_tracers + 1)] = sd_names
 }
 
 output_all = vector('list')
 output_all$input = simmr_in
-output_all$output = output_2
+output_all$output = output
 class(output_all) = 'simmr_output'
 
 return(output_all)
