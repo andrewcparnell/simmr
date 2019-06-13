@@ -19,6 +19,7 @@
 #' left at their default values unless you wish to include to include prior
 #' information, in which case you should use the function
 #' \code{\link{simmr_elicit}}.
+#' 
 #' @param mcmc_control A list of values including arguments named \code{iter}
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
 #' of thinning), and \code{n.chain} (number of MCMC chains).
@@ -30,12 +31,10 @@
 #' functions.}
 #' 
 #' @author Andrew Parnell <andrew.parnell@mu.ie>
-#' 
 #' @seealso \code{\link{simmr_load}} for creating objects suitable for this
 #' function, \code{\link{plot.simmr_input}} for creating isospace plots,
 #' \code{\link{summary.simmr_output}} for summarising output, and
 #' \code{\link{plot.simmr_output}} for plotting output.
-#' 
 #' @references Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.
 #' Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey,
 #' David J. Kelly, and Richard Inger. Bayesian stable isotope mixing models.
@@ -376,20 +375,22 @@ simmr_mcmc = function(simmr_in,
                                                    simmr_in$n_sources),
                                          sd=rep(1,
                                                 simmr_in$n_sources)), 
-                      mcmc_control=list(iter=10000,
-                                        burn=1000,
-                                        thin=10,
-                                        n.chain=4)) {
+                      mcmc_control=list(iter=20000,
+                                        burn=2000,
+                                        thin=20,
+                                        n.chain=4),
+                      individual_effects = FALSE) {
   UseMethod('simmr_mcmc') 
 }  
 #' @export
 simmr_mcmc.simmr_input = function(simmr_in, 
                       prior_control=list(means=rep(0,simmr_in$n_sources),
                                          sd=rep(1,simmr_in$n_sources)), 
-                      mcmc_control=list(iter=10000,
-                                        burn=1000,
-                                        thin=10,
-                                        n.chain=4)) {
+                      mcmc_control=list(iter=20000,
+                                        burn=2000,
+                                        thin=20,
+                                        n.chain=4),
+                      individual_effects = FALSE) {
 
 # Main function to run simmr through JAGS
 # if(class(simmr_in)!='simmr_input') stop("Input argument simmr_in must have come from simmr_load")
@@ -423,6 +424,39 @@ model {
   }
 }
 '
+# model_string = '
+# model {
+# # Likelihood
+# for (j in 1:J) {
+#   for (i in 1:N) {  
+#     y[i,j] ~ dnorm(inprod(p_ind[i,]*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p_ind[i,],q[,j]), 1/var_y[i,j])
+#     var_y[i,j] <- inprod(pow(p_ind[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p_ind[i,],q[,j]),2) + pow(sigma[j],2)
+# 
+#   }
+# }
+#   
+# # Prior on sigma
+# for(j in 1:J) { sigma[j] ~ dunif(0,sig_upp) }
+#   
+# # CLR prior on p
+# for(i in 1:N) {
+#   p_ind[i, 1:K] <- expf[i, 1:K]/sum(expf[i, 1:K])
+#   for(k in 1:K) {
+#     expf[i, k] <- exp(f[i, k])
+#     f[i, k] ~ dnorm(mu_f[k],1/pow(sigma_f[k],2))
+#   }
+# }
+# 
+# p[1:K] <- exp_f_mean[1:K]/sum(exp_f_mean[1:K])
+# for(k in 1:K) {
+#   exp_f_mean[k] <- exp(mu_f[k])
+#   mu_f[k] ~ dnorm(mu_f_mean[k], sigma_f_sd[k]^-2)
+#   sigma_f[k] ~ dt(0, sigma_f_sd[k]^-2, 1)T(0,)
+# }
+# 
+# }
+# '
+  
   
 output = output_2 = vector('list',length=simmr_in$n_groups)
 
@@ -462,21 +496,40 @@ for(i in 1:simmr_in$n_groups) {
                             n.chain=mcmc_control$n.chain, 
                             n.adapt=mcmc_control$burn)
   
-  vars_to_save = c("p", "sigma")
+  if(individual_effects) {
+    vars_to_save = c("p", "sigma", "p_ind")
+  } else {
+    vars_to_save = c("p", "sigma")
+  }
   output[[i]] = rjags::coda.samples(model=model, 
                                     variable.names=vars_to_save, 
                                     n.iter=mcmc_control$iter, 
                                     thin=mcmc_control$thin)
-  output_2[[i]] = lapply(output[[i]],"colnames<-",
+  if(individual_effects) {
+    curr_col_names = colnames(output[[i]][[1]])
+    curr_col_names[grep('p\\[', curr_col_names)] = simmr_in$source_names
+    curr_col_names[grep('sigma', curr_col_names)] = paste0('sd_',colnames(simmr_in$mixtures))
+    for (j in 1:length(simmr_in$source_names)) {
+      curr_col_names = gsub(paste0(',',j,'\\]'), paste0(',',simmr_in$source_names[j],']'), curr_col_names)
+    }
+    output_2[[i]] = lapply(output[[i]],"colnames<-",
+                           curr_col_names)
+  } else {
+    output_2[[i]] = lapply(output[[i]],"colnames<-",
                            c(simmr_in$source_names, 
                              paste0('sd_',colnames(simmr_in$mixtures))))
+  }  
   class(output_2[[i]]) = c('mcmc.list')
 }
 
 output_all = vector('list')
 output_all$input = simmr_in
 output_all$output = output_2
-class(output_all) = 'simmr_output'
+if(individual_effects) {
+  class(output_all) = c('simmr_output', 'simmr_output_individual')
+} else {
+  class(output_all) = 'simmr_output'
+}
 
 return(output_all)
 
