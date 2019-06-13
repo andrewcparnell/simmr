@@ -427,7 +427,7 @@ names(output) = levels(simmr_in$group)
 
 # Loop through all the groups
 for(i in 1:simmr_in$n_groups) {
-  if(simmr_in$n_groups>1) cat(paste("\nRunning for group",i,'\n\n'))
+  if(simmr_in$n_groups>1) cat(paste("\nRunning for group",levels(simmr_in$group)[i],'\n\n'))
   
   curr_rows = which(simmr_in$group_int==i)  
   curr_mix = simmr_in$mixtures[curr_rows,,drop=FALSE]
@@ -468,6 +468,7 @@ for(i in 1:simmr_in$n_groups) {
   # Set the posterior names right
   n_tracers = simmr_in$n_tracers
   n_sources = simmr_in$n_sources
+  s_names = simmr_in$source_names
   colnames(output[[i]]$BUGSoutput$sims.matrix)[2:(2 + n_sources - 1)] = s_names
   colnames(output[[i]]$BUGSoutput$sims.list$p) = s_names
   # Also do it in the summary

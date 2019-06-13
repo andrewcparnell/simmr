@@ -429,18 +429,16 @@ Whilst the above gives an introduction to the basic functions of simmr, the pack
 str(simmr_in)
 ```
 
-which will show their contents. The `simmr_out` object in particular allows for full access to all of the posterior dietary proportion samples. We can calculate for example the mean of the third dietary proportion on the first (or only) group:
+which will show their contents. The `simmr_out` object in particular allows for full access to all of the posterior dietary proportion samples. We can calculate for example the mean of the Zostera dietary proportion on the first (or only) group:
 
 ```{r}
-mean(simmr_out$output[[1]][[1]][,2])
+mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Zostera'])
 ```
 
-The square brackets are required above because they specify which group (the first), which MCMC chain (again the first) and which columns (representing the dietary proportions, here the third).
-
-We can thus find the probability that the posterior dietary proportion for source 1 is bigger than for source 2:
+The backquotes arund the 1 are required above because they specify which group (the first). We can thus find the probability that the posterior dietary proportion for Zostera is bigger than for Grass:
 
 ```{r}
-mean(simmr_out$output[[1]][[1]][,1]>simmr_out$output[[1]][[1]][,2])
+mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Zostera']>simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Grass'])
 ```
 
 With more detailed R knowledge, it is possible to create scripts which run multiple data sets in richer fashions than the default simmr functions. See the help file `help(simmr_mcmc)` for a full list of examples.
