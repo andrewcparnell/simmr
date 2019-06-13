@@ -7,7 +7,7 @@
 #' functions allows the user to specify
 #' prior means and standard deviations for each of the dietary proportions, and
 #' then finds CLR-transformed values suitable for input into
-#' \code{\link{simmr_mcmc}}. Th version \code{\link{simmr_elicit_basic}} differs
+#' \code{\link{simmr_mcmc}}. The version \code{\link{simmr_elicit_basic}} differs
 #' from \code{\link{simmr_elicit}} because it does not require a loaded 
 #' \code{simmr} object so can be used for e.g. simulation purposes
 #'

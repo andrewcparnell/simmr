@@ -1,38 +1,51 @@
-#' Run a \code{simmr_input} object through the main simmr Markov chain Monte
-#' Carlo (MCMC) function
+#' Estimate correction factors from stable isotope data with known dietary
+#' proportions
 #' 
-#' This is the main function of simmr. It takes a \code{simmr_input} object
-#' created via \code{\link{simmr_load}}, runs an MCMC to determine the dietary
-#' proportions, and then outputs a \code{simmr_output} object for further
-#' analysis and plotting via \code{\link{summary.simmr_output}} and
-#' \code{\link{plot.simmr_output}}.
+#' This function runs a slightly different version of the main 
+#' \code{\link{simmr_mcmc}} function with the key difference that it estimates
+#' the correction factors (sometimes called trophic enrichment or trophic
+#' discrimination factors; TEFs/TDFs) for a given set of dietary proportions.
 #' 
-#' If, after running \code{\link{simmr_mcmc}} the convergence diagnostics in
-#' \code{\link{summary.simmr_output}} are not satisfactory, the values of
+#' The idea is that this code can be used for feeding studies where an 
+#' organism is fed a known proportional diet with a view to estimating
+#' the correction factors to be used in a later stable isotope mixing 
+#' model when the organisms are observed in the field. 
+#' 
+#' The main argument of the function is an object created from 
+#' \code{\link{simmr_load}} which contains mixture data on a number of tracers
+#' and food source means and standard deviations. Any correction factors 
+#' included in this object will be ignored.
+#' 
+#' The output of the object is a posterior distribution on the correction
+#' factors for each food source. Just like the output from
+#' \code{\link{simmr_mcmc}}, this should be checked for convergence. Examples
+#' are included below to help assist with this check and further plots
+#' 
+#' If, after running \code{\link{simmr_mcmc_tdf}} the convergence diagnostics in
+#' \code{\link{summary.simmr_tdf}} are not satisfactory, the values of
 #' \code{iter}, \code{burn} and \code{thin} in \code{mcmc_control} should be
 #' increased by a factor of 10.
 #' 
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
 #' @param prior_control A list of values including arguments named \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
-#' dietary proportions in centralised log-ratio space. These can usually be
+#' correction factors. These can usually be
 #' left at their default values unless you wish to include to include prior
-#' information, in which case you should use the function
-#' \code{\link{simmr_elicit}}.
+#' information.
 #' @param mcmc_control A list of values including arguments named \code{iter}
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
 #' of thinning), and \code{n.chain} (number of MCMC chains).
-#' @return An object of class \code{simmr_output} with two named top-level
+#' @return An object of class \code{simmr_tdf} with two named top-level
 #' components: \item{input }{The \code{simmr_input} object given to the
-#' \code{simmr_mcmc} function} \item{output }{A set of MCMC chains of class
+#' \code{simmr_mcmc} function} \item{output}{A set of MCMC chains of class
 #' \code{mcmc.list} from the coda package. These can be analysed using the
-#' \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
+#' \code{\link{summary.simmr_tdf}} and \code{\link{plot.simmr_tdf}}
 #' functions.}
-#' @author Andrew Parnell <andrew.parnell@@ucd.ie>
+#' @author Andrew Parnell <andrew.parnell@mu.ie>
 #' @seealso \code{\link{simmr_load}} for creating objects suitable for this
 #' function, \code{\link{plot.simmr_input}} for creating isospace plots,
-#' \code{\link{summary.simmr_output}} for summarising output, and
-#' \code{\link{plot.simmr_output}} for plotting output.
+#' \code{\link{summary.simmr_tdf}} for summarising output, and
+#' \code{\link{plot.simmr_tdf}} for plotting output.
 #' @references Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.
 #' Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey,
 #' David J. Kelly, and Richard Inger. Bayesian stable isotope mixing models.
@@ -368,23 +381,29 @@
 #' }
 #' 
 #' @export
-simmr_mcmc = function(simmr_in, 
-                      prior_control=list(means=rep(0,
-                                                   simmr_in$n_sources),
-                                         sd=rep(1,
-                                                simmr_in$n_sources)), 
+simmr_tdf = function(simmr_in, 
+                      prior_control=list(means=matrix(0,
+                                                      nrow = simmr_in$n_sources,
+                                                      ncol = simmr_in$n_tracers),
+                                         sd=matrix(100,
+                                                   nrow = simmr_in$n_sources,
+                                                   ncol = simmr_in$n_tracers),
                       mcmc_control=list(iter=20000,
                                         burn=2000,
                                         thin=20,
                                         n.chain=4),
                       individual_effects = FALSE) {
-  UseMethod('simmr_mcmc') 
+  UseMethod('simmr_tdf') 
 }  
 #' @export
-simmr_mcmc.simmr_input = function(simmr_in, 
-                      prior_control=list(means=rep(0,simmr_in$n_sources),
-                                         sd=rep(1,simmr_in$n_sources)), 
-                      mcmc_control=list(iter=20000,
+simmr_tdf.simmr_input = function(simmr_in, 
+                                 prior_control=list(means=matrix(0,
+                                                                 nrow = simmr_in$n_sources,
+                                                                 ncol = simmr_in$n_tracers),
+                                                    sd=matrix(100,
+                                                              nrow = simmr_in$n_sources,
+                                                              ncol = simmr_in$n_tracers),
+                                                    mcmc_control=list(iter=20000,
                                         burn=2000,
                                         thin=20,
                                         n.chain=4),
@@ -404,7 +423,7 @@ if(min(table(simmr_in$group))>1 & min(table(simmr_in$group))<4) warning("At leas
 # model {
 #   # Likelihood
 #   for (j in 1:J) {
-#     for (i in 1:N) {  
+#     for (i in 1:N) {
 #       y[i,j] ~ dnorm(inprod(p*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p,q[,j]), 1/var_y[j])
 #     }
 #     var_y[j] <- inprod(pow(p*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p,q[,j]),2)
@@ -426,16 +445,15 @@ model_string = '
 model {
 # Likelihood
 for (j in 1:J) {
-  for (i in 1:N) {  
+  for (i in 1:N) {
     y[i,j] ~ dnorm(inprod(p_ind[i,]*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p_ind[i,],q[,j]), 1/var_y[i,j])
     var_y[i,j] <- inprod(pow(p_ind[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p_ind[i,],q[,j]),2) + pow(sigma[j],2)
-
   }
 }
-  
+
 # Prior on sigma
 for(j in 1:J) { sigma[j] ~ dunif(0,sig_upp) }
-  
+
 # CLR prior on p
 for(i in 1:N) {
   p_ind[i, 1:K] <- expf[i, 1:K]/sum(expf[i, 1:K])
@@ -454,7 +472,7 @@ for(k in 1:K) {
 
 }
 '
-  
+
   
 output = output_2 = vector('list',length=simmr_in$n_groups)
 
