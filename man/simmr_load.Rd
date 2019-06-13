@@ -103,5 +103,5 @@ print(simmr_1)
 See \code{\link{simmr_mcmc}} for complete examples.
 }
 \author{
-Andrew Parnell <andrew.parnell@ucd.ie>
+Andrew Parnell <andrew.parnell@mu.ie>
 }

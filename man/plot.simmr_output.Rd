@@ -5,8 +5,8 @@
 \title{Plot different features of an object created from \code{\link{simmr_mcmc}}.}
 \usage{
 \method{plot}{simmr_output}(x, type = c("isospace", "histogram",
-  "density", "matrix", "boxplot", "convergence"), group = 1,
-  binwidth = 0.05, alpha = 0.5, title = if (length(group) == 1) {    
+  "density", "matrix", "boxplot"), group = 1, binwidth = 0.05,
+  alpha = 0.5, title = if (length(group) == 1) {    
   "simmr output plot" } else {     paste("simmr output plot: group", group)
   }, ggargs = NULL, ...)
 }
@@ -15,7 +15,7 @@
 \code{\link{simmr_mcmc}}}
 
 \item{type}{The type of plot required. Can be one or more of 'histogram',
-'density', 'matrix', 'boxplot', or 'convergence'}
+'density', 'matrix', or 'boxplot'}
 
 \item{group}{Which group to plot. Currently only one group allowed at a time}
 
@@ -75,12 +75,11 @@ plot(simmr_1)
 simmr_1_out = simmr_mcmc(simmr_1)
 
 # Plot
-plot(simmr_1_out) # Creates all 5 plots
+plot(simmr_1_out) # Creates all 4 plots
 plot(simmr_1_out,type='boxplot')
 plot(simmr_1_out,type='histogram')
 plot(simmr_1_out,type='density')
 plot(simmr_1_out,type='matrix')
-plot(simmr_1_out,type='convergence')
 }
 }
 \seealso{
@@ -90,5 +89,5 @@ creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
 plots, \code{\link{summary.simmr_output}} for summarising output.
 }
 \author{
-Andrew Parnell <andrew.parnell@ucd.ie>
+Andrew Parnell <andrew.parnell@mu.ie>
 }

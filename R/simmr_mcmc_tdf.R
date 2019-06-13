@@ -89,7 +89,7 @@
 #' plot(simmr_tdf)
 #' 
 #' # MCMC run
-#' simmr_tdf_out = simmr_mcmc_tdf.simmr_input(simmr_tdf, p = rep(1/simmr_tdf$n_sources, simmr_tdf$n_sources))
+#' simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, p = rep(1/simmr_tdf$n_sources, simmr_tdf$n_sources))
 #' 
 #' # Summary
 #' summary(simmr_tdf_out,type='diagnostics')
@@ -112,6 +112,7 @@
 #' simmr_tdf_2_out = simmr_mcmc(simmr_tdf_2)
 #' summary(simmr_tdf_2_out, type = 'diagnostics')
 #' plot(simmr_tdf_2_out, type = 'boxplot')
+#' }
 #' 
 #' @export
 simmr_mcmc_tdf = function(simmr_in, 
@@ -122,7 +123,7 @@ simmr_mcmc_tdf = function(simmr_in,
                                        burn=1000,
                                        thin=10,
                                        n.chain=4)) {
-  UseMethod('simmr_tdf') 
+  UseMethod('simmr_mcmc_tdf') 
 }  
 #' @export
 simmr_mcmc_tdf.simmr_input = function(simmr_in, 

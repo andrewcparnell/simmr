@@ -86,14 +86,13 @@ summary(simmr_1_out,type='statistics')
 ans = summary(simmr_1_out,type=c('quantiles','statistics'))
 
 # Plot
-plot(simmr_1_out)
 plot(simmr_1_out,type='boxplot')
 plot(simmr_1_out,type='histogram')
 plot(simmr_1_out,type='density')
 plot(simmr_1_out,type='matrix')
 
 # Compare two sources
-compare_sources(simmr_1_out,sources=c('Zostera','U.lactuca'))
+compare_sources(simmr_1_out,source_names=c('Source B','Source D'))
 
 # Compare multiple sources
 compare_sources(simmr_1_out)
@@ -104,5 +103,5 @@ compare_sources(simmr_1_out)
 See \code{\link{simmr_mcmc}} for complete examples.
 }
 \author{
-Andrew Parnell <andrew.parnell@ucd.ie>
+Andrew Parnell <andrew.parnell@mu.ie>
 }

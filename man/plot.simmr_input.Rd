@@ -228,5 +228,5 @@ simmr run. See \code{\link{simmr_mcmc}} for running a simmr object once the
 iso-space is deemed acceptable.
 }
 \author{
-Andrew Parnell <andrew.parnell@ucd.ie>
+Andrew Parnell <andrew.parnell@mu.ie>
 }

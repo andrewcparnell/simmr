@@ -123,7 +123,7 @@ grp = as.integer(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
         8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8))
 
 # Load this in:
-simmr_3 = simmr_load(mixtures=mix,
+simmr_in = simmr_load(mixtures=mix,
                      source_names=s_names,
                      source_means=s_means,
                      source_sds=s_sds,
@@ -166,5 +166,5 @@ compare_groups(simmr_out,source='U.lactuca',groups=c(4:5,7,2))
 See \code{\link{simmr_mcmc}} for complete examples.
 }
 \author{
-Andrew Parnell <andrew.parnell@ucd.ie>
+Andrew Parnell <andrew.parnell@mu.ie>
 }

@@ -7,8 +7,7 @@ Carlo (MCMC) function}
 \usage{
 simmr_mcmc(simmr_in, prior_control = list(means = rep(0,
   simmr_in$n_sources), sd = rep(1, simmr_in$n_sources)),
-  mcmc_control = list(iter = 20000, burn = 2000, thin = 20, n.chain = 4),
-  individual_effects = FALSE)
+  mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4))
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
@@ -85,21 +84,19 @@ simmr_1_out = simmr_mcmc(simmr_1)
 print(simmr_1_out)
 
 # Summary
-summary(simmr_1_out)
 summary(simmr_1_out,type='diagnostics')
 summary(simmr_1_out,type='correlations')
 summary(simmr_1_out,type='statistics')
 ans = summary(simmr_1_out,type=c('quantiles','statistics'))
 
 # Plot
-plot(simmr_1_out)
 plot(simmr_1_out,type='boxplot')
 plot(simmr_1_out,type='histogram')
 plot(simmr_1_out,type='density')
 plot(simmr_1_out,type='matrix')
 
 # Compare two sources
-compare_sources(simmr_1_out,sources=c('Zostera','U.lactuca'))
+compare_sources(simmr_1_out,source_names=c('Source A','Source D'))
 
 # Compare multiple sources
 compare_sources(simmr_1_out)
@@ -242,8 +239,8 @@ ans = summary(simmr_4_out,type=c('quantiles','statistics'))
 plot(simmr_4_out)
 plot(simmr_4_out,type='boxplot')
 plot(simmr_4_out,type='histogram')
-plot(simmr_4_out,type='density') # Look at the massive correlations here
-plot(simmr_4_out,type='matrix')
+plot(simmr_4_out,type='density')
+plot(simmr_4_out,type='matrix') # Look at the massive correlations here
 
 #####################################################################################
 
@@ -357,13 +354,13 @@ plot(simmr_5_out,type='boxplot',group=2,title='simmr output group 2')
 plot(simmr_5_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
 
 # Compare sources within a group
-compare_sources(simmr_5_out,sources=c('Zostera','U.lactuca'),group=2)
+compare_sources(simmr_5_out,source_names=c('Zostera','U.lactuca'),group=2)
 compare_sources(simmr_5_out,group=2)
 
 # Compare between groups
-compare_between_groups(simmr_5_out,source='Zostera',groups=1:2)
-compare_between_groups(simmr_5_out,source='Zostera',groups=1:3)
-compare_between_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
+compare_groups(simmr_5_out,source='Zostera',groups=1:2)
+compare_groups(simmr_5_out,source='Zostera',groups=1:3)
+compare_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
 
 
 }
@@ -386,5 +383,5 @@ function, \code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{plot.simmr_output}} for plotting output.
 }
 \author{
-Andrew Parnell <andrew.parnell@ucd.ie>
+Andrew Parnell <andrew.parnell@mu.ie>
 }
