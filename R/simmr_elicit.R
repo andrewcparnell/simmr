@@ -106,7 +106,7 @@ simmr_elicit <-
     # proportion_sds must be a vector of length n_sources
     if (length(proportion_sds) != n_sources)
       stop('proportion_sds must be of same length as the number of sources')
-    if(any(proportion_sds)==0) 
+    if(any(proportion_sds==0)) 
       stop("No proportion_sds should be 0 as this will mean that food source is not being consumed.")
     
     

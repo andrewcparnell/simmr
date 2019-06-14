@@ -49,7 +49,7 @@ model when the organisms are observed in the field.
 The main argument of the function is an object created from 
 \code{\link{simmr_load}} which contains mixture data on a number of tracers
 and food source means and standard deviations. Any correction factors 
-included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with teh same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
+included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
 
 The output of the function is a posterior distribution on the correction
 factors for each food source. Just like the output from
