@@ -30,7 +30,7 @@ specified as columns in a matrix}
 }
 \description{
 This function takes in an object of class \code{simmr_output} and creates
-probabilistic comparisons between the suppled sources. The group number can
+probabilistic comparisons between the supplied sources. The group number can
 also be specified.
 }
 \details{
@@ -39,7 +39,7 @@ of the probability that the dietary proportion for one source is bigger than
 the other. When more than two sources are given, the function produces a set
 of most likely probabilistic orderings for each combination of sources. The
 function produces boxplots by default and also allows for the storage of the
-output for futher analysis if required.
+output for further analysis if required.
 }
 \examples{
 \dontrun{

@@ -19,7 +19,7 @@
 #'
 #' Due to the nature of the restricted space over which the dietary proportions
 #' can span, and the fact that this function uses numerical optimisation, the
-#' procedure will not match the target dietary proportion meanss and standard
+#' procedure will not match the target dietary proportion means and standard
 #' deviations exactly. If this problem is severe, try increasing the
 #' \code{n_sims} value.
 #'
@@ -29,7 +29,7 @@
 #' @param proportion_sds The desired prior proportions standard deviations.
 #' These have no restricted sum but should be reasonable estimates for a
 #' proportion.
-#' @param n_sims The number of simulations for which to run the optimsiation
+#' @param n_sims The number of simulations for which to run the optimisation
 #' routine.
 #' @return A list object with two components \item{mean }{The best estimates of
 #' the mean to use in \code{control.prior} in \code{\link{simmr_mcmc}}}

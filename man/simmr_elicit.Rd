@@ -17,7 +17,7 @@ to 1. Should be a vector of length \code{n_sources}}
 These have no restricted sum but should be reasonable estimates for a
 proportion.}
 
-\item{n_sims}{The number of simulations for which to run the optimsiation
+\item{n_sims}{The number of simulations for which to run the optimisation
 routine.}
 }
 \value{
@@ -47,7 +47,7 @@ observations of e.g. animal behaviour.
 
 Due to the nature of the restricted space over which the dietary proportions
 can span, and the fact that this function uses numerical optimisation, the
-procedure will not match the target dietary proportion meanss and standard
+procedure will not match the target dietary proportion means and standard
 deviations exactly. If this problem is severe, try increasing the
 \code{n_sims} value.
 }

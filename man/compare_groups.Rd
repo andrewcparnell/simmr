@@ -38,7 +38,7 @@ When two groups are specified, the function produces a direct calculation of
 the probability that one group is bigger than the other. When more than two
 groups are given, the function produces a set of most likely probabilistic
 orderings for each combination of groups. The function produces boxplots by
-default and also allows for the storage of the output for futher analysis if
+default and also allows for the storage of the output for further analysis if
 required.
 }
 \examples{

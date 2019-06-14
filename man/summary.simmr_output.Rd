@@ -33,14 +33,14 @@ with \code{\link{simmr_mcmc}}. The different options are: 'diagnostics'
 which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
 'quantiles' which produces credible intervals for the parameters,
 'statistics' which produces means and standard deviations, and
-'correlations' which produces correlations between the parametres.
+'correlations' which produces correlations between the parameters.
 }
 \details{
 The quantile output allows easy calculation of 95 per cent credible
 intervals of the posterior dietary proportions. The correlations, along with
 the matrix plot in \code{\link{plot.simmr_output}} allow the user to judge
 which sources are non-identifiable. The Gelman diagnostic values should be
-close to 1 to ensure satisfactor convergence.
+close to 1 to ensure satisfactory convergence.
 
 When multiple groups are included, the output automatically includes the
 results for all groups.

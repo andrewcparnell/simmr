@@ -33,12 +33,12 @@ matrix plots}
 \description{
 This function allows for 4 different types of plots of the simmr output
 created from \code{\link{simmr_mcmc}}. The types are: histogram, kernel
-density plot, matrix plot (mose useful) and boxplot. There are some minor
+density plot, matrix plot (most useful) and boxplot. There are some minor
 customisation options.
 }
 \details{
 The matrix plot should form a necessary part of any SIMM analysis since it
-allows the user to judge which sources are idenitifiable by the model.
+allows the user to judge which sources are identifiable by the model.
 Further detail about these plots is provided in the vignette.
 }
 \examples{

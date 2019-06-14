@@ -368,7 +368,7 @@ compare_groups(simmr_groups_out,source='Zostera',groups=1:3)
 
 ## Combining sources
 
-A common request is that of combining sources. We would recommend always doing this after running simmr, known as _a-posteriori_ combining. Suppose for example, you wish to combine the U.lactuca and Enteremorpha sources which lie in a similar region in the isospace plot of the Geese data. To proceed, we can create a new `simmr` object using the `combine_sources` function:
+A common request is that of combining sources. We would recommend always doing this after running simmr, known as _a-posteriori_ combining. Suppose for example, you wish to combine the U.lactuca and Enteromorpha sources which lie in a similar region in the isospace plot of the Geese data. To proceed, we can create a new `simmr` object using the `combine_sources` function:
 
 ```{r,fig.align='center',fig.width=7, fig.height=5}
 simmr_out_combine = combine_sources(simmr_out,
@@ -559,7 +559,7 @@ which will show their contents. The `simmr_out` object in particular allows for 
 mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Zostera'])
 ```
 
-The backquotes arund the 1 are required above because they specify which group (the first). We can thus find the probability that the posterior dietary proportion for Zostera is bigger than for Grass:
+The backquotes around the 1 are required above because they specify which group (the first). We can thus find the probability that the posterior dietary proportion for Zostera is bigger than for Grass:
 
 ```{r}
 mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Zostera']>simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Grass'])

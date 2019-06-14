@@ -1,7 +1,7 @@
 #' Compare dietary proportions between multiple sources
 #' 
 #' This function takes in an object of class \code{simmr_output} and creates
-#' probabilistic comparisons between the suppled sources. The group number can
+#' probabilistic comparisons between the supplied sources. The group number can
 #' also be specified.
 #' 
 #' When two sources are specified, the function produces a direct calculation
@@ -9,7 +9,7 @@
 #' the other. When more than two sources are given, the function produces a set
 #' of most likely probabilistic orderings for each combination of sources. The
 #' function produces boxplots by default and also allows for the storage of the
-#' output for futher analysis if required.
+#' output for further analysis if required.
 #' 
 #' @param simmr_out An object of class \code{simmr_output} created from
 #' \code{\link{simmr_mcmc}}.
@@ -102,7 +102,7 @@ compare_sources.simmr_output = function(simmr_out,
                            plot = TRUE) {
 
 # Function to compare between sources within a group both via textual output and with boxplots
-# Things to supply are:
+# Things to ly are:
 # If two sources are given: 
 #   - provide the probability of one group having higher dietary proportion than the other
 #   - give the probability distribution of the difference

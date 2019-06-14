@@ -2,7 +2,7 @@
 #'
 #' This function takes in the mixture data, food source means and standard
 #' deviations, and (optionally) correction factor means and standard
-#' deviations, and concentraion proportions. It performs some (non-exhaustive)
+#' deviations, and concentration proportions. It performs some (non-exhaustive)
 #' checking of the data to make sure it will run through simmr. It outputs an
 #' object of class \code{simmr_input}.
 #'

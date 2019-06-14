@@ -1,9 +1,10 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-Version: 0.4
-Date: 2019-06-13
+Version: 0.4.0
+Date: 2019-06-14
 Author: Andrew Parnell
+Language: en-US
 Maintainer: Andrew Parnell <andrew.parnell@mu.ie>
 Description: Fits a stable isotope mixing model via JAGS in R. The package allows for any number of isotopes or sources, as well as concentration dependencies.
 Depends: R (>= 3.2.2), R2jags, ggplot2
