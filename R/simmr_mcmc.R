@@ -399,8 +399,8 @@ if(mcmc_control$n.chain==1) warning("Running only 1 MCMC chain will cause an err
 if(min(table(simmr_in$group))>1 & min(table(simmr_in$group))<4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
 
 # Set up the model string
-model_string = '
-model {
+model_string = "
+model{
   # Likelihood
   for (j in 1:J) {
     for (i in 1:N) {
@@ -420,8 +420,8 @@ model {
     f[k] ~ dnorm(mu_f_mean[k],1/pow(sigma_f_sd[k],2))
   }
 }
-'
-  
+"
+
 output = vector('list',length=simmr_in$n_groups)
 names(output) = levels(simmr_in$group)
 

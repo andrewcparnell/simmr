@@ -96,41 +96,41 @@ function(x,
 
   for(i in 1:length(group)) {
 
-    # Stupid CRAN fix for variables - see here http://stackoverflow.com/questions/9439256/how-can-i-handle-r-cmd-check-no-visible-binding-for-global-variable-notes-when
-    Proportion = Source = ..density.. = NULL
-
     # Prep data
     out_all = x$output[[i]]$BUGSoutput$sims.list$p
     colnames(out_all) = x$input$source_names
     df = reshape2::melt(out_all)
     colnames(df) = c('Num','Source','Proportion')
     if ('histogram'%in%type) {
-      g=ggplot(df,aes(x=Proportion,y=..density..,fill=Source)) +
+      g=ggplot(df,aes_string(x="Proportion",y="..density..",
+                             fill="Source")) +
         scale_fill_viridis(discrete=TRUE) +
         geom_histogram(binwidth=binwidth,alpha=alpha) +
         theme_bw() +
         ggtitle(title[i]) +
-        facet_wrap(~ Source) +
+        facet_wrap("~ Source") +
         theme(legend.position='none') +
         ggargs
       print(g)
     }
 
     if ('density'%in%type) {
-      g=ggplot(df,aes(x=Proportion,y=..density..,fill=Source)) +
+      g=ggplot(df,aes_string(x="Proportion",y="..density..",
+                             fill="Source")) +
         scale_fill_viridis(discrete=TRUE) +
         geom_density(alpha=alpha,linetype=0) +
         theme_bw() +
         theme(legend.position='none') +
         ggtitle(title[i])  +
         ylab("Density") +
-        facet_wrap(~ Source) +
+        facet_wrap("~ Source") +
         ggargs
       print(g)
     }
 
     if ('boxplot'%in%type) {
-      g=ggplot(df,aes(y=Proportion,x=Source,fill=Source,alpha=alpha)) +
+      g=ggplot(df,aes_string(y="Proportion",x="Source",
+                             fill="Source",alpha="alpha")) +
         scale_fill_viridis(discrete=TRUE) +
         geom_boxplot(alpha=alpha,notch=TRUE,outlier.size=0) +
         theme_bw() +

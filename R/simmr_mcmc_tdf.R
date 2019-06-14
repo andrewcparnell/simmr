@@ -14,9 +14,9 @@
 #' The main argument of the function is an object created from 
 #' \code{\link{simmr_load}} which contains mixture data on a number of tracers
 #' and food source means and standard deviations. Any correction factors 
-#' included in this object will be ignored.
+#' included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
 #' 
-#' The output of the object is a posterior distribution on the correction
+#' The output of the function is a posterior distribution on the correction
 #' factors for each food source. Just like the output from
 #' \code{\link{simmr_mcmc}}, this should be checked for convergence. Examples
 #' are included below to help assist with this check and further plots
@@ -27,7 +27,7 @@
 #' increased by e.g. a factor of 10.
 #' 
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
-#' @param p The known dietary proportions for the feeding study
+#' @param p The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)
 #' @param prior_control A list of values including arguments named \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
 #' correction factors. These can usually be left at their default values unless 
@@ -89,12 +89,15 @@
 #' plot(simmr_tdf)
 #' 
 #' # MCMC run
-#' simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, p = rep(1/simmr_tdf$n_sources, simmr_tdf$n_sources))
+#' simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, 
+#' p = matrix(rep(1/simmr_tdf$n_sources, 
+#' simmr_tdf$n_sources),
+#' ncol = simmr_tdf$n_sources, 
+#' nrow = simmr_tdf$n_obs, byrow = TRUE))
 #' 
 #' # Summary
 #' summary(simmr_tdf_out,type='diagnostics')
 #' summary(simmr_tdf_out,type='quantiles')
-#' ans = summary(simmr_tdf_out,type=c('quantiles','statistics'))
 #' 
 #' # Now put these corrections back into the model and check the 
 #' # iso-space plots and dietary output
@@ -116,9 +119,15 @@
 #' 
 #' @export
 simmr_mcmc_tdf = function(simmr_in, 
-                     p = rep(1/simmr_in$n_sources, simmr_in$n_sources),
-                     prior_control=list(c_mean_est=rep(2, simmr_in$n_tracers),
-                                        c_sd_est=rep(2, simmr_in$n_tracers)),
+                     p = matrix(rep(1/simmr_in$n_sources, 
+                                    simmr_in$n_sources),
+                                ncol = simmr_in$n_sources, 
+                                nrow = simmr_in$n_obs, 
+                                byrow = TRUE),
+                     prior_control=list(c_mean_est=rep(2, 
+                                                       simmr_in$n_tracers),
+                                        c_sd_est=rep(2, 
+                                                     simmr_in$n_tracers)),
                      mcmc_control=list(iter=10000,
                                        burn=1000,
                                        thin=10,
@@ -127,9 +136,15 @@ simmr_mcmc_tdf = function(simmr_in,
 }  
 #' @export
 simmr_mcmc_tdf.simmr_input = function(simmr_in, 
-                                 p = rep(1/simmr_in$n_sources, simmr_in$n_sources),
-                                 prior_control=list(c_mean_est=rep(2, simmr_in$n_tracers),
-                                                    c_sd_est=rep(2, simmr_in$n_tracers)),
+                                      p = matrix(rep(1/simmr_in$n_sources,
+                                                     simmr_in$n_sources),
+                                                 ncol = simmr_in$n_sources, 
+                                                 nrow = simmr_in$n_obs, 
+                                                 byrow = TRUE),
+                                 prior_control=list(c_mean_est=rep(2,
+                                                                   simmr_in$n_tracers),
+                                                    c_sd_est=rep(2,
+                                                                 simmr_in$n_tracers)),
                                                     mcmc_control=list(iter=10000,
                                         burn=1000,
                                         thin=10,
@@ -142,15 +157,16 @@ if(mcmc_control$n.chain==1) warning("Running only 1 MCMC chain will cause an err
 if(min(table(simmr_in$group))>1 & min(table(simmr_in$group))<4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
 
 # Set up the model string
-model_string = '
+model_string = "
 model {
   # Likelihood
   for (j in 1:J) {
     for (i in 1:N) {
-      y[i,j] ~ dnorm(inprod(p*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p,q[,j]), 1/var_y[j])
-    }
-    var_y[j] <- inprod(pow(p*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p,q[,j]),2)
+      y[i,j] ~ dnorm(inprod(p[i,]*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p[i,],q[,j]), 1/var_y[i,j])
+      var_y[i,j] <- inprod(pow(p[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p[i,],q[,j]),2)
 + pow(sigma[j],2)
+    }
+    
   }
 
   # Prior on sigma
@@ -167,7 +183,7 @@ model {
   }
   
 }
-'
+"
 
 if(simmr_in$n_groups > 1) stop("TDF calculation currently only works for single group data")
 

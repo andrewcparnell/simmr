@@ -5,15 +5,16 @@
 \title{Estimate correction factors from stable isotope data with known dietary
 proportions}
 \usage{
-simmr_mcmc_tdf(simmr_in, p = rep(1/simmr_in$n_sources,
-  simmr_in$n_sources), prior_control = list(c_mean_est = rep(2,
+simmr_mcmc_tdf(simmr_in, p = matrix(rep(1/simmr_in$n_sources,
+  simmr_in$n_sources), ncol = simmr_in$n_sources, nrow = simmr_in$n_obs,
+  byrow = TRUE), prior_control = list(c_mean_est = rep(2,
   simmr_in$n_tracers), c_sd_est = rep(2, simmr_in$n_tracers)),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4))
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
-\item{p}{The known dietary proportions for the feeding study}
+\item{p}{The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)}
 
 \item{prior_control}{A list of values including arguments named \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
@@ -48,15 +49,15 @@ model when the organisms are observed in the field.
 The main argument of the function is an object created from 
 \code{\link{simmr_load}} which contains mixture data on a number of tracers
 and food source means and standard deviations. Any correction factors 
-included in this object will be ignored.
+included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with teh same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
 
-The output of the object is a posterior distribution on the correction
+The output of the function is a posterior distribution on the correction
 factors for each food source. Just like the output from
 \code{\link{simmr_mcmc}}, this should be checked for convergence. Examples
 are included below to help assist with this check and further plots
 
 If, after running \code{\link{simmr_mcmc_tdf}} the convergence diagnostics in
-\code{\link{summary.simmr_tdf}} are not satisfactory, the values of
+\code{\link{summary.simmr_output_tdf}} are not satisfactory, the values of
 \code{iter}, \code{burn} and \code{thin} in \code{mcmc_control} should be
 increased by e.g. a factor of 10.
 }
@@ -89,12 +90,15 @@ simmr_tdf = simmr_load(mixtures=mix,
 plot(simmr_tdf)
 
 # MCMC run
-simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, p = rep(1/simmr_tdf$n_sources, simmr_tdf$n_sources))
+simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, 
+p = matrix(rep(1/simmr_tdf$n_sources, 
+simmr_tdf$n_sources),
+ncol = simmr_tdf$n_sources, 
+nrow = simmr_tdf$n_obs, byrow = TRUE))
 
 # Summary
 summary(simmr_tdf_out,type='diagnostics')
 summary(simmr_tdf_out,type='quantiles')
-ans = summary(simmr_tdf_out,type=c('quantiles','statistics'))
 
 # Now put these corrections back into the model and check the 
 # iso-space plots and dietary output

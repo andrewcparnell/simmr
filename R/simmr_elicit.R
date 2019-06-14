@@ -84,7 +84,7 @@
 #' # proportion sds = 0.08,0.02,0.01,0.02
 #' prior=simmr_elicit(4, c(0.5,0.2,0.2,0.1),c(0.08,0.02,0.01,0.02))
 #' 
-#' simmr_1a_out = simmr_mcmc(simmr_1,prior.control=list(means=prior$mean,sd=prior$sd#' ))
+#' simmr_1a_out = simmr_mcmc(simmr_1,prior_control=list(means=prior$mean,sd=prior$sd#' ))
 #' 
 #' summary(simmr_1a_out,'quantiles')
 #' # Much more precise:
@@ -102,10 +102,13 @@ simmr_elicit <-
            n_sims = 1000) {
     # proportion_means must be a vector of length n_sources
     if (length(proportion_means) != n_sources)
-      stop('proportions_means must be of same length as the number of sources')
+      stop('proportion_means must be of same length as the number of sources')
     # proportion_sds must be a vector of length n_sources
     if (length(proportion_sds) != n_sources)
-      stop('proportions_sds must be of same length as the number of sources')
+      stop('proportion_sds must be of same length as the number of sources')
+    if(any(proportion_sds)==0) 
+      stop("No proportion_sds should be 0 as this will mean that food source is not being consumed.")
+    
     
     cat('Running elicitation optimisation routine...\n')
     

@@ -1,10 +1,10 @@
-[![cran version](http://www.r-pkg.org/badges/version/simmr)](http://cran.rstudio.com/web/packages/simmr) 
+[![cran version](https://www.r-pkg.org/badges/version/simmr)](https://cran.rstudio.com/web/packages/simmr) 
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/simmr?)](https://github.com/metacran/cranlogs.app)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/simmr?color=82b4e8)](https://github.com/metacran/cranlogs.app)
 
 Welcome to simmr!
 
-simmr is a Bayesian stable isotope mixing model implemented in R which also uses [JAGS](http://mcmc-jags.sourceforge.net). It is intended as a replacement to the [SIAR](https://github.com/AndrewLJackson/siar) package. You can install the development version of the package in R with the commands:
+simmr is a Bayesian stable isotope mixing model implemented in R which also uses [JAGS](https://mcmc-jags.sourceforge.net). It is intended as a replacement to the [SIAR](https://github.com/AndrewLJackson/siar) package. You can install the development version of the package in R with the commands:
 
 ```
 library(devtools)

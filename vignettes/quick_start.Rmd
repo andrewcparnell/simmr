@@ -43,7 +43,9 @@ path = system.file("extdata", "geese_data.xls", package = "simmr")
 geese_data = lapply(excel_sheets(path), read_excel, path = path)
 ```
 
-Can now separate out the data into parts 
+If you want to see what the original Excel sheet looks like you can run `system(paste('open',path))`.
+
+We can now separate out the data into parts 
 ```{r}
 targets = geese_data[[1]]
 sources = geese_data[[2]]
@@ -61,7 +63,7 @@ geese_simmr = simmr_load(mixtures = as.matrix(targets[, 1:2]),
                          correction_means = TEFs[,2:3],
                          correction_sds = TEFs[,4:5],
                          concentration_means = concdep[,2:3],
-                         group = as.factor(paste('day', targets$Time)))
+                         group = as.factor(paste('Day', targets$Time)))
 ```
 
 ## Step 4: plot the data 
@@ -78,7 +80,22 @@ summary(geese_simmr_out, type = 'diagnostics',
         group = 1)
 ```
 
+Check that the model fitted well:
+```{r}
+posterior_predictive(geese_simmr_out, group = 5)
+```
+
 ## Step 6: look at the output
+
+Look at the influence of the prior:
+```{r}
+prior_viz(geese_simmr_out)
+```
+
+Look at the histogram of the dietary proportions:
+```{r}
+plot(geese_simmr_out, type = 'histogram')
+```
 
 ```{r, fig.width = 8, fig.height = 8}
 compare_groups(geese_simmr_out, groups = 1:4, 

@@ -1,15 +1,6 @@
-
-
-#' c("\\Sexpr[results=rd,stage=build]{tools:::Rd_package_title(\"#1\")}",
-#' "simmr")\Sexpr{tools:::Rd_package_title("simmr")}
+#' simmr: A package for fitting stable isotope mixing models via JAGS in R
 #' 
-#' c("\\Sexpr[results=rd,stage=build]{tools:::Rd_package_description(\"#1\")}",
-#' "simmr")\Sexpr{tools:::Rd_package_description("simmr")}
-#' 
-#' c("\\Sexpr[results=rd,stage=build]{tools:::Rd_package_DESCRIPTION(\"#1\")}",
-#' "simmr")\Sexpr{tools:::Rd_package_DESCRIPTION("simmr")}
-#' c("\\Sexpr[results=rd,stage=build]{tools:::Rd_package_indices(\"#1\")}",
-#' "simmr")\Sexpr{tools:::Rd_package_indices("simmr")} This package runs a
+#' This package runs a
 #' simple Stable Isotope Mixing Model (SIMM) and is meant as a longer term
 #' replacement to the previous function SIAR.. These are used to infer dietary
 #' proportions of organisms consuming various food sources from observations on
@@ -22,16 +13,10 @@
 #' An even longer term replacement for properly running SIMMs is MixSIAR, which
 #' allows for more detailed random effects and the inclusion of covariates.
 #' 
-#' @name simmr-package
-#' @aliases simmr-package simmr
+#' @name simmr
 #' @docType package
-#' @author
-#' c("\\Sexpr[results=rd,stage=build]{tools:::Rd_package_author(\"#1\")}",
-#' "simmr")\Sexpr{tools:::Rd_package_author("simmr")}
+#' @author Andrew Parnell <andrew.parnell@mu.ie>
 #' 
-#' Maintainer:
-#' c("\\Sexpr[results=rd,stage=build]{tools:::Rd_package_maintainer(\"#1\")}",
-#' "simmr")\Sexpr{tools:::Rd_package_maintainer("simmr")}
 #' @references Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.
 #' Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey,
 #' David J. Kelly, and Richard Inger. Bayesian stable isotope mixing models.
