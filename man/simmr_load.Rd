@@ -2,101 +2,44 @@
 % Please edit documentation in R/simmr_load.R
 \name{simmr_load}
 \alias{simmr_load}
-\title{Function to load in simmr data and check for errors}
+\title{Load data into simmr and check for errors}
 \usage{
-simmr_load(mixtures, source_names, source_means, source_sds,
-  correction_means = NULL, correction_sds = NULL,
-  concentration_means = NULL, group = NULL)
+simmr_load(data, fixed_covars = NULL, random_covars = NULL,
+  time_var = NULL, print = TRUE, iso_plot = TRUE)
 }
 \arguments{
-\item{mixtures}{The mixture data given as a matrix where the number of rows
-is the number of observations and the number of columns is the number of
-tracers (usually isotopes)}
+\item{data}{A named list with the elements \code{mixtures}, \code{source_names}, \code{source_means}, and \code{source_sds}. Optionally \code{correction_means}, \code{correction_sds}, and \code{concentration_means} can be provided. \code{simmr_load} will provide a note if these are not used.}
 
-\item{source_names}{The names of the sources given as a character string}
+\item{fixed_covars}{A matrix of covariates to be used as fixed effects. Should have same number of rows as \code{data$mixtures}.}
 
-\item{source_means}{The means of the source values, given as a matrix where
-the number of rows is the number of sources and the number of columns is the
-number of tracers}
+\item{random_covars}{A matrix of covariates to be used as random effects. Should have same number of rows as \code{data$mixtures}.}
 
-\item{source_sds}{The standard deviations of the source values, given as a
-matrix where the number of rows is the number of sources and the number of
-columns is the number of tracers}
-
-\item{correction_means}{The means of the correction values, given as a
-matrix where the number of rows is the number of sources and the number of
-columns is the number of tracers. If not provided these are set to 0.}
-
-\item{correction_sds}{The standard deviations of the correction values,
-given as a matrix where the number of rows is the number of sources and the
-number of columns is the number of tracers. If not provided these are set to
-0.}
-
-\item{concentration_means}{The means of the concentration values, given as a
-matrix where the number of rows is the number of sources and the number of
-columns is the number of tracers. These should be between 0 and 1. If not
-provided these are all set to 1.}
-
-\item{group}{A grouping variable. These can be a character or factor variable}
+\item{time_var}{A vector of time values (may be discrete or continuous) to use in a time series analysis. Should the same length as the number of rows as \code{data$mixtures}.}
 }
 \value{
-An object of class \code{simmr_input} with the following elements:
-\item{mixtures }{The mixture data} \item{source_neams }{Source means}
-\item{sources_sds }{Source standard deviations} \item{correction_means
-}{Correction means} \item{correction_sds }{Correction standard deviations}
-\item{concentration_means }{Concentration dependence means} \item{n_obs
-}{The number of observations} \item{n_tracers }{The number of
-tracers/isotopes} \item{n_sources }{The number of sources} \item{n_groups
-}{The number of groups}
+A named list which is suitable for input into \link{\code{plot.simmr_input}}, \link{\code{simmr_mcmc}} and other fitting functions.
 }
 \description{
-This function takes in the mixture data, food source means and standard
-deviations, and (optionally) correction factor means and standard
-deviations, and concentration proportions. It performs some (non-exhaustive)
-checking of the data to make sure it will run through simmr. It outputs an
-object of class \code{simmr_input}.
-}
-\details{
-For standard stable isotope mixture modelling, the mixture matrix will
-contain a row for each individual and a column for each isotopic value.
-\code{simmr} will allow for any number of isotopes and any number of
-observations, within computational limits. The source means/sds should be
-provided for each food source on each isotope. The correction means (usually
-trophic enrichment factors) can be set as zero if required, and should be of
-the same shape as the source values. The concentration dependence means
-should be estimated values of the proportion of each element in the food
-source in question and should be given in proportion format between 0 and 1.
-At present there is no means to include concentration standard deviations.
+Load data into simmr and check for errors
 }
 \examples{
+#' # A simple example with 10 observations, 2 tracers and 4 sources
 
-# A simple example with 10 observations, 2 tracers and 4 sources
-mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+data = list(
+mixtures = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
 -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
-11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
-colnames(mix) = c('d13C','d15N')
-s_names=c('Source A','Source B','Source C','Source D')
-s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4)
-s_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4)
-c_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4)
-c_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4)
-conc = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4)
+11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10),
+source_names=c('Source A','Source B','Source C','Source D'),
+tracer_names = c('d13C','d15N'),
+source_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4),
+source_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4),
+correction_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4),
+correction_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4),
+concentration_means = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4))
 
 # Load in with simmr_load
-simmr_1 = simmr_load(mixtures=mix,
-                     source_names=s_names,
-                     source_means=s_means,
-                     source_sds=s_sds,
-                     correction_means=c_means,
-                     correction_sds=c_sds,
-                     concentration_means = conc)
+simmr_1 = data \%>\% simmr_load
 
 print(simmr_1)
 
-}
-\seealso{
-See \code{\link{simmr_mcmc}} for complete examples.
-}
-\author{
-Andrew Parnell <andrew.parnell@mu.ie>
 }

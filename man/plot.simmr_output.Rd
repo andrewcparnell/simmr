@@ -5,10 +5,8 @@
 \title{Plot different features of an object created from \code{\link{simmr_mcmc}}.}
 \usage{
 \method{plot}{simmr_output}(x, type = c("isospace", "histogram",
-  "density", "matrix", "boxplot"), group = 1, binwidth = 0.05,
-  alpha = 0.5, title = if (length(group) == 1) {    
-  "simmr output plot" } else {     paste("simmr output plot: group", group)
-  }, ggargs = NULL, ...)
+  "density", "matrix", "boxplot"), binwidth = 0.05, alpha = 0.5,
+  title = "simmr output plot", ggargs = NULL, ...)
 }
 \arguments{
 \item{x}{An object of class \code{simmr_output} created via
@@ -16,8 +14,6 @@
 
 \item{type}{The type of plot required. Can be one or more of 'histogram',
 'density', 'matrix', or 'boxplot'}
-
-\item{group}{Which group to plot. Currently only one group allowed at a time}
 
 \item{binwidth}{The width of the bins for the histogram. Defaults to 0.05}
 

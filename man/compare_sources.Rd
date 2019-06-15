@@ -5,7 +5,7 @@
 \title{Compare dietary proportions between multiple sources}
 \usage{
 compare_sources(simmr_out, source_names = simmr_out$input$source_names,
-  group = 1, plot = TRUE)
+  plot = TRUE)
 }
 \arguments{
 \item{simmr_out}{An object of class \code{simmr_output} created from
@@ -13,9 +13,6 @@ compare_sources(simmr_out, source_names = simmr_out$input$source_names,
 
 \item{source_names}{The names of at least two sources. These should match
 the names exactly given to \code{\link{simmr_load}}.}
-
-\item{group}{The integer values of the group numbers to be compared. If not
-specified assumes the first or only group}
 
 \item{plot}{A logical value specifying whether plots should be produced or
 not.}
@@ -30,8 +27,7 @@ specified as columns in a matrix}
 }
 \description{
 This function takes in an object of class \code{simmr_output} and creates
-probabilistic comparisons between the supplied sources. The group number can
-also be specified.
+probabilistic comparisons between the supplied sources.
 }
 \details{
 When two sources are specified, the function produces a direct calculation

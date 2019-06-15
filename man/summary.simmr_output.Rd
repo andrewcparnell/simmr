@@ -5,7 +5,7 @@
 \title{Summarises the output created with \code{\link{simmr_mcmc}}}
 \usage{
 \method{summary}{simmr_output}(object, type = c("diagnostics",
-  "quantiles", "statistics", "correlations"), group = 1, ...)
+  "quantiles", "statistics", "correlations"), ...)
 }
 \arguments{
 \item{object}{An object of class \code{simmr_output} produced by the
@@ -14,9 +14,9 @@ function \code{\link{simmr_mcmc}}}
 \item{type}{The type of output required. At least none of 'diagnostics',
 'quantiles', 'statistics', or 'correlations'.}
 
-\item{group}{Which group or groups the output is required for.}
-
 \item{...}{Not used}
+
+\item{group}{Which group or groups the output is required for.}
 }
 \value{
 An list containing the following components: \item{gelman }{The

@@ -4,13 +4,10 @@
 \alias{posterior_predictive}
 \title{Plot the posterior predictive distribution for a simmr run}
 \usage{
-posterior_predictive(simmr_out, group = 1, prob = 0.5,
-  plot_ppc = TRUE)
+posterior_predictive(simmr_out, prob = 0.5, plot_ppc = TRUE)
 }
 \arguments{
 \item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}}}
-
-\item{group}{Which group to run it for (currently only numeric rather than group names)}
 
 \item{prob}{The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)}
 

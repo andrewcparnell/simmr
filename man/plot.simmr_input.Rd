@@ -5,8 +5,8 @@
 \title{Plot the \code{simmr_input} data created from \code{simmr_load}}
 \usage{
 \method{plot}{simmr_input}(x, tracers = c(1, 2),
-  title = "Tracers plot", xlab = colnames(x$mixtures)[tracers[1]],
-  ylab = colnames(x$mixtures)[tracers[2]], sigmas = 1, group = 1,
+  title = "Tracers plot", xlab = x$tracer_names[tracers[1]],
+  ylab = x$tracer_names[tracers[2]], sigmas = 1,
   mix_name = "Mixtures", ggargs = NULL, colour = TRUE, ...)
 }
 \arguments{
@@ -27,8 +27,6 @@ per mil but can be changed as with the x-axis label}
 \item{sigmas}{The number of standard deviations to plot on the source
 values. Defaults to 1.}
 
-\item{group}{Which groups to plot. Can be a single group or multiple groups}
-
 \item{mix_name}{A optional string containing the name of the mixture
 objects, e.g. Geese.}
 
@@ -38,6 +36,8 @@ objects, e.g. Geese.}
 black and white}
 
 \item{...}{Not used}
+
+\item{group}{Which groups to plot. Can be a single group or multiple groups}
 }
 \description{
 This function creates iso-space (AKA tracer-space or delta-space) plots.
