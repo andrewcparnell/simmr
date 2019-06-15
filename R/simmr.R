@@ -2,7 +2,7 @@
 #' 
 #' This package runs a
 #' simple Stable Isotope Mixing Model (SIMM) and is meant as a longer term
-#' replacement to the previous function SIAR.. These are used to infer dietary
+#' replacement to the previous function SIAR. These are used to infer dietary
 #' proportions of organisms consuming various food sources from observations on
 #' the stable isotope values taken from the organisms' tissue samples. However
 #' SIMMs can also be used in other scenarios, such as in sediment mixing or the
@@ -15,7 +15,7 @@
 #' 
 #' @name simmr
 #' @docType package
-#' @author Andrew Parnell <andrew.parnell@mu.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' 
 #' @references Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.
 #' Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey,

@@ -9,15 +9,8 @@
 #' @export
 print.simmr_output <-
 function(x,...) {
-  cat('This is a valid simmr output object with ')
-  cat(paste(x$input$n_obs,'observations, '))
-  cat(paste(x$input$n_tracers,'tracers, and '))
-  cat(paste(x$input$n_sources,'sources.\n'))
-  if(x$input$n_groups>1) cat(paste('There are',x$input$n_groups,'groups.\n'))
-  cat('The source names are: ')
-  cat(x$input$source_names,sep=', ')
-  cat('.\n\n')
+  print(x$input)
   cat('The input data has been run via simmr_mcmc and has produced ')
-  cat(nrow(x$output[[1]]$BUGSoutput$sims.matrix),'iterations over',x$output[[1]]$BUGSoutput$n.chains,'MCMC chains.')
+  cat(nrow(x$output$BUGSoutput$sims.matrix),'iterations over',x$output$BUGSoutput$n.chains,'MCMC chains.')
   cat('\n\n')
 }

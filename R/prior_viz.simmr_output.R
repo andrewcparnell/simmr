@@ -3,7 +3,6 @@
 #' This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or as part of \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
 #' 
 #' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}}
-#' @param group Which group to run it for (currently only numeric rather than group names)
 #' @param plot Whether to create a density plot of the prior or not. The simulated prior values are returned as part of the object
 #' @param include_posterior Whether to include the posterior distribution on top of the priors. Defaults to TRUE
 #' @param n_sims The number of simulations from the prior distribution
@@ -47,7 +46,6 @@
 #' summary(prior)
 #' }
 prior_viz = function(simmr_out,
-                     group = 1,
                      plot = TRUE,
                      include_posterior = TRUE,
                      n_sims = 10000) {
@@ -55,17 +53,14 @@ prior_viz = function(simmr_out,
 }  
 #' @export
 prior_viz.simmr_output = function(simmr_out,
-                                  group = 1,
                                   plot = TRUE,
                                   include_posterior = TRUE,
                                   n_sims = 10000) {
 
-# Can't do more than 1 group for now
-if(length(group) > 1) stop("Multiple groups not supported")
-  
+
 # Plot and/or output the prior  
-mu_f_mean = simmr_out$output[[1]]$model$data()$mu_f_mean
-sigma_f_sd = simmr_out$output[[1]]$model$data()$sigma_f_sd
+mu_f_mean = simmr_out$output$model$data()$mu_f_mean
+sigma_f_sd = simmr_out$output$model$data()$sigma_f_sd
 n_sources = simmr_out$input$n_sources
   
 # Now simulate some ps
@@ -79,7 +74,7 @@ if(plot) {
   df = reshape2::melt(p_prior_sim)
   colnames(df) = c('Num','Source','Proportion')
   df$Type = "Prior"
-  out_all = simmr_out$output[[group]]$BUGSoutput$sims.list$p
+  out_all = simmr_out$output$BUGSoutput$sims.list$p
   df2 = reshape2::melt(out_all)
   colnames(df2) = c('Num','Source','Proportion')
   df2$Type = "Posterior"
