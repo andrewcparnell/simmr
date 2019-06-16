@@ -54,8 +54,10 @@ simmr_out_combine = combine_sources(simmr_1,
                                     new_source_name='Source A+D')
 
 Plot the new source
-plot(simmr_out_combine$input)
-plot(simmr_out_combine,type='boxplot',title='simmr output: combined sources')
+plot(simmr_out_combine, type = 'isospace')
+plot(simmr_out_combine,
+     type = 'boxplot',
+     title = 'simmr output: combined sources')
 
 }
 

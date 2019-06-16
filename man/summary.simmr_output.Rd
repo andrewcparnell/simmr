@@ -5,13 +5,13 @@
 \title{Summarises the output created with \code{\link{simmr_mcmc}}}
 \usage{
 \method{summary}{simmr_output}(object, type = c("diagnostics",
-  "quantiles", "statistics", "correlations"), ...)
+  "convergence", "quantiles", "statistics", "correlations"), ...)
 }
 \arguments{
 \item{object}{An object of class \code{simmr_output} produced by the
 function \code{\link{simmr_mcmc}}}
 
-\item{type}{The type of output required. At least none of 'diagnostics',
+\item{type}{The type of output required. At least none of 'diagnostics' (or 'convergence'),
 'quantiles', 'statistics', or 'correlations'.}
 
 \item{...}{Not used}

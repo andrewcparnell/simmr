@@ -9,26 +9,17 @@
 #' 
 #' @export
 #'
-#' import tidyverse
+#' @importFrom dplyr '%>%'
 #'
 #' @examples
-#' #' # A simple example with 10 observations, 2 tracers and 4 sources
-#' 
-#' data = list(
-#' mixtures = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
-#' -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
-#' 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10),
-#' source_names=c('Source A','Source B','Source C','Source D'),
-#' tracer_names = c('d13C','d15N'),
-#' source_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4),
-#' source_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4),
-#' correction_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4),
-#' correction_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4),
-#' concentration_means = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4))
-#' 
-#' # Load in with simmr_load
-#' simmr_1 = data %>% simmr_load
+#' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
+#' # See simmr_mcmc and vignettes for full example run
+#' data(simmr_data_1)
 #'
+#' # Load into simmr
+#' simmr_1 = simmr_data_1 %>% 
+#'   simmr_load
+#' 
 #' print(simmr_1)
 #' 
 simmr_load = function(data,
@@ -38,41 +29,69 @@ simmr_load = function(data,
                       print = TRUE,
                       iso_plot = TRUE) {
   
-# New function to load in data for simmr so that it can be run using tidyverse type code
-  
-# Data needs to have at the very least the following elements
-mix = data$mixtures
-if(is.null(mix)) stop("Mixtures element of data is NULL")
-s_names = data$source_names
-if(is.null(s_names)) stop("source_names element of data is NULL")
-tracer_names = data$tracer_names
-if(is.null(tracer_names)) tracer_names = c('tracer_1', 'tracer_2')
-s_means = data$source_means
-if(is.null(s_means)) stop("source_means element of data is NULL")
-s_sds = data$source_sds
-if(is.null(s_sds)) stop("source_sds element of data is NULL")
-c_means = data$correction_means
-if(is.null(c_means)) cat("NOTE: correction_means element of data is NULL")
-c_sds = data$correction_sds
-if(is.null(c_sds)) cat("NOTE: correction_sds element of data is NULL")
-conc_means = data$concentration_means
-if(is.null(conc_means)) cat("NOTE: concentration_means element of data is NULL")
+  # New function to load in data for simmr so that it can be run using tidyverse type code
 
-if (length(dim(mix)) != 2)
+  # First part is error checking
+  
+  # Data needs to have at the very least the following elements
+  if(is.null(data$mixtures))
+    stop("Mixtures element of data is missing")
+  mix = as.matrix(data$mixtures)  
+  n_obs = dim(mix)[1]
+  n_tracers = dim(mix)[2]
+  
+
+  if(is.null(data$source_names))
+    stop("source_names element of data is missing")
+  s_names = as.character(unlist(data$source_names))
+  n_sources = length(s_names)
+  
+  if(is.null(data$tracer_names)) {
+    cat("NOTE: tracer_names element of data is missing Using tracer_X instead.\n")
+    tracer_names = paste0('tracer_', 1:nrow(mix))
+  } else {
+    tracer_names = as.character(unlist(data$tracer_names))
+  }
+  
+  if(is.null(data$source_means))
+    stop("source_means element of data is missing")
+  s_means = as.matrix(data$source_means)
+  
+  if(is.null(data$source_sds))
+    stop("source_sds element of data is missing")
+  s_sds = as.matrix(data$source_sds)
+  
+  if(is.null(data$correction_means)) {
+    cat("NOTE: correction_means element of data is missing.\n")
+    c_means = matrix(0, ncol = n_tracers, nrow = n_sources)
+  } else {
+    c_means = as.matrix(data$correction_means)
+  }
+
+  if(is.null(data$correction_sds)) {
+    cat("NOTE: correction_sds element of data is missing.\n")
+    c_sds = matrix(0, ncol = n_tracers, nrow = n_sources)
+  } else {
+    c_sds = as.matrix(data$correction_sds)
+  }
+  
+  if(is.null(data$concetration_means)) {
+    cat("NOTE: concetration_means element of data is missing.\n")
+    conc_means = matrix(1, ncol = n_tracers, nrow = n_sources)
+  } else {
+    conc_means = as.matrix(data$concetration_means)
+  }
+
+if(length(dim(mix)) != 2)
   stop("mixtures object must be a 2D object")
 
-n_obs = dim(mix)[1]
-n_tracers = dim(mix)[2]
-
 # Add column names if they're not there
-if (is.null(colnames(mix)))
+if(is.null(colnames(mix)))
   colnames(mix) = paste0('tracer', 1:n_tracers)
 
 # source_names must be a character vector - the length of it is the number of sources
 if (!is.vector(s_names))
   stop("source_names must be a vector")
-s_names = as.character(s_names)
-n_sources = length(s_names)
 
 # source_means and source_sds must both be matrices where the number of rows is n_sources (in the same order as source_names) and the number of columns is n_tracers
 if (length(dim(s_means)) != 2)
@@ -174,8 +193,8 @@ if (!is.null(c_means)) {
     class(out) = 'simmr_input'  
   }
   
-  if(print) print.simmr_input(out)
-  if(iso_plot) plot.simmr_input(out)
+  if(print) print(out)
+  if(iso_plot) plot(out)
   
   return(out)
   

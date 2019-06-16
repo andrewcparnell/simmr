@@ -10,8 +10,6 @@
 #' The quantile output allows easy calculation of 95 per cent credible
 #' intervals of the posterior dietary proportions. The Gelman diagnostic values should be close to 1 to ensure satisfactory convergence.
 #' 
-#' Multiple groups are not currently supported for estimating tdfs
-#' 
 #' @param object An object of class \code{simmr_output_df} produced by the
 #' function \code{\link{simmr_mcmc_tdf}}
 #' @param type The type of output required. At least none of 'diagnostics',

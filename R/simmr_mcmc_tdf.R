@@ -69,39 +69,39 @@
 #' # Assume p = c(0.25, 0.25, 0.25, 0.25)
 #' 
 #' # The data
-#' data(data_1)
+#' data(simmr_data_1)
 #' 
 #' # Load into simmr
-#' simmr_tdf = data_1 %>% simmr_load
+#' simmr_tdf = simmr_data_1 %>% simmr_load
 #' 
 #' # Plot
-#' plot(simmr_tdf)
+#' simmr_tdf %>% plot
 #' 
 #' # MCMC run - need to specify the known dietary proportions
-#' simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf,
+#' simmr_tdf_out = simmr_tdf %>% simmr_mcmc_tdf(
 #'                                p = matrix(rep(1/simmr_tdf$n_sources,
 #'                                               simmr_tdf$n_sources),
 #'                                           ncol = simmr_tdf$n_sources,
 #'                                           nrow = simmr_tdf$n_obs, byrow = TRUE))
 #' 
 #' # Summary
-#' summary(simmr_tdf_out,type='diagnostics')
-#' summary(simmr_tdf_out,type='quantiles')
+#' simmr_tdf_out %>% summary(type='diagnostics')
+#' simmr_tdf_out %>% summary(type='quantiles')
 #' 
 #' # Now put these corrections back into the model and check the 
 #' # iso-space plots and dietary output
-#' data_2 = data_1
-#' data_2$correction_means = simmr_tdf_out$c_mean_est
-#' data_2$correction_sds = simmr_tdf_out$c_sd_est
-#' simmr_tdf_2 = data_2 %>% simmr_load %>% simmr_mcmc
+#' simmr_data_1_a = simmr_data_1
+#' simmr_data_1_a$correction_means = simmr_tdf_out$c_mean_est
+#' simmr_data_1_a$correction_sds = simmr_tdf_out$c_sd_est
+#' simmr_tdf_2 = simmr_data_1_a %>% simmr_load %>% simmr_mcmc
 #' 
 #' # Plot with corrections now
-#' plot(simmr_tdf_2)
+#' simmr_tdf_2 %>% plot
 #' 
-#' summary(simmr_tdf_2, type = 'diagnostics')
+#' simmr_tdf_2 %>% summary(type = 'diagnostics')
 #' 
 #' # These should be roughly about 25%
-#' plot(simmr_tdf_2, type = 'boxplot')
+#' simmr_tdf_2 %>% plot(type = 'boxplot')
 #' }
 #' 
 #' @export

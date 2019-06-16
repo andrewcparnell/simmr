@@ -17,7 +17,8 @@ Imports:
     graphics,
     stats,
     viridis,
-    bayesplot
+    bayesplot,
+    dplyr
 Encoding: UTF-8
 License: GPL (>=2)
 LazyData: TRUE

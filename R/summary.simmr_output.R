@@ -18,7 +18,7 @@
 #' 
 #' @param object An object of class \code{simmr_output} produced by the
 #' function \code{\link{simmr_mcmc}}
-#' @param type The type of output required. At least none of 'diagnostics',
+#' @param type The type of output required. At least none of 'diagnostics' (or 'convergence'),
 #' 'quantiles', 'statistics', or 'correlations'.
 #' @param group Which group or groups the output is required for.
 #' @param ...  Not used
@@ -77,7 +77,7 @@
 #' @export
 summary.simmr_output =
   function(object,
-           type=c('diagnostics','quantiles','statistics','correlations'),
+           type=c('diagnostics','convergence','quantiles','statistics','correlations'),
            ...) {
 
     # Get the specified type
@@ -92,7 +92,7 @@ summary.simmr_output =
     out_statistics = t(apply(out_all,2,function(x) {return(c(mean=mean(x),sd=stats::sd(x)))}))
     out_cor = stats::cor(out_all)
 
-    if ('diagnostics'%in%type) {
+    if ('diagnostics'%in%type | 'convergence'%in%type) {
       # Print out gelman diagnostics of the output
       cat('Gelman diagnostics - these values should all be close to 1.\n')
       cat('If not, try a longer run of simmr_mcmc.\n')

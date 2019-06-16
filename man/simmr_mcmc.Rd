@@ -63,29 +63,29 @@ simmr_1
 simmr_1 \%>\% summary(type = 'diagnostics')
 
 # Other summaries
-summary(simmr_1,type='correlations')
-summary(simmr_1,type='statistics')
+simmr_1 \%>\% summary(type='correlations')
+simmr_1 \%>\% summary(type='statistics')
 
 # Can save these if required
-ans = summary(simmr_1,type=c('quantiles','statistics'))
+ans = simmr_1 \%>\% summary(type=c('quantiles','statistics'))
 
 # Plot
-plot(simmr_1,type='boxplot')
-plot(simmr_1,type='histogram')
-plot(simmr_1,type='density')
-plot(simmr_1,type='matrix')
+simmr_1 \%>\% plot(type='boxplot')
+simmr_1 \%>\% plot(type='histogram')
+simmr_1 \%>\% plot(type='density')
+simmr_1 \%>\% plot(type='matrix')
 
 # Compare two sources
-compare_sources(simmr_1,source_names=c('Source A','Source D'))
+simmr_1 \%>\% compare_sources(source_names=c('Source A','Source D'))
 
 # Compare multiple sources
-compare_sources(simmr_1)
+simmr_1 \%>\% compare_sources
 
 # Look at influence of prior
-prior_viz(simmr_1)
+simmr_1 \%>\% prior_viz
 
 # Check model fit
-posterior_predictive(simmr_1)
+simmr_1 \%>\% posterior_predictive
 
 #####################################################################################
 
@@ -102,76 +102,44 @@ simmr_2 = simmr_data_1_single \%>\%
   simmr_mcmc
 
 # Plot
-plot(simmr_2, type = 'boxplot')
+simmr_2 \%>\% plot(type = 'boxplot')
 
 # Print it
-print(simmr_2)
+simmr_2 \%>\% print
 
 # Summary
-summary(simmr_2, type = 'diagnostics')
-summary(simmr_2, type = 'quantiles')
+simmr_2 \%>\% summary(type = 'diagnostics')
+simmr_2 \%>\% summary(type = 'quantiles')
 
 # Plot
-plot(simmr_2, type = 'isospace')
-plot(simmr_2, type = 'histogram')
-plot(simmr_2, type = 'matrix')
+simmr_2 \%>\% plot(type = 'isospace')
+simmr_2 \%>\% plot(type = 'histogram')
+simmr_2 \%>\% plot(type = 'matrix')
 
 #####################################################################################
 
 # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
-
-# The data
-#data(data2)
-data_2 = list(
-mixtures = matrix(c(-11.67, -12.55, -13.18, -12.6, -11.77, -11.21, -11.45, 
-               -12.73, -12.49, -10.6, -12.26, -12.48, -13.07, -12.67, -12.26, 
-               -13.12, -10.83, -13.2, -12.24, -12.85, -11.65, -11.84, -13.26, 
-               -12.56, -12.97, -12.18, -12.76, -11.53, -12.87, -12.49, 7.79, 
-               7.85, 8.25, 9.06, 9.13, 8.56, 8.03, 7.74, 8.16, 8.43, 7.9, 8.32, 
-               7.85, 8.14, 8.74, 9.17, 7.33, 8.06, 8.06, 8.03, 8.16, 7.24, 7.24, 
-               8, 8.57, 7.98, 7.2, 8.13, 7.78, 8.21, 11.31, 10.92, 11.3, 11, 
-               12.21, 11.52, 11.05, 11.05, 11.56, 11.78, 12.3, 10.87, 10.35, 
-               11.66, 11.46, 11.55, 11.41, 12.01, 11.97, 11.5, 11.18, 11.49, 
-               11.8, 11.63, 10.99, 12, 10.63, 11.27, 11.81, 12.25), ncol=3, nrow=30),
-source_names = c('Source A', 'Source B', 'Source C', 'Source D'),
-tracer_names = c('d13C','d15N','d34S'),
-source_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96, 
-                   10.35, 7.51, 10.31, 9), ncol=3, nrow=4),
-source_sds = matrix(c(0.46, 0.39, 0.42, 0.48, 0.44, 0.37, 0.49, 0.47, 0.49, 
-                 0.42, 0.41, 0.42), ncol=3, nrow=4),
-correction_means = matrix(c(1.3, 1.58, 0.81, 1.7, 1.73, 1.83, 1.69, 3.2, 0.67, 
-                   2.99, 3.38, 1.31), ncol=3, nrow=4),
-correction_sds = matrix(c(0.32, 0.64, 0.58, 0.46, 0.61, 0.55, 0.47, 0.45, 0.34, 
-                 0.45, 0.37, 0.49), ncol=3, nrow=4),
-concentration_means = matrix(c(0.05, 0.1, 0.06, 0.07, 0.07, 0.03, 0.07, 0.05, 0.1, 
-                0.05, 0.12, 0.11), ncol=3, nrow=4)
-)
+data(simmr_data_2)
 
 # Run model
-simmr_3 = data_2 \%>\% simmr_load
+simmr_3 = data_2 \%>\% simmr_load \%>\% simmr_mcmc
 
 # Plot all three tracers
-plot(simmr_3, tracers = c(1, 2))
-plot(simmr_3, tracers = c(1, 3))
-plot(simmr_3, tracers = c(2, 3))
+simmr_3 \%>\% plot(tracers = c(1, 2))
+simmr_3 \%>\% plot(tracers = c(1, 3))
+simmr_3 \%>\% plot(tracers = c(2, 3))
 # See vignette('simmr') for fancier axis labels
 
-# MCMC run
-simmr_3_out = simmr_mcmc(simmr_3)
-
-# Print it
-print(simmr_3_out)
-
 # Summary
-summary(simmr_3_out,type='diagnostics')
-summary(simmr_3_out,type='quantiles')
-summary(simmr_3_out,type='correlations')
+simmr_3 \%>\% summary(type='diagnostics')
+simmr_3 \%>\% summary(type='quantiles')
+simmr_3 \%>\% summary(type='correlations')
 
 # Plot
-plot(simmr_3_out,type='boxplot')
-plot(simmr_3_out,type='histogram')
-plot(simmr_3_out,type='density')
-plot(simmr_3_out,type='matrix')
+simmr_3 \%>\% plot(type='boxplot')
+simmr_3 \%>\% plot(type='histogram')
+simmr_3 \%>\% plot(type='density')
+simmr_3 \%>\% plot(type='matrix')
 
 #####################################################################################
 
@@ -179,29 +147,22 @@ plot(simmr_3_out,type='matrix')
 # See the vignette for more interpreation of these data and the output
 
 # The data
-# data(data_4)
-data_4 = list(
-mixtures = matrix(c(-14.65, -16.39, -14.5, -15.33, -15.76, -15.15, -15.73, 
-               -15.52, -15.44, -16.19, 8.45, 8.08, 7.39, 8.68, 8.23, 7.84, 8.48, 
-               8.47, 8.44, 8.37), ncol=2, nrow=10),
-source_names = c('Source A', 'Source B', 'Source C', 'Source D'),
-source_means = matrix(c(-25, -25, -5, -5, 4, 12, 12, 4), ncol=2, nrow=4),
-source_sds = matrix(c(1, 1, 1, 1, 1, 1, 1, 1), ncol=2, nrow=4))
+data(square_data) 
 
 # Load into simmr - note no corrections or concentrations
-simmr_4 = data_4 \%>\% simmr_load \%>\% simmr_mcmc
+simmr_4 = square_data \%>\% simmr_load \%>\% simmr_mcmc
 
 # Look at convergence diagnostics
-summary(simmr_4, type = 'diagnostics')
+simmr_4 \%>\% summary(type = 'diagnostics')
 
 # Plot the matrix plot - should look very bad
-plot(simmr_4, type = 'matrix') # Look at the massive correlations here
+simmr_4 \%>\% plot(type = 'matrix') # Look at the massive correlations here
 
 # Interesting to plot prior/posterior visualisation of this
-prior_viz(simmr_4) # Not much information in these data
+simmr_4 \%>\% prior_viz # Not much information in these data
 
 # Check fit
-posterior_predictive(simmr_4) # Still a good fit though
+simmr_4 \%>\% posterior_predictive # Still a good fit though
 
 }
 
