@@ -7,26 +7,15 @@
 #' @export
 print.simmr_input <-
 function(x,...) {
-  cat('Valid simmr input object with:\n')
+  cat('This is a valid simmr input object with ')
   cat(paste(x$n_obs,'observations, '))
   cat(paste(x$n_tracers,'tracers, and '))
   cat(paste(x$n_sources,'sources.\n'))
-  if(!is.null(x$correction_means)) {
-    cat('It contains correction means and sds.\n')
-  } else {
-    cat('It does not contain correction means or sds.\n')
-  }
-  if(!is.null(x$concentration_means)) {
-    cat('It also contains concentration means.\n')  
-  } else {
-    cat('It does not contain concentration means.\n')
-  }
-  
-  
+  if(x$n_groups>1) cat(paste('There are',x$n_groups,'groups.\n'))
   cat('The source names are: ')
   cat(x$source_names,sep=', ')
   cat('.\n')
   cat('The tracer names are: ')
-  cat(x$tracer_names, sep = ', ')
-  cat('.\n')
+  cat(colnames(x$mixtures), sep = ', ')
+  cat('.\n\n')
 }

@@ -3,6 +3,7 @@
 #' This function takes the output from \code{\link{simmr_mcmc}} and plots the posterior predictive distribution to enable visualisation of model fit. The simulated posterior predicted values are returned as part of the object and can be saved for external use
 #'
 #' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}}
+#' @param group Which group to run it for (currently only numeric rather than group names)
 #' @param prob The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)
 #' @param plot_ppc Whether to create a bayesplot of the posterior predictive or not. 
 #'
@@ -11,29 +12,55 @@
 #' @export
 #' 
 #' @examples
-#' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
-#' # See simmr_mcmc and vignettes for full example run
-#' data(simmr_data_1)
-#'
-#' # Load into simmr (includes iso-space plot)
-#' simmr_1 = simmr_data_1 %>% 
-#'   simmr_load %>% 
-#'   simmr_mcmc
+#' \dontrun{
+#' mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
+#' -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
+#' 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
+#' colnames(mix) = c('d13C','d15N')
+#' s_names=c('Source A','Source B','Source C','Source D')
+#' s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4)
+#' s_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4)
+#' c_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4)
+#' c_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4)
+#' conc = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4)
+#' 
+#' # Load into simmr
+#' simmr_1 = simmr_load(mixtures=mix,
+#'                      source_names=s_names,
+#'                      source_means=s_means,
+#'                      source_sds=s_sds,
+#'                      correction_means=c_means,
+#'                      correction_sds=c_sds,
+#'                      concentration_means = conc)
+#' 
+#' # Plot
+#' plot(simmr_1)
+#' 
+#' # Print
+#' simmr_1
+#' 
+#' # MCMC run
+#' simmr_1_out = simmr_mcmc(simmr_1)
 #'
 #' # Prior predictive
-#' simmr_1 %>% posterior_predictive
+#' post_pred = posterior_predictive(simmr_1_out)
+#' }
 posterior_predictive = function(simmr_out,
+                                group = 1,
                                 prob = 0.5,
                                 plot_ppc = TRUE) {
   UseMethod('posterior_predictive')
 }  
 #' @export
 posterior_predictive.simmr_output = function(simmr_out,
+                                             group = 1,
                                              prob = 0.5,
                                              plot_ppc = TRUE) {
   
+# Can't do more than 1 group for now
+if(length(group) > 1) stop("Multiple groups not supported")
 # Get the original jags script
-model_string_old = simmr_out$output$model$model()
+model_string_old = simmr_out$output[[group]]$model$model()
   
 # Plug in y_pred
 copy_lines = model_string_old[6]
@@ -41,20 +68,21 @@ copy_lines = sub("y\\[i","y_pred\\[i",copy_lines)
 model_string_new = c(model_string_old[1:6],copy_lines,model_string_old[7:length(model_string_old)])
   
 # Re-Run in JAGS
-output = R2jags::jags(data=simmr_out$output$model$data(), 
+output = R2jags::jags(data=simmr_out$output[[group]]$model$data(), 
                       parameters.to.save = c("y_pred"),
                       model.file = textConnection(paste0(model_string_new, collapse = '\n')),
-                      n.chains = simmr_out$output$BUGSoutput$n.chains,
-                      n.iter = simmr_out$output$BUGSoutput$n.iter,
-                      n.burnin = simmr_out$output$BUGSoutput$n.burnin,
-                      n.thin = simmr_out$output$BUGSoutput$n.thin)
+                      n.chains = simmr_out$output[[group]]$BUGSoutput$n.chains,
+                      n.iter = simmr_out$output[[group]]$BUGSoutput$n.iter,
+                      n.burnin = simmr_out$output[[group]]$BUGSoutput$n.burnin,
+                      n.thin = simmr_out$output[[group]]$BUGSoutput$n.thin)
 
 y_post_pred = output$BUGSoutput$sims.list$y_pred
 
 if(plot_ppc) {
   y_rep = y_post_pred
   dim(y_rep) = c(dim(y_post_pred)[1], dim(y_post_pred)[2]*dim(y_post_pred)[3])
-  curr_mix = simmr_out$input$mixtures
+  curr_rows = which(simmr_out$input$group_int==group)  
+  curr_mix = simmr_out$input$mixtures[curr_rows,,drop=FALSE]
   g = ppc_intervals(
     y = as.vector(curr_mix),
     yrep = y_rep,
