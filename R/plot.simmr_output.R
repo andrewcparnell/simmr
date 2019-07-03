@@ -13,10 +13,7 @@
 #' \code{\link{simmr_mcmc}}
 #' @param type The type of plot required. Can be one or more of 'histogram',
 #' 'density', 'matrix', or 'boxplot'
-<<<<<<< HEAD
 #' @param group Which group(s) to plot.
-=======
->>>>>>> 46d3aea0df59ff3ce395f948d5c25dd6198c8c82
 #' @param binwidth The width of the bins for the histogram. Defaults to 0.05
 #' @param alpha The degree of transparency of the plots. Not relevant for
 #' matrix plots
@@ -52,18 +49,18 @@
 #' simmr_1 %>% plot(type='density')
 #' simmr_1 %>% plot(type='matrix') # Often the most useful
 #' @export
-plot.simmr_output <-
-function(x,
-         type = c('isospace',
-                  'histogram',
-                  'density',
-                  'matrix',
-                  'boxplot'),
-         binwidth = 0.05,
-         alpha = 0.5,
-         title = 'simmr output plot',
-         ggargs = NULL,
-          ...) {
+plot.simmr_output <- function(x,
+                              type = c('isospace',
+                                       'histogram',
+                                       'density',
+                                       'matrix',
+                                       'boxplot'),
+                              group = 1,
+                              binwidth = 0.05,
+                              alpha = 0.5,
+                              title = 'simmr output plot',
+                              ggargs = NULL,
+                              ...) {
 
   # Get the specified type
   type=match.arg(type,several.ok=TRUE)
@@ -71,8 +68,7 @@ function(x,
   # Iso-space plot is special as all groups go on one plot
   # Add in extra dots here as they can be sent to this plot function
   if('isospace' %in% type) graphics::plot(x$input,title=title,...)
-
-<<<<<<< HEAD
+  
   # Get group names
   group_names = levels(x$input$group)[group]
   
@@ -95,7 +91,7 @@ function(x,
         ggargs
       print(g)
     }
-=======
+
   # Prep data
   out_all = x$output$BUGSoutput$sims.list$p
   colnames(out_all) = x$input$source_names
@@ -127,7 +123,6 @@ function(x,
       ggargs
     print(g)
   }
->>>>>>> 46d3aea0df59ff3ce395f948d5c25dd6198c8c82
 
   if ('boxplot'%in%type) {
     g=ggplot(df,aes_string(y="Proportion",x="Source",
@@ -171,6 +166,8 @@ function(x,
       graphics::contour(kd,add=TRUE,drawlabels=FALSE,levels=c(kdmax*0.1,kdmax*0.25,kdmax*0.5,kdmax*0.75,kdmax*0.9))
     }
     graphics::pairs(out_all,xlim=c(0,1),ylim=c(0,1),main=title,diag.panel=panel.hist,lower.panel=panel.cor,upper.panel=panel.contour)
+  }
+  
   }
 
 }
