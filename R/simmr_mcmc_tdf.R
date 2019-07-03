@@ -69,52 +69,39 @@
 #' # Assume p = c(0.25, 0.25, 0.25, 0.25)
 #' 
 #' # The data
-#' mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
-#' -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
-#' 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
-#' colnames(mix) = c('d13C','d15N')
-#' s_names=c('Source A','Source B','Source C','Source D')
-#' s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4)
-#' s_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4)
-#' conc = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4)
+#' data(simmr_data_1)
 #' 
 #' # Load into simmr
-#' simmr_tdf = simmr_load(mixtures=mix,
-#'                      source_names=s_names,
-#'                      source_means=s_means,
-#'                      source_sds=s_sds,
-#'                      concentration_means = conc)
+#' simmr_tdf = simmr_data_1 %>% simmr_load
 #' 
 #' # Plot
-#' plot(simmr_tdf)
+#' simmr_tdf %>% plot
 #' 
-#' # MCMC run
-#' simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, 
-#' p = matrix(rep(1/simmr_tdf$n_sources, 
-#' simmr_tdf$n_sources),
-#' ncol = simmr_tdf$n_sources, 
-#' nrow = simmr_tdf$n_obs, byrow = TRUE))
+#' # MCMC run - need to specify the known dietary proportions
+#' simmr_tdf_out = simmr_tdf %>% simmr_mcmc_tdf(
+#'                                p = matrix(rep(1/simmr_tdf$n_sources,
+#'                                               simmr_tdf$n_sources),
+#'                                           ncol = simmr_tdf$n_sources,
+#'                                           nrow = simmr_tdf$n_obs, byrow = TRUE))
 #' 
 #' # Summary
-#' summary(simmr_tdf_out,type='diagnostics')
-#' summary(simmr_tdf_out,type='quantiles')
+#' simmr_tdf_out %>% summary(type='diagnostics')
+#' simmr_tdf_out %>% summary(type='quantiles')
 #' 
 #' # Now put these corrections back into the model and check the 
 #' # iso-space plots and dietary output
-#' simmr_tdf_2 = simmr_load(mixtures=mix,
-#'                      source_names=s_names,
-#'                      source_means=s_means,
-#'                      source_sds=s_sds,
-#'                      correction_means = simmr_tdf_out$c_mean_est,
-#'                      correction_sds = simmr_tdf_out$c_sd_est,
-#'                      concentration_means = conc)
+#' simmr_data_1_a = simmr_data_1
+#' simmr_data_1_a$correction_means = simmr_tdf_out$c_mean_est
+#' simmr_data_1_a$correction_sds = simmr_tdf_out$c_sd_est
+#' simmr_tdf_2 = simmr_data_1_a %>% simmr_load %>% simmr_mcmc
 #' 
 #' # Plot with corrections now
-#' plot(simmr_tdf_2)
+#' simmr_tdf_2 %>% plot
 #' 
-#' simmr_tdf_2_out = simmr_mcmc(simmr_tdf_2)
-#' summary(simmr_tdf_2_out, type = 'diagnostics')
-#' plot(simmr_tdf_2_out, type = 'boxplot')
+#' simmr_tdf_2 %>% summary(type = 'diagnostics')
+#' 
+#' # These should be roughly about 25%
+#' simmr_tdf_2 %>% plot(type = 'boxplot')
 #' }
 #' 
 #' @export
@@ -129,8 +116,8 @@ simmr_mcmc_tdf = function(simmr_in,
                                         c_sd_est=rep(2, 
                                                      simmr_in$n_tracers)),
                      mcmc_control=list(iter=10000,
-                                       burn=1000,
-                                       thin=10,
+                                       burn=2000,
+                                       thin=8,
                                        n.chain=4)) {
   UseMethod('simmr_mcmc_tdf')
 }  
@@ -146,16 +133,16 @@ simmr_mcmc_tdf.simmr_input = function(simmr_in,
                                                     c_sd_est=rep(2,
                                                                  simmr_in$n_tracers)),
                                                     mcmc_control=list(iter=10000,
-                                        burn=1000,
-                                        thin=10,
+                                        burn=2000,
+                                        thin=8,
                                         n.chain=4)) {
 
 # Throw warning if n.chain =1
 if(mcmc_control$n.chain==1) warning("Running only 1 MCMC chain will cause an error in the convergence diagnostics")
 
-# Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run
-if(min(table(simmr_in$group))>1 & min(table(simmr_in$group))<4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
-
+# Throw a warning if less than 4 observations
+if(simmr_in$n_obs <4) warning("Less than 4 observations. There will likely be problems with parameter estimation.")
+  
 # Set up the model string
 model_string = "
 model {
@@ -185,14 +172,8 @@ model {
 }
 "
 
-if(simmr_in$n_groups > 1) stop("TDF calculation currently only works for single group data")
-
-# Loop through all the groups
-curr_rows = which(simmr_in$group_int==1)  
-curr_mix = simmr_in$mixtures[curr_rows,,drop=FALSE]
-
 # Determine if a single observation or not
-if(nrow(curr_mix)==1) {
+if(simmr_in$n_obs == 1) {
   cat('Only 1 mixture value, performing a simmr solo run...\n')
   solo=TRUE
 } else {
@@ -201,11 +182,11 @@ if(nrow(curr_mix)==1) {
 
 # Create data object
 data = with(simmr_in,list(
-  y=curr_mix,
+  y = simmr_in$mixtures,
   p = p,
   s_mean=source_means,
   s_sd=source_sds,
-  N=nrow(curr_mix),
+  N=simmr_in$n_obs,
   J=n_tracers,
   q=concentration_means,
   K=n_sources,

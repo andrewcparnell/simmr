@@ -21,13 +21,14 @@ install.packages('simmr')
 then
 ```{r, message=FALSE}
 library(simmr)
+library(dplyr)
 ```
 
 ## Step 2: load in the data
 
 Some geese isotope data is included with this package. Find where it is with:
 ```{r, eval = FALSE}
-system.file("extdata", "geese_data.xls", package = "simmr")
+system.file("extdata", "geese_data_small.xls", package = "simmr")
 ```
 
 Load into R with:
@@ -39,7 +40,11 @@ if (!requireNamespace("readxl", quietly = TRUE)) {
 ```
 ```{r}
 library(readxl)
-path = system.file("extdata", "geese_data.xls", package = "simmr")
+path = system.file("extdata", "geese_data_small.xls", package = "simmr")
+```
+
+Now load in the data
+```{r}
 geese_data = lapply(excel_sheets(path), read_excel, path = path)
 ```
 
@@ -47,59 +52,49 @@ If you want to see what the original Excel sheet looks like you can run `system(
 
 We can now separate out the data into parts 
 ```{r}
-targets = geese_data[[1]]
-sources = geese_data[[2]]
-TEFs = geese_data[[3]]
-concdep = geese_data[[4]]
+geese_data = list(mixtures = geese_data[[1]],
+                  tracer_names = c('d13C_Pl', 'd15N_Pl'),
+                  source_names = geese_data[[2]][,1],
+                  source_means = geese_data[[2]][,2:3],
+                  source_sds = geese_data[[2]][,4:5],
+                  correction_means = geese_data[[3]][,2:3],
+                  correction_sds = geese_data[[3]][,4:5],
+                  concentration_means = geese_data[[4]][,2:3])
 ```
 
-## Step 3: load the data into `simmr`
+## Step 3: load the data into `simmr` and create iso-space plot
 
-```{r}
-geese_simmr = simmr_load(mixtures = as.matrix(targets[, 1:2]),
-                         source_names = sources$Sources,
-                         source_means = sources[,2:3],
-                         source_sds = sources[,4:5],
-                         correction_means = TEFs[,2:3],
-                         correction_sds = TEFs[,4:5],
-                         concentration_means = concdep[,2:3],
-                         group = as.factor(paste('Day', targets$Time)))
+```{r, fig.width = 7, fig.height = 5}
+simmr_geese = geese_data %>% simmr_load
 ```
 
-## Step 4: plot the data 
-
-```{r, fig.width = 8, fig.height = 8}
-plot(geese_simmr, group = 1:8)
-```
-
-## Step 5: run through `simmr` and check convergence
+## Step 4: run through `simmr` and check convergence
 
 ```{r, results = 'hide', message = FALSE}
-geese_simmr_out = simmr_mcmc(geese_simmr)
-summary(geese_simmr_out, type = 'diagnostics',
-        group = 1)
+geese_simmr_out = simmr_geese %>% simmr_mcmc
 ```
+```{r}
+geese_simmr_out %>% summary(type = 'diagnostics')
+```
+All convergence diagnostics should be close to 1
 
 Check that the model fitted well:
-```{r}
-posterior_predictive(geese_simmr_out, group = 5)
+```{r, results = 'hide', message = FALSE, fig.width = 7, fig.height = 5}
+geese_simmr_out %>% posterior_predictive
 ```
+
+Half the points should lie in the error bars and the other half outside if it's well-calibrated.
 
 ## Step 6: look at the output
 
 Look at the influence of the prior:
-```{r}
-prior_viz(geese_simmr_out)
+```{r, fig.width = 7, fig.height = 5}
+geese_simmr_out %>% prior_viz
 ```
 
 Look at the histogram of the dietary proportions:
-```{r}
-plot(geese_simmr_out, type = 'histogram')
-```
-
-```{r, fig.width = 8, fig.height = 8}
-compare_groups(geese_simmr_out, groups = 1:4, 
-               source_name = 'Enteromorpha')
+```{r, fig.width = 7, fig.height = 5}
+geese_simmr_out %>% plot(type = 'histogram')
 ```
 
 For the many more options available to run and analyse output, see the main vignette via `vignette('simmr')`

@@ -1,12 +1,17 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
+<<<<<<< HEAD
 Version: 0.4.1
 Date: 2019-07-03
+=======
+Version: 0.5.0
+Date: 2019-06-14
+>>>>>>> 46d3aea0df59ff3ce395f948d5c25dd6198c8c82
 Author: Andrew Parnell
 Language: en-US
 Maintainer: Andrew Parnell <andrew.parnell@mu.ie>
-Description: Fits a stable isotope mixing model via 'JAGS' in R. The package allows for any number of isotopes or sources, as well as concentration dependencies. The methods on the papers Parnell et al 2010 <doi:10.1371/journal.pone.0009672>, and Parnell et al 2013 <doi:10.1002/env.2221>.
+Description: Fits Stable Isotope Mixing Models (SIMMs) and is meant as a longer term replacement to the previous widely-used package SIAR. SIMMs are used to infer dietary proportions of organisms consuming various food sources from observations on the stable isotope values taken from the organisms' tissue samples. However SIMMs can also be used in other scenarios, such as in sediment mixing or the composition of fatty acids. The main functions are simmr_load and simmr_mcmc. The two vignettes contain a quick start and a full listing of all the features. The methods used are detailed in the papers Parnell et al 2010 <doi:10.1371/journal.pone.0009672>, and Parnell et al 2013 <doi:10.1002/env.2221>.
 Depends: R (>= 3.2.2), R2jags, ggplot2
 Imports: 
     MASS,
@@ -16,7 +21,9 @@ Imports:
     graphics,
     stats,
     viridis,
-    bayesplot
+    bayesplot,
+    dplyr,
+    magrittr
 Encoding: UTF-8
 License: GPL (>=2)
 LazyData: TRUE
