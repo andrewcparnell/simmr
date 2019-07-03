@@ -1,7 +1,7 @@
-Updates for 0.5.0
+Updates for 0.4.1
 
-- Re-write simmr_load functions (and others) to use dplyr and pipes
-- Removed group functionality (to be replaced in next version with random effects)
+- Fixed some major bugs to plot.simmr_output and compare_groups which caused the wrong groups to be selected
+- Fixed a minor dependency bug as no longer using coda
 
 Updates for 0.4.0
 
@@ -10,7 +10,3 @@ Updates for 0.4.0
 - Added `simmr_mcmc_tdf` to estimate trophic discrimination factors for known diet studies
 - Updated `simmr_mcmc` to use R2jags 
 
-Updates for 0.4.1
-
-- Fixed some major bugs to plot.simmr_output and compare_groups which caused the wrong groups to be selected
-- Fixed a minor dependency bug as no longer using coda
