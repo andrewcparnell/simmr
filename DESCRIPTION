@@ -1,13 +1,8 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-<<<<<<< HEAD
 Version: 0.4.1
 Date: 2019-07-03
-=======
-Version: 0.5.0
-Date: 2019-06-14
->>>>>>> 46d3aea0df59ff3ce395f948d5c25dd6198c8c82
 Author: Andrew Parnell
 Language: en-US
 Maintainer: Andrew Parnell <andrew.parnell@mu.ie>
