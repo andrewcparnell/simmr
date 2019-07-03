@@ -27,9 +27,6 @@
 #' PLoS ONE, 5(3):5, 2010.
 #' @keywords multivariate
 #' @examples
-#' 
-#' \dontrun{
-#' 
 #' # Simple full run
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
@@ -52,7 +49,6 @@
 #' # Check the model fit
 #' simmr_1 %>% posterior_predictive
 #' 
-#' }
 NULL
 
 

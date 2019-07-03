@@ -17,7 +17,6 @@ posterior_predictive(simmr_out, prob = 0.5, plot_ppc = TRUE)
 This function takes the output from \code{\link{simmr_mcmc}} and plots the posterior predictive distribution to enable visualisation of model fit. The simulated posterior predicted values are returned as part of the object and can be saved for external use
 }
 \examples{
-\dontrun{
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 # See simmr_mcmc and vignettes for full example run
 data(simmr_data_1)
@@ -29,5 +28,4 @@ simmr_1 = simmr_data_1 \%>\%
 
 # Prior predictive
 simmr_1 \%>\% posterior_predictive
-}
 }

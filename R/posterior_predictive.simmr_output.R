@@ -11,7 +11,6 @@
 #' @export
 #' 
 #' @examples
-#' \dontrun{
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
 #' data(simmr_data_1)
@@ -23,7 +22,6 @@
 #'
 #' # Prior predictive
 #' simmr_1 %>% posterior_predictive
-#' }
 posterior_predictive = function(simmr_out,
                                 prob = 0.5,
                                 plot_ppc = TRUE) {

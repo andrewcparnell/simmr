@@ -1,33 +1,48 @@
 #' Load data into simmr and check for errors
 #'
-#' @param data A named list with the elements \code{mixtures}, \code{source_names}, \code{source_means}, and \code{source_sds}. Optionally \code{correction_means}, \code{correction_sds}, and \code{concentration_means} can be provided. \code{simmr_load} will provide a note if these are not used.
-#' @param fixed_covars A matrix of covariates to be used as fixed effects. Should have same number of rows as \code{data$mixtures}.
-#' @param random_covars A matrix of covariates to be used as random effects. Should have same number of rows as \code{data$mixtures}.
-#' @param time_var A vector of time values (may be discrete or continuous) to use in a time series analysis. Should the same length as the number of rows as \code{data$mixtures}.
+#' This is the main function for loading data into simmr prior to a run of
+#' \code{\link{simmr_mcmc}}. Users should create a named list as detailed below.
+#' A full description of different ways to load in data (e.g. from Excel) can b
+#' found in the two vignettes (\code{browseVignettes('simmr')}).
 #'
-#' @return A named list which is suitable for input into \link{\code{plot.simmr_input}}, \link{\code{simmr_mcmc}} and other fitting functions.
-#' 
-#' @export
+#' @param data A named list with the elements \code{mixtures},
+#'   \code{source_names}, \code{source_means}, and \code{source_sds}. Optionally
+#'   \code{correction_means}, \code{correction_sds}, and
+#'   \code{concentration_means} can be provided. \code{simmr_load} will provide
+#'   a note if these are not used.
+#' @param fixed_covars A matrix of covariates to be used as fixed effects.
+#'   Should have same number of rows as \code{data$mixtures}.
+#' @param random_covars A matrix of covariates to be used as random effects.
+#'   Should have same number of rows as \code{data$mixtures}.
+#' @param time_var A vector of time values (may be discrete or continuous) to
+#'   use in a time series analysis. Should the same length as the number of rows
+#'   as \code{data$mixtures}.
+#' @param print whether to print the summary of the object using
+#'   print.simmr_input
+#' @param plot whether to create an isospace plot using plot.simmr_input
+#'
+#' @return A named list which is suitable for input into \code{\link{plot.simmr_input}}, \code{\link{simmr_mcmc}} and other fitting functions.
 #'
 #' @importFrom dplyr '%>%'
 #'
 #' @examples
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
-#' data(simmr_data_1)
+#' data('simmr_data_1')
 #'
 #' # Load into simmr
-#' simmr_1 = simmr_data_1 %>% 
+#' simmr_1 = simmr_data_1 %>%
 #'   simmr_load
-#' 
+#'
 #' print(simmr_1)
-#' 
+#'
+#' @export
 simmr_load = function(data,
                       fixed_covars = NULL,
                       random_covars = NULL,
                       time_var = NULL,
                       print = TRUE,
-                      iso_plot = TRUE) {
+                      plot = TRUE) {
   
   # New function to load in data for simmr so that it can be run using tidyverse type code
 
@@ -159,7 +174,13 @@ if (!is.null(c_means)) {
   random_mat = NULL
   
   # Sort out time variable
-  time_var = NULL
+  time_var = data$time_var
+  if(!is.null(time_var)) {
+    if(!is.numeric(time_var)) stop('time_var must be numeric')
+    if(!is.vector(time_var)) stop('time_var must be a vector')
+    if(length(unique(time_var))< 5) stop('Less than 5 unique time value. Perhaps try a random effects model instead?')
+    if(any(diff(time_var)<0)) stop("Time variable must be in ascending order")
+  }
 
   # Prepare output and give class
   out = list(
@@ -187,14 +208,18 @@ if (!is.null(c_means)) {
   # Put into the correct class
   if(!is.null(fixed_mat) | !is.null(random_mat)) {
     class(out) = 'simmr_input_re'
+    if(print) print.simmr_input_re(out)
+    if(plot) plot.simmr_input_re(out)
   } else if(!is.null(time_var)) {
     class(out) = 'simmr_input_ts'
+    if(print) print.simmr_input_ts(out)
+    if(plot) plot.simmr_input_ts(out)
   } else {
     class(out) = 'simmr_input'  
+    if(print) print.simmr_input(out)
+    if(plot) plot.simmr_input(out)
   }
   
-  if(print) print(out)
-  if(iso_plot) plot(out)
   
   return(out)
   

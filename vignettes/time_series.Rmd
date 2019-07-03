@@ -1,0 +1,98 @@
+---
+title: "simmr: time series analysis"
+author: "Andrew Parnell"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{quick_start}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+This vignette details how to run the `simmr` package with time series data. When a time variable is included, `simmr` runs a multivariate autoregressive model which can then produce some nice plots of the dietary proportions over time. Throughout this vignette we use the Geese example from the `extdata` package directory. It is assumed that the reader is familiar with the [quick_start](https://cran.r-project.org/package=simmr/vignettes/quick_start.html) vignette before following this guide. 
+
+## Load in the dat and include a time variable
+
+Load in the package
+```{r}
+library('simmr')
+```
+
+Load the full data as in the quick start guide with the added time variable
+```{r}
+library(readxl)
+path = system.file("extdata", "geese_data.xls", package = "simmr")
+geese_data = lapply(excel_sheets(path), read_excel, path = path)
+ts_data = list(mixtures = geese_data[[1]][,1:2],
+                  tracer_names = c('d13C_Pl', 'd15N_Pl'),
+                  source_names = geese_data[[2]][,1],
+                  source_means = geese_data[[2]][,2:3],
+                  source_sds = geese_data[[2]][,4:5],
+                  correction_means = geese_data[[3]][,2:3],
+                  correction_sds = geese_data[[3]][,4:5],
+                  concentration_means = geese_data[[4]][,2:3],
+                  time_var = geese_data[[1]]$Time)
+```
+
+Put this into simmr
+```{r}
+simmr_geese = ts_data %>% simmr_load
+```
+
+We can produce a nicer plot of the data with:
+
+```{r}
+simmr_geese %>% plot(xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
+                  ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
+                  title='Isospace plot of Geese data over time',
+                  mix_name = 'Geese',
+                  time_unit = 'Julian Day')
+```
+
+Next we run the time series model. This will be quite slow:
+
+```{r}
+simmr_ts_out = simmr_geese %>% 
+  simmr_mcmc.simmr_input_ts(time_grid = seq(1, 300, by = 0.5))
+```
+
+
+
+## Step 3: load the data into `simmr` and create iso-space plot
+
+```{r, fig.width = 7, fig.height = 5}
+simmr_geese = geese_data %>% simmr_load
+```
+
+## Step 4: run through `simmr` and check convergence
+
+```{r, results = 'hide', message = FALSE}
+geese_simmr_out = simmr_geese %>% simmr_mcmc
+```
+```{r}
+geese_simmr_out %>% summary(type = 'diagnostics')
+```
+All convergence diagnostics should be close to 1
+
+Check that the model fitted well:
+```{r, results = 'hide', message = FALSE, fig.width = 7, fig.height = 5}
+geese_simmr_out %>% posterior_predictive
+```
+
+Half the points should lie in the error bars and the other half outside if it's well-calibrated.
+
+## Step 6: look at the output
+
+Look at the influence of the prior:
+```{r, fig.width = 7, fig.height = 5}
+geese_simmr_out %>% prior_viz
+```
+
+Look at the histogram of the dietary proportions:
+```{r, fig.width = 7, fig.height = 5}
+geese_simmr_out %>% plot(type = 'histogram')
+```
+
+For the many more options available to run and analyse output, see the main vignette via `vignette('simmr')`

@@ -20,7 +20,6 @@ prior_viz(simmr_out, plot = TRUE, include_posterior = TRUE,
 This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or as part of \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
 }
 \examples{
-\dontrun{
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 # See simmr_mcmc and vignettes for full example run
 data(simmr_data_1)
@@ -34,5 +33,4 @@ simmr_1 = simmr_data_1 \%>\%
 prior = simmr_1 \%>\% prior_viz
 head(prior)
 summary(prior)
-}
 }

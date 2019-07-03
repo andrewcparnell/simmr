@@ -25,8 +25,10 @@ of thinning), and \code{n.chain} (number of MCMC chains).}
 }
 \value{
 An object of class \code{simmr_output} with two named top-level
-components: \item{input }{The \code{simmr_input} object given to the
-\code{simmr_mcmc} function} \item{output }{A set of MCMC chains of class
+components: 
+\item{input}{The \code{simmr_input} object given to the
+\code{simmr_mcmc} function} 
+\item{output}{A set of MCMC chains of class
 \code{mcmc.list} from the coda package. These can be analysed using the
 \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 functions.}

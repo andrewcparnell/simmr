@@ -10,7 +10,6 @@
 #' @export
 #' 
 #' @examples 
-#' \dontrun{
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
 #' data(simmr_data_1)
@@ -24,7 +23,6 @@
 #' prior = simmr_1 %>% prior_viz
 #' head(prior)
 #' summary(prior)
-#' }
 prior_viz = function(simmr_out,
                      plot = TRUE,
                      include_posterior = TRUE,

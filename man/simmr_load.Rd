@@ -5,30 +5,46 @@
 \title{Load data into simmr and check for errors}
 \usage{
 simmr_load(data, fixed_covars = NULL, random_covars = NULL,
-  time_var = NULL, print = TRUE, iso_plot = TRUE)
+  time_var = NULL, print = TRUE, plot = TRUE)
 }
 \arguments{
-\item{data}{A named list with the elements \code{mixtures}, \code{source_names}, \code{source_means}, and \code{source_sds}. Optionally \code{correction_means}, \code{correction_sds}, and \code{concentration_means} can be provided. \code{simmr_load} will provide a note if these are not used.}
+\item{data}{A named list with the elements \code{mixtures},
+\code{source_names}, \code{source_means}, and \code{source_sds}. Optionally
+\code{correction_means}, \code{correction_sds}, and
+\code{concentration_means} can be provided. \code{simmr_load} will provide
+a note if these are not used.}
 
-\item{fixed_covars}{A matrix of covariates to be used as fixed effects. Should have same number of rows as \code{data$mixtures}.}
+\item{fixed_covars}{A matrix of covariates to be used as fixed effects.
+Should have same number of rows as \code{data$mixtures}.}
 
-\item{random_covars}{A matrix of covariates to be used as random effects. Should have same number of rows as \code{data$mixtures}.}
+\item{random_covars}{A matrix of covariates to be used as random effects.
+Should have same number of rows as \code{data$mixtures}.}
 
-\item{time_var}{A vector of time values (may be discrete or continuous) to use in a time series analysis. Should the same length as the number of rows as \code{data$mixtures}.}
+\item{time_var}{A vector of time values (may be discrete or continuous) to
+use in a time series analysis. Should the same length as the number of rows
+as \code{data$mixtures}.}
+
+\item{print}{whether to print the summary of the object using
+print.simmr_input}
+
+\item{plot}{whether to create an isospace plot using plot.simmr_input}
 }
 \value{
-A named list which is suitable for input into \link{\code{plot.simmr_input}}, \link{\code{simmr_mcmc}} and other fitting functions.
+A named list which is suitable for input into \code{\link{plot.simmr_input}}, \code{\link{simmr_mcmc}} and other fitting functions.
 }
 \description{
-Load data into simmr and check for errors
+This is the main function for loading data into simmr prior to a run of
+\code{\link{simmr_mcmc}}. Users should create a named list as detailed below.
+A full description of different ways to load in data (e.g. from Excel) can b
+found in the two vignettes (\code{browseVignettes('simmr')}).
 }
 \examples{
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 # See simmr_mcmc and vignettes for full example run
-data(simmr_data_1)
+data('simmr_data_1')
 
 # Load into simmr
-simmr_1 = simmr_data_1 \%>\% 
+simmr_1 = simmr_data_1 \%>\%
   simmr_load
 
 print(simmr_1)

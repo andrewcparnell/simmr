@@ -33,7 +33,6 @@
 #' plots, \code{\link{summary.simmr_output}} for summarising output.
 #' @examples
 #'
-#' \dontrun{
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
 #' data(simmr_data_1)
@@ -48,7 +47,6 @@
 #' simmr_1 %>% plot(type='histogram')
 #' simmr_1 %>% plot(type='density')
 #' simmr_1 %>% plot(type='matrix') # Often the most useful
-#' }
 #' @export
 plot.simmr_output <-
 function(x,

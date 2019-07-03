@@ -23,8 +23,10 @@
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
 #' of thinning), and \code{n.chain} (number of MCMC chains).
 #' @return An object of class \code{simmr_output} with two named top-level
-#' components: \item{input }{The \code{simmr_input} object given to the
-#' \code{simmr_mcmc} function} \item{output }{A set of MCMC chains of class
+#' components: 
+#' \item{input}{The \code{simmr_input} object given to the
+#' \code{simmr_mcmc} function} 
+#' \item{output}{A set of MCMC chains of class
 #' \code{mcmc.list} from the coda package. These can be analysed using the
 #' \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 #' functions.}
@@ -197,7 +199,6 @@ if(mcmc_control$n.chain==1) warning("Running only 1 MCMC chain will cause an err
 # Throw a warning if more than 1 and less than 4 observations
 if(simmr_in$n_obs >1 & simmr_in$n_obs< 4) warning("Less than 4 observations. There will likely be problems with parameter estimation.")
   
-  
 # Set up the model string
 model_string = "
 model{
@@ -246,8 +247,131 @@ data = with(simmr_in,list(
   sig_upp=ifelse(solo,0.001,1000)))
 
 # Run in JAGS
+tc = textConnection(model_string)
 output = R2jags::jags(data=data, 
                       parameters.to.save = c("p", "sigma"),
+                      model.file = tc,
+                      n.chains = mcmc_control$n.chain,
+                      n.iter = mcmc_control$iter,
+                      n.burnin = mcmc_control$burn,
+                      n.thin = mcmc_control$thin)
+close(tc)
+
+# Get the names right and interpretable everywhere
+# Set the posterior names right
+n_tracers = simmr_in$n_tracers
+n_sources = simmr_in$n_sources
+s_names = simmr_in$source_names
+colnames(output$BUGSoutput$sims.matrix)[2:(2 + n_sources - 1)] = s_names
+colnames(output$BUGSoutput$sims.list$p) = s_names
+# Also do it in the summary
+rownames(output$BUGSoutput$summary)[2:(2 + n_sources - 1)] = s_names
+sd_names = paste0('sd[',colnames(simmr_in$mixtures),']')
+colnames(output$BUGSoutput$sims.matrix)[(n_sources + 2):(n_sources + n_tracers + 1)] = sd_names
+colnames(output$BUGSoutput$sims.list$sigma) = sd_names
+rownames(output$BUGSoutput$summary)[(n_sources + 2):(n_sources + n_tracers + 1)] = sd_names
+
+output_all = vector('list')
+output_all$input = simmr_in
+output_all$output = output
+class(output_all) = 'simmr_output'
+
+return(output_all)
+
+}
+
+# simmr_input_ts ----------------------------------------------------------
+
+#' @export
+simmr_mcmc.simmr_input_ts = function(simmr_in, 
+                                     time_grid,
+                                  mcmc_control=list(iter=10000,
+                                                    burn=2000,
+                                                    thin=8,
+                                                    n.chain=4)) {
+  
+  # Throw warning if n.chain =1
+  if(mcmc_control$n.chain==1) warning("Running only 1 MCMC chain will cause an error in the convergence diagnostics")
+  
+# Set up the model string
+model_string = "
+model{
+  # Likelihood
+  for (j in 1:J) {
+    for (i in 1:N) {
+      y[i,j] ~ dnorm(inprod(p[i,]*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p[i,],q[,j]), 1/var_y[i,j])
+      var_y[i,j] <- inprod(pow(p[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p[i,],q[,j]),2)
++ pow(sigma[j],2)
+    }
+  }
+
+  # Prior on sigma
+  #for (j in 1:J) { sigma[j] ~ dunif(0,sig_upp) }
+  for (j in 1:J) { sigma[j] ~ dt(0, 1^-2, 4)T(0,) }
+
+  # CLR prior on p
+  for (i in 1:N) {
+    p[i,1:K] <- expf[i,]/sum(expf[i,])
+    for (k in 1:K) {
+      expf[i,k] <- exp(f_obs[i,k])
+    }
+  }
+  
+  # Map f_obs on to f in case of repeated measures
+  for (i in 1:N) {
+    for (k in 1:K) {
+      f_obs[i,k] ~ dnorm(f[time_index[i],k], sigma_obs^-2)
+    }
+  }
+
+  # Continuous time RW prior on f - set one of them to zero
+  for (t in 1:N_t) {
+    f[t,1] <- 0
+  }
+  for (k in 2:K) {
+    f[1,k] ~ dnorm(0, 1^-2)
+    for (t in 2:N_t) {
+      f[t,k] ~ dnorm(f[t-1,k]*dt[t-1], (sigma_ts*dt[t-1])^-2)
+    }
+  }
+  
+  for (t in 1:N_t) {
+    p_est[t,1:K] <- expf_est[t,]/sum(expf_est[t,])
+    for (k in 1:K) {
+      expf_est[t,k] <- exp(f[t,k])
+    }
+  }
+  
+  # Priors on sigmas
+  #for (k in 1:K) {
+    sigma_ts ~ dt(0, 1^-2, 4)T(0,)
+    sigma_obs ~ dt(0, obs_max^-2, 4)T(0,)
+  #}
+}
+"
+
+# Create data object
+browser()
+time_all = with(simmr_in, unique(sort(c(unique(time_var), time_grid))))
+data = with(simmr_in,list(
+  y=mixtures,
+  s_mean=source_means,
+  s_sd=source_sds,
+  N=nrow(mixtures),
+  J=n_tracers,
+  c_mean=correction_means,
+  c_sd = correction_sds,
+  q=concentration_means,
+  K=n_sources,
+  time_index = match(time_var, time_all),
+  obs_max = ifelse(any(table(simmr_in$time_var)>5), 1, 0.0001),
+  dt = diff(time_all),
+  N_t = length(time_all)))
+
+# Run in JAGS
+output = R2jags::jags(data=data, 
+                      parameters.to.save = c("p_est", "sigma",
+                                             'sigma_obs', 'sigma_ts'),
                       model.file = textConnection(model_string),
                       n.chains = mcmc_control$n.chain,
                       n.iter = mcmc_control$iter,
@@ -276,3 +400,4 @@ class(output_all) = 'simmr_output'
 return(output_all)
 
 }
+

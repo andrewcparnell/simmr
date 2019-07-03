@@ -24,10 +24,7 @@
 #' @seealso See \code{\link{simmr_mcmc}} and the associated vignette for
 #' examples.
 #' 
-#' @importFrom dplyr '%>%'
-#' 
 #' @examples
-#' \dontrun{
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
 #' data(simmr_data_1)
@@ -38,18 +35,14 @@
 #'   simmr_mcmc
 #'
 #' # Combine two of the sources
-#' simmr_out_combine = combine_sources(simmr_1, 
-#'                                     to_combine=c('Source A',
+#' simmr_out_combine = simmr_1 %>% combine_sources(to_combine=c('Source A',
 #'                                                  'Source D'),
 #'                                     new_source_name='Source A+D')
 #' 
-#' Plot the new source
-#' plot(simmr_out_combine, type = 'isospace')
-#' plot(simmr_out_combine,
-#'      type = 'boxplot',
+#' # Plot the new source
+#' simmr_out_combine %>% plot(type = 'isospace')
+#' simmr_out_combine %>% plot(type = 'boxplot',
 #'      title = 'simmr output: combined sources')
-#'
-#' }
 #'
 #' @export 
 combine_sources = function(simmr_out,

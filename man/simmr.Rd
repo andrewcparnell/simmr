@@ -21,9 +21,6 @@ An even longer term replacement for properly running SIMMs is MixSIAR, which
 allows for more detailed random effects and the inclusion of covariates.
 }
 \examples{
-
-\dontrun{
-
 # Simple full run
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 # See simmr_mcmc and vignettes for full example run
@@ -46,7 +43,6 @@ simmr_1 \%>\% plot(type = 'boxplot')
 # Check the model fit
 simmr_1 \%>\% posterior_predictive
 
-}
 }
 \references{
 Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.

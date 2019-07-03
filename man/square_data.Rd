@@ -24,6 +24,6 @@ square_data
 }
 \description{
 A fake box data set identified by Fry (2014) as a failing of SIMMs
-See the link for more interpreation of these data and the output
+See the link for more interpretation of these data and the output
 }
 \keyword{datasets}

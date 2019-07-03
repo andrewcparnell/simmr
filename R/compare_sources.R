@@ -29,7 +29,6 @@
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
-#' \dontrun{
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' # See simmr_mcmc and vignettes for full example run
 #' data(simmr_data_1)
@@ -44,7 +43,6 @@
 #' 
 #' # Compare multiple sources
 #' simmr_1 %>% compare_sources
-#' }
 #' 
 #' @export
 compare_sources = function(simmr_out,

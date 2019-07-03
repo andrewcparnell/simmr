@@ -39,7 +39,6 @@ Further detail about these plots is provided in the vignette.
 }
 \examples{
 
-\dontrun{
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 # See simmr_mcmc and vignettes for full example run
 data(simmr_data_1)
@@ -54,7 +53,6 @@ simmr_1 \%>\% plot(type='boxplot')
 simmr_1 \%>\% plot(type='histogram')
 simmr_1 \%>\% plot(type='density')
 simmr_1 \%>\% plot(type='matrix') # Often the most useful
-}
 }
 \seealso{
 See \code{\link{simmr_mcmc}} for creating objects suitable for this

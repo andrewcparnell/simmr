@@ -38,7 +38,6 @@ function produces boxplots by default and also allows for the storage of the
 output for further analysis if required.
 }
 \examples{
-\dontrun{
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 # See simmr_mcmc and vignettes for full example run
 data(simmr_data_1)
@@ -53,7 +52,6 @@ simmr_1 \%>\% compare_sources(source_names = c('Source B', 'Source D'))
 
 # Compare multiple sources
 simmr_1 \%>\% compare_sources
-}
 
 }
 \seealso{
