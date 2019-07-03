@@ -60,59 +60,67 @@ prior_viz.simmr_output = function(simmr_out,
                                   include_posterior = TRUE,
                                   n_sims = 10000) {
 
-# Can't do more than 1 group for now
-if(length(group) > 1) stop("Multiple groups not supported")
+  # Can't do more than 1 group for now
+  if(length(group) > 1) stop("Multiple groups not supported")
   
-# Plot and/or output the prior  
-mu_f_mean = simmr_out$output[[1]]$model$data()$mu_f_mean
-sigma_f_sd = simmr_out$output[[1]]$model$data()$sigma_f_sd
-n_sources = simmr_out$input$n_sources
-  
-# Now simulate some ps
-p_prior_sim = matrix(NA, ncol = n_sources, nrow = n_sims) 
-for(i in 1:n_sims) {
-  f = rnorm(n_sources,mean = mu_f_mean, sd = sigma_f_sd)
-  p_prior_sim[i,] = exp(f)/sum(exp(f))
-}
-colnames(p_prior_sim) = simmr_out$input$source_names
-if(plot) {
-  df = reshape2::melt(p_prior_sim)
-  colnames(df) = c('Num','Source','Proportion')
-  df$Type = "Prior"
-  out_all = simmr_out$output[[group]]$BUGSoutput$sims.list$p
-  df2 = reshape2::melt(out_all)
-  colnames(df2) = c('Num','Source','Proportion')
-  df2$Type = "Posterior"
-  df_all = rbind(df2, df)
-  
-  if(include_posterior) {
-    g=ggplot(df_all,
-             aes_string(x="Proportion",
-                        y="..density..",
-                        fill="Source",
-                        linetype="Type")) +
-      scale_fill_viridis(discrete=TRUE) +
-      geom_density(alpha = 0.5) +
-      theme_bw() +
-      ggtitle("Prior and posterior distributions")  +
-      ylab("Density") +
-      facet_wrap("~ Source")
-  } else {
-    g=ggplot(df,
-             aes_string(x="Proportion",
-                        y="..density..",
-                        fill="Source")) +
-      scale_fill_viridis(discrete=TRUE) +
-      geom_density(alpha = 0.5, linetype = 0) +
-      theme_bw() +
-      ggtitle("Prior distributions")  +
-      ylab("Density") +
-      facet_wrap("~ Source")
+  # Get group_name
+  n_groups = simmr_out$input$n_groups
+  plot_title = "Prior and posterior distributions"
+  if(n_groups > 1) {
+    group_name = levels(simmr_out$input$group)[group]
+    plot_title = paste0(plot_title, ': ', group_name)
   }
-print(g)
-}
   
-# Return the simulations
-invisible(p_prior_sim)
-
+  # Plot and/or output the prior  
+  mu_f_mean = simmr_out$output[[1]]$model$data()$mu_f_mean
+  sigma_f_sd = simmr_out$output[[1]]$model$data()$sigma_f_sd
+  n_sources = simmr_out$input$n_sources
+  
+  # Now simulate some ps
+  p_prior_sim = matrix(NA, ncol = n_sources, nrow = n_sims) 
+  for(i in 1:n_sims) {
+    f = rnorm(n_sources,mean = mu_f_mean, sd = sigma_f_sd)
+    p_prior_sim[i,] = exp(f)/sum(exp(f))
+  }
+  colnames(p_prior_sim) = simmr_out$input$source_names
+  if(plot) {
+    df = reshape2::melt(p_prior_sim)
+    colnames(df) = c('Num','Source','Proportion')
+    df$Type = "Prior"
+    out_all = simmr_out$output[[group]]$BUGSoutput$sims.list$p
+    df2 = reshape2::melt(out_all)
+    colnames(df2) = c('Num','Source','Proportion')
+    df2$Type = "Posterior"
+    df_all = rbind(df2, df)
+    
+    if(include_posterior) {
+      g=ggplot(df_all,
+               aes_string(x="Proportion",
+                          y="..density..",
+                          fill="Source",
+                          linetype="Type")) +
+        scale_fill_viridis(discrete=TRUE) +
+        geom_density(alpha = 0.5) +
+        theme_bw() +
+        ggtitle("Prior and posterior distributions")  +
+        ylab("Density") +
+        facet_wrap("~ Source")
+    } else {
+      g=ggplot(df,
+               aes_string(x="Proportion",
+                          y="..density..",
+                          fill="Source")) +
+        scale_fill_viridis(discrete=TRUE) +
+        geom_density(alpha = 0.5, linetype = 0) +
+        theme_bw() +
+        ggtitle("Prior distributions")  +
+        ylab("Density") +
+        facet_wrap("~ Source")
+    }
+    print(g)
+  }
+  
+  # Return the simulations
+  invisible(p_prior_sim)
+  
 }
