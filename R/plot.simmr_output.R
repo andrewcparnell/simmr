@@ -13,7 +13,7 @@
 #' \code{\link{simmr_mcmc}}
 #' @param type The type of plot required. Can be one or more of 'histogram',
 #' 'density', 'matrix', or 'boxplot'
-#' @param group Which group to plot. Currently only one group allowed at a time
+#' @param group Which group(s) to plot.
 #' @param binwidth The width of the bins for the histogram. Defaults to 0.05
 #' @param alpha The degree of transparency of the plots. Not relevant for
 #' matrix plots
@@ -94,10 +94,13 @@ function(x,
   # Add in extra dots here as they can be sent to this plot function
   if('isospace' %in% type) graphics::plot(x$input,group=group,title=title,...)
 
+  # Get group names
+  group_names = levels(x$input$group)[group]
+  
   for(i in 1:length(group)) {
 
     # Prep data
-    out_all = x$output[[i]]$BUGSoutput$sims.list$p
+    out_all = x$output[[group[i]]]$BUGSoutput$sims.list$p
     colnames(out_all) = x$input$source_names
     df = reshape2::melt(out_all)
     colnames(df) = c('Num','Source','Proportion')

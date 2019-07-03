@@ -1,8 +1,8 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-Version: 0.4.0
-Date: 2019-06-14
+Version: 0.4.1
+Date: 2019-07-03
 Author: Andrew Parnell
 Language: en-US
 Maintainer: Andrew Parnell <andrew.parnell@mu.ie>
@@ -13,7 +13,6 @@ Imports:
     compositions,
     boot,
     reshape2,
-    coda,
     graphics,
     stats,
     viridis,

@@ -185,9 +185,11 @@ group_names = levels(simmr_out$input$group)[groups]
 # Start with two groups version
 if(length(groups)==2) {
   # Get the output for this particular source on these two groups  
-  match_name = match(source_name, simmr_out$input$source_names)
-  out_all_grp_1 = simmr_out$output[[groups[1]]]$BUGSoutput$sims.matrix[,match_name]
-  out_all_grp_2 = simmr_out$output[[groups[2]]]$BUGSoutput$sims.matrix[,match_name]
+  post_mat1 = simmr_out$output[[groups[1]]]$BUGSoutput$sims.matrix
+  post_mat2 = simmr_out$output[[groups[2]]]$BUGSoutput$sims.matrix
+  match_name = match(source_name, colnames(post_mat1))
+  out_all_grp_1 = post_mat1[,match_name]
+  out_all_grp_2 = post_mat2[,match_name]
   # Produce the difference between the two
   out_diff = out_all_grp_1 - out_all_grp_2
 
@@ -206,8 +208,9 @@ if(length(groups)==2) {
 # Now for more groups  
 if(length(groups)>2) {
   # Get the output for all the groups
-  match_name = match(source_name, simmr_out$input$source_names)
-  len = length(simmr_out$output[[groups[1]]]$BUGSoutput$sims.matrix[,match_name])
+  post_mat = simmr_out$output[[groups[1]]]$BUGSoutput$sims.matrix
+  match_name = match(source_name, colnames(post_mat))
+  len = length(post_mat[,match_name])
   out_all = matrix(NA,nrow=len,ncol=length(groups))
   for(j in 1:length(groups)) out_all[,j] = simmr_out$output[[groups[j]]]$BUGSoutput$sims.matrix[,match_name]
   colnames(out_all) = paste(group_names)
