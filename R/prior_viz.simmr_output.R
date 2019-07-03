@@ -102,7 +102,7 @@ prior_viz.simmr_output = function(simmr_out,
         scale_fill_viridis(discrete=TRUE) +
         geom_density(alpha = 0.5) +
         theme_bw() +
-        ggtitle("Prior and posterior distributions")  +
+        ggtitle(plot_title)  +
         ylab("Density") +
         facet_wrap("~ Source")
     } else {
