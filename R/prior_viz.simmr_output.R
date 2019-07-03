@@ -65,10 +65,12 @@ prior_viz.simmr_output = function(simmr_out,
   
   # Get group_name
   n_groups = simmr_out$input$n_groups
-  plot_title = "Prior and posterior distributions"
+  plot_title_1 = "Prior distributions"
+  plot_title_2 = "Prior and posterior distributions"
   if(n_groups > 1) {
     group_name = levels(simmr_out$input$group)[group]
-    plot_title = paste0(plot_title, ': ', group_name)
+    plot_title_1 = paste0(plot_title_1, ': ', group_name)
+    plot_title_2 = paste0(plot_title_2, ': ', group_name)
   }
   
   # Plot and/or output the prior  
@@ -102,7 +104,7 @@ prior_viz.simmr_output = function(simmr_out,
         scale_fill_viridis(discrete=TRUE) +
         geom_density(alpha = 0.5) +
         theme_bw() +
-        ggtitle(plot_title)  +
+        ggtitle(plot_title_2)  +
         ylab("Density") +
         facet_wrap("~ Source")
     } else {
@@ -113,7 +115,7 @@ prior_viz.simmr_output = function(simmr_out,
         scale_fill_viridis(discrete=TRUE) +
         geom_density(alpha = 0.5, linetype = 0) +
         theme_bw() +
-        ggtitle("Prior distributions")  +
+        ggtitle(plot_title_1)  +
         ylab("Density") +
         facet_wrap("~ Source")
     }
