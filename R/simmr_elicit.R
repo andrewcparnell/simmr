@@ -58,13 +58,13 @@
 #' # Summary
 #' simmr_1 %>% summary('quantiles')
 #' # A bit vague:
-#' deviance    32.271 33.932 35.554 37.780 44.051
-#' Source A     0.029  0.113  0.205  0.310  0.499
-#' Source B     0.145  0.233  0.283  0.335  0.448
-#' Source C     0.217  0.254  0.274  0.295  0.342
-#' Source D     0.032  0.123  0.206  0.301  0.462
-#' sd[tracer1]  0.171  0.397  0.517  0.669  1.109
-#' sd[tracer2]  0.053  0.275  0.407  0.554  0.929
+#' # deviance    32.271 33.932 35.554 37.780 44.051
+#' # Source A     0.029  0.113  0.205  0.310  0.499
+#' # Source B     0.145  0.233  0.283  0.335  0.448
+#' # Source C     0.217  0.254  0.274  0.295  0.342
+#' # Source D     0.032  0.123  0.206  0.301  0.462
+#' # sd[tracer1]  0.171  0.397  0.517  0.669  1.109
+#' # sd[tracer2]  0.053  0.275  0.407  0.554  0.929
 #' 
 #' # Now suppose I had prior information that: 
 #' # proportion means = 0.5,0.2,0.2,0.1 
@@ -78,16 +78,16 @@
 #'   simmr_mcmc(prior_control=list(means = prior$mean,
 #'                                 sd = prior$sd))
 #' 
-#' # Look t the results
+#' # Look at the results
 #' simmr_1a %>% summary('quantiles')
 #'               2.5%    25%    50%    75%  97.5%
-#' deviance    33.283 36.349 38.774 41.556 48.457
-#' Source A     0.396  0.452  0.486  0.517  0.582
-#' Source B     0.177  0.206  0.220  0.235  0.263
-#' Source C     0.169  0.196  0.208  0.220  0.243
-#' Source D     0.053  0.072  0.085  0.098  0.131
-#' sd[tracer1]  0.178  0.381  0.500  0.639  1.030
-#' sd[tracer2]  0.188  0.445  0.589  0.765  1.276
+#' # deviance    33.283 36.349 38.774 41.556 48.457
+#' # Source A     0.396  0.452  0.486  0.517  0.582
+#' # Source B     0.177  0.206  0.220  0.235  0.263
+#' # Source C     0.169  0.196  0.208  0.220  0.243
+#' # Source D     0.053  0.072  0.085  0.098  0.131
+#' # sd[tracer1]  0.178  0.381  0.500  0.639  1.030
+#' # sd[tracer2]  0.188  0.445  0.589  0.765  1.276
 #' 
 #' # Look at the new priors
 #' simmr_1a %>% prior_viz
