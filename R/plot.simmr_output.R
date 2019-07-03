@@ -76,6 +76,7 @@ plot.simmr_output <- function(x,
 
     # Prep data
     out_all = x$output[[group[i]]]$BUGSoutput$sims.list$p
+    browser()
     colnames(out_all) = x$input$source_names
     df = reshape2::melt(out_all)
     colnames(df) = c('Num','Source','Proportion')

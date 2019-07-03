@@ -1,225 +1,210 @@
-#' Load data into simmr and check for errors
+#' Function to load in simmr data and check for errors
 #'
-#' This is the main function for loading data into simmr prior to a run of
-#' \code{\link{simmr_mcmc}}. Users should create a named list as detailed below.
-#' A full description of different ways to load in data (e.g. from Excel) can b
-#' found in the two vignettes (\code{browseVignettes('simmr')}).
+#' This function takes in the mixture data, food source means and standard
+#' deviations, and (optionally) correction factor means and standard
+#' deviations, and concentration proportions. It performs some (non-exhaustive)
+#' checking of the data to make sure it will run through simmr. It outputs an
+#' object of class \code{simmr_input}.
 #'
-#' @param data A named list with the elements \code{mixtures},
-#'   \code{source_names}, \code{source_means}, and \code{source_sds}. Optionally
-#'   \code{correction_means}, \code{correction_sds}, and
-#'   \code{concentration_means} can be provided. \code{simmr_load} will provide
-#'   a note if these are not used.
-#' @param fixed_covars A matrix of covariates to be used as fixed effects.
-#'   Should have same number of rows as \code{data$mixtures}.
-#' @param random_covars A matrix of covariates to be used as random effects.
-#'   Should have same number of rows as \code{data$mixtures}.
-#' @param time_var A vector of time values (may be discrete or continuous) to
-#'   use in a time series analysis. Should the same length as the number of rows
-#'   as \code{data$mixtures}.
-#' @param print whether to print the summary of the object using
-#'   print.simmr_input
-#' @param plot whether to create an isospace plot using plot.simmr_input
+#' For standard stable isotope mixture modelling, the mixture matrix will
+#' contain a row for each individual and a column for each isotopic value.
+#' \code{simmr} will allow for any number of isotopes and any number of
+#' observations, within computational limits. The source means/sds should be
+#' provided for each food source on each isotope. The correction means (usually
+#' trophic enrichment factors) can be set as zero if required, and should be of
+#' the same shape as the source values. The concentration dependence means
+#' should be estimated values of the proportion of each element in the food
+#' source in question and should be given in proportion format between 0 and 1.
+#' At present there is no means to include concentration standard deviations.
 #'
-#' @return A named list which is suitable for input into \code{\link{plot.simmr_input}}, \code{\link{simmr_mcmc}} and other fitting functions.
-#'
-#' @importFrom dplyr '%>%'
-#'
+#' @param mixtures The mixture data given as a matrix where the number of rows
+#' is the number of observations and the number of columns is the number of
+#' tracers (usually isotopes)
+#' @param source_names The names of the sources given as a character string
+#' @param source_means The means of the source values, given as a matrix where
+#' the number of rows is the number of sources and the number of columns is the
+#' number of tracers
+#' @param source_sds The standard deviations of the source values, given as a
+#' matrix where the number of rows is the number of sources and the number of
+#' columns is the number of tracers
+#' @param correction_means The means of the correction values, given as a
+#' matrix where the number of rows is the number of sources and the number of
+#' columns is the number of tracers. If not provided these are set to 0.
+#' @param correction_sds The standard deviations of the correction values,
+#' given as a matrix where the number of rows is the number of sources and the
+#' number of columns is the number of tracers. If not provided these are set to
+#' 0.
+#' @param concentration_means The means of the concentration values, given as a
+#' matrix where the number of rows is the number of sources and the number of
+#' columns is the number of tracers. These should be between 0 and 1. If not
+#' provided these are all set to 1.
+#' @param group A grouping variable. These can be a character or factor variable
+#' 
+#' @return An object of class \code{simmr_input} with the following elements:
+#' \item{mixtures }{The mixture data} \item{source_neams }{Source means}
+#' \item{sources_sds }{Source standard deviations} \item{correction_means
+#' }{Correction means} \item{correction_sds }{Correction standard deviations}
+#' \item{concentration_means }{Concentration dependence means} \item{n_obs
+#' }{The number of observations} \item{n_tracers }{The number of
+#' tracers/isotopes} \item{n_sources }{The number of sources} \item{n_groups
+#' }{The number of groups}
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>
+#' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
-#' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
-#' # See simmr_mcmc and vignettes for full example run
-#' data('simmr_data_1')
 #'
-#' # Load into simmr
-#' simmr_1 = simmr_data_1 %>%
-#'   simmr_load
+#' # A simple example with 10 observations, 2 tracers and 4 sources
+#' mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+#' -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
+#' 11.73, 10.89, 11.05, 12.3), ncol=2, nrow=10)
+#' colnames(mix) = c('d13C','d15N')
+#' s_names=c('Source A','Source B','Source C','Source D')
+#' s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol=2, nrow=4)
+#' s_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol=2, nrow=4)
+#' c_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol=2, nrow=4)
+#' c_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol=2, nrow=4)
+#' conc = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol=2, nrow=4)
+#'
+#' # Load in with simmr_load
+#' simmr_1 = simmr_load(mixtures=mix,
+#'                      source_names=s_names,
+#'                      source_means=s_means,
+#'                      source_sds=s_sds,
+#'                      correction_means=c_means,
+#'                      correction_sds=c_sds,
+#'                      concentration_means = conc)
 #'
 #' print(simmr_1)
 #'
-#' @export
-simmr_load = function(data,
-                      fixed_covars = NULL,
-                      random_covars = NULL,
-                      time_var = NULL,
-                      print = TRUE,
-                      plot = TRUE) {
+#' @export simmr_load
+simmr_load = function(mixtures,
+                      source_names,
+                      source_means,
+                      source_sds,
+                      correction_means = NULL,
+                      correction_sds = NULL,
+                      concentration_means = NULL,
+                      group = NULL) {
+  # Function to load in data for simmr and check whether it's appropriate for running through simmr_mcmc
   
-  # New function to load in data for simmr so that it can be run using tidyverse type code
-
-  # First part is error checking
+  # Go through each object and check that it matches the requirements
   
-  # Data needs to have at the very least the following elements
-  if(is.null(data$mixtures))
-    stop("Mixtures element of data is missing")
-  mix = as.matrix(data$mixtures)  
-  n_obs = dim(mix)[1]
-  n_tracers = dim(mix)[2]
+  # Mixtures must be a matrix - the number of rows is the number of observations and the number of columns is the number of tracers
+  if (!is.matrix(mixtures))
+    stop("mixtures object must be a matrix")
+  n_obs = nrow(mixtures)
+  n_tracers = ncol(mixtures)
   
-
-  if(is.null(data$source_names))
-    stop("source_names element of data is missing")
-  s_names = as.character(unlist(data$source_names))
-  n_sources = length(s_names)
+  # Add column names if they're not there
+  if (is.null(colnames(mixtures)))
+    colnames(mixtures) = paste0('tracer', 1:n_tracers)
   
-  if(is.null(data$tracer_names)) {
-    cat("NOTE: tracer_names element of data is missing Using tracer_X instead.\n")
-    tracer_names = paste0('tracer_', 1:nrow(mix))
+  # source_names must be a character vector - the length of it is the number of sources
+  if (!is.vector(source_names))
+    stop("source_names must be a vector")
+  source_names = as.character(source_names)
+  n_sources = length(source_names)
+  
+  # source_means and source_sds must both be matrices where the number of rows is n_sources (in the same order as source_names) and the number of columns is n_tracers
+  if (length(dim(source_means)) != 2)
+    stop("source_means must have two dimensions")
+  if (length(dim(source_sds)) != 2)
+    stop("source_sds must have two dimensions")
+  if (nrow(source_means) != n_sources)
+    stop('Number of rows in source_means does not match length(source_names)')
+  if (ncol(source_means) != n_tracers)
+    stop('Number of columns in source_means does not match ncol(mixtures)')
+  if (nrow(source_sds) != n_sources)
+    stop('Number of rows in source_sds does not match length(source_names)')
+  if (ncol(source_sds) != n_tracers)
+    stop('Number of columns in source_sds does not match ncol(mixtures)')
+  
+  # Check that either neither or both of corrections_means and sds are given
+  if (is.null(correction_means) &
+      !is.null(correction_sds))
+    stop("Both correction_means and correction_sds must be supplied")
+  if (!is.null(correction_means) &
+      is.null(correction_sds))
+    stop("Both correction_means and correction_sds must be supplied")
+  
+  # correction_means and correction_sds must be matrix and of same dimension as n_sources
+  if (!is.null(correction_means)) {
+    if (length(dim(correction_means)) != 2)
+      stop("correction_means must have two dimensions")
+    if (length(dim(correction_sds)) != 2)
+      stop("correction_sds must have two dimensions")
+    if (nrow(correction_means) != n_sources)
+      stop('Number of rows in correction_means does not match length(source_names)')
+    if (ncol(correction_means) != n_tracers)
+      stop('Number of columns in correction_means does not match ncol(mixtures)')
+    if (nrow(correction_sds) != n_sources)
+      stop('Number of rows in correction_sds does not match length(source_names)')
+    if (ncol(correction_sds) != n_tracers)
+      stop('Number of columns in correction_sds does not match ncol(mixtures)')
   } else {
-    tracer_names = as.character(unlist(data$tracer_names))
+    correction_means = matrix(0, ncol = n_tracers, nrow = n_sources)
+    correction_sds = matrix(0, ncol = n_tracers, nrow = n_sources)
   }
-  
-  if(is.null(data$source_means))
-    stop("source_means element of data is missing")
-  s_means = as.matrix(data$source_means)
-  
-  if(is.null(data$source_sds))
-    stop("source_sds element of data is missing")
-  s_sds = as.matrix(data$source_sds)
-  
-  if(is.null(data$correction_means)) {
-    cat("NOTE: correction_means element of data is missing.\n")
-    c_means = matrix(0, ncol = n_tracers, nrow = n_sources)
-  } else {
-    c_means = as.matrix(data$correction_means)
-  }
-
-  if(is.null(data$correction_sds)) {
-    cat("NOTE: correction_sds element of data is missing.\n")
-    c_sds = matrix(0, ncol = n_tracers, nrow = n_sources)
-  } else {
-    c_sds = as.matrix(data$correction_sds)
-  }
-  
-  if(is.null(data$concetration_means)) {
-    cat("NOTE: concetration_means element of data is missing.\n")
-    conc_means = matrix(1, ncol = n_tracers, nrow = n_sources)
-  } else {
-    conc_means = as.matrix(data$concetration_means)
-  }
-
-if(length(dim(mix)) != 2)
-  stop("mixtures object must be a 2D object")
-
-# Add column names if they're not there
-if(is.null(colnames(mix)))
-  colnames(mix) = paste0('tracer', 1:n_tracers)
-
-# source_names must be a character vector - the length of it is the number of sources
-if (!is.vector(s_names))
-  stop("source_names must be a vector")
-
-# source_means and source_sds must both be matrices where the number of rows is n_sources (in the same order as source_names) and the number of columns is n_tracers
-if (length(dim(s_means)) != 2)
-  stop("source_means must have two dimensions")
-if (length(dim(s_sds)) != 2)
-  stop("source_sds must have two dimensions")
-if (nrow(s_means) != n_sources)
-  stop('Number of rows in source_means does not match length(source_names)')
-if (ncol(s_means) != n_tracers)
-  stop('Number of columns in source_means does not match ncol(mixtures)')
-if (nrow(s_sds) != n_sources)
-  stop('Number of rows in source_sds does not match length(source_names)')
-if (ncol(s_sds) != n_tracers)
-  stop('Number of columns in source_sds does not match ncol(mixtures)')
-
-# Check that either neither or both of corrections_means and sds are given
-if (is.null(c_means) &
-    !is.null(c_sds))
-  stop("Both correction_means and correction_sds must be supplied")
-if (!is.null(c_means) &
-    is.null(c_sds))
-  stop("Both correction_means and correction_sds must be supplied")
-
-# correction_means and correction_sds must be matrix and of same dimension as n_sources if they supplied
-if (!is.null(c_means)) {
-  if (length(dim(c_means)) != 2)
-    stop("correction_means must have two dimensions")
-  if (length(dim(c_sds)) != 2)
-    stop("correction_sds must have two dimensions")
-  if (nrow(c_sds) != n_sources)
-    stop('Number of rows in correction_means does not match length(source_names)')
-  if (ncol(c_means) != n_tracers)
-    stop('Number of columns in correction_means does not match ncol(mixtures)')
-  if (nrow(c_sds) != n_sources)
-    stop('Number of rows in correction_sds does not match length(source_names)')
-  if (ncol(c_sds) != n_tracers)
-    stop('Number of columns in correction_sds does not match ncol(mixtures)')
-} else {
-  c_means = matrix(0, ncol = n_tracers, nrow = n_sources)
-  c_sds = matrix(0, ncol = n_tracers, nrow = n_sources)
-}
   
   # concentration_means must be a matrix where all elements are less than 1
-  if (!is.null(conc_means)) {
-    if (length(dim(conc_means)) != 2)
+  if (!is.null(concentration_means)) {
+    if (length(dim(concentration_means)) != 2)
       stop("concentration_means must have two dimensions")
-    if (nrow(conc_means) != n_sources)
+    if (nrow(concentration_means) != n_sources)
       stop('Number of rows in concentration_means does not match length(source_names)')
-    if (ncol(conc_means) != n_tracers)
+    if (ncol(concentration_means) != n_tracers)
       stop('Number of columns in concentration_means does not match ncol(mixtures)')
-    if (any(conc_means > 1))
+    if (any(concentration_means > 1))
       stop("Invalid values in concentration_means; must all be less than 1")
-    if (any(conc_means == 0))
+    if (any(concentration_means == 0))
       stop("Invalid values in concentration_means; must all be non-zero")
     
   } else {
-    conc_means = matrix(1, ncol = n_tracers, nrow = n_sources)
+    concentration_means = matrix(1, ncol = n_tracers, nrow = n_sources)
   }
   
-  # Sort out fixed factors
-  # fixed_covars
-  fixed_mat = NULL
-  
-  # Sort out random factors
-  random_mat = NULL
-  
-  # Sort out time variable
-  time_var = data$time_var
-  if(!is.null(time_var)) {
-    if(!is.numeric(time_var)) stop('time_var must be numeric')
-    if(!is.vector(time_var)) stop('time_var must be a vector')
-    if(length(unique(time_var))< 5) stop('Less than 5 unique time value. Perhaps try a random effects model instead?')
-    if(any(diff(time_var)<0)) stop("Time variable must be in ascending order")
+  # Check the groups are the right length and structure if given
+  if (!is.null(group)) {
+    # Allow for the group to be a factor variable
+    
+    #if(!is.integer(group)) stop("group variable needs to be of integer type. Perhaps use as.integer?")
+    group = as.factor(group)
+    group_int = as.integer(group)
+    if (min(group_int) != 1)
+      stop("Group integers must start at 1")
+    if (!all(diff(sort(unique(group_int))) == 1))
+      stop("Group integers must proceed sequentially from 1, 2, 3, etc")
+    
+    if (length(group) != n_obs)
+      stop("Number of group values not equal to number of observations")
+  } else {
+    group = factor(rep(1, n_obs))
+    group_int = as.integer(group)
   }
-
+  n_groups = length(unique(group))
+  
   # Prepare output and give class
   out = list(
-    mixtures = mix,
-    tracer_names = tracer_names,
-    source_names = s_names,
-    source_means = s_means,
-    source_sds = s_sds,
-    correction_means = c_means,
-    correction_sds = c_sds,
-    concentration_means = conc_means,
-    fixed_mat = fixed_mat,
-    random_mat = random_mat,
-    time_var = time_var,
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means,
+    group = group,
+    group_int = group_int,
     n_obs = n_obs,
     n_tracers = n_tracers,
-    n_sources = n_sources
+    n_sources = n_sources,
+    n_groups = n_groups
   )
   
   # Look through to see whether there are any missing values in anything
   if (any(unlist(lapply(out, 'is.na')))) {
-    warning("Missing values provided for some elements Check your inputs")
+    warning("Missing values provided for some values. Check your inputs")
   }
   
-  # Put into the correct class
-  if(!is.null(fixed_mat) | !is.null(random_mat)) {
-    class(out) = 'simmr_input_re'
-    if(print) print.simmr_input_re(out)
-    if(plot) plot.simmr_input_re(out)
-  } else if(!is.null(time_var)) {
-    class(out) = 'simmr_input_ts'
-    if(print) print.simmr_input_ts(out)
-    if(plot) plot.simmr_input_ts(out)
-  } else {
-    class(out) = 'simmr_input'  
-    if(print) print.simmr_input(out)
-    if(plot) plot.simmr_input(out)
-  }
-  
+  class(out) = 'simmr_input'
   
   return(out)
   
