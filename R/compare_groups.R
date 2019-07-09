@@ -247,9 +247,9 @@ if(length(groups)>2) {
 
 # Return output
 if(length(groups)==2) {
-  invisible(list(out_diff))
+  invisible(list(out_diff, p))
 } else {
-  invisible(list(Ordering=Ordering,out_all=out_all))
+  invisible(list(Ordering=Ordering,out_all=out_all,p=p))
 }  
 
 }
