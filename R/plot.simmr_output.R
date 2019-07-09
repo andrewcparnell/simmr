@@ -178,8 +178,7 @@ function(x,
       }
       graphics::pairs(out_all,xlim=c(0,1),ylim=c(0,1),main=title[i],diag.panel=panel.hist,lower.panel=panel.cor,upper.panel=panel.contour)
     }
-
+  
   }
-
-
+  if(exists('g')) invisible(g)
 }
