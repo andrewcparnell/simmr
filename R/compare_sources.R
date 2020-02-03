@@ -102,7 +102,7 @@ compare_sources.simmr_output = function(simmr_out,
                            plot = TRUE) {
 
 # Function to compare between sources within a group both via textual output and with boxplots
-# Things to ly are:
+# Things to do are:
 # If two sources are given: 
 #   - provide the probability of one group having higher dietary proportion than the other
 #   - give the probability distribution of the difference
@@ -112,7 +112,7 @@ compare_sources.simmr_output = function(simmr_out,
 # An optional boxplot of the sources
   
 # Throw an error if only one group is specified
-if(length(source_names)==1) stop("Use compare_between_groups if you want to compare a single source between groups.")
+if(length(source_names)==1) stop("Use compare_groups if you want to compare a single source between groups.")
   
 # Throw an error if the source name given doesn't match the source names
 if(!all(source_names%in%simmr_out$input$source_names)) stop("Some source names not found in the current source names. Be sure to check case and spelling")

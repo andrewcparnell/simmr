@@ -106,7 +106,7 @@ summary.simmr_output =
       if ('diagnostics'%in%type) {
         # Print out gelman diagnostics of the output
         cat('Gelman diagnostics - these values should all be close to 1.\n')
-        cat('If not, try a longer run of simmr_mcmc.\n')
+        cat('If any are larger than 1.1, try a longer run of simmr_mcmc.\n')
         print(round(out_bgr[[i]],2))
       }
 

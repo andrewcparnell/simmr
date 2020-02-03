@@ -4,9 +4,16 @@
 \alias{simmr_load}
 \title{Function to load in simmr data and check for errors}
 \usage{
-simmr_load(mixtures, source_names, source_means, source_sds,
-  correction_means = NULL, correction_sds = NULL,
-  concentration_means = NULL, group = NULL)
+simmr_load(
+  mixtures,
+  source_names,
+  source_means,
+  source_sds,
+  correction_means = NULL,
+  correction_sds = NULL,
+  concentration_means = NULL,
+  group = NULL
+)
 }
 \arguments{
 \item{mixtures}{The mixture data given as a matrix where the number of rows

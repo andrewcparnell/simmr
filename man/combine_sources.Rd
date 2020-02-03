@@ -4,9 +4,11 @@
 \alias{combine_sources}
 \title{Combine the dietary proportions from two food sources after running simmr}
 \usage{
-combine_sources(simmr_out,
+combine_sources(
+  simmr_out,
   to_combine = simmr_out$input$source_names[1:2],
-  new_source_name = "combined_source")
+  new_source_name = "combined_source"
+)
 }
 \arguments{
 \item{simmr_out}{An object of class \code{simmr_output} created from

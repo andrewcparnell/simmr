@@ -4,8 +4,11 @@
 \alias{summary.simmr_output_tdf}
 \title{Summarises the output created with \code{\link{simmr_mcmc_tdf}}}
 \usage{
-\method{summary}{simmr_output_tdf}(object, type = c("diagnostics",
-  "quantiles", "statistics", "correlations"), ...)
+\method{summary}{simmr_output_tdf}(
+  object,
+  type = c("diagnostics", "quantiles", "statistics", "correlations"),
+  ...
+)
 }
 \arguments{
 \item{object}{An object of class \code{simmr_output_df} produced by the

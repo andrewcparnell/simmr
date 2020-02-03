@@ -5,11 +5,14 @@
 \title{Estimate correction factors from stable isotope data with known dietary
 proportions}
 \usage{
-simmr_mcmc_tdf(simmr_in, p = matrix(rep(1/simmr_in$n_sources,
-  simmr_in$n_sources), ncol = simmr_in$n_sources, nrow = simmr_in$n_obs,
-  byrow = TRUE), prior_control = list(c_mean_est = rep(2,
-  simmr_in$n_tracers), c_sd_est = rep(2, simmr_in$n_tracers)),
-  mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4))
+simmr_mcmc_tdf(
+  simmr_in,
+  p = matrix(rep(1/simmr_in$n_sources, simmr_in$n_sources), ncol = simmr_in$n_sources,
+    nrow = simmr_in$n_obs, byrow = TRUE),
+  prior_control = list(c_mean_est = rep(2, simmr_in$n_tracers), c_sd_est = rep(2,
+    simmr_in$n_tracers)),
+  mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
+)
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
@@ -44,7 +47,7 @@ discrimination factors; TEFs/TDFs) for a given set of dietary proportions.
 The idea is that this code can be used for feeding studies where an 
 organism is fed a known proportional diet with a view to estimating
 the correction factors to be used in a later stable isotope mixing 
-model when the organisms are observed in the field.
+model when the organisms are observed in the field. 
 
 The main argument of the function is an object created from 
 \code{\link{simmr_load}} which contains mixture data on a number of tracers

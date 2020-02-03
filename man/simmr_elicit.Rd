@@ -4,8 +4,12 @@
 \alias{simmr_elicit}
 \title{Function to allow informative prior distribution to be included in simmr}
 \usage{
-simmr_elicit(n_sources, proportion_means = rep(1/n_sources, n_sources),
-  proportion_sds = rep(0.1, n_sources), n_sims = 1000)
+simmr_elicit(
+  n_sources,
+  proportion_means = rep(1/n_sources, n_sources),
+  proportion_sds = rep(0.1, n_sources),
+  n_sims = 1000
+)
 }
 \arguments{
 \item{n_sources}{The number of sources required}

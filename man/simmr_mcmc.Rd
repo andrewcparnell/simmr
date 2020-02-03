@@ -5,9 +5,12 @@
 \title{Run a \code{simmr_input} object through the main simmr Markov chain Monte
 Carlo (MCMC) function}
 \usage{
-simmr_mcmc(simmr_in, prior_control = list(means = rep(0,
-  simmr_in$n_sources), sd = rep(1, simmr_in$n_sources)),
-  mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4))
+simmr_mcmc(
+  simmr_in,
+  prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
+    simmr_in$n_sources)),
+  mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
+)
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
@@ -337,8 +340,8 @@ simmr_5 = simmr_load(mixtures=mix,
                      group=grp)
 
 # Plot
-plot(simmr_5,group=1:8,xlab=expression(paste(delta^13, "C (\\u2030)",sep="")), 
-     ylab=expression(paste(delta^15, "N (\\u2030)",sep="")), 
+plot(simmr_5,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
+     ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
      title='Isospace plot of Inger et al Geese data')
 
 # Run MCMC for each group

@@ -382,15 +382,12 @@ simmr_mcmc = function(simmr_in,
 }  
 #' @export
 simmr_mcmc.simmr_input = function(simmr_in, 
-                      prior_control=list(means=rep(0,simmr_in$n_sources),
-                                         sd=rep(1,simmr_in$n_sources)), 
-                      mcmc_control=list(iter=10000,
-                                        burn=1000,
-                                        thin=10,
-                                        n.chain=4)) {
-
-# Main function to run simmr through JAGS
-# if(class(simmr_in)!='simmr_input') stop("Input argument simmr_in must have come from simmr_load")
+                                  prior_control=list(means=rep(0,simmr_in$n_sources),
+                                                     sd=rep(1,simmr_in$n_sources)), 
+                                  mcmc_control=list(iter=10000,
+                                                    burn=1000,
+                                                    thin=10,
+                                                    n.chain=4)) {
 
 # Throw warning if n.chain =1
 if(mcmc_control$n.chain==1) warning("Running only 1 MCMC chain will cause an error in the convergence diagnostics")
@@ -422,6 +419,7 @@ model{
 }
 "
 
+# Holder to store output
 output = vector('list',length=simmr_in$n_groups)
 names(output) = levels(simmr_in$group)
 
@@ -441,7 +439,7 @@ for(i in 1:simmr_in$n_groups) {
   }
   
   # Create data object
-  data = with(simmr_in,list(
+  data = with(simmr_in, list(
     y=curr_mix,
     s_mean=source_means,
     s_sd=source_sds,

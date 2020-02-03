@@ -3,7 +3,6 @@
 \docType{package}
 \name{simmr}
 \alias{simmr}
-\alias{simmr-package}
 \title{simmr: A package for fitting stable isotope mixing models via JAGS in R}
 \description{
 This package runs a

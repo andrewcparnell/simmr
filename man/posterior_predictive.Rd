@@ -4,8 +4,7 @@
 \alias{posterior_predictive}
 \title{Plot the posterior predictive distribution for a simmr run}
 \usage{
-posterior_predictive(simmr_out, group = 1, prob = 0.5,
-  plot_ppc = TRUE)
+posterior_predictive(simmr_out, group = 1, prob = 0.5, plot_ppc = TRUE)
 }
 \arguments{
 \item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}}}

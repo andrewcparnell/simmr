@@ -4,8 +4,13 @@
 \alias{prior_viz}
 \title{Plot the prior distribution for a simmr run}
 \usage{
-prior_viz(simmr_out, group = 1, plot = TRUE,
-  include_posterior = TRUE, n_sims = 10000)
+prior_viz(
+  simmr_out,
+  group = 1,
+  plot = TRUE,
+  include_posterior = TRUE,
+  n_sims = 10000
+)
 }
 \arguments{
 \item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}}}

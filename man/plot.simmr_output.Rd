@@ -4,11 +4,17 @@
 \alias{plot.simmr_output}
 \title{Plot different features of an object created from \code{\link{simmr_mcmc}}.}
 \usage{
-\method{plot}{simmr_output}(x, type = c("isospace", "histogram",
-  "density", "matrix", "boxplot"), group = 1, binwidth = 0.05,
-  alpha = 0.5, title = if (length(group) == 1) {    
-  "simmr output plot" } else {     paste("simmr output plot: group", group)
-  }, ggargs = NULL, ...)
+\method{plot}{simmr_output}(
+  x,
+  type = c("isospace", "histogram", "density", "matrix", "boxplot"),
+  group = 1,
+  binwidth = 0.05,
+  alpha = 0.5,
+  title = if (length(group) == 1) {     "simmr output plot" } else {    
+    paste("simmr output plot: group", group) },
+  ggargs = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{An object of class \code{simmr_output} created via

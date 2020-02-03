@@ -4,8 +4,12 @@
 \alias{summary.simmr_output}
 \title{Summarises the output created with \code{\link{simmr_mcmc}}}
 \usage{
-\method{summary}{simmr_output}(object, type = c("diagnostics",
-  "quantiles", "statistics", "correlations"), group = 1, ...)
+\method{summary}{simmr_output}(
+  object,
+  type = c("diagnostics", "quantiles", "statistics", "correlations"),
+  group = 1,
+  ...
+)
 }
 \arguments{
 \item{object}{An object of class \code{simmr_output} produced by the
