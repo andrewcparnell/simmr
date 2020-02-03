@@ -213,7 +213,7 @@ PLoS ONE, 5(3):5, 2010.
 }
 \seealso{
 \code{\link{simmr_load}} for creating objects suitable for this
-function, \code{\link{plot.simmr_input_re}} for creating isospace plots,
+function, \code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{summary.simmr_output_re}} for summarising output, and
 \code{\link{plot.simmr_output_re}} for plotting output. See 
 \code{\link{simmr_mcmc}} for the main \code{simmr} MCMC function which

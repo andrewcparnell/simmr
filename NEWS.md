@@ -1,3 +1,8 @@
+Updates for 0.4.2
+
+- Added in a function simmr_groups_re which allows for a hierarchical model based on borrowing strengths between groups
+- Updated all plotting summary and print functions to work with the above
+
 Updates for 0.4.1
 
 - Fixed some major bugs to plot.simmr_output and compare_groups which caused the wrong groups to be selected
