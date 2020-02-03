@@ -175,9 +175,15 @@ summary.simmr_output_re =
     
       if ('diagnostics'%in%type) {
         # Print out gelman diagnostics of the output
-        cat('Gelman diagnostics - these values should all be close to 1.\n')
+        cat('Worst 10 Gelman diagnostics - these values should all be close to 1.\n')
         cat('If any are larger than 1.1, try a longer run of simmr_mcmc.\n')
-        print(round(out_bgr,2))
+        if(length(out_bgr) < 10) {
+          print(round(out_bgr,2))
+        } else {
+          o = order(out_bgr, decreasing = TRUE)[1:10]
+          print(round(out_bgr[o],2))
+        }
+        
       }
 
       if ('quantiles'%in%type) {
