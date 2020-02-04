@@ -174,10 +174,11 @@ function(x,
   # Iso-space plot is special as all groups go on one plot
   # Add in extra dots here as they can be sent to this plot function
   if('isospace' %in% type) graphics::plot(x$input,title=title,...)
-
+  
   # Prep data
   out = x$output$BUGSoutput$sims.matrix
   out_p = out[,grep('p\\[',colnames(out))]
+  for(i in 1:ncol(out_p)) if(all(out_p[,i]==0)) out_p[,i] = NA
   out_p_all = out[,grep('p_overall',colnames(out))]
   colnames(out_p_all) = x$input$source_names
   df_p = reshape2::melt(out_p)
