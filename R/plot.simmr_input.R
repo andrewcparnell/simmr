@@ -247,9 +247,11 @@ if(ncol(curr_mix)>1) {
 }
 
 if(x$n_groups==1) {
-  Source=factor(c(x$source_names,rep(mix_name,nrow(curr_mix))),levels=c(mix_name,x$source_names))
+  Source=factor(c(x$source_names,rep(mix_name,nrow(curr_mix))),levels=c(mix_name,x$source_names),
+                ordered = TRUE)
 } else {
-  Source=factor(c(x$source_names,paste(mix_name,x$group[curr_rows])),levels=c(paste(mix_name,unique(x$group[curr_rows])),x$source_names))
+  Source=factor(c(x$source_names,paste(mix_name,x$group[curr_rows])),levels=c(paste(mix_name,unique(x$group[curr_rows])),x$source_names),
+                ordered = TRUE)
 }
 size=c(rep(0.5,x$n_sources),rep(0.5,nrow(curr_mix)))
 
