@@ -1,4 +1,4 @@
-#' Compare dietary proportions for a single source across different groups
+#' Compare proportions for a single source across different groups
 #' 
 #' This function takes in an object of class \code{simmr_output_re} and creates
 #' probabilistic comparisons for a given source and a set of at least two
@@ -25,8 +25,8 @@
 #' @return If there are two groups, a vector containing the differences between
 #' the two groups proportions for that source. If there are multiple groups, a
 #' list containing the following fields: \item{Ordering }{The different
-#' possible orderings of the dietary proportions across groups} \item{out_all
-#' }{The dietary proportions for this source across the groups specified as
+#' possible orderings of the proportions across groups} \item{out_all
+#' }{The proportions for this source across the groups specified as
 #' columns in a matrix}
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc_group_re}} for complete examples.
@@ -198,7 +198,7 @@ if(length(groups)==2) {
     # Stupid fix for packaging ggplot things
     Group = Proportion = NULL
     df = data.frame(Proportion=c(out_all_grp_1,out_all_grp_2),Group=c(rep(paste(group_names[1]),length(out_all_grp_1)),rep(paste(group_names[2]),length(out_all_grp_2))))
-    p = ggplot(df,aes(x=Group,y=Proportion,fill=Group)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of dietary proportions for groups",group_names[1],'and',group_names[2],'for source',source_name))
+    p = ggplot(df,aes(x=Group,y=Proportion,fill=Group)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of proportions for groups",group_names[1],'and',group_names[2],'for source',source_name))
     print(p)
   }
   
@@ -237,7 +237,7 @@ if(length(groups)>2) {
       geom_boxplot(alpha=0.5,outlier.size=0) + 
       xlab('Group') +
       theme_bw() + theme(legend.position='none') + 
-      ggtitle(paste("Comparison of dietary proportions for source",source_name))
+      ggtitle(paste("Comparison of proportions for source",source_name))
     print(p)
   }
   

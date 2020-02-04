@@ -1,11 +1,11 @@
-#' Compare dietary proportions between multiple sources within a group
+#' Compare proportions between multiple sources within a group
 #' 
 #' This function takes in an object of class \code{simmr_output_re} and creates
 #' probabilistic comparisons between the supplied sources. The group number can
 #' also be specified.
 #' 
 #' When two sources are specified, the function produces a direct calculation
-#' of the probability that the dietary proportion for one source is bigger than
+#' of the probability that the proportion for one source is bigger than
 #' the other. When more than two sources are given, the function produces a set
 #' of most likely probabilistic orderings for each combination of sources. The
 #' function produces boxplots by default and also allows for the storage of the
@@ -24,10 +24,10 @@
 #' @importFrom reshape2 "melt"
 #' 
 #' @return If there are two sources, a vector containing the differences
-#' between the two dietary proportion proportions for these two sources. If
+#' between the two proportion proportions for these two sources. If
 #' there are multiple sources, a list containing the following fields:
-#' \item{Ordering }{The different possible orderings of the dietary proportions
-#' across sources} \item{out_all }{The dietary proportions for these sources
+#' \item{Ordering }{The different possible orderings of the proportions
+#' across sources} \item{out_all }{The proportions for these sources
 #' specified as columns in a matrix}
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
@@ -166,7 +166,7 @@ compare_sources.simmr_output_re = function(simmr_out,
 # Function to compare between sources within a group both via textual output and with boxplots
 # Things to do are:
 # If two sources are given: 
-#   - provide the probability of one group having higher dietary proportion than the other
+#   - provide the probability of one group having higher proportion than the other
 #   - give the probability distribution of the difference
 #   - optional boxplot of two 
 # If more than two sources are given:
@@ -197,7 +197,7 @@ if(length(source_names)==2) {
     # Stupid fix for packaging ggplot things
     Source = Proportion = NULL
     df = data.frame(Proportion=c(out_all_src_1,out_all_src_2),Source=c(rep(source_names[1],length(out_all_src_1)),rep(source_names[2],length(out_all_src_2))))
-    p = ggplot(df,aes(x=Source,y=Proportion,fill=Source)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of dietary proportions for sources",source_names[1],'and',source_names[2],'in group',group_name))
+    p = ggplot(df,aes(x=Source,y=Proportion,fill=Source)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of proportions for sources",source_names[1],'and',source_names[2],'in group',group_name))
     print(p)
   }
   
@@ -237,7 +237,7 @@ if(length(source_names)>2) {
       geom_boxplot(alpha=0.5,outlier.size=0) + 
       theme_bw() + 
       theme(legend.position='none') + 
-      ggtitle(paste("Comparison of dietary proportions between sources for group",group_name))
+      ggtitle(paste("Comparison of proportions between sources for group",group_name))
     print(p)
   }
   

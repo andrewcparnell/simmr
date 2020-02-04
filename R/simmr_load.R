@@ -167,7 +167,9 @@ simmr_load = function(mixtures,
     # Allow for the group to be a factor variable
     
     #if(!is.integer(group)) stop("group variable needs to be of integer type. Perhaps use as.integer?")
-    group = as.factor(group)
+    group = factor(group, 
+                   levels = unique(group),
+                   ordered = TRUE)
     group_int = as.integer(group)
     if (min(group_int) != 1)
       stop("Group integers must start at 1")
