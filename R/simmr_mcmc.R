@@ -2,8 +2,7 @@
 #' Carlo (MCMC) function
 #' 
 #' This is the main function of simmr. It takes a \code{simmr_input} object
-#' created via \code{\link{simmr_load}}, runs an MCMC to determine the dietary
-#' proportions, and then outputs a \code{simmr_output} object for further
+#' created via \code{\link{simmr_load}}, runs an MCMC to determine the #' proportions, and then outputs a \code{simmr_output} object for further
 #' analysis and plotting via \code{\link{summary.simmr_output}} and
 #' \code{\link{plot.simmr_output}}.
 #' 
@@ -15,7 +14,7 @@
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
 #' @param prior_control A list of values including arguments named \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
-#' dietary proportions in centralised log-ratio space. These can usually be
+#' proportions in centralised log-ratio space. These can usually be
 #' left at their default values unless you wish to include to include prior
 #' information, in which case you should use the function
 #' \code{\link{simmr_elicit}}.

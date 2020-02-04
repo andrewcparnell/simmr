@@ -8,7 +8,7 @@
 #' 'correlations' which produces correlations between the parameters.
 #' 
 #' The quantile output allows easy calculation of 95 per cent credible
-#' intervals of the posterior dietary proportions. The Gelman diagnostic values should be close to 1 to ensure satisfactory convergence.
+#' intervals of the posterior proportions. The Gelman diagnostic values should be close to 1 to ensure satisfactory convergence.
 #' 
 #' Multiple groups are not currently supported for estimating TDFs.
 #' 

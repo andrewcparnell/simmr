@@ -6,7 +6,19 @@ Date: 2020-02-03
 Author: Andrew Parnell
 Language: en-US
 Maintainer: Andrew Parnell <andrew.parnell@mu.ie>
-Description: Fits Stable Isotope Mixing Models (SIMMs) and is meant as a longer term replacement to the previous widely-used package SIAR. SIMMs are used to infer dietary proportions of organisms consuming various food sources from observations on the stable isotope values taken from the organisms' tissue samples. However SIMMs can also be used in other scenarios, such as in sediment mixing or the composition of fatty acids. The main functions are simmr_load and simmr_mcmc. The two vignettes contain a quick start and a full listing of all the features. The methods used are detailed in the papers Parnell et al 2010 <doi:10.1371/journal.pone.0009672>, and Parnell et al 2013 <doi:10.1002/env.2221>.
+Description: Fits Stable Isotope Mixing Models (SIMMs) and is meant as a 
+longer term replacement to the previous widely-used package SIAR. SIMMs 
+are used to infer proportional contribtuions of mixtures made up 
+various sources from observations on mixtures themselves. A common 
+application is when the mixtures are organisms' stable isotope values 
+taken from their tissue and the sources are the stable isotope values 
+taken from the organisms' food. SIMMs can also be used in other 
+scenarios, such as in sediment mixing or the composition of fatty 
+acids. The main functions are simmr_load and simmr_mcmc. 
+The two vignettes contain a quick start and a full listing of 
+all the features. The methods used are detailed in the papers 
+Parnell et al 2010 <doi:10.1371/journal.pone.0009672>, 
+and Parnell et al 2013 <doi:10.1002/env.2221>.
 Depends: R (>= 3.2.2), R2jags, ggplot2
 Imports:    
     MASS,
