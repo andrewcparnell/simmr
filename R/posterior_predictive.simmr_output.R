@@ -3,7 +3,8 @@
 #' This function takes the output from \code{\link{simmr_mcmc}} and plots the posterior predictive distribution to enable visualisation of model fit. The simulated posterior predicted values are returned as part of the object and can be saved for external use
 #'
 #' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}}
-#' @param group Which group to run it for (currently only numeric rather than group names)
+#' @param group_num Which group number(s) to plot. Defaults to first group
+#' @param group_name Which group name(s) to plot.
 #' @param prob The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)
 #' @param plot_ppc Whether to create a bayesplot of the posterior predictive or not. 
 #'
@@ -46,22 +47,38 @@
 #' post_pred = posterior_predictive(simmr_1_out)
 #' }
 posterior_predictive = function(simmr_out,
-                                group = 1,
+                                group_num = 1,
+                                group_name = NULL,
                                 prob = 0.5,
                                 plot_ppc = TRUE) {
   UseMethod('posterior_predictive')
 }  
 #' @export
 posterior_predictive.simmr_output = function(simmr_out,
-                                             group = 1,
+                                             group_num = 1,
+                                             group_name = NULL,
                                              prob = 0.5,
                                              plot_ppc = TRUE) {
+  
+  # Get the groups to use - always specify in terms of numbers
+  # Convert to group numbers if necessary
+  if(!is.null(group_name)) {
+    group_num = match(group_name, levels(simmr_out$input$group))
+    if(any(is.na(group_num))) {
+      print(data.frame(Name = unique(simmr_out$input$group), 
+                       Number = unique(simmr_out$input$group_int)))
+      stop("group_name not found in simmr input object. See table above for group names/numbers")
+    }
+  }
+  group = group_num
   
 # Can't do more than 1 group for now
 if(length(group) > 1) stop("Multiple groups not supported")
 # Get the original jags script
 model_string_old = simmr_out$output[[group]]$model$model()
-  
+
+
+
 # Plug in y_pred
 copy_lines = model_string_old[6]
 copy_lines = sub("y\\[i","y_pred\\[i",copy_lines)

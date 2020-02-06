@@ -20,7 +20,8 @@
 #' function \code{\link{simmr_mcmc}}
 #' @param type The type of output required. At least none of 'diagnostics',
 #' 'quantiles', 'statistics', or 'correlations'.
-#' @param group Which group or groups the output is required for.
+#' @param group_num Which group number(s) to plot. Defaults to first group
+#' @param group_name Which group name(s) to plot.
 #' @param ...  Not used
 #' @return An list containing the following components: \item{gelman }{The
 #' convergence diagnostics} \item{quantiles }{The quantiles of each parameter
@@ -76,11 +77,27 @@
 #' }
 #' @export
 summary.simmr_output =
-  function(object,type=c('diagnostics','quantiles','statistics','correlations'),group=1,...) {
+  function(object,
+           type=c('diagnostics','quantiles','statistics','correlations'),
+           group_num = 1,
+           group_name = NULL,
+           ...) {
 
     # Get the specified type
     type=match.arg(type,several.ok=TRUE)
 
+    # Get the groups to use - always specify in terms of numbers
+    # Convert to group numbers if necessary
+    if(!is.null(group_name)) {
+      group_num = match(group_name, levels(object$input$group))
+      if(any(is.na(group_num))) {
+        print(data.frame(Name = unique(object$input$group), 
+                         Number = unique(object$input$group_int)))
+        stop("group_name not found in simmr input object. See table above for group names/numbers")
+      }
+    }
+    group = group_num
+    
     # Set up containers
     out_bgr = out_quantiles = out_statistics = out_cor = vector('list',length=length(group))
     group_names = levels(object$input$group)

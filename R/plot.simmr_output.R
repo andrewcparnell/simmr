@@ -13,7 +13,8 @@
 #' \code{\link{simmr_mcmc}}
 #' @param type The type of plot required. Can be one or more of 'histogram',
 #' 'density', 'matrix', or 'boxplot'
-#' @param group Which group(s) to plot.
+#' @param group_num Which group number(s) to plot. Defaults to all groups
+#' @param group_name Which group name(s) to plot.
 #' @param binwidth The width of the bins for the histogram. Defaults to 0.05
 #' @param alpha The degree of transparency of the plots. Not relevant for
 #' matrix plots
@@ -80,7 +81,8 @@ function(x,
                   'density',
                   'matrix',
                   'boxplot'),
-         group = 1,
+         group_num = 1:x$input$n_groups,
+         group_name = NULL,
          binwidth = 0.05,
          alpha = 0.5,
          title = if(length(group)==1){ 'simmr output plot'} else {paste('simmr output plot: group',group)},
@@ -90,6 +92,18 @@ function(x,
   # Get the specified type
   type=match.arg(type,several.ok=TRUE)
 
+  # Get the groups to use - always specify in terms of numbers
+  # Convert to group numbers if necessary
+  if(!is.null(group_name)) {
+    group_num = match(group_name, levels(x$input$group))
+    if(any(is.na(group_num))) {
+      print(data.frame(Name = unique(x$input$group), 
+                       Number = unique(x$input$group_int)))
+      stop("group_name not found in simmr input object. See table above for group names/numbers")
+    }
+  }
+  group = group_num
+  
   # Iso-space plot is special as all groups go on one plot
   # Add in extra dots here as they can be sent to this plot function
   if('isospace' %in% type) graphics::plot(x$input,group=group,title=title,...)

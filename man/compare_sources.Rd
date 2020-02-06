@@ -2,19 +2,21 @@
 % Please edit documentation in R/compare_sources.R, R/compare_sources_re.R
 \name{compare_sources}
 \alias{compare_sources}
-\title{Compare dietary proportions between multiple sources}
+\title{Compare proportions between multiple sources}
 \usage{
 compare_sources(
   simmr_out,
   source_names = simmr_out$input$source_names,
-  group = 1,
+  group_num = 1,
+  group_name = NULL,
   plot = TRUE
 )
 
 compare_sources(
   simmr_out,
   source_names = simmr_out$input$source_names,
-  group = 1,
+  group_num = 1,
+  group_name = NULL,
   plot = TRUE
 )
 }
@@ -25,25 +27,26 @@ compare_sources(
 \item{source_names}{The names of at least two sources. These should match
 the names exactly given to \code{\link{simmr_load}}.}
 
-\item{group}{The integer values of the group numbers to be compared. If not
-specified assumes the first or only group}
+\item{group_num}{The integer values of the group numbers to be used}
+
+\item{group_name}{The names of the group to be used}
 
 \item{plot}{A logical value specifying whether plots should be produced or
 not.}
 }
 \value{
 If there are two sources, a vector containing the differences
-between the two dietary proportion proportions for these two sources. If
+between the two proportion proportions for these two sources. If
 there are multiple sources, a list containing the following fields:
-\item{Ordering }{The different possible orderings of the dietary proportions
-across sources} \item{out_all }{The dietary proportions for these sources
+\item{Ordering }{The different possible orderings of the proportions
+across sources} \item{out_all }{The proportions for these sources
 specified as columns in a matrix}
 
 If there are two sources, a vector containing the differences
-between the two dietary proportion proportions for these two sources. If
+between the two proportion proportions for these two sources. If
 there are multiple sources, a list containing the following fields:
-\item{Ordering }{The different possible orderings of the dietary proportions
-across sources} \item{out_all }{The dietary proportions for these sources
+\item{Ordering }{The different possible orderings of the proportions
+across sources} \item{out_all }{The proportions for these sources
 specified as columns in a matrix}
 }
 \description{
@@ -57,14 +60,14 @@ also be specified.
 }
 \details{
 When two sources are specified, the function produces a direct calculation
-of the probability that the dietary proportion for one source is bigger than
+of the probability that the proportion for one source is bigger than
 the other. When more than two sources are given, the function produces a set
 of most likely probabilistic orderings for each combination of sources. The
 function produces boxplots by default and also allows for the storage of the
 output for further analysis if required.
 
 When two sources are specified, the function produces a direct calculation
-of the probability that the dietary proportion for one source is bigger than
+of the probability that the proportion for one source is bigger than
 the other. When more than two sources are given, the function produces a set
 of most likely probabilistic orderings for each combination of sources. The
 function produces boxplots by default and also allows for the storage of the
@@ -218,7 +221,7 @@ simmr_in = simmr_load(mixtures=mix,
                      group=grp)
 
 # Plot
-plot(simmr_in,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
+plot(simmr_in,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
      ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
      title='Isospace plot of Inger et al Geese data')
 
@@ -236,13 +239,9 @@ plot(simmr_out,type='boxplot',title='simmr output boxplots')
 plot(simmr_out,type='histogram',title='simmr output histograms')
 
 # Compare sources within a group
-compare_sources(simmr_out,source_names=c('Zostera','U.lactuca'),group=2)
-compare_sources(simmr_out,group=2)
+compare_sources(simmr_out,source_names=c('Zostera','U.lactuca'),group_num=2)
+compare_sources(simmr_out,group_num=2)
 
-# Compare between groups
-compare_groups(simmr_out,source='Zostera',groups=1:2)
-compare_groups(simmr_out,source='Zostera',groups=1:3)
-compare_groups(simmr_out,source='U.lactuca',groups=c(4:5,7,2))
 }
 
 }

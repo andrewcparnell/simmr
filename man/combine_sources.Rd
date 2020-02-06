@@ -2,7 +2,7 @@
 % Please edit documentation in R/combine_sources.R
 \name{combine_sources}
 \alias{combine_sources}
-\title{Combine the dietary proportions from two food sources after running simmr}
+\title{Combine the proportions from two food sources after running simmr}
 \usage{
 combine_sources(
   simmr_out,

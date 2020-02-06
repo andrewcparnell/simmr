@@ -3,7 +3,8 @@
 #' This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or as part of \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
 #' 
 #' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}}
-#' @param group Which group to run it for (currently only numeric rather than group names)
+#' @param group_num Which group number(s) to plot. Defaults to all groups
+#' @param group_name Which group name(s) to plot.
 #' @param plot Whether to create a density plot of the prior or not. The simulated prior values are returned as part of the object
 #' @param include_posterior Whether to include the posterior distribution on top of the priors. Defaults to TRUE
 #' @param n_sims The number of simulations from the prior distribution
@@ -47,7 +48,8 @@
 #' summary(prior)
 #' }
 prior_viz = function(simmr_out,
-                     group = 1,
+                     group_num = 1,
+                     group_name = NULL,
                      plot = TRUE,
                      include_posterior = TRUE,
                      n_sims = 10000) {
@@ -55,11 +57,23 @@ prior_viz = function(simmr_out,
 }  
 #' @export
 prior_viz.simmr_output = function(simmr_out,
-                                  group = 1,
+                                  group_num = 1,
+                                  group_name = NULL,
                                   plot = TRUE,
                                   include_posterior = TRUE,
                                   n_sims = 10000) {
 
+  # Get the groups to use - always specify in terms of numbers
+  # Convert to group numbers if necessary
+  if(!is.null(group_name)) {
+    group_num = match(group_name, levels(simmr_out$group))
+    if(any(is.na(group_num))) {
+      print(data.frame(Name = unique(simmr_out$group), Number = unique(simmr_out$group_int)))
+      stop("group_name not found in simmr input object. See table above for group names/numbers")
+    }
+  }
+  group = group_num
+  
   # Can't do more than 1 group for now
   if(length(group) > 1) stop("Multiple groups not supported")
   

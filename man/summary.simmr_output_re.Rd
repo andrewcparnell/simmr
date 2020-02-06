@@ -38,7 +38,7 @@ which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
 }
 \details{
 The quantile output allows easy calculation of 95 per cent credible
-intervals of the posterior dietary proportions. The correlations, along with
+intervals of the posterior proportions. The correlations, along with
 the matrix plot in \code{\link{plot.simmr_output_re}} allow the user to judge
 which sources are non-identifiable. The Gelman diagnostic values should be
 close to 1 to ensure satisfactory convergence.

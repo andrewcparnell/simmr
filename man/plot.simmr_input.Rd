@@ -11,7 +11,8 @@
   xlab = colnames(x$mixtures)[tracers[1]],
   ylab = colnames(x$mixtures)[tracers[2]],
   sigmas = 1,
-  group = 1,
+  group_num = 1:x$n_groups,
+  group_name = NULL,
   mix_name = "Mixtures",
   ggargs = NULL,
   colour = TRUE,
@@ -36,7 +37,9 @@ per mil but can be changed as with the x-axis label}
 \item{sigmas}{The number of standard deviations to plot on the source
 values. Defaults to 1.}
 
-\item{group}{Which groups to plot. Can be a single group or multiple groups}
+\item{group_num}{Which group number(s) to plot. Defaults to all groups}
+
+\item{group_name}{Which group name(s) to plot.}
 
 \item{mix_name}{A optional string containing the name of the mixture
 objects, e.g. Geese.}
@@ -227,7 +230,7 @@ simmr_4 = simmr_load(mixtures=mix,
 simmr_4
 
 # Plot
-plot(simmr_4,group=1:8,title='Isospace plot of Inger et al Geese data')
+plot(simmr_4,title='Isospace plot of Inger et al Geese data')
 
 
 }

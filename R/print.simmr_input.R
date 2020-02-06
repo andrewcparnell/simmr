@@ -11,11 +11,18 @@ function(x,...) {
   cat(paste(x$n_obs,'observations, '))
   cat(paste(x$n_tracers,'tracers, and '))
   cat(paste(x$n_sources,'sources.\n'))
-  if(x$n_groups>1) cat(paste('There are',x$n_groups,'groups.\n'))
   cat('The source names are: ')
   cat(x$source_names,sep=', ')
   cat('.\n')
   cat('The tracer names are: ')
   cat(colnames(x$mixtures), sep = ', ')
-  cat('.\n\n')
+  cat('.\n')
+  if(x$n_groups>1) {
+    cat(paste('There are',x$n_groups,'groups.\n'))
+    cat('The group names and numbers are:\n')
+    df = data.frame(Name = unique(x$group), Number = unique(x$group_int))
+    print(df)
+  }
+  cat('\n')
+  
 }

@@ -41,7 +41,7 @@ functions.}
 \description{
 This function allows multiple groups to be run through simmr with the group
 variable treated as a random effect. It takes a \code{simmr_input} object
-created via \code{\link{simmr_load}}, runs an MCMC to determine the dietary
+created via \code{\link{simmr_load}}, runs an MCMC to determine the 
 proportions, and then outputs a \code{simmr_output_re} object for further
 analysis and plotting via \code{\link{summary.simmr_output_re}} and
 \code{\link{plot.simmr_output_re}}.
@@ -137,6 +137,8 @@ grp = paste('day', (c(1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
         7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 
         7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 
         8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8)))
+
+
 
 # Load this in:
 simmr_in = simmr_load(mixtures=mix,

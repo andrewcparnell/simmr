@@ -15,8 +15,8 @@
 #' \code{\link{simmr_mcmc_group_re}}.
 #' @param source_names The names of at least two sources. These should match
 #' the names exactly given to \code{\link{simmr_load}}.
-#' @param group The integer values of the group numbers to be compared. If not
-#' specified assumes the first or only group
+#' @param group_num The integer values of the group numbers to be used 
+#' @param group_name The names of the group to be used
 #' @param plot A logical value specifying whether plots should be produced or
 #' not.
 #' 
@@ -123,7 +123,7 @@
 #'                      group=grp)
 #' 
 #' # Plot
-#' plot(simmr_in,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
+#' plot(simmr_in,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
 #'      ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
 #'      title='Isospace plot of Inger et al Geese data')
 #' 
@@ -141,26 +141,24 @@
 #' plot(simmr_out,type='histogram',title='simmr output histograms')
 #' 
 #' # Compare sources within a group
-#' compare_sources(simmr_out,source_names=c('Zostera','U.lactuca'),group=2)
-#' compare_sources(simmr_out,group=2)
+#' compare_sources(simmr_out,source_names=c('Zostera','U.lactuca'),group_num=2)
+#' compare_sources(simmr_out,group_num=2)
 #' 
-#' # Compare between groups
-#' compare_groups(simmr_out,source='Zostera',groups=1:2)
-#' compare_groups(simmr_out,source='Zostera',groups=1:3)
-#' compare_groups(simmr_out,source='U.lactuca',groups=c(4:5,7,2))
 #' }
 #' 
 #' @export
 compare_sources = function(simmr_out,
                            source_names = simmr_out$input$source_names,
-                           group = 1,
+                           group_num = 1,
+                           group_name = NULL,
                            plot = TRUE) {
   UseMethod('compare_sources')
 }  
 #' @export
 compare_sources.simmr_output_re = function(simmr_out,
                            source_names = simmr_out$input$source_names,
-                           group = 1,
+                           group_num = 1,
+                           group_name = NULL,
                            plot = TRUE) {
 
 # Function to compare between sources within a group both via textual output and with boxplots
@@ -178,6 +176,17 @@ if(length(source_names)==1) stop("Use compare_groups if you want to compare a si
   
 # Throw an error if the source name given doesn't match the source names
 if(!all(source_names%in%simmr_out$input$source_names)) stop("Some source names not found in the current source names. Be sure to check case and spelling")
+  
+  # Get group numbers
+  if(!is.null(group_name)) {
+    group_num = match(group_name, levels(simmr_out$input$group))
+    if(any(is.na(group_num))) {
+      print(data.frame(Name = unique(simmr_out$input$group), 
+                       Number = unique(simmr_out$input$group_int)))
+      stop("group_name not found in simmr input object. See table above for group names/numbers")
+    }
+  }
+  group = group_num 
   
 # Start with two groups version
 if(length(source_names)==2) {

@@ -7,7 +7,8 @@
 \method{summary}{simmr_output}(
   object,
   type = c("diagnostics", "quantiles", "statistics", "correlations"),
-  group = 1,
+  group_num = 1,
+  group_name = NULL,
   ...
 )
 }
@@ -18,7 +19,9 @@ function \code{\link{simmr_mcmc}}}
 \item{type}{The type of output required. At least none of 'diagnostics',
 'quantiles', 'statistics', or 'correlations'.}
 
-\item{group}{Which group or groups the output is required for.}
+\item{group_num}{Which group number(s) to plot. Defaults to first group}
+
+\item{group_name}{Which group name(s) to plot.}
 
 \item{...}{Not used}
 }
@@ -41,7 +44,7 @@ which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
 }
 \details{
 The quantile output allows easy calculation of 95 per cent credible
-intervals of the posterior dietary proportions. The correlations, along with
+intervals of the posterior proportions. The correlations, along with
 the matrix plot in \code{\link{plot.simmr_output}} allow the user to judge
 which sources are non-identifiable. The Gelman diagnostic values should be
 close to 1 to ensure satisfactory convergence.

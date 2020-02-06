@@ -15,8 +15,8 @@
 #' \code{\link{simmr_mcmc}}.
 #' @param source_names The names of at least two sources. These should match
 #' the names exactly given to \code{\link{simmr_load}}.
-#' @param group The integer values of the group numbers to be compared. If not
-#' specified assumes the first or only group
+#' @param group_num The integer values of the group numbers to be used 
+#' @param group_name The names of the group to be used
 #' @param plot A logical value specifying whether plots should be produced or
 #' not.
 #' 
@@ -91,14 +91,16 @@
 #' @export
 compare_sources = function(simmr_out,
                            source_names = simmr_out$input$source_names,
-                           group = 1,
+                           group_num = 1,
+                           group_name = NULL,
                            plot = TRUE) {
   UseMethod('compare_sources')
 }  
 #' @export
 compare_sources.simmr_output = function(simmr_out,
                            source_names = simmr_out$input$source_names,
-                           group = 1,
+                           group_num = 1,
+                           group_name = NULL,
                            plot = TRUE) {
 
 # Function to compare between sources within a group both via textual output and with boxplots
@@ -113,6 +115,19 @@ compare_sources.simmr_output = function(simmr_out,
   
 # Throw an error if only one group is specified
 if(length(source_names)==1) stop("Use compare_groups if you want to compare a single source between groups.")
+  
+  if(!is.null(group_name)) {
+    group_num = match(group_name, levels(simmr_out$input$group))
+    if(any(is.na(group_num))) {
+      print(data.frame(Name = unique(simmr_out$input$group), 
+                       Number = unique(simmr_out$input$group_int)))
+      stop("group_name not found in simmr input object. See table above for group names/numbers")
+    }
+  }
+  group = group_num  
+  
+  # Throw an error if more than 1 group is specified
+  #if(length(groups)>1) stop("Please use plot(...) or summary(...) if you  want to look at one group.")  
   
 # Throw an error if the source name given doesn't match the source names
 if(!all(source_names%in%simmr_out$input$source_names)) stop("Some source names not found in the current source names. Be sure to check case and spelling")
