@@ -9,5 +9,4 @@ before_install:
 r_github_packages: r-lib/revdepcheck
 after_success:
   - Rscript -e 'covr::codecov(quiet = FALSE)'
-  - Rscript -e 'revdepcheck::revdep_check(num_workers = 4)'
 warnings_are_errors: false
