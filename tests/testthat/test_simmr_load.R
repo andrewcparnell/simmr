@@ -31,3 +31,5 @@ test_that('simplest example', {
   expect_identical(class(simmr_1$concentration_means), 'matrix')
 
 })
+
+
