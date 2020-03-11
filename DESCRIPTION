@@ -35,9 +35,12 @@ Imports:
 Encoding: UTF-8
 License: GPL (>=2)
 LazyData: TRUE
-Suggests: knitr,
+Suggests: 
+    knitr,
     rmarkdown,
-    readxl
+    readxl,
+    testthat,
+    covr
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2016-01-18 12:00:00 UTC; aparnell
