@@ -37,7 +37,7 @@ test_that('1D simmr plot', {
   
   # Plot 3 times - first default d13C vs d15N 
   expect_s3_class(plot(simmr_2), 'ggplot')
-  expect_s3_class(plot(simmr_3, colour = FALSE), 'ggplot')
+  expect_s3_class(plot(simmr_2, colour = FALSE), 'ggplot')
 })
 
 test_that('Multi-groups plot', {
