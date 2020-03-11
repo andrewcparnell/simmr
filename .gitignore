@@ -38,9 +38,20 @@ vignettes/*.pdf
 
 # Compiled files
 src/*.so
-Src/*.o
+src/*.o
+src/*.gcda
 
 # Latex files
 *.aux
 *.log
 *.synctex.gz
+
+# Revdep things
+revdep/checks
+revdep/library
+revdep/checks.noindex
+revdep/library.noindex
+revdep/data.sqlite
+doc
+Meta
+
