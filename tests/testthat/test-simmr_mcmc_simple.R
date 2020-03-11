@@ -26,7 +26,11 @@ test_that('simmr_mcmc_simplest', {
                        correction_sds=c_sds,
                        concentration_means = conc)
   # MCMC run
-  simmr_1_out = simmr_mcmc(simmr_1)
+  simmr_1_out = simmr_mcmc(simmr_1,
+                           mcmc_control = list(iter = 100, 
+                                               burn = 10, 
+                                               thin = 1, 
+                                               n.chain = 2))
   expect_s3_class(simmr_1_out, 'simmr_output')
   
 })
@@ -44,7 +48,11 @@ test_that('simmr_mcmc_1obs', {
   
 
   # MCMC run - automatically detects the single observation
-  simmr_2_out = simmr_mcmc(simmr_2)
+  simmr_2_out = simmr_mcmc(simmr_2,
+                           mcmc_control = list(iter = 100, 
+                                               burn = 10, 
+                                               thin = 1, 
+                                               n.chain = 2))
   expect_s3_class(simmr_2_out, 'simmr_output')
   
 })
