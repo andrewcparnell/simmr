@@ -106,7 +106,7 @@ function(x,
   
   # Iso-space plot is special as all groups go on one plot
   # Add in extra dots here as they can be sent to this plot function
-  if('isospace' %in% type) graphics::plot(x$input,group=group,title=title,...)
+  if('isospace' %in% type) graphics::plot(x$input,group_num=group,title=title,...)
 
   # Get group names
   group_names = levels(x$input$group)[group]

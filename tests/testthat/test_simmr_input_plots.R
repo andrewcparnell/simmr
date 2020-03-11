@@ -21,34 +21,12 @@ simmr_1 = simmr_load(mixtures=mix,
 
 test_that("basic simmr_input plot", {
   expect_s3_class(plot(simmr_1), 'ggplot')
+  expect_s3_class(plot(simmr_1, colour = FALSE), 'ggplot')
+  expect_s3_class(plot(simmr_1,tracers=c(2,1)), 'ggplot')
 })
 
-test_that('More complicated simmr plot', {
-  mix = matrix(c(-11.67, -12.55, -13.18, -12.6, -11.77, -11.21, -11.45, 
-                 -12.73, -12.49, -10.6, -12.26, -12.48, -13.07, -12.67, -12.26, 
-                 -13.12, -10.83, -13.2, -12.24, -12.85, -11.65, -11.84, -13.26, 
-                 -12.56, -12.97, -12.18, -12.76, -11.53, -12.87, -12.49, 7.79, 
-                 7.85, 8.25, 9.06, 9.13, 8.56, 8.03, 7.74, 8.16, 8.43, 7.9, 8.32, 
-                 7.85, 8.14, 8.74, 9.17, 7.33, 8.06, 8.06, 8.03, 8.16, 7.24, 7.24, 
-                 8, 8.57, 7.98, 7.2, 8.13, 7.78, 8.21, 11.31, 10.92, 11.3, 11, 
-                 12.21, 11.52, 11.05, 11.05, 11.56, 11.78, 12.3, 10.87, 10.35, 
-                 11.66, 11.46, 11.55, 11.41, 12.01, 11.97, 11.5, 11.18, 11.49, 
-                 11.8, 11.63, 10.99, 12, 10.63, 11.27, 11.81, 12.25), ncol=3, nrow=30)
-  colnames(mix) = c('d13C','d15N','d34S')
-  s_names = c('Source A', 'Source B', 'Source C', 'Source D') 
-  s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96, 
-                     10.35, 7.51, 10.31, 9), ncol=3, nrow=4)
-  s_sds = matrix(c(0.46, 0.39, 0.42, 0.48, 0.44, 0.37, 0.49, 0.47, 0.49, 
-                   0.42, 0.41, 0.42), ncol=3, nrow=4)
-  c_means = matrix(c(1.3, 1.58, 0.81, 1.7, 1.73, 1.83, 1.69, 3.2, 0.67, 
-                     2.99, 3.38, 1.31), ncol=3, nrow=4)
-  c_sds = matrix(c(0.32, 0.64, 0.58, 0.46, 0.61, 0.55, 0.47, 0.45, 0.34, 
-                   0.45, 0.37, 0.49), ncol=3, nrow=4)
-  conc = matrix(c(0.05, 0.1, 0.06, 0.07, 0.07, 0.03, 0.07, 0.05, 0.1, 
-                  0.05, 0.12, 0.11), ncol=3, nrow=4)
-  
-  # Load this in:
-  simmr_3 = simmr_load(mixtures=mix,
+test_that('1D simmr plot', {
+  simmr_2 = simmr_load(mixtures=mix[1,,drop=FALSE], # drop required to keep the mixtures as a matrix 
                        source_names=s_names,
                        source_means=s_means,
                        source_sds=s_sds,
@@ -56,12 +34,10 @@ test_that('More complicated simmr plot', {
                        correction_sds=c_sds,
                        concentration_means = conc)
   
+  
   # Plot 3 times - first default d13C vs d15N 
-  expect_s3_class(plot(simmr_3), 'ggplot')
-  # Now plot d15N vs d34S
-  expect_s3_class(plot(simmr_3,tracers=c(2,3)), 'ggplot')
-  # and finally d13C vs d34S
-  expect_s3_class(plot(simmr_3,tracers=c(1,3)), 'ggplot')
+  expect_s3_class(plot(simmr_2), 'ggplot')
+  expect_s3_class(plot(simmr_3, colour = FALSE), 'ggplot')
 })
 
 test_that('Multi-groups plot', {
