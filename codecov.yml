@@ -1,5 +1,5 @@
 comment: false
-  codecov:
+codecov:
   token: 8f718f76-3f3d-4454-8d7c-6ca77b7f98f6
 
 language: R
