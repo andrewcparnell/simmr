@@ -318,7 +318,7 @@ simmr_groups = simmr_load(mixtures=mix,
                      correction_means=c_means,
                      correction_sds=c_sds,
                      concentration_means = conc,
-                     group=as.factor(paste('sampling period', grp)))
+                     group=as.factor(paste('sampling', grp)))
 ```
 
 When we create the isospace plot we can specify which groups we wish to plot:
