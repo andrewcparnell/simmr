@@ -1,6 +1,9 @@
 [![cran version](https://www.r-pkg.org/badges/version/simmr)](https://cran.rstudio.com/web/packages/simmr) 
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/simmr?)](https://github.com/metacran/cranlogs.app)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/grand-total/simmr?color=82b4e8)](https://github.com/metacran/cranlogs.app)
+[![Codecov test coverage](https://codecov.io/gh/andrewcparnell/simmr/branch/master/graph/badge.svg)](https://codecov.io/gh/andrewcparnell/simmr?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/andrewcparnell/simmr.svg?branch=master)](https://travis-ci.org/andrewcparnell/simmr)
+
 
 **Welcome to simmr!**
 
