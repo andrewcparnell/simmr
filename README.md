@@ -7,9 +7,7 @@
 
 **Welcome to simmr!**
 
-New: see the simmr website: http://andrewcparnell.github.io/simmr/
-
-simmr is a Bayesian stable isotope mixing model implemented in R which also uses [JAGS](https://mcmc-jags.sourceforge.net). It is intended as a replacement to the [SIAR](https://github.com/AndrewLJackson/siar) package. 
+[simmr](http://andrewcparnell.github.io/simmr/) is a Bayesian stable isotope mixing model implemented in R which also uses [JAGS](https://mcmc-jags.sourceforge.net). It is intended as a replacement to the [SIAR](https://github.com/AndrewLJackson/siar) package. 
 
 If you want the official stable version of the package from CRAN then go to R and type:
 
