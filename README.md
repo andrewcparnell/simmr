@@ -26,8 +26,8 @@ vignette("quick_start")
 Alternatively you can install the latest development version of the package in R with the commands:
 
 ```
-if(!require(devtools)) install.packages('devtools')
-devtools::install_github('andrewcparnell/simmr',build_vignettes =TRUE)
+if(!require(remotes)) install.packages('remotes')
+remotes::install_github('andrewcparnell/simmr',build_vignettes =TRUE)
 ```
 
 You can then load the package with
