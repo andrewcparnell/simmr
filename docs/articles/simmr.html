@@ -210,7 +210,7 @@
 </div>
 <div id="step-3-running-simmr" class="section level3">
 <h3 class="hasAnchor">
-<a href="#step-3-running-simmr" class="anchor"></a>Step 3: running simmr</h3>
+<a href="#step-3-running-simmr" class="anchor"></a>Step 3: Running simmr</h3>
 <p>The next step is to actually run the model. This is achieved with the command:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">simmr_out</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span>(<span class="no">simmr_in</span>)</pre></body></html></div>
 <pre><code>## module glm loaded</code></pre>
@@ -219,7 +219,7 @@
 </div>
 <div id="step-4-checking-the-algorithm-converged" class="section level3">
 <h3 class="hasAnchor">
-<a href="#step-4-checking-the-algorithm-converged" class="anchor"></a>Step 4: checking the algorithm converged</h3>
+<a href="#step-4-checking-the-algorithm-converged" class="anchor"></a>Step 4: Checking the algorithm converged</h3>
 <p>Markov chain Monte Carlo (MCMC) works by repeatedly guessing the values of the dietary proportions and find those values which fit the data best. The initial guesses are usually poor and are discarded as part of an initial phase known as the burn-in. Subsequent iterations are then stored and used for the <em>posterior distribution</em>; the best estimates of the dietary proportions given the data and the model. Because it can take many thousands of iterations to move away from the initial guesses, <em>convergence diagnostics</em> can be created to check the model has run properly. In <code>simmr</code> this is done with:</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">simmr_out</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'diagnostics'</span>)</pre></body></html></div>
 <pre><code>## 
@@ -234,7 +234,7 @@
 </div>
 <div id="step-5-checking-the-model-fit" class="section level3">
 <h3 class="hasAnchor">
-<a href="#step-5-checking-the-model-fit" class="anchor"></a>Step 5: checking the model fit</h3>
+<a href="#step-5-checking-the-model-fit" class="anchor"></a>Step 5: Checking the model fit</h3>
 <p>You can check the fit of the model with a posterior predictive check. This is similar to a fitted values plot in a linear regression. If the data points (denoted by the plot as <span class="math inline">\(y\)</span>) broadly lie in the fitted value intervals (denoted <span class="math inline">\(y_rep\)</span>; the default is a 50% interval) then the model is fitting well:</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">post_pred</span> <span class="kw">=</span> <span class="fu"><a href="../reference/posterior_predictive.html">posterior_predictive</a></span>(<span class="no">simmr_out</span>)</pre></body></html></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
@@ -243,7 +243,7 @@
 </div>
 <div id="step-6-exploring-the-results" class="section level3">
 <h3 class="hasAnchor">
-<a href="#step-6-exploring-the-results" class="anchor"></a>Step 6: exploring the results</h3>
+<a href="#step-6-exploring-the-results" class="anchor"></a>Step 6: Exploring the results</h3>
 <p>All SIMMs use informative (usually generalist) prior distributions as a default. You can plot the priors and the posteriors with:</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span>(<span class="no">simmr_out</span>)</pre></body></html></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
@@ -252,24 +252,24 @@
 <pre><code>## 
 ## Summary for 1 
 ##                mean    sd
-## deviance     36.331 3.175
-## Zostera       0.219 0.131
-## Grass         0.286 0.079
-## U.lactuca     0.275 0.032
-## Enteromorpha  0.220 0.122
-## sd[d13C]      0.553 0.234
-## sd[d15N]      0.433 0.232</code></pre>
+## deviance     36.338 3.219
+## Zostera       0.220 0.131
+## Grass         0.288 0.080
+## U.lactuca     0.277 0.032
+## Enteromorpha  0.216 0.119
+## sd[d13C]      0.553 0.233
+## sd[d15N]      0.427 0.234</code></pre>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">simmr_out</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'quantiles'</span>)</pre></body></html></div>
 <pre><code>## 
 ## Summary for 1 
 ##                2.5%    25%    50%    75%  97.5%
-## deviance     32.246 33.986 35.658 37.947 44.242
-## Zostera       0.030  0.111  0.200  0.311  0.500
-## Grass         0.147  0.229  0.281  0.335  0.454
-## U.lactuca     0.215  0.253  0.274  0.296  0.343
-## Enteromorpha  0.033  0.122  0.208  0.305  0.468
-## sd[d13C]      0.191  0.400  0.515  0.677  1.114
-## sd[d15N]      0.049  0.277  0.413  0.554  0.977</code></pre>
+## deviance     32.286 34.003 35.667 37.962 44.238
+## Zostera       0.030  0.116  0.199  0.306  0.509
+## Grass         0.142  0.233  0.283  0.337  0.462
+## U.lactuca     0.214  0.255  0.276  0.297  0.343
+## Enteromorpha  0.033  0.121  0.202  0.300  0.473
+## sd[d13C]      0.187  0.397  0.525  0.676  1.078
+## sd[d15N]      0.044  0.271  0.402  0.552  0.955</code></pre>
 <p>These suggest that the dietary proportions for this model are quite uncertain. However we can see that the credible interval for U.lactuca is the narrowest, running from approximately 20% to 35% of the diet. The reason this one is the narrowest can be seen from the isospace plot - this source is the most clearly separated from the others.</p>
 <p><code>simmr</code> can also produce histograms, boxplots, density plots, and matrix plots of the output. Starting with the density plot:</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">simmr_out</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'density'</span>)</pre></body></html></div>
@@ -282,7 +282,7 @@
 <p>If you want to compare the dietary proportions between two different sources, you can use the <code>compare_sources</code> function. This takes two or more sources and compares the dietary proportions with an optional plot. For example:</p>
 <div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span>(<span class="no">simmr_out</span>,
                 <span class="kw">source_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Zostera'</span>,<span class="st">'U.lactuca'</span>))</pre></body></html></div>
-<pre><code>## Prob ( proportion of Zostera &gt; proportion of U.lactuca ) = 0.337</code></pre>
+<pre><code>## Prob ( proportion of Zostera &gt; proportion of U.lactuca ) = 0.328</code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This produces a direct probability that the dietary proportion for the first source is bigger than that of the second. If you want to compare more than two sources, specify them with:</p>
 <div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span>(<span class="no">simmr_out</span>,
@@ -291,12 +291,12 @@
                                  <span class="st">'Enteromorpha'</span>))</pre></body></html></div>
 <pre><code>## Most popular orderings are as follows:
 ##                                    Probability
-## Zostera &gt; U.lactuca &gt; Enteromorpha      0.3011
-## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2869
-## U.lactuca &gt; Enteromorpha &gt; Zostera      0.2117
-## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1642
-## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0192
-## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0169</code></pre>
+## Zostera &gt; U.lactuca &gt; Enteromorpha      0.2914
+## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2697
+## U.lactuca &gt; Enteromorpha &gt; Zostera      0.2222
+## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1806
+## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0214
+## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0147</code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>For further information and options on comparing sources, see <code><a href="../reference/compare_sources.html">help(compare_sources)</a></code>.</p>
 </div>
@@ -342,75 +342,75 @@
 <pre><code>## 
 ## Summary for period 1 
 ##                2.5%    25%    50%    75%  97.5%
-## deviance     51.159 52.577 54.029 56.217 62.765
-## Zostera       0.387  0.520  0.597  0.675  0.814
-## Grass         0.034  0.059  0.072  0.086  0.118
-## U.lactuca     0.023  0.075  0.126  0.194  0.318
-## Enteromorpha  0.020  0.085  0.165  0.272  0.487
-## sd[]          0.052  0.508  0.883  1.291  2.458
-## sd[]          0.014  0.178  0.367  0.646  1.412</code></pre>
+## deviance     51.126 52.534 53.954 56.204 62.655
+## Zostera       0.384  0.522  0.599  0.675  0.810
+## Grass         0.032  0.057  0.071  0.086  0.116
+## U.lactuca     0.020  0.073  0.125  0.189  0.312
+## Enteromorpha  0.024  0.092  0.169  0.273  0.482
+## sd[]          0.067  0.510  0.878  1.302  2.457
+## sd[]          0.017  0.174  0.365  0.643  1.422</code></pre>
 <div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">simmr_groups_out</span>,
         <span class="kw">type</span> <span class="kw">=</span> <span class="st">'quantiles'</span>,
         <span class="kw">group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">3</span>))</pre></body></html></div>
 <pre><code>## 
 ## Summary for period 1 
 ##                2.5%    25%    50%    75%  97.5%
-## deviance     51.159 52.577 54.029 56.217 62.765
-## Zostera       0.387  0.520  0.597  0.675  0.814
-## Grass         0.034  0.059  0.072  0.086  0.118
-## U.lactuca     0.023  0.075  0.126  0.194  0.318
-## Enteromorpha  0.020  0.085  0.165  0.272  0.487
-## sd[]          0.052  0.508  0.883  1.291  2.458
-## sd[]          0.014  0.178  0.367  0.646  1.412
+## deviance     51.126 52.534 53.954 56.204 62.655
+## Zostera       0.384  0.522  0.599  0.675  0.810
+## Grass         0.032  0.057  0.071  0.086  0.116
+## U.lactuca     0.020  0.073  0.125  0.189  0.312
+## Enteromorpha  0.024  0.092  0.169  0.273  0.482
+## sd[]          0.067  0.510  0.878  1.302  2.457
+## sd[]          0.017  0.174  0.365  0.643  1.422
 ## 
 ## Summary for period 3 
 ##                 2.5%     25%     50%     75%   97.5%
-## deviance     454.624 456.485 458.095 460.305 466.940
-## Zostera        0.010   0.025   0.037   0.052   0.088
-## Grass          0.391   0.416   0.428   0.437   0.453
-## U.lactuca      0.282   0.392   0.437   0.471   0.519
-## Enteromorpha   0.016   0.052   0.091   0.144   0.289
-## sd[]           0.419   0.658   0.766   0.876   1.072
-## sd[]           0.007   0.076   0.159   0.266   0.540</code></pre>
+## deviance     454.626 456.436 458.104 460.279 466.858
+## Zostera        0.010   0.025   0.037   0.052   0.089
+## Grass          0.390   0.416   0.427   0.436   0.452
+## U.lactuca      0.277   0.390   0.434   0.469   0.522
+## Enteromorpha   0.014   0.052   0.093   0.149   0.299
+## sd[]           0.416   0.664   0.774   0.877   1.081
+## sd[]           0.007   0.073   0.155   0.261   0.528</code></pre>
 <div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">simmr_groups_out</span>,
         <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'quantiles'</span>,<span class="st">'statistics'</span>),
         <span class="kw">group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">3</span>))</pre></body></html></div>
 <pre><code>## 
 ## Summary for period 1 
 ##                2.5%    25%    50%    75%  97.5%
-## deviance     51.159 52.577 54.029 56.217 62.765
-## Zostera       0.387  0.520  0.597  0.675  0.814
-## Grass         0.034  0.059  0.072  0.086  0.118
-## U.lactuca     0.023  0.075  0.126  0.194  0.318
-## Enteromorpha  0.020  0.085  0.165  0.272  0.487
-## sd[]          0.052  0.508  0.883  1.291  2.458
-## sd[]          0.014  0.178  0.367  0.646  1.412
+## deviance     51.126 52.534 53.954 56.204 62.655
+## Zostera       0.384  0.522  0.599  0.675  0.810
+## Grass         0.032  0.057  0.071  0.086  0.116
+## U.lactuca     0.020  0.073  0.125  0.189  0.312
+## Enteromorpha  0.024  0.092  0.169  0.273  0.482
+## sd[]          0.067  0.510  0.878  1.302  2.457
+## sd[]          0.017  0.174  0.365  0.643  1.422
 ##                mean    sd
-## deviance     54.811 3.082
+## deviance     54.754 3.108
 ## Zostera       0.598 0.110
-## Grass         0.073 0.022
-## U.lactuca     0.140 0.082
-## Enteromorpha  0.189 0.126
-## sd[]          0.960 0.634
-## sd[]          0.462 0.386
+## Grass         0.072 0.021
+## U.lactuca     0.137 0.081
+## Enteromorpha  0.193 0.126
+## sd[]          0.960 0.623
+## sd[]          0.457 0.389
 ## 
 ## Summary for period 3 
 ##                 2.5%     25%     50%     75%   97.5%
-## deviance     454.624 456.485 458.095 460.305 466.940
-## Zostera        0.010   0.025   0.037   0.052   0.088
-## Grass          0.391   0.416   0.428   0.437   0.453
-## U.lactuca      0.282   0.392   0.437   0.471   0.519
-## Enteromorpha   0.016   0.052   0.091   0.144   0.289
-## sd[]           0.419   0.658   0.766   0.876   1.072
-## sd[]           0.007   0.076   0.159   0.266   0.540
+## deviance     454.626 456.436 458.104 460.279 466.858
+## Zostera        0.010   0.025   0.037   0.052   0.089
+## Grass          0.390   0.416   0.427   0.436   0.452
+## U.lactuca      0.277   0.390   0.434   0.469   0.522
+## Enteromorpha   0.014   0.052   0.093   0.149   0.299
+## sd[]           0.416   0.664   0.774   0.877   1.081
+## sd[]           0.007   0.073   0.155   0.261   0.528
 ##                 mean    sd
-## deviance     458.778 3.242
+## deviance     458.761 3.220
 ## Zostera        0.040 0.021
-## Grass          0.426 0.016
-## U.lactuca      0.427 0.061
-## Enteromorpha   0.107 0.073
-## sd[]           0.763 0.167
-## sd[]           0.188 0.142</code></pre>
+## Grass          0.425 0.016
+## U.lactuca      0.425 0.063
+## Enteromorpha   0.110 0.075
+## sd[]           0.768 0.167
+## sd[]           0.183 0.141</code></pre>
 <p>For plotting output with multiple groups you can only specify a single group to plot. This is so that you are not overwhelmed with plots:</p>
 <div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">simmr_groups_out</span>,
      <span class="kw">type</span> <span class="kw">=</span> <span class="st">'boxplot'</span>,
@@ -477,10 +477,10 @@
                <span class="kw">group</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">3</span>)</pre></body></html></div>
 <pre><code>## Most popular orderings are as follows:
 ##                                Probability
-## period 2 &gt; period 3 &gt; period 1      0.9511
-## period 2 &gt; period 1 &gt; period 3      0.0483
-## period 1 &gt; period 2 &gt; period 3      0.0003
-## period 3 &gt; period 2 &gt; period 1      0.0003</code></pre>
+## period 2 &gt; period 3 &gt; period 1      0.9483
+## period 2 &gt; period 1 &gt; period 3      0.0500
+## period 1 &gt; period 2 &gt; period 3      0.0008
+## period 3 &gt; period 2 &gt; period 1      0.0008</code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-26-4.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="running-simmr-with-only-one-isotope" class="section level2">
@@ -532,13 +532,13 @@
 <pre><code>## 
 ## Summary for 1 
 ##                2.5%    25%    50%    75%  97.5%
-## deviance     32.246 33.986 35.658 37.947 44.242
-## Zostera       0.030  0.111  0.200  0.311  0.500
-## Grass         0.147  0.229  0.281  0.335  0.454
-## U.lactuca     0.215  0.253  0.274  0.296  0.343
-## Enteromorpha  0.033  0.122  0.208  0.305  0.468
-## sd[d13C]      0.191  0.400  0.515  0.677  1.114
-## sd[d15N]      0.049  0.277  0.413  0.554  0.977</code></pre>
+## deviance     32.286 34.003 35.667 37.962 44.238
+## Zostera       0.030  0.116  0.199  0.306  0.509
+## Grass         0.142  0.233  0.283  0.337  0.462
+## U.lactuca     0.214  0.255  0.276  0.297  0.343
+## Enteromorpha  0.033  0.121  0.202  0.300  0.473
+## sd[d13C]      0.187  0.397  0.525  0.676  1.078
+## sd[d15N]      0.044  0.271  0.402  0.552  0.955</code></pre>
 <p>All these dietary proportions are very similar. We now suppose we had prior information (e.g. from stomach or fecal contents) that the mean dietary proportions were</p>
 <div class="sourceCode" id="cb55"><html><body><pre class="r"><span class="no">proportion_means</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.4</span>,<span class="fl">0.3</span>,<span class="fl">0.2</span>,<span class="fl">0.1</span>)</pre></body></html></div>
 <p>…and proportion standard deviations:</p>
@@ -550,9 +550,9 @@
 ## Mean optimisation successful.
 ## Standard deviation optimisation successful.
 ## Best fit estimates provide proportion means of:
-## 0.433 0.308 0.173 0.085
+## 0.44 0.296 0.185 0.079
 ## ... and best fit standard deviations of:
-## 0.048 0.027 0.015 0.025</code></pre>
+## 0.05 0.027 0.018 0.022</code></pre>
 <p>This may take a few moments to run as the code tries to optimise the parameters of a prior distribution which matches these means and standard deviations, which sometimes may not be exactly possible.</p>
 <p>When finished, the model can be run using these prior distributions:</p>
 <div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="no">simmr_out_informative</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span>(<span class="no">simmr_in</span>,
@@ -574,13 +574,13 @@
 <pre><code>## 
 ## Summary for 1 
 ##                2.5%    25%    50%    75%  97.5%
-## deviance     46.905 50.077 51.934 54.309 59.664
-## Zostera       0.306  0.358  0.388  0.419  0.480
-## Grass         0.284  0.320  0.338  0.355  0.388
-## U.lactuca     0.160  0.180  0.190  0.200  0.217
-## Enteromorpha  0.048  0.068  0.081  0.096  0.132
-## sd[d13C]      0.500  0.710  0.866  1.056  1.584
-## sd[d15N]      0.395  0.643  0.806  1.010  1.565</code></pre>
+## deviance     38.042 41.877 44.394 47.127 54.237
+## Zostera       0.310  0.358  0.386  0.414  0.472
+## Grass         0.275  0.308  0.323  0.339  0.369
+## U.lactuca     0.179  0.202  0.214  0.225  0.246
+## Enteromorpha  0.045  0.063  0.074  0.087  0.121
+## sd[d13C]      0.360  0.562  0.693  0.863  1.374
+## sd[d15N]      0.180  0.450  0.605  0.775  1.293</code></pre>
 <p>We can plot these priors with their posteriors</p>
 <div class="sourceCode" id="cb63"><html><body><pre class="r"><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span>(<span class="no">simmr_out_informative</span>)</pre></body></html></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-38-1.png" width="700"></p>
@@ -619,15 +619,15 @@
 <p>… and then look at the predicted TDFs:</p>
 <div class="sourceCode" id="cb70"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">simmr_tdf_out</span>,<span class="kw">type</span> <span class="kw">=</span> <span class="st">'quantiles'</span>)</pre></body></html></div>
 <pre><code>##               2.5%    25%    50%    75%  97.5%
-## c_mean[1,1]  2.100  2.469  2.625  2.771  3.115
-## c_mean[2,1]  2.100  2.469  2.625  2.771  3.115
-## c_mean[3,1]  2.100  2.469  2.625  2.771  3.115
-## c_mean[4,1]  2.100  2.469  2.625  2.771  3.115
-## c_sd[1,1]    0.162  0.573  0.830  1.103  1.825
-## c_sd[2,1]    0.162  0.573  0.830  1.103  1.825
-## c_sd[3,1]    0.162  0.573  0.830  1.103  1.825
-## c_sd[4,1]    0.162  0.573  0.830  1.103  1.825
-## deviance    16.971 17.827 19.093 21.268 27.923</code></pre>
+## c_mean[1,1]  2.116  2.475  2.627  2.778  3.109
+## c_mean[2,1]  2.116  2.475  2.627  2.778  3.109
+## c_mean[3,1]  2.116  2.475  2.627  2.778  3.109
+## c_mean[4,1]  2.116  2.475  2.627  2.778  3.109
+## c_sd[1,1]    0.169  0.584  0.831  1.107  1.840
+## c_sd[2,1]    0.169  0.584  0.831  1.107  1.840
+## c_sd[3,1]    0.169  0.584  0.831  1.107  1.840
+## c_sd[4,1]    0.169  0.584  0.831  1.107  1.840
+## deviance    16.997 17.825 19.076 21.173 27.884</code></pre>
 <p>We can put the predicted TDFs back into a new model and check that the iso-space plot now is correct</p>
 <div class="sourceCode" id="cb72"><html><body><pre class="r"><span class="no">simmr_tdf_2</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span>(<span class="kw">mixtures</span> <span class="kw">=</span> <span class="no">mix</span>,
                          <span class="kw">source_names</span> <span class="kw">=</span> <span class="no">s_names</span>,
@@ -646,11 +646,11 @@
 <div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">simmr_in</span>)</pre></body></html></div>
 <p>which will show their contents. The <code>simmr_out</code> object in particular allows for full access to all of the posterior dietary proportion samples. We can calculate for example the mean of the Zostera dietary proportion on the first (or only) group:</p>
 <div class="sourceCode" id="cb74"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">simmr_out</span>$<span class="no">output</span>$<span class="no">`1`</span>$<span class="no">BUGSoutput</span>$<span class="no">sims.list</span>$<span class="no">p</span>[,<span class="st">'Zostera'</span>])</pre></body></html></div>
-<pre><code>## [1] 0.2186732</code></pre>
+<pre><code>## [1] 0.21958</code></pre>
 <p>The backquotes around the 1 are required above because they specify which group (the first). We can thus find the probability that the posterior dietary proportion for Zostera is bigger than for Grass:</p>
 <div class="sourceCode" id="cb76"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">simmr_out</span>$<span class="no">output</span>$<span class="no">`1`</span>$<span class="no">BUGSoutput</span>$<span class="no">sims.list</span>$<span class="no">p</span>[,<span class="st">'Zostera'</span>]
      <span class="kw">&gt;</span> <span class="no">simmr_out</span>$<span class="no">output</span>$<span class="no">`1`</span>$<span class="no">BUGSoutput</span>$<span class="no">sims.list</span>$<span class="no">p</span>[,<span class="st">'Grass'</span>])</pre></body></html></div>
-<pre><code>## [1] 0.3388889</code></pre>
+<pre><code>## [1] 0.3255556</code></pre>
 <p>With more detailed R knowledge, it is possible to create scripts which run multiple data sets in richer fashions than the default <code>simmr</code> functions. See the help file <code><a href="../reference/simmr_mcmc.html">help(simmr_mcmc)</a></code> for a full list of examples.</p>
 </div>
 <div id="appendix---suggested-reading" class="section level2">
