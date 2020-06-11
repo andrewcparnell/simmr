@@ -4,7 +4,8 @@
 \name{square_data}
 \alias{square_data}
 \title{An artificial data set used to indicate effect of priors}
-\format{A list with the following elements
+\format{
+A list with the following elements
 \describe{
   \item{mixtures}{A two column matrix containing delta 13C and delta 15N values respectively}
   \item{source_names}{A character vector of the food source names}
@@ -15,7 +16,8 @@
   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
   ...
-}}
+}
+}
 \source{
 \url{https://www.int-res.com/abstracts/meps/v490/p285-289/}
 }

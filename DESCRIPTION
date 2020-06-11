@@ -44,4 +44,4 @@ Suggests:
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2016-01-18 12:00:00 UTC; aparnell
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

@@ -4,7 +4,8 @@
 \name{geese_data_day1}
 \alias{geese_data_day1}
 \title{A smaller version of the Geese stable isotope mixing data set}
-\format{A list with the following elements
+\format{
+A list with the following elements
 \describe{
   \item{mixtures}{A two column matrix containing delta 13C and delta 15N values respectively}
   \item{source_names}{A character vector of the food source names}
@@ -15,7 +16,8 @@
   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
   ...
-}}
+}
+}
 \source{
 \url{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2656.2006.01142.x}
 }
