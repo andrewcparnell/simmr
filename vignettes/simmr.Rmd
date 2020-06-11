@@ -145,7 +145,7 @@ See the help file ```help(plot.simmr_input)``` for more options on the plotting 
 
 If all the mixtures lie inside the mixing polygon defined by the sources, then the data are acceptable for running `simmr`. See Philips et al 2015, Canadian Journal of Zoology for more details on when data are suitable for running through a mixing model.
 
-### Step 3: running simmr
+### Step 3: Running simmr
 
 The next step is to actually run the model. This is achieved with the command:
 
@@ -157,7 +157,7 @@ This command takes the object `simmr_in` we created earlier and uses it as input
 
 The model should take less than a minute to run, though this will depend on the speed of the computer you are using. Other data sets might take slightly longer or shorter depending on the number of sources, isotopes, and observations. The progress of the model is displayed on the command line window, which shows the percentage complete. 
 
-### Step 4: checking the algorithm converged
+### Step 4: Checking the algorithm converged
 
 Markov chain Monte Carlo (MCMC) works by repeatedly guessing the values of the dietary proportions and find those values which fit the data best. The initial guesses are usually poor and are discarded as part of an initial phase known as the burn-in. Subsequent iterations are then stored and used for the _posterior distribution_; the best estimates of the dietary proportions given the data and the model. Because it can take many thousands of iterations to move away from the initial guesses, _convergence diagnostics_ can be created to check the model has run properly. In `simmr` this is done with:
 
@@ -167,7 +167,7 @@ summary(simmr_out, type = 'diagnostics')
 
 If the model run has converged properly the values should be close to 1. If they are above 1.1, we recommend a longer run. See `help(simmr_mcmc)` for how to do this. 
 
-### Step 5: checking the model fit
+### Step 5: Checking the model fit
 
 You can check the fit of the model with a posterior predictive check. This is similar to a fitted values plot in a linear regression. If the data points (denoted by the plot as $y$) broadly lie in the fitted value intervals (denoted $y_rep$; the default is a 50% interval) then the model is fitting well:
 
@@ -178,7 +178,7 @@ print(post_pred)
 
 The output includes a table showing which observations lie outside the posterior predictive and the proportion doing so, which should approximately match the proportion specified in the `posterior_predictive` function (default 50%).
 
-### Step 6: exploring the results
+### Step 6: Exploring the results
 
 All SIMMs use informative (usually generalist) prior distributions as a default. You can plot the priors and the posteriors with:
 ```{r,results = 'hide'}

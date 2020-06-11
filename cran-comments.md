@@ -5,10 +5,10 @@
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no NOTEs, ERRORs or WARNINGs. 
+There were no notes, errors or warnings. 
 
 ## Previous CRAN package checks
-There was a previous mistaken import on the package coda which has now been removed
+There are no previous errors or warnings for the package on CRAN.
 
 ## Reverse dependencies
 There are currently no reverse dependencies

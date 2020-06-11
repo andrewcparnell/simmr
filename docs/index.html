@@ -6,31 +6,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Stable Isotope Mixing Model • simmr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="A Stable Isotope Mixing Model">
-<meta property="og:description" content="Fits Stable Isotope Mixing Models (SIMMs) and is meant as a 
-    longer term replacement to the previous widely-used package SIAR. SIMMs 
-    are used to infer proportional contribtuions of mixtures made up 
-    various sources from observations on mixtures themselves. A common 
-    application is when the mixtures are organisms stable isotope values 
-    taken from their tissue and the sources are the stable isotope values 
-    taken from the organisms food. SIMMs can also be used in other 
-    scenarios, such as in sediment mixing or the composition of fatty 
-    acids. The main functions are simmr_load and simmr_mcmc. 
-    The two vignettes contain a quick start and a full listing of 
-    all the features. The methods used are detailed in the papers 
-    Parnell et al 2010 &lt;doi:10.1371/journal.pone.0009672&gt;, 
-    and Parnell et al 2013 &lt;doi:10.1002/env.2221&gt;.">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="Fits Stable Isotope Mixing Models (SIMMs) and is meant as a longer term replacement to the previous widely-used package SIAR. SIMMs are used to infer dietary proportions of organisms consuming various food sources from observations on the stable isotope values taken from the organisms' tissue samples. However SIMMs can also be used in other scenarios, such as in sediment mixing or the composition of fatty acids. The main functions are simmr_load and simmr_mcmc. The two vignettes contain a quick start and a full listing of all the features. The methods used are detailed in the papers Parnell et al 2010 &lt;doi:10.1371/journal.pone.0009672&gt;, and Parnell et al 2013 &lt;doi:10.1002/env.2221&gt;.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -77,7 +65,14 @@
   <a href="news/index.html">Changelog</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://github.com/andrewcparnell/simmr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -92,39 +87,38 @@
 
 
 <p><strong>Welcome to simmr!</strong></p>
-<p>New: see the simmr website: <a href="http://andrewcparnell.github.io/simmr/" class="uri">http://andrewcparnell.github.io/simmr/</a></p>
-<p>simmr is a Bayesian stable isotope mixing model implemented in R which also uses <a href="https://mcmc-jags.sourceforge.net">JAGS</a>. It is intended as a replacement to the <a href="https://github.com/AndrewLJackson/siar">SIAR</a> package.</p>
+<p><a href="http://andrewcparnell.github.io/simmr/">simmr</a> is a Bayesian stable isotope mixing model implemented in R which also uses <a href="https://mcmc-jags.sourceforge.net">JAGS</a>. It is intended as a replacement to the <a href="https://github.com/AndrewLJackson/siar">SIAR</a> package.</p>
 <p>If you want the official stable version of the package from CRAN then go to R and type:</p>
 <pre><code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('simmr')</a></code></pre>
 <p>You can then load the package and view either the quick start or the full user manuals with:</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(simmr)
+<pre><code><a href="https://rdrr.io/pkg/simmr/man">library(simmr)
 vignette("simmr")
 vignette("quick_start")</a></code></pre>
 <p>Alternatively you can install the latest development version of the package in R with the commands:</p>
-<pre><code>if(!require(devtools)) install.packages('devtools')
-devtools::install_github('andrewcparnell/simmr',build_vignettes =TRUE)</code></pre>
+<pre><code>if(!require(remotes)) install.packages('remotes')
+remotes::install_github('andrewcparnell/simmr',build_vignettes =TRUE)</code></pre>
 <p>You can then load the package with</p>
-<pre><code><a href="https://rdrr.io/r/base/library.html">library(simmr)</a></code></pre>
+<pre><code><a href="https://rdrr.io/pkg/simmr/man">library(simmr)</a></code></pre>
 <p>… and look at the user manuals via:</p>
 <pre><code><a href="articles/simmr.html">vignette('simmr')
 vignette('quick_start')</a></code></pre>
 
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
 <li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=simmr">https://​cloud.r-project.org/​package=simmr</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/andrewcparnell/simmr/issues">https://​github.com/​andrewcparnell/​simmr/​issues</a>
+<li>Browse source code at <br><a href="https://github.com/andrewcparnell/simmr/">https://​github.com/​andrewcparnell/​simmr/​</a>
 </li>
 </ul>
 </div>
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>GPL (&gt;=2)</li>
+<li>GPL (&gt;= 2)</li>
 </ul>
 </div>
 <div class="developers">
@@ -140,6 +134,8 @@ vignette('quick_start')</a></code></pre>
 <li><a href="https://cran.rstudio.com/web/packages/simmr"><img src="https://www.r-pkg.org/badges/version/simmr" alt="cran version"></a></li>
 <li><a href="https://github.com/metacran/cranlogs.app"><img src="http://cranlogs.r-pkg.org/badges/simmr?" alt="rstudio mirror downloads"></a></li>
 <li><a href="https://github.com/metacran/cranlogs.app"><img src="http://cranlogs.r-pkg.org/badges/grand-total/simmr?color=82b4e8" alt="rstudio mirror downloads"></a></li>
+<li><a href="https://codecov.io/gh/andrewcparnell/simmr?branch=master"><img src="https://codecov.io/gh/andrewcparnell/simmr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://travis-ci.org/andrewcparnell/simmr"><img src="https://travis-ci.org/andrewcparnell/simmr.svg?branch=master" alt="Travis-CI Build Status"></a></li>
 </ul>
 </div>
 </div>
@@ -151,7 +147,7 @@ vignette('quick_start')</a></code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -6,28 +6,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Estimate correction factors from stable isotope data with known
+<title>Estimate correction factors from stable isotope data with known dietary
 proportions — simmr_mcmc_tdf • simmr</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,13 +40,12 @@ proportions — simmr_mcmc_tdf • simmr</title>
 
 
 
-<meta property="og:title" content="Estimate correction factors from stable isotope data with known
+<meta property="og:title" content="Estimate correction factors from stable isotope data with known dietary
 proportions — simmr_mcmc_tdf" />
 <meta property="og:description" content="This function runs a slightly different version of the main 
 simmr_mcmc function with the key difference that it estimates
 the correction factors (sometimes called trophic enrichment or trophic
-discrimination factors; TEFs/TDFs) for a given set of proportions." />
-<meta name="twitter:card" content="summary" />
+discrimination factors; TEFs/TDFs) for a given set of dietary proportions." />
 
 
 
@@ -60,7 +63,7 @@ discrimination factors; TEFs/TDFs) for a given set of proportions." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -109,7 +112,12 @@ discrimination factors; TEFs/TDFs) for a given set of proportions." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/andrewcparnell/simmr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -123,9 +131,9 @@ discrimination factors; TEFs/TDFs) for a given set of proportions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Estimate correction factors from stable isotope data with known
+    <h1>Estimate correction factors from stable isotope data with known dietary
 proportions</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/andrewcparnell/simmr/blob/master/R/simmr_mcmc_tdf.R'><code>R/simmr_mcmc_tdf.R</code></a></small>
     <div class="hidden name"><code>simmr_mcmc_tdf.Rd</code></div>
     </div>
 
@@ -133,7 +141,7 @@ proportions</h1>
     <p>This function runs a slightly different version of the main 
 <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> function with the key difference that it estimates
 the correction factors (sometimes called trophic enrichment or trophic
-discrimination factors; TEFs/TDFs) for a given set of proportions.</p>
+discrimination factors; TEFs/TDFs) for a given set of dietary proportions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>simmr_mcmc_tdf</span>(
@@ -154,7 +162,7 @@ discrimination factors; TEFs/TDFs) for a given set of proportions.</p>
     </tr>
     <tr>
       <th>p</th>
-      <td><p>The known proportions for the feeding study. Dietary proportions should be given per sample (even if they are all identical)</p></td>
+      <td><p>The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)</p></td>
     </tr>
     <tr>
       <th>prior_control</th>
@@ -183,14 +191,14 @@ components:</p>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The idea is that this code can be used for e.g. feeding studies where an
+    <p>The idea is that this code can be used for feeding studies where an 
 organism is fed a known proportional diet with a view to estimating
 the correction factors to be used in a later stable isotope mixing 
 model when the organisms are observed in the field.</p>
 <p>The main argument of the function is an object created from 
 <code><a href='simmr_load.html'>simmr_load</a></code> which contains mixture data on a number of tracers
 and food source means and standard deviations. Any correction factors 
-included in this object will be ignored. The known proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as <code>mix</code>). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design</p>
+included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as <code>mix</code>). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design</p>
 <p>The output of the function is a posterior distribution on the correction
 factors for each food source. Just like the output from
 <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code>, this should be checked for convergence. Examples
@@ -211,7 +219,7 @@ PLoS ONE, 5(3):5, 2010.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='simmr_load.html'>simmr_load</a></code> for creating objects suitable for this
-function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating mixture proportions, 
+function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating dietary proportions, 
 <code><a href='plot.simmr_input.html'>plot.simmr_input</a></code> for creating isospace plots,
 <code><a href='summary.simmr_output_tdf.html'>summary.simmr_output_tdf</a></code> for summarising output</p></div>
 
@@ -240,7 +248,7 @@ function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating m
                      <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>conc</span>)
 
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_tdf</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_tdf</span>)
 
 <span class='co'># MCMC run</span>
 <span class='no'>simmr_tdf_out</span> <span class='kw'>=</span> <span class='fu'>simmr_mcmc_tdf</span>(<span class='no'>simmr_tdf</span>,
@@ -264,26 +272,17 @@ function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating m
                      <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>conc</span>)
 
 <span class='co'># Plot with corrections now</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_tdf_2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_tdf_2</span>)
 
 <span class='no'>simmr_tdf_2_out</span> <span class='kw'>=</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span>(<span class='no'>simmr_tdf_2</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>simmr_tdf_2_out</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'diagnostics'</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_tdf_2_out</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'boxplot'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_tdf_2_out</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'boxplot'</span>)
 }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -294,7 +293,7 @@ function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating m
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
