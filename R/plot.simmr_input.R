@@ -21,8 +21,7 @@
 #' per mil but can be changed as with the x-axis label
 #' @param sigmas The number of standard deviations to plot on the source
 #' values. Defaults to 1.
-#' @param group_num Which group number(s) to plot. Defaults to all groups
-#' @param group_name Which group name(s) to plot.
+#' @param group Which groups to plot. Can be a single group or multiple groups
 #' @param mix_name A optional string containing the name of the mixture
 #' objects, e.g. Geese.
 #' @param colour If TRUE (default) creates a plot. If not, puts the plot in
@@ -204,7 +203,7 @@
 #' simmr_4
 #' 
 #' # Plot
-#' plot(simmr_4,title='Isospace plot of Inger et al Geese data')
+#' plot(simmr_4,group=1:8,title='Isospace plot of Inger et al Geese data')
 #' 
 #' 
 #' @export
@@ -215,22 +214,11 @@ function(x,
          xlab = colnames(x$mixtures)[tracers[1]],
          ylab = colnames(x$mixtures)[tracers[2]], 
          sigmas = 1, 
-         group_num = 1:x$n_groups, 
-         group_name = NULL, 
+         group = 1, 
          mix_name = 'Mixtures', 
          ggargs = NULL,
          colour = TRUE, 
          ...) {
-
-  # Convert to group numbers if necessary
-  if(!is.null(group_name)) {
-    group_num = match(group_name, levels(x$group))
-    if(any(is.na(group_num))) {
-      print(data.frame(Name = unique(x$group), Number = unique(x$group_int)))
-      stop("group_name not found in simmr input object. See table above for group names/numbers")
-    }
-  }
-  group = group_num
 
 # Get mixtures to match current group(s)
 curr_rows = which(x$group_int%in%group)  
@@ -259,17 +247,14 @@ if(ncol(curr_mix)>1) {
 }
 
 if(x$n_groups==1) {
-  Source=factor(c(x$source_names,rep(mix_name,nrow(curr_mix))),levels=c(mix_name,x$source_names), ordered = TRUE)
+  Source=factor(c(x$source_names,rep(mix_name,nrow(curr_mix))),levels=c(mix_name,x$source_names))
 } else {
-  Source=factor(c(x$source_names,paste(mix_name,x$group[curr_rows])),levels=c(paste(mix_name,unique(x$group[curr_rows])),x$source_names),
-                ordered = TRUE)
+  Source=factor(c(x$source_names,paste(mix_name,x$group[curr_rows])),levels=c(paste(mix_name,unique(x$group[curr_rows])),x$source_names))
 }
 size=c(rep(0.5,x$n_sources),rep(0.5,nrow(curr_mix)))
 
 if(ncol(curr_mix) == 1) {
-  df=data.frame(x=x2,x_lower,x_upper,
-                Source = forcats::fct_rev(Source),
-                size, y = forcats::fct_rev(Source))
+  df=data.frame(x=x2,x_lower,x_upper,Source,size, y = Source)
 } else {
   df=data.frame(x=x2,y=y,x_lower,y_lower,x_upper,y_upper,Source,size)
 }

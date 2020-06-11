@@ -1,11 +1,11 @@
-#' Compare proportions between multiple sources
+#' Compare dietary proportions between multiple sources
 #' 
 #' This function takes in an object of class \code{simmr_output} and creates
 #' probabilistic comparisons between the supplied sources. The group number can
 #' also be specified.
 #' 
 #' When two sources are specified, the function produces a direct calculation
-#' of the probability that the proportion for one source is bigger than
+#' of the probability that the dietary proportion for one source is bigger than
 #' the other. When more than two sources are given, the function produces a set
 #' of most likely probabilistic orderings for each combination of sources. The
 #' function produces boxplots by default and also allows for the storage of the
@@ -15,8 +15,8 @@
 #' \code{\link{simmr_mcmc}}.
 #' @param source_names The names of at least two sources. These should match
 #' the names exactly given to \code{\link{simmr_load}}.
-#' @param group_num The integer values of the group numbers to be used 
-#' @param group_name The names of the group to be used
+#' @param group The integer values of the group numbers to be compared. If not
+#' specified assumes the first or only group
 #' @param plot A logical value specifying whether plots should be produced or
 #' not.
 #' 
@@ -24,10 +24,10 @@
 #' @importFrom reshape2 "melt"
 #' 
 #' @return If there are two sources, a vector containing the differences
-#' between the two proportion proportions for these two sources. If
+#' between the two dietary proportion proportions for these two sources. If
 #' there are multiple sources, a list containing the following fields:
-#' \item{Ordering }{The different possible orderings of the proportions
-#' across sources} \item{out_all }{The proportions for these sources
+#' \item{Ordering }{The different possible orderings of the dietary proportions
+#' across sources} \item{out_all }{The dietary proportions for these sources
 #' specified as columns in a matrix}
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
@@ -91,22 +91,20 @@
 #' @export
 compare_sources = function(simmr_out,
                            source_names = simmr_out$input$source_names,
-                           group_num = 1,
-                           group_name = NULL,
+                           group = 1,
                            plot = TRUE) {
   UseMethod('compare_sources')
 }  
 #' @export
 compare_sources.simmr_output = function(simmr_out,
                            source_names = simmr_out$input$source_names,
-                           group_num = 1,
-                           group_name = NULL,
+                           group = 1,
                            plot = TRUE) {
 
 # Function to compare between sources within a group both via textual output and with boxplots
-# Things to do are:
+# Things to ly are:
 # If two sources are given: 
-#   - provide the probability of one group having higher proportion than the other
+#   - provide the probability of one group having higher dietary proportion than the other
 #   - give the probability distribution of the difference
 #   - optional boxplot of two 
 # If more than two sources are given:
@@ -114,20 +112,7 @@ compare_sources.simmr_output = function(simmr_out,
 # An optional boxplot of the sources
   
 # Throw an error if only one group is specified
-if(length(source_names)==1) stop("Use compare_groups if you want to compare a single source between groups.")
-  
-  if(!is.null(group_name)) {
-    group_num = match(group_name, levels(simmr_out$input$group))
-    if(any(is.na(group_num))) {
-      print(data.frame(Name = unique(simmr_out$input$group), 
-                       Number = unique(simmr_out$input$group_int)))
-      stop("group_name not found in simmr input object. See table above for group names/numbers")
-    }
-  }
-  group = group_num  
-  
-  # Throw an error if more than 1 group is specified
-  #if(length(groups)>1) stop("Please use plot(...) or summary(...) if you  want to look at one group.")  
+if(length(source_names)==1) stop("Use compare_between_groups if you want to compare a single source between groups.")
   
 # Throw an error if the source name given doesn't match the source names
 if(!all(source_names%in%simmr_out$input$source_names)) stop("Some source names not found in the current source names. Be sure to check case and spelling")
@@ -146,7 +131,7 @@ if(length(source_names)==2) {
     # Stupid fix for packaging ggplot things
     Source = Proportion = NULL
     df = data.frame(Proportion=c(out_all_src_1,out_all_src_2),Source=c(rep(source_names[1],length(out_all_src_1)),rep(source_names[2],length(out_all_src_2))))
-    p = ggplot(df,aes(x=Source,y=Proportion,fill=Source)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of proportions for sources",source_names[1],'and',source_names[2]))
+    p = ggplot(df,aes(x=Source,y=Proportion,fill=Source)) + geom_boxplot(alpha=0.5,outlier.size=0) + theme_bw() + theme(legend.position='none') + ggtitle(paste("Comparison of dietary proportions for sources",source_names[1],'and',source_names[2]))
     print(p)
   }
   
@@ -182,7 +167,7 @@ if(length(source_names)>2) {
       geom_boxplot(alpha=0.5,outlier.size=0) + 
       theme_bw() + 
       theme(legend.position='none') + 
-      ggtitle(paste("Comparison of proportions between sources"))
+      ggtitle(paste("Comparison of dietary proportions between sources"))
     print(p)
   }
   

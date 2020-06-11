@@ -68,45 +68,37 @@ geese_simmr = simmr_load(mixtures = as.matrix(targets[, 1:2]),
 
 ## Step 4: plot the data 
 
-Can plot by group number of name:
-```{r, fig.width = 8, fig.height = 6}
-plot(geese_simmr, group_num = 1:8)
+```{r, fig.width = 8, fig.height = 8}
+plot(geese_simmr, group = 1:8)
 ```
 
 ## Step 5: run through `simmr` and check convergence
 
 ```{r, results = 'hide', message = FALSE}
 geese_simmr_out = simmr_mcmc(geese_simmr)
-```
-
-```{r}
 summary(geese_simmr_out, type = 'diagnostics',
-        group_name = 'Day 1')
+        group = 1)
 ```
-If the model has converged all values should be close to 1
-
 
 Check that the model fitted well:
-```{r, fig.width = 8, fig.height = 6, results = 'hide'}
-posterior_predictive(geese_simmr_out, group_num = 5)
+```{r}
+posterior_predictive(geese_simmr_out, group = 5)
 ```
-If the model fits well approximately half the values should be in the error bars
 
 ## Step 6: look at the output
 
 Look at the influence of the prior:
-```{r, fig.width = 8, fig.height = 6}
-prior_viz(geese_simmr_out, group_num = 2)
+```{r}
+prior_viz(geese_simmr_out)
 ```
 
 Look at the histogram of the dietary proportions:
-```{r, fig.width = 8, fig.height = 6}
-plot(geese_simmr_out, group_name = 'Day 93', type = 'histogram')
+```{r}
+plot(geese_simmr_out, type = 'histogram')
 ```
 
-Compare different groups
-```{r, fig.width = 8, fig.height = 6}
-compare_groups(geese_simmr_out, group_num = c(1,4,6), 
+```{r, fig.width = 8, fig.height = 8}
+compare_groups(geese_simmr_out, groups = 1:4, 
                source_name = 'Enteromorpha')
 ```
 

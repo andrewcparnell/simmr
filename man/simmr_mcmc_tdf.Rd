@@ -2,7 +2,7 @@
 % Please edit documentation in R/simmr_mcmc_tdf.R
 \name{simmr_mcmc_tdf}
 \alias{simmr_mcmc_tdf}
-\title{Estimate correction factors from stable isotope data with known
+\title{Estimate correction factors from stable isotope data with known dietary
 proportions}
 \usage{
 simmr_mcmc_tdf(
@@ -17,7 +17,7 @@ simmr_mcmc_tdf(
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
-\item{p}{The known proportions for the feeding study. Dietary proportions should be given per sample (even if they are all identical)}
+\item{p}{The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)}
 
 \item{prior_control}{A list of values including arguments named \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
@@ -41,10 +41,10 @@ components:
 This function runs a slightly different version of the main 
 \code{\link{simmr_mcmc}} function with the key difference that it estimates
 the correction factors (sometimes called trophic enrichment or trophic
-discrimination factors; TEFs/TDFs) for a given set of proportions.
+discrimination factors; TEFs/TDFs) for a given set of dietary proportions.
 }
 \details{
-The idea is that this code can be used for e.g. feeding studies where an
+The idea is that this code can be used for feeding studies where an 
 organism is fed a known proportional diet with a view to estimating
 the correction factors to be used in a later stable isotope mixing 
 model when the organisms are observed in the field. 
@@ -52,7 +52,7 @@ model when the organisms are observed in the field.
 The main argument of the function is an object created from 
 \code{\link{simmr_load}} which contains mixture data on a number of tracers
 and food source means and standard deviations. Any correction factors 
-included in this object will be ignored. The known proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
+included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
 
 The output of the function is a posterior distribution on the correction
 factors for each food source. Just like the output from
@@ -133,7 +133,7 @@ PLoS ONE, 5(3):5, 2010.
 }
 \seealso{
 \code{\link{simmr_load}} for creating objects suitable for this
-function, \code{\link{simmr_mcmc}} for estimating mixture proportions, 
+function, \code{\link{simmr_mcmc}} for estimating dietary proportions, 
 \code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{summary.simmr_output_tdf}} for summarising output
 }

@@ -8,7 +8,7 @@
 #' 'correlations' which produces correlations between the parameters.
 #' 
 #' The quantile output allows easy calculation of 95 per cent credible
-#' intervals of the posterior proportions. The correlations, along with
+#' intervals of the posterior dietary proportions. The correlations, along with
 #' the matrix plot in \code{\link{plot.simmr_output}} allow the user to judge
 #' which sources are non-identifiable. The Gelman diagnostic values should be
 #' close to 1 to ensure satisfactory convergence.
@@ -20,8 +20,7 @@
 #' function \code{\link{simmr_mcmc}}
 #' @param type The type of output required. At least none of 'diagnostics',
 #' 'quantiles', 'statistics', or 'correlations'.
-#' @param group_num Which group number(s) to plot. Defaults to first group
-#' @param group_name Which group name(s) to plot.
+#' @param group Which group or groups the output is required for.
 #' @param ...  Not used
 #' @return An list containing the following components: \item{gelman }{The
 #' convergence diagnostics} \item{quantiles }{The quantiles of each parameter
@@ -77,27 +76,11 @@
 #' }
 #' @export
 summary.simmr_output =
-  function(object,
-           type=c('diagnostics','quantiles','statistics','correlations'),
-           group_num = 1,
-           group_name = NULL,
-           ...) {
+  function(object,type=c('diagnostics','quantiles','statistics','correlations'),group=1,...) {
 
     # Get the specified type
     type=match.arg(type,several.ok=TRUE)
 
-    # Get the groups to use - always specify in terms of numbers
-    # Convert to group numbers if necessary
-    if(!is.null(group_name)) {
-      group_num = match(group_name, levels(object$input$group))
-      if(any(is.na(group_num))) {
-        print(data.frame(Name = unique(object$input$group), 
-                         Number = unique(object$input$group_int)))
-        stop("group_name not found in simmr input object. See table above for group names/numbers")
-      }
-    }
-    group = group_num
-    
     # Set up containers
     out_bgr = out_quantiles = out_statistics = out_cor = vector('list',length=length(group))
     group_names = levels(object$input$group)
@@ -105,12 +88,12 @@ summary.simmr_output =
     names(out_quantiles) = paste0('group_',group)
     names(out_statistics) = paste0('group_',group)
     names(out_cor) = paste0('group_',group)
-    
+
     # Loop through groups
     for(i in 1:length(group)) {
       
       cat(paste("\nSummary for",group_names[group[i]],'\n'))
-      out_all = object$output[[i]]$BUGSoutput$sims.matrix
+      out_all = object$output[[group[i]]]$BUGSoutput$sims.matrix
 
       # Get objects
       out_bgr[[i]] = object$output[[i]]$BUGSoutput$summary[,'Rhat']
@@ -122,15 +105,9 @@ summary.simmr_output =
 
       if ('diagnostics'%in%type) {
         # Print out gelman diagnostics of the output
-        cat('Worst 10 Gelman diagnostics - these values should all be close to 1.\n')
-        cat('If any are larger than 1.1, try a longer run of simmr_mcmc.\n')
-        if(length(out_bgr[[i]]) < 10) {
-          print(round(out_bgr[[i]],2))  
-        } else {
-          o = order(out_bgr[[i]], decreasing = TRUE)[1:10]
-          print(round(out_bgr[[i]][o],2))
-        }
-        
+        cat('Gelman diagnostics - these values should all be close to 1.\n')
+        cat('If not, try a longer run of simmr_mcmc.\n')
+        print(round(out_bgr[[i]],2))
       }
 
       if ('quantiles'%in%type) {

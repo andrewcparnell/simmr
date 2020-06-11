@@ -70,6 +70,9 @@
 #' # MCMC run
 #' simmr_1_out = simmr_mcmc(simmr_1)
 #' 
+#' # Look at the prior influence
+#' prior_viz(simmr_1_out)
+#' 
 #' # Summary
 #' summary(simmr_1_out,'quantiles')
 #' # A bit vague:
@@ -85,6 +88,9 @@
 #' prior = simmr_elicit(4, c(0.5,0.2,0.2,0.1), c(0.08,0.02,0.01,0.02))
 #' 
 #' simmr_1a_out = simmr_mcmc(simmr_1,prior_control=list(means=prior$mean,sd=prior$sd))
+#' 
+#' #' # Look at the prior influence now
+#' prior_viz(simmr_1a_out)
 #' 
 #' summary(simmr_1a_out,'quantiles')
 #' # Much more precise:
@@ -109,6 +115,9 @@ simmr_elicit <-
     if(any(proportion_sds==0)) 
       stop("No proportion_sds should be 0 as this will mean that food source is not being consumed.")
     
+    low_cis = proportion_means - 2*proportion_sds
+    high_cis = proportion_means + 2*proportion_sds
+    if(any(low_cis < 0) | any(high_cis > 1) ) warning("Some proportion sds are large and lie at the edge of the simplex. Check results are reasonable with prior_viz.")
     
     cat('Running elicitation optimisation routine...\n')
     

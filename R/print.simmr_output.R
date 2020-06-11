@@ -11,10 +11,6 @@ print.simmr_output <-
 function(x,...) {
   print(x$input)
   cat('The input data has been run via simmr_mcmc and has produced ')
-  if(x$input$n_group ==1 ) {
-    cat(nrow(x$output$BUGSoutput$sims.matrix),'iterations over',x$output$BUGSoutput$n.chains,'MCMC chains.')
-  } else {
-    cat(nrow(x$output$BUGSoutput[[1]]$sims.matrix),'iterations over',x$output$BUGSoutput[[1]]$n.chains,'MCMC chains.')
-  }
+  cat(nrow(x$output$BUGSoutput$sims.matrix),'iterations over',x$output$BUGSoutput$n.chains,'MCMC chains.')
   cat('\n\n')
 }

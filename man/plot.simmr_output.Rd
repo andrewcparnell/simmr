@@ -7,8 +7,7 @@
 \method{plot}{simmr_output}(
   x,
   type = c("isospace", "histogram", "density", "matrix", "boxplot"),
-  group_num = 1:x$input$n_groups,
-  group_name = NULL,
+  group = 1,
   binwidth = 0.05,
   alpha = 0.5,
   title = if (length(group) == 1) {     "simmr output plot" } else {    
@@ -24,9 +23,7 @@
 \item{type}{The type of plot required. Can be one or more of 'histogram',
 'density', 'matrix', or 'boxplot'}
 
-\item{group_num}{Which group number(s) to plot. Defaults to all groups}
-
-\item{group_name}{Which group name(s) to plot.}
+\item{group}{Which group(s) to plot.}
 
 \item{binwidth}{The width of the bins for the histogram. Defaults to 0.05}
 

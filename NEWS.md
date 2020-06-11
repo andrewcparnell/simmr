@@ -1,7 +1,9 @@
+
 Updates for 0.4.2
 
-- Added in a function simmr_groups_re which allows for a hierarchical model based on borrowing strengths between groups
-- Updated all plotting summary and print functions to work with the above
+- Fixed a bug with the summary function which was always reporting the same group when an individual group was specified (didn't apply to multiple group summaries). Added a test for that bug.
+- Updated posterior_predictive to produce some more helpful output
+- 
 
 Updates for 0.4.1
 

@@ -6,8 +6,7 @@
 \usage{
 prior_viz(
   simmr_out,
-  group_num = 1,
-  group_name = NULL,
+  group = 1,
   plot = TRUE,
   include_posterior = TRUE,
   n_sims = 10000
@@ -16,9 +15,7 @@ prior_viz(
 \arguments{
 \item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}}}
 
-\item{group_num}{Which group number(s) to plot. Defaults to all groups}
-
-\item{group_name}{Which group name(s) to plot.}
+\item{group}{Which group to run it for (currently only numeric rather than group names)}
 
 \item{plot}{Whether to create a density plot of the prior or not. The simulated prior values are returned as part of the object}
 

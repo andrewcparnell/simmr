@@ -1,4 +1,4 @@
-#' Combine the proportions from two food sources after running simmr
+#' Combine the dietary proportions from two food sources after running simmr
 #'
 #' This function takes in an object of class \code{simmr_output} and combines
 #' two of the food sources. It works for single and multiple group data.
