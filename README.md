@@ -4,6 +4,8 @@
 [![Codecov test coverage](https://codecov.io/gh/andrewcparnell/simmr/branch/master/graph/badge.svg)](https://codecov.io/gh/andrewcparnell/simmr?branch=master)
 [![Travis-CI Build Status](https://travis-ci.org/andrewcparnell/simmr.svg?branch=master)](https://travis-ci.org/andrewcparnell/simmr)
 
+<a href="http://andrewcparnell.github.io/simmr/"><img src="https://raw.githubusercontent.com/andrewcparnell/simmr/master/badge/simmr_badge.png" height="200" align="right" /></a>
+
 
 **Welcome to simmr!**
 
