@@ -1,7 +1,7 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-Version: 0.4.2
+Version: 0.4.2.9000
 Date: 2020-06-11
 Author: Andrew Parnell
 URL: https://github.com/andrewcparnell/simmr
