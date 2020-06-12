@@ -41,7 +41,7 @@ test_that("prior viz for multiple groups", {
   expect_false(p2[1,1] == p3[1,1])
   # Change some options
   p4 = prior_viz(simmr_2_out, group = 2, plot = FALSE, include_posterior = FALSE, n_sims = 10)
-  expect_true(is.matrix(p1a))
+  expect_true(is.matrix(p4))
 })
 
 test_that("posterior predictive for 1 groups", {
