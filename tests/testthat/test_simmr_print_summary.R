@@ -39,15 +39,14 @@ test_that('summary.simmr_output', {
 
 data(geese_data)
 simmr_groups = with(geese_data, 
-                    simmr_load(mixtures=mixtures[,1:2],
+                    simmr_load(mixtures=mixtures,
                                source_names=source_names,
                                source_means=source_means,
                                source_sds=source_sds,
                                correction_means=correction_means,
                                correction_sds=correction_sds,
                                concentration_means = concentration_means,
-                               group=as.factor(paste('period', 
-                                                     mixtures[,3]))))
+                               group=groups))
 simmr_groups_out = simmr_mcmc(simmr_groups, 
                               mcmc_control = list(iter = 100, 
                                                   burn = 10, 

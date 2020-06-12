@@ -46,14 +46,14 @@ test_that('simmr combine sources multiple group', {
   
   # Load into simmr
   simmr_2 = with(geese_data, 
-                 simmr_load(mixtures=mixtures[,1:2],
+                 simmr_load(mixtures = mixtures,
                             source_names=source_names,
                             source_means=source_means,
                             source_sds=source_sds,
                             correction_means=correction_means,
                             correction_sds=correction_sds,
                             concentration_means = concentration_means,
-                            group = mixtures[,3]))
+                            group = groups))
   # MCMC run
   simmr_2_out = simmr_mcmc(simmr_2,
                            mcmc_control = list(iter = 100, 
@@ -77,5 +77,24 @@ test_that('simmr combine sources multiple group', {
   summ_1 = summary(simmr_out_2_combine,type='statistics', group = 1)
   summ_2 = summary(simmr_out_2_combine,type='statistics', group = 2)
   expect_false(summ_1$statistics[[1]][1,1] == summ_2$statistics[[1]][1,1])
+  
+  # Make sure compare groups is different
+  cg_1 = compare_groups(simmr_out_2_combine,source_name = 'Z+G', groups = 1:2)
+  cg_2 = compare_groups(simmr_out_2_combine,source_name = 'Z+G', groups = 2:3)
+  expect_false(mean(cg_1[[1]]) == mean(cg_2[[1]]))
+  
+  # Make sure compare sources is different
+  cs_1 = compare_sources(simmr_out_2_combine,
+                         source_names = c('Z+G', 'Enteromorpha'), 
+                         group = 1)
+  cs_2 = compare_sources(simmr_out_2_combine,
+                         source_names = c('Z+G', 'Enteromorpha'), 
+                         group = 2)
+  expect_false(mean(cs_1[[1]]) == mean(cs_2[[1]]))
+  
+  # Make sure the plots are different
+  cp_1 = plot(simmr_out_2_combine,type='histogram', group=1)
+  cp_2 = plot(simmr_out_2_combine,type='histogram', group=2)
+  expect_false(cp_1$data$Proportion[1] == cp_2$data$Proportion[1])
   
 })

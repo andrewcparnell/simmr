@@ -1,5 +1,9 @@
 # Updates for 0.4.2
 
+- Fixed a bug in combine_sources that stopped it working for multiple groups
+
+# Updates for 0.4.2
+
 - Fixed a bug with the summary function which was always reporting the same group when an individual group was specified (didn't apply to multiple group summaries). Added a test for that bug.
 - Updated posterior_predictive to produce some more helpful output
 

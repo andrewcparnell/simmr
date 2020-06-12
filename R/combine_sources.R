@@ -157,10 +157,11 @@ combine_sources.simmr_output = function(simmr_out,
     colnames(new_sims.matrix)[to_combine_cols[1]+1] = new_source_name
     simmr_new_out$output[[j]]$BUGSoutput$sims.matrix = new_sims.matrix
     # Now sims.list
-    sims.list = simmr_out$output[[1]]$BUGSoutput$sims.list
+    sims.list = simmr_out$output[[j]]$BUGSoutput$sims.list
     new_sims.list = sims.list
     new_sims.list$p = sims.list$p[,-to_combine_cols[2]]
     new_sims.list$p[,to_combine_cols[1]] = sims.list$p[,to_combine_cols[2]] + sims.list$p[,to_combine_cols[1]]
+    colnames(new_sims.list$p)[to_combine_cols[1]] = new_source_name
     simmr_new_out$output[[j]]$BUGSoutput$sims.list = new_sims.list
   }
   

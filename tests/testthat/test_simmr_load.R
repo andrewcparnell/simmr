@@ -26,17 +26,15 @@ test_that('simplest example', {
 
 test_that('group example', {
   data("geese_data")
-  
   simmr_groups = with(geese_data, 
-                      simmr_load(mixtures=mixtures[,1:2],
+                      simmr_load(mixtures=mixtures,
                                  source_names=source_names,
                                  source_means=source_means,
                                  source_sds=source_sds,
                                  correction_means=correction_means,
                                  correction_sds=correction_sds,
                                  concentration_means = concentration_means,
-                                 group=as.factor(paste('period', 
-                                                       mixtures[,3]))))
+                                 group=groups))
 
   expect_s3_class(simmr_groups, 'simmr_input')
   expect_true(is.matrix(simmr_groups$source_means))
