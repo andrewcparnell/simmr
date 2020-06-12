@@ -18,7 +18,8 @@ Suggests:
     knitr,
     rmarkdown,
     readxl,
-    testthat
+    testthat,
+    covr
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-07-03 17:48:43 UTC; andrewparnell
