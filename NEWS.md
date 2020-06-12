@@ -1,6 +1,7 @@
 # simmr 0.4.3
 
   - Fixed a bug in combine_sources that stopped it working for multiple groups
+  - Added in a load more tests to increase code coverage
 
 # simmr 0.4.2
 
