@@ -1,6 +1,6 @@
 comment: false
 codecov:
-  token: 8f718f76-3f3d-4454-8d7c-6ca77b7f98f6
+  token: d693faac-c3b4-489d-8a60-147de891c59b
 
 language: R
 sudo: false
