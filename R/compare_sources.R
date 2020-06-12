@@ -117,6 +117,9 @@ if(length(source_names)==1) stop("Use compare_between_groups if you want to comp
 # Throw an error if the source name given doesn't match the source names
 if(!all(source_names%in%simmr_out$input$source_names)) stop("Some source names not found in the current source names. Be sure to check case and spelling")
   
+# Throw an error if more than one group specified
+if(length(group) > 1) stop("Only one group allowed")
+  
 # Start with two groups version
 if(length(source_names)==2) {
   # Get the output for this particular source on these two groups  
@@ -137,9 +140,9 @@ if(length(source_names)==2) {
   
 } 
 
-# Now for more groups  
+# Now for more sources  
 if(length(source_names)>2) {
-  # Get the output for all the groups
+  # Get the output for all the sources
   match_names = match(source_names, simmr_out$input$source_names)
   out_all = simmr_out$output[[group]]$BUGSoutput$sims.list$p[,match_names]
   
@@ -147,6 +150,7 @@ if(length(source_names)>2) {
   ordering_num = t(apply(out_all,1,order,decreasing=TRUE))
   Ordering = rep(NA,length=nrow(ordering_num))
   for(i in 1:length(Ordering)) Ordering[i] = paste0(source_names[ordering_num[i,]],collapse=" > ")
+  if(simmr_out$input$n_groups > 1) cat("Results for group:", group, '\n')
   cat('Most popular orderings are as follows:\n')
   tab = t(t(sort(table(Ordering,dnn=NULL),decreasing=TRUE)))
   colnames(tab) = 'Probability'
