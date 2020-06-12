@@ -11,7 +11,7 @@
   xlab = colnames(x$mixtures)[tracers[1]],
   ylab = colnames(x$mixtures)[tracers[2]],
   sigmas = 1,
-  group = 1,
+  group = 1:x$n_groups,
   mix_name = "Mixtures",
   ggargs = NULL,
   colour = TRUE,
