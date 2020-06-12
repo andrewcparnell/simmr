@@ -74,7 +74,7 @@ SIMM." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
       </span>
     </div>
 
@@ -140,14 +140,14 @@ SIMM.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simmr_input</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(
   <span class='no'>x</span>,
   <span class='kw'>tracers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>),
   <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Tracers plot"</span>,
   <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>x</span>$<span class='no'>mixtures</span>)[<span class='no'>tracers</span>[<span class='fl'>1</span>]],
   <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>x</span>$<span class='no'>mixtures</span>)[<span class='no'>tracers</span>[<span class='fl'>2</span>]],
   <span class='kw'>sigmas</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='no'>x</span>$<span class='no'>n_groups</span>,
   <span class='kw'>mix_name</span> <span class='kw'>=</span> <span class='st'>"Mixtures"</span>,
   <span class='kw'>ggargs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -246,7 +246,7 @@ iso-space is deemed acceptable.</p></div>
                      <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>conc</span>)
 
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1</span>)</div><div class='img'><img src='plot.simmr_input-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_1</span>)</div><div class='img'><img src='plot.simmr_input-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>### A more complicated example with 30 obs, 3 tracers and 4 sources</span>
 <span class='no'>mix</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>11.67</span>, -<span class='fl'>12.55</span>, -<span class='fl'>13.18</span>, -<span class='fl'>12.6</span>, -<span class='fl'>11.77</span>, -<span class='fl'>11.21</span>, -<span class='fl'>11.45</span>,
                -<span class='fl'>12.73</span>, -<span class='fl'>12.49</span>, -<span class='fl'>10.6</span>, -<span class='fl'>12.26</span>, -<span class='fl'>12.48</span>, -<span class='fl'>13.07</span>, -<span class='fl'>12.67</span>, -<span class='fl'>12.26</span>,
@@ -282,9 +282,9 @@ iso-space is deemed acceptable.</p></div>
 
 
 <span class='co'># Plot 3 times - first default d13C vs d15N </span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>)</div><div class='img'><img src='plot.simmr_input-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Now plot d15N vs d34S</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>,<span class='kw'>tracers</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))</div><div class='img'><img src='plot.simmr_input-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># and finally d13C vs d34S</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>,<span class='kw'>tracers</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))</div><div class='img'><img src='plot.simmr_input-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># See vignette('simmr') for fancier x-axis labels</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>)</div><div class='img'><img src='plot.simmr_input-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Now plot d15N vs d34S</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>,<span class='kw'>tracers</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))</div><div class='img'><img src='plot.simmr_input-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># and finally d13C vs d34S</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>,<span class='kw'>tracers</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))</div><div class='img'><img src='plot.simmr_input-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># See vignette('simmr') for fancier x-axis labels</span>
 
 <span class='co'># An example with multiple groups - the Geese data from Inger et al 2006</span>
 <span class='co'># Do this in raw data format - Note that there's quite a few mixtures!</span>
@@ -389,7 +389,7 @@ iso-space is deemed acceptable.</p></div>
 #&gt; The tracer names are: d13C, d15N.
 #&gt; </div><div class='input'>
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_4</span>,<span class='kw'>group</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>8</span>,<span class='kw'>title</span><span class='kw'>=</span><span class='st'>'Isospace plot of Inger et al Geese data'</span>)</div><div class='img'><img src='plot.simmr_input-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>simmr_4</span>,<span class='kw'>group</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>8</span>,<span class='kw'>title</span><span class='kw'>=</span><span class='st'>'Isospace plot of Inger et al Geese data'</span>)</div><div class='img'><img src='plot.simmr_input-5.png' alt='' width='700' height='433' /></div><div class='input'>
 
 </div></pre>
   </div>
