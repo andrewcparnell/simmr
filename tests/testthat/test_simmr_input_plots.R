@@ -48,3 +48,20 @@ test_that('Multi-groups plot', {
   expect_s3_class(plot(simmr_4, group = 5), 'ggplot')
 })
 
+test_that('Single iso plot', {
+  data(geese_data)
+  simmr_5 = with(geese_data, 
+                 simmr_load(mixtures=mixtures[,1,drop = FALSE],
+                            source_names=source_names,
+                            source_means=source_means[,1,drop = FALSE],
+                            source_sds=source_sds[,1,drop = FALSE],
+                            correction_means=correction_means[,1,drop = FALSE],
+                            correction_sds=correction_sds[,1,drop = FALSE],
+                            concentration_means = concentration_means[,1,drop = FALSE],
+                            group=groups))
+  
+  expect_s3_class(plot(simmr_5), 'ggplot')
+  expect_s3_class(plot(simmr_5, group = 5), 'ggplot')
+})
+
+

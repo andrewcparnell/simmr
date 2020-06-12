@@ -90,7 +90,8 @@ simmr_load = function(mixtures,
   
   # Mixtures must be a matrix - the number of rows is the number of observations and the number of columns is the number of tracers
   if (!is.matrix(mixtures))
-    stop("mixtures object must be a matrix")
+    mixtures = as.matrix(mixtures)
+    #stop("mixtures object must be a matrix")
   n_obs = nrow(mixtures)
   n_tracers = ncol(mixtures)
   
