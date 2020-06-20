@@ -73,6 +73,12 @@ test_that('simmr combine sources multiple group', {
   expect_true(simmr_out_2_combine$input$n_sources == 3)
   expect_true(simmr_out_2_combine$input$n_groups == 8)
   
+  # Check that it still works when you reverse the sources (previously crashed)
+  simmr_out_3_combine = combine_sources(simmr_2_out,
+                                        to_combine=c('Grass', 'Zostera'),
+                                        new_source_name='Z+G')
+  expect_s3_class(simmr_out_3_combine, 'simmr_output')
+  
   # Make sure the summaries are different
   summ_1 = summary(simmr_out_2_combine,type='statistics', group = 1)
   summ_2 = summary(simmr_out_2_combine,type='statistics', group = 2)
@@ -96,5 +102,58 @@ test_that('simmr combine sources multiple group', {
   cp_1 = plot(simmr_out_2_combine,type='histogram', group=1)
   cp_2 = plot(simmr_out_2_combine,type='histogram', group=2)
   expect_false(cp_1$data$Proportion[1] == cp_2$data$Proportion[1])
+  
+})
+
+
+# Problem with working with tibbles
+test_that('simmr combine sources multiple groups', {
+  
+  library(readxl)
+  path = system.file("extdata", "geese_data.xls", package = "simmr")
+  geese_data = lapply(excel_sheets(path), read_excel, path = path)
+  
+  #Separate the data into parts
+  targets = geese_data[[1]]
+  sources = geese_data[[2]]
+  TEFs = geese_data[[3]]
+  concdep = geese_data[[4]]
+  
+  #Load the data into simmr
+  geese_simmr = simmr_load(mixtures = as.matrix(targets[, 1:2]),
+                           source_names = sources$Sources,
+                           source_means = as.matrix(sources[,2:3]),
+                           source_sds = as.matrix(sources[,4:5]),
+                           correction_means = as.matrix(TEFs[,2:3]),
+                           correction_sds = as.matrix(TEFs[,4:5]),
+                           concentration_means = as.matrix(concdep[,2:3]),
+                           group = as.factor(paste('Day', targets$Time)))
+  
+  #Run through simmr
+  geese_simmr_out = simmr_mcmc(geese_simmr,
+                               mcmc_control = list(iter = 100, 
+                                                   burn = 10, 
+                                                   thin = 1, 
+                                                   n.chain = 2))
+  
+  #Combine sources
+  simmr_out_4_combine = combine_sources(geese_simmr_out,
+                                      to_combine = c('U.lactuca',
+                                                     'Enteromorpha'),
+                                      new_source_name = 'U.lac+Ent')
+  
+  expect_s3_class(simmr_out_4_combine, 'simmr_output')
+  expect_s3_class(simmr_out_4_combine$input, 'simmr_input')
+  expect_true(length(simmr_out_4_combine$input$source_names) == 3)
+  expect_true(nrow(simmr_out_4_combine$input$correction_means) == 3)
+  expect_true(nrow(simmr_out_4_combine$input$source_sds) == 3)
+  expect_true(simmr_out_4_combine$input$n_sources == 3)
+  expect_true(simmr_out_4_combine$input$n_groups == 8)
+  
+  # Check that it still works when you reverse the sources (previously crashed)
+  simmr_out_5_combine = combine_sources(simmr_out_4_combine,
+                                        to_combine=c('Grass', 'Zostera'),
+                                        new_source_name='Z+G')
+  expect_s3_class(simmr_out_5_combine, 'simmr_output')
   
 })

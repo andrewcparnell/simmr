@@ -29,7 +29,7 @@ Alternatively you can install the latest development version of the package in R
 
 ```
 if(!require(remotes)) install.packages('remotes')
-remotes::install_github('andrewcparnell/simmr',build_vignettes =TRUE)
+remotes::install_github('andrewcparnell/simmr')
 ```
 
 You can then load the package with

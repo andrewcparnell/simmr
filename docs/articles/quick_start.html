@@ -82,13 +82,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="quick_start_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>simmr: quick start guide</h1>
                         <h4 class="author">Andrew Parnell</h4>
             
-            <h4 class="date">2020-06-12</h4>
+            <h4 class="date">2020-06-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/master/vignettes/quick_start.Rmd"><code>vignettes/quick_start.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start.Rmd</code></div>
@@ -128,17 +128,17 @@
 </h2>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">geese_simmr</span> <span class="kw">=</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span>(<span class="kw">mixtures</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">targets</span>[, <span class="fl">1</span>:<span class="fl">2</span>]),
                          <span class="kw">source_names</span> <span class="kw">=</span> <span class="no">sources</span>$<span class="no">Sources</span>,
-                         <span class="kw">source_means</span> <span class="kw">=</span> <span class="no">sources</span>[,<span class="fl">2</span>:<span class="fl">3</span>],
-                         <span class="kw">source_sds</span> <span class="kw">=</span> <span class="no">sources</span>[,<span class="fl">4</span>:<span class="fl">5</span>],
-                         <span class="kw">correction_means</span> <span class="kw">=</span> <span class="no">TEFs</span>[,<span class="fl">2</span>:<span class="fl">3</span>],
-                         <span class="kw">correction_sds</span> <span class="kw">=</span> <span class="no">TEFs</span>[,<span class="fl">4</span>:<span class="fl">5</span>],
-                         <span class="kw">concentration_means</span> <span class="kw">=</span> <span class="no">concdep</span>[,<span class="fl">2</span>:<span class="fl">3</span>],
+                         <span class="kw">source_means</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">sources</span>[,<span class="fl">2</span>:<span class="fl">3</span>]),
+                         <span class="kw">source_sds</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">sources</span>[,<span class="fl">4</span>:<span class="fl">5</span>]),
+                         <span class="kw">correction_means</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">TEFs</span>[,<span class="fl">2</span>:<span class="fl">3</span>]),
+                         <span class="kw">correction_sds</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">TEFs</span>[,<span class="fl">4</span>:<span class="fl">5</span>]),
+                         <span class="kw">concentration_means</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(<span class="no">concdep</span>[,<span class="fl">2</span>:<span class="fl">3</span>]),
                          <span class="kw">group</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">'Day'</span>, <span class="no">targets</span>$<span class="no">Time</span>)))</pre></body></html></div>
 </div>
 <div id="step-4-plot-the-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#step-4-plot-the-data" class="anchor"></a>Step 4: plot the data</h2>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">geese_simmr</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">8</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">geese_simmr</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">8</span>)</pre></body></html></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
 </div>
 <div id="step-5-run-through-simmr-and-check-convergence" class="section level2">
@@ -167,36 +167,35 @@
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span>(<span class="no">geese_simmr_out</span>)</pre></body></html></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>Look at the histogram of the dietary proportions:</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">geese_simmr_out</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'histogram'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">geese_simmr_out</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">'histogram'</span>)</pre></body></html></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span>(<span class="no">geese_simmr_out</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>,
                <span class="kw">source_name</span> <span class="kw">=</span> <span class="st">'Enteromorpha'</span>)</pre></body></html></div>
 <pre><code>## Most popular orderings are as follows:
 ##                                     Probability
-## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2111
-## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1792
-## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1481
-## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1250
-## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0869
-## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0767
-## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0414
-## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0322
-## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0264
+## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2325
+## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1683
+## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1681
+## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1047
+## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0681
+## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0653
+## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0531
+## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0369
+## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0303
 ## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0189
-## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0125
-## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0083
-## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0061
-## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0056
-## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0056
-## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0033
-## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0031
-## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0025
+## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0136
+## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0092
+## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0075
+## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0053
+## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0047
+## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0028
+## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0022
 ## Day 1 &gt; Day 398 &gt; Day 428 &gt; Day 124      0.0019
-## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0017
-## Day 1 &gt; Day 124 &gt; Day 398 &gt; Day 428      0.0011
-## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0011
-## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0008
-## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0006</code></pre>
+## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0017
+## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0017
+## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0014
+## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0014
+## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0006</code></pre>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-13-1.png" width="768"></p>
 <p>For the many more options available to run and analyse output, see the main vignette via <code><a href="../articles/simmr.html">vignette('simmr')</a></code></p>
 </div>

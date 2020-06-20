@@ -16,6 +16,8 @@ A list with the following elements
   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
   ...
+  
+  @seealso \code{\link{simmr_mcmc}} for an example where it is used
 }
 }
 \source{

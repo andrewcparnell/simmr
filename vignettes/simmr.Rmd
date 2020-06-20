@@ -82,7 +82,7 @@ For the next part of this document, we concentrate on simple examples without gr
 
 ### Step 1: Getting the data into simmr
 
-`simmr` requires at minimum 3 input objects; the consumers or _mixtures_, the _source means_, and the _source standard deviations_. Optionally, you can also add correction data (also called trophic enrichment factors, TEFs) represented again as means and standard deviations, and concentration dependence values. The easiest way to get these objects into `simmr` is to create an Excel or similar file creating data and then copying it across as in the following example:
+`simmr` requires at minimum 3 input objects; the consumers or _mixtures_, the _source means_, and the _source standard deviations_. Optionally, you can also add correction data (also called trophic enrichment factors, TEFs) represented again as means and standard deviations, and concentration dependence values. The easiest way to get data into simmr is to create an Excel file, as shown in the included `vignette('quick_start)` guide. Alternatively you can copy and past your data, comma separated, as below:
 
 ```{r}
 mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 

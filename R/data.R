@@ -13,6 +13,9 @@
 #'   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
 #'   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
 #'   ...
+#'   
+#'   @seealso \code{\link{simmr_mcmc}} for an example where it is used
+#'   
 #' }
 "simmr_data_1"
 
@@ -31,6 +34,9 @@
 #'   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
 #'   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
 #'   ...
+#'   
+#'   @seealso \code{\link{simmr_mcmc}} for an example where it is used
+#'   
 #' }
 "simmr_data_2"
 
@@ -51,6 +57,8 @@
 #'   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
 #'   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
 #'   ...
+#'   
+#'   @seealso \code{\link{simmr_mcmc}} for an example where it is used
 #' }
 "geese_data"
 
@@ -72,6 +80,10 @@
 #'   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
 #'   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
 #'   ...
+#'   
+#'   @seealso \code{\link{simmr_mcmc}} for an example where it is used
+#'   
+#'   
 #' }
 "square_data"
 
@@ -92,5 +104,7 @@
 #'   \item{correction_sds}{A matrix of TEFs sd values for the tracers in the same order as \code{mixtures} above}
 #'   \item{concentration_means}{A matrix of concentration dependence mean values for the tracers in the same order as \code{mixtures} above}
 #'   ...
+#'   
+#'   @seealso \code{\link{simmr_mcmc}} for an example where it is used
 #' }
 "geese_data_day1"

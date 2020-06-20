@@ -47,3 +47,22 @@ test_that('group example', {
 })
 
 # Would be good to test for a load of errors at this point
+
+test_that('test without tefs and concentration', {
+  
+  data("geese_data_day1")
+  
+  # Load in with simmr_load
+  simmr_2 = with(geese_data_day1, 
+                 simmr_load(mixtures=mixtures,
+                            source_names=source_names,
+                            source_means=source_means,
+                            source_sds=source_sds))
+  expect_s3_class(simmr_2, 'simmr_input')
+  expect_true(is.matrix(simmr_2$source_means))
+  expect_true(is.matrix(simmr_2$source_sds))
+  expect_true(is.matrix(simmr_2$correction_means))
+  expect_true(is.matrix(simmr_2$correction_sds))
+  expect_true(is.matrix(simmr_2$concentration_means))
+  
+})
