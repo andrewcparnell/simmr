@@ -106,7 +106,7 @@ simmr_elicit <-
     
     low_cis = proportion_means - 2*proportion_sds
     high_cis = proportion_means + 2*proportion_sds
-    if(any(low_cis < 0) | any(high_cis > 1) ) warning("Some proportion sds are large and lie at the edge of the simplex. Check results are reasonable with prior_viz.")
+    if(any(low_cis < 0) | any(high_cis > 1) ) warning("Some proportion sds are large and lie at the edge of the simplex. Check results are reasonable by running prior_viz on the object created by simmr_mcmc.")
     
     cat('Running elicitation optimisation routine...\n')
     
@@ -182,6 +182,7 @@ simmr_elicit <-
     cat('... and best fit standard deviations of:\n')
     cat(round(apply(best_p, 2, 'sd'), 3))
     cat('\n')
+    cat('Check these match the input values before proceeding with a model run.\n')
     
     return(list(mean = best_mean, sd = best_sd))
     

@@ -1,3 +1,7 @@
+# simmr 0.4.3.9000
+
+  - Updated the simmr_elicit function to provide a more explicit warning for bad input objects
+
 # simmr 0.4.3
 
   - Fixed a bug in combine_sources that stopped it working for multiple groups

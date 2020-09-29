@@ -7,6 +7,8 @@
 #' @param plot Whether to create a density plot of the prior or not. The simulated prior values are returned as part of the object
 #' @param include_posterior Whether to include the posterior distribution on top of the priors. Defaults to TRUE
 #' @param n_sims The number of simulations from the prior distribution
+#' @param ggargs Extra arguments to be included in the ggplot (e.g. axis limits)
+
 #'
 #' @export
 #' 
@@ -40,7 +42,8 @@ prior_viz = function(simmr_out,
                      group = 1,
                      plot = TRUE,
                      include_posterior = TRUE,
-                     n_sims = 10000) {
+                     n_sims = 10000,
+                     ggargs = NULL) {
   UseMethod('prior_viz')
 }  
 #' @export
@@ -48,7 +51,8 @@ prior_viz.simmr_output = function(simmr_out,
                                   group = 1,
                                   plot = TRUE,
                                   include_posterior = TRUE,
-                                  n_sims = 10000) {
+                                  n_sims = 10000,
+                                  ggargs = NULL) {
 
   # Can't do more than 1 group for now
   if(length(group) > 1) stop("Multiple groups not supported")
@@ -109,7 +113,7 @@ prior_viz.simmr_output = function(simmr_out,
         ylab("Density") +
         facet_wrap("~ Source")
     }
-    print(g)
+    print(g) + ggargs
   }
   
   # Return the simulations

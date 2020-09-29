@@ -9,7 +9,8 @@ prior_viz(
   group = 1,
   plot = TRUE,
   include_posterior = TRUE,
-  n_sims = 10000
+  n_sims = 10000,
+  ggargs = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ prior_viz(
 \item{include_posterior}{Whether to include the posterior distribution on top of the priors. Defaults to TRUE}
 
 \item{n_sims}{The number of simulations from the prior distribution}
+
+\item{ggargs}{Extra arguments to be included in the ggplot (e.g. axis limits)}
 }
 \description{
 This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or as part of \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
