@@ -207,6 +207,6 @@ if(ncol(curr_mix) == 1) {
   }
 }
 
-print(g)
+invisible(g)
 
 }

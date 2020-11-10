@@ -525,6 +525,28 @@ simmr_tdf_2 = simmr_load(mixtures = mix,
 plot(simmr_tdf_2)
 ```
 
+## Customising plots
+
+Many of the plots in `simmr` can be customised by adding on extra options just like a standard `ggplot`. For example:
+
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
+plot(simmr_in) + xlim(-100, 100) + ylim(-100, 100)
+```
+
+or even on the output:
+
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
+plot(simmr_groups_out,
+     type = 'boxplot',
+     group = 2,
+     title = 'simmr output group 2') + 
+  ylim(0, 0.5)
+```
+
+Note that the above actually changes the x-axis and not the x-axis despite the above command. This is because the coordinates are flipped in the ggplot. 
+
+Other options you might like to customise include labels on axes, titles/subtitles, etc.
+
 ## Other advanced use of simmr
 
 Whilst the above gives an introduction to the basic functions of simmr, the package is open source and all code is open to editing. The two objects created as part of this vignette `simmr_in` and `simmr_out` are R lists. They can be explored with e.g.

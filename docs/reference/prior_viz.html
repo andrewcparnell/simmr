@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3.9000</span>
       </span>
     </div>
 
@@ -140,7 +140,8 @@
   <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>include_posterior</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>n_sims</span> <span class='kw'>=</span> <span class='fl'>10000</span>
+  <span class='kw'>n_sims</span> <span class='kw'>=</span> <span class='fl'>10000</span>,
+  <span class='kw'>ggargs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -165,6 +166,10 @@
     <tr>
       <th>n_sims</th>
       <td><p>The number of simulations from the prior distribution</p></td>
+    </tr>
+    <tr>
+      <th>ggargs</th>
+      <td><p>Extra arguments to be included in the ggplot (e.g. axis limits)</p></td>
     </tr>
     </table>
 
