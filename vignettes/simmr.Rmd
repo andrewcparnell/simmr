@@ -545,7 +545,32 @@ plot(simmr_groups_out,
 
 Note that the above actually changes the x-axis and not the x-axis despite the above command. This is because the coordinates are flipped in the ggplot. 
 
-Other options you might like to customise include labels on axes, titles/subtitles, etc.
+Other options you might like to customise include labels on axes, titles/subtitles, etc. More complicated changes can be made but these involve changing the ggplot commands that simmr uses in the background.
+
+Here is an example where I change the colours of the boxplots:
+
+```{r}
+# First extract the dietary proportions
+simmr_out2 = simmr_out$output[[1]]$BUGSoutput$sims.list$p
+colnames(simmr_out2) = simmr_out$input$source_names
+
+# Now turn into a proper data frame
+df = reshape2::melt(simmr_out2)
+colnames(df) = c('Num','Source','Proportion')
+
+# Finally create the new variable that you want to colour by
+df$new_colour = 'Type 2'
+df$new_colour[df$Source == 'Zostera'] = 'Type 1'
+
+# And create the plot
+ggplot(df,aes_string(y="Proportion",x="Source",
+                     fill="new_colour",alpha=0,5)) +
+  geom_boxplot(notch=TRUE,outlier.size=0) +
+  theme_bw() +
+  ggtitle('simmr output boxplot with changed colours') +
+  theme(legend.position='none') +
+  coord_flip()
+```
 
 ## Other advanced use of simmr
 
