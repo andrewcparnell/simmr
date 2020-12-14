@@ -50,6 +50,7 @@ jobs:
       - name: Install jags Mac OS
         if: runner.os == 'macOS'
         run: |
+          brew link --overwrite gcc
           brew install jags
   
       - name: Query dependencies
