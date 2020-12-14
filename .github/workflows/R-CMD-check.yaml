@@ -48,7 +48,7 @@ jobs:
           sudo apt-get install jags
           
       - name: Install jags Mac OS
-        if: runner.os == 'macOS-latest'
+        if: runner.os == 'macOS'
         run: |
           brew install jags
   
