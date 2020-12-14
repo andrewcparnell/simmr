@@ -41,11 +41,13 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
-      - name: Install jags
+      - name: Install jags Ubunti
+        if: runner.os == 'Linux'
         run: |
-          sudo apt-get install jags
+          sudo add-apt-repository ppa:marutter/rrutter -y
+          sudo apt-get update
           sudo apt-get install r-cran-rjags
-
+          
       - name: Query dependencies
         run: |
           install.packages('remotes')
