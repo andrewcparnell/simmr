@@ -41,6 +41,11 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v1
 
+      - name: Install jags
+        run: |
+          sudo apt-get install jags
+          sudo apt-get install r-cran-rjags
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
