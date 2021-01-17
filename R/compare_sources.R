@@ -166,10 +166,17 @@ if(length(source_names)>2) {
 }  
 
 # Return output
-if(length(source_names)==2) {
-  invisible(list(out_diff))
-} else {
-  invisible(list(Ordering=Ordering,out_all=out_all))
-}  
-
+  if(length(source_names)==2) {
+    if(plot) {
+      invisible(list(out_diff = out_diff, plot = p))
+    } else {
+      invisible(list(out_diff = out_diff))
+    }
+  } else {
+    if(plot) {
+      invisible(list(Ordering=Ordering,out_all=out_all, plot = p))
+    } else {
+      invisible(list(Ordering=Ordering,out_all=out_all))
+    }
+  }  
 }
