@@ -1,6 +1,7 @@
 # simmr 0.4.3.9000
 
   - Updated the simmr_elicit function to provide a more explicit warning for bad input objects
+  - Updated compare_sources and compare_groups to allow exporting of the plot object for editing purposes
 
 # simmr 0.4.3
 
