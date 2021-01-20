@@ -33,7 +33,7 @@ If you find bugs in the software, or wish to suggest new features, please add yo
 
 ## Installation of the `simmr` package
 
-The `simmr` package uses the JAGS (Just Another Gibbs Sampler) programmer to run the stable isotope mixing model. Before you install simmr, visit the [JAGS](http://mcmc-jags.sourceforge.net) website and download and install JAGS for your operating system. 
+The `simmr` package uses the JAGS (Just Another Gibbs Sampler) programmer to run the stable isotope mixing model. Before you install simmr, visit the [JAGS](https://sourceforge.net/projects/mcmc-jags/) website and download and install JAGS for your operating system. 
 
 Next, start Rstudio and find the window with the command prompt (the symbol `>`). Type
 
