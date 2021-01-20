@@ -64,58 +64,70 @@ details of richer plots.
 
 # A simple example with 10 observations, 4 food sources and 2 tracers
 data(geese_data_day1)
-simmr_1 = with(geese_data_day1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
 
 ### A more complicated example with 30 obs, 3 tracers and 4 sources
 data(simmr_data_2)
-simmr_3 = with(simmr_data_2,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_3 <- with(
+  simmr_data_2,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
-# Plot 3 times - first default d13C vs d15N 
+# Plot 3 times - first default d13C vs d15N
 plot(simmr_3)
 # Now plot d15N vs d34S
-plot(simmr_3,tracers=c(2,3))
+plot(simmr_3, tracers = c(2, 3))
 # and finally d13C vs d34S
-plot(simmr_3,tracers=c(1,3))
+plot(simmr_3, tracers = c(1, 3))
 # See vignette('simmr') for fancier x-axis labels
 
 # An example with multiple groups - the Geese data from Inger et al 2006
 data(geese_data)
-simmr_4 = with(geese_data,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means,
-                          group = groups))
+simmr_4 <- with(
+  geese_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means,
+    group = groups
+  )
+)
 
 # Print
 simmr_4
 
 # Plot
 plot(simmr_4,
-     xlab=expression(paste(delta^13, "C (\u2030)",sep="")),
-     ylab=expression(paste(delta^15, "N (\u2030)",sep="")),
-     title='Isospace plot of Inger et al Geese data')#' 
-
+  xlab = expression(paste(delta^13, "C (\u2030)", sep = "")),
+  ylab = expression(paste(delta^15, "N (\u2030)", sep = "")),
+  title = "Isospace plot of Inger et al Geese data"
+) #'
 }
 \seealso{
 See \code{\link{plot.simmr_output}} for plotting the output of a

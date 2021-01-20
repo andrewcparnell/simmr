@@ -23,7 +23,7 @@ function \code{\link{simmr_mcmc}}}
 \item{...}{Not used}
 }
 \value{
-An list containing the following components: \item{gelman }{The
+A list containing the following components: \item{gelman }{The
 convergence diagnostics} \item{quantiles }{The quantiles of each parameter
 from the posterior distribution} \item{statistics }{The means and standard
 deviations of each parameter} \item{correlations }{The posterior
@@ -55,28 +55,33 @@ results for all groups.
 
 # The data
 data(geese_data_day1)
-simmr_1 = with(geese_data_day1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
 
 
 # MCMC run
-simmr_1_out = simmr_mcmc(simmr_1)
+simmr_1_out <- simmr_mcmc(simmr_1)
 
-# Summarise 
-summary(simmr_1_out) # This outputs all the summaries 
-summary(simmr_1_out,type='diagnostics') # Just the diagnostics
+# Summarise
+summary(simmr_1_out) # This outputs all the summaries
+summary(simmr_1_out, type = "diagnostics") # Just the diagnostics
 # Store the output in an
-ans = summary(simmr_1_out,
-              type=c('quantiles','statistics')) object
+ans <- summary(simmr_1_out,
+  type = c("quantiles", "statistics")
+)
 }
 }
 \seealso{

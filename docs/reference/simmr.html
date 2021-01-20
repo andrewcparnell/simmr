@@ -80,7 +80,7 @@ this package. See also the vignette for a longer walkthrough." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@ this package. See also the vignette for a longer walkthrough." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,7 @@ this package. See also the vignette for a longer walkthrough." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/andrewcparnell/simmr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -166,39 +166,47 @@ Environmetrics, 24(6):387–399, 2013.</p>
 <p>Andrew C Parnell, Richard Inger, Stuart Bearhop, and Andrew L Jackson.
 Source partitioning using stable isotopes: coping with too much variation.
 PLoS ONE, 5(3):5, 2010.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># A first example with 2 tracers (isotopes), 10 observations, and 4 food sources</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>geese_data_day1</span>)
-<span class='no'>simmr_in</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>geese_data_day1</span>,
-               <span class='fu'><a href='simmr_load.html'>simmr_load</a></span>(<span class='kw'>mixtures</span><span class='kw'>=</span><span class='no'>mixtures</span>,
-                          <span class='kw'>source_names</span><span class='kw'>=</span><span class='no'>source_names</span>,
-                          <span class='kw'>source_means</span><span class='kw'>=</span><span class='no'>source_means</span>,
-                          <span class='kw'>source_sds</span><span class='kw'>=</span><span class='no'>source_sds</span>,
-                          <span class='kw'>correction_means</span><span class='kw'>=</span><span class='no'>correction_means</span>,
-                          <span class='kw'>correction_sds</span><span class='kw'>=</span><span class='no'>correction_sds</span>,
-                          <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>concentration_means</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data_day1</span><span class='op'>)</span>
+<span class='va'>simmr_in</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>geese_data_day1</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>correction_means</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>correction_sds</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_in</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_in</span><span class='op'>)</span>
 
 <span class='co'># MCMC run</span>
-<span class='no'>simmr_out</span> <span class='kw'>=</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span>(<span class='no'>simmr_in</span>)
+<span class='va'>simmr_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span><span class='op'>(</span><span class='va'>simmr_in</span><span class='op'>)</span>
 
 <span class='co'># Check convergence - values should all be close to 1</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>simmr_out</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'diagnostics'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>simmr_out</span>, type <span class='op'>=</span> <span class='st'>"diagnostics"</span><span class='op'>)</span>
 
 <span class='co'># Look at output</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>simmr_out</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'statistics'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>simmr_out</span>, type <span class='op'>=</span> <span class='st'>"statistics"</span><span class='op'>)</span>
 
 <span class='co'># Look at influence of priors</span>
-<span class='fu'><a href='prior_viz.html'>prior_viz</a></span>(<span class='no'>simmr_out</span>)
+<span class='fu'><a href='prior_viz.html'>prior_viz</a></span><span class='op'>(</span><span class='va'>simmr_out</span><span class='op'>)</span>
 
 <span class='co'># Plot output</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_out</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'histogram'</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_out</span>, type <span class='op'>=</span> <span class='st'>"histogram"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +222,7 @@ PLoS ONE, 5(3):5, 2010.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

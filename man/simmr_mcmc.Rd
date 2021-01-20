@@ -53,14 +53,18 @@ increased by a factor of 10.
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
-simmr_1 = with(geese_data_day1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
@@ -69,25 +73,25 @@ plot(simmr_1)
 simmr_1
 
 # MCMC run
-simmr_1_out = simmr_mcmc(simmr_1)
+simmr_1_out <- simmr_mcmc(simmr_1)
 
 # Print it
 print(simmr_1_out)
 
 # Summary
-summary(simmr_1_out,type='diagnostics')
-summary(simmr_1_out,type='correlations')
-summary(simmr_1_out,type='statistics')
-ans = summary(simmr_1_out,type=c('quantiles','statistics'))
+summary(simmr_1_out, type = "diagnostics")
+summary(simmr_1_out, type = "correlations")
+summary(simmr_1_out, type = "statistics")
+ans <- summary(simmr_1_out, type = c("quantiles", "statistics"))
 
 # Plot
-plot(simmr_1_out,type='boxplot')
-plot(simmr_1_out,type='histogram')
-plot(simmr_1_out,type='density')
-plot(simmr_1_out,type='matrix')
+plot(simmr_1_out, type = "boxplot")
+plot(simmr_1_out, type = "histogram")
+plot(simmr_1_out, type = "density")
+plot(simmr_1_out, type = "matrix")
 
 # Compare two sources
-compare_sources(simmr_1_out,source_names=c('Source A','Source D'))
+compare_sources(simmr_1_out, source_names = c("Source A", "Source D"))
 
 # Compare multiple sources
 compare_sources(simmr_1_out)
@@ -96,76 +100,84 @@ compare_sources(simmr_1_out)
 
 # A version with just one observation
 data(geese_data_day1)
-simmr_2 = with(geese_data_day1,
-               simmr_load(mixtures=mixtures[1,,drop = FALSE],
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_2 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures[1, , drop = FALSE],
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_2)
 
 # MCMC run - automatically detects the single observation
-simmr_2_out = simmr_mcmc(simmr_2)
+simmr_2_out <- simmr_mcmc(simmr_2)
 
 # Print it
 print(simmr_2_out)
 
 # Summary
 summary(simmr_2_out)
-summary(simmr_2_out,type='diagnostics')
-ans = summary(simmr_2_out,type=c('quantiles'))
+summary(simmr_2_out, type = "diagnostics")
+ans <- summary(simmr_2_out, type = c("quantiles"))
 
 # Plot
 plot(simmr_2_out)
-plot(simmr_2_out,type='boxplot')
-plot(simmr_2_out,type='histogram')
-plot(simmr_2_out,type='density')
-plot(simmr_2_out,type='matrix')
+plot(simmr_2_out, type = "boxplot")
+plot(simmr_2_out, type = "histogram")
+plot(simmr_2_out, type = "density")
+plot(simmr_2_out, type = "matrix")
 
 #####################################################################################
 
 # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
 data(simmr_data_2)
-simmr_3 = with(simmr_data_2,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_3 <- with(
+  simmr_data_2,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Get summary
 print(simmr_3)
 
 # Plot 3 times
 plot(simmr_3)
-plot(simmr_3,tracers=c(2,3))
-plot(simmr_3,tracers=c(1,3))
+plot(simmr_3, tracers = c(2, 3))
+plot(simmr_3, tracers = c(1, 3))
 # See vignette('simmr') for fancier axis labels
 
 # MCMC run
-simmr_3_out = simmr_mcmc(simmr_3)
+simmr_3_out <- simmr_mcmc(simmr_3)
 
 # Print it
 print(simmr_3_out)
 
 # Summary
 summary(simmr_3_out)
-summary(simmr_3_out,type='diagnostics')
-summary(simmr_3_out,type='quantiles')
-summary(simmr_3_out,type='correlations')
+summary(simmr_3_out, type = "diagnostics")
+summary(simmr_3_out, type = "quantiles")
+summary(simmr_3_out, type = "correlations")
 
 # Plot
 plot(simmr_3_out)
-plot(simmr_3_out,type='boxplot')
-plot(simmr_3_out,type='histogram')
-plot(simmr_3_out,type='density')
-plot(simmr_3_out,type='matrix')
+plot(simmr_3_out, type = "boxplot")
+plot(simmr_3_out, type = "histogram")
+plot(simmr_3_out, type = "density")
+plot(simmr_3_out, type = "matrix")
 
 #####################################################################################
 
@@ -174,35 +186,39 @@ plot(simmr_3_out,type='matrix')
 
 # The data
 data(square_data)
-simmr_4 = with(square_data,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds))
+simmr_4 <- with(
+  square_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds
+  )
+)
 
 # Get summary
 print(simmr_4)
 
-# Plot 
+# Plot
 plot(simmr_4)
 
 # MCMC run - needs slightly longer
-simmr_4_out = simmr_mcmc(simmr_4)
+simmr_4_out <- simmr_mcmc(simmr_4)
 
 # Print it
 print(simmr_4_out)
 
 # Summary
 summary(simmr_4_out)
-summary(simmr_4_out,type='diagnostics')
-ans = summary(simmr_4_out,type=c('quantiles','statistics'))
+summary(simmr_4_out, type = "diagnostics")
+ans <- summary(simmr_4_out, type = c("quantiles", "statistics"))
 
 # Plot
 plot(simmr_4_out)
-plot(simmr_4_out,type='boxplot')
-plot(simmr_4_out,type='histogram')
-plot(simmr_4_out,type='density')
-plot(simmr_4_out,type='matrix') # Look at the massive correlations here
+plot(simmr_4_out, type = "boxplot")
+plot(simmr_4_out, type = "histogram")
+plot(simmr_4_out, type = "density")
+plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
 
 #####################################################################################
 
@@ -210,44 +226,47 @@ plot(simmr_4_out,type='matrix') # Look at the massive correlations here
 
 # Do this in raw data format - Note that there's quite a few mixtures!
 data(geese_data)
-simmr_5 = with(geese_data,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means,
-                          group = groups))
+simmr_5 <- with(
+  geese_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means,
+    group = groups
+  )
+)
 
 # Plot
 plot(simmr_5,
-     xlab=expression(paste(delta^13, "C (\u2030)",sep="")),
-     ylab=expression(paste(delta^15, "N (\u2030)",sep="")),
-     title='Isospace plot of Inger et al Geese data')
+  xlab = expression(paste(delta^13, "C (\\\\u2030)", sep = "")),
+  ylab = expression(paste(delta^15, "N (\\\\u2030)", sep = "")),
+  title = "Isospace plot of Inger et al Geese data"
+)
 
 # Run MCMC for each group
-simmr_5_out = simmr_mcmc(simmr_5)
+simmr_5_out <- simmr_mcmc(simmr_5)
 
 # Summarise output
-summary(simmr_5_out,type='quantiles',group=1)
-summary(simmr_5_out,type='quantiles',group=c(1,3))
-summary(simmr_5_out,type=c('quantiles','statistics'),group=c(1,3))
+summary(simmr_5_out, type = "quantiles", group = 1)
+summary(simmr_5_out, type = "quantiles", group = c(1, 3))
+summary(simmr_5_out, type = c("quantiles", "statistics"), group = c(1, 3))
 
 # Plot - only a single group allowed
-plot(simmr_5_out,type='boxplot',group=2,title='simmr output group 2')
-plot(simmr_5_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
+plot(simmr_5_out, type = "boxplot", group = 2, title = "simmr output group 2")
+plot(simmr_5_out, type = c("density", "matrix"), grp = 6, title = "simmr output group 6")
 
 # Compare sources within a group
-compare_sources(simmr_5_out,source_names=c('Zostera','U.lactuca'),group=2)
-compare_sources(simmr_5_out,group=2)
+compare_sources(simmr_5_out, source_names = c("Zostera", "U.lactuca"), group = 2)
+compare_sources(simmr_5_out, group = 2)
 
 # Compare between groups
-compare_groups(simmr_5_out,source='Zostera',groups=1:2)
-compare_groups(simmr_5_out,source='Zostera',groups=1:3)
-compare_groups(simmr_5_out,source='U.lactuca',groups=c(4:5,7,2))
-
-
+compare_groups(simmr_5_out, source = "Zostera", groups = 1:2)
+compare_groups(simmr_5_out, source = "Zostera", groups = 1:3)
+compare_groups(simmr_5_out, source = "U.lactuca", groups = c(4:5, 7, 2))
 }
 
 }

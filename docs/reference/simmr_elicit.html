@@ -79,7 +79,7 @@ simmr_mcmc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@ simmr_mcmc." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -116,7 +116,7 @@ simmr_mcmc." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/andrewcparnell/simmr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -149,12 +149,12 @@ then finds CLR-transformed values suitable for input into
 <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simmr_elicit</span>(
-  <span class='no'>n_sources</span>,
-  <span class='kw'>proportion_means</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>/<span class='no'>n_sources</span>, <span class='no'>n_sources</span>),
-  <span class='kw'>proportion_sds</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.1</span>, <span class='no'>n_sources</span>),
-  <span class='kw'>n_sims</span> <span class='kw'>=</span> <span class='fl'>1000</span>
-)</pre>
+    <pre class="usage"><span class='fu'>simmr_elicit</span><span class='op'>(</span>
+  <span class='va'>n_sources</span>,
+  proportion_means <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='va'>n_sources</span>, <span class='va'>n_sources</span><span class='op'>)</span>,
+  proportion_sds <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='va'>n_sources</span><span class='op'>)</span>,
+  n_sims <span class='op'>=</span> <span class='fl'>1000</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,29 +203,36 @@ can span, and the fact that this function uses numerical optimisation, the
 procedure will not match the target dietary proportion means and standard
 deviations exactly. If this problem is severe, try increasing the
 <code>n_sims</code> value.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Data set: 10 observations, 2 tracers, 4 sources</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>geese_data_day1</span>)
-<span class='no'>simmr_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>geese_data_day1</span>,
-               <span class='fu'><a href='simmr_load.html'>simmr_load</a></span>(<span class='kw'>mixtures</span><span class='kw'>=</span><span class='no'>mixtures</span>,
-                          <span class='kw'>source_names</span><span class='kw'>=</span><span class='no'>source_names</span>,
-                          <span class='kw'>source_means</span><span class='kw'>=</span><span class='no'>source_means</span>,
-                          <span class='kw'>source_sds</span><span class='kw'>=</span><span class='no'>source_sds</span>,
-                          <span class='kw'>correction_means</span><span class='kw'>=</span><span class='no'>correction_means</span>,
-                          <span class='kw'>correction_sds</span><span class='kw'>=</span><span class='no'>correction_sds</span>,
-                          <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>concentration_means</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data_day1</span><span class='op'>)</span>
+<span class='va'>simmr_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>geese_data_day1</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>correction_means</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>correction_sds</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># MCMC run</span>
-<span class='no'>simmr_1_out</span> <span class='kw'>=</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span>(<span class='no'>simmr_1</span>)
+<span class='va'>simmr_1_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span><span class='op'>(</span><span class='va'>simmr_1</span><span class='op'>)</span>
 
 <span class='co'># Look at the prior influence</span>
-<span class='fu'><a href='prior_viz.html'>prior_viz</a></span>(<span class='no'>simmr_1_out</span>)
+<span class='fu'><a href='prior_viz.html'>prior_viz</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span><span class='op'>)</span>
 
 <span class='co'># Summary</span>
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>simmr_1_out</span>,<span class='st'>'quantiles'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span>, <span class='st'>"quantiles"</span><span class='op'>)</span>
 <span class='co'># A bit vague:</span>
 <span class='co'>#           2.5%   25%   50%   75% 97.5%</span>
 <span class='co'># Source A 0.029 0.115 0.203 0.312 0.498</span>
@@ -233,24 +240,25 @@ deviations exactly. If this problem is severe, try increasing the
 <span class='co'># Source C 0.216 0.255 0.275 0.296 0.342</span>
 <span class='co'># Source D 0.032 0.123 0.205 0.299 0.465</span>
 
-<span class='co'># Now suppose I had prior information that: </span>
-<span class='co'># proportion means = 0.5,0.2,0.2,0.1 </span>
+<span class='co'># Now suppose I had prior information that:</span>
+<span class='co'># proportion means = 0.5,0.2,0.2,0.1</span>
 <span class='co'># proportion sds = 0.08,0.02,0.01,0.02</span>
-<span class='no'>prior</span> <span class='kw'>=</span> <span class='fu'>simmr_elicit</span>(<span class='fl'>4</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.5</span>,<span class='fl'>0.2</span>,<span class='fl'>0.2</span>,<span class='fl'>0.1</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.08</span>,<span class='fl'>0.02</span>,<span class='fl'>0.01</span>,<span class='fl'>0.02</span>))
+<span class='va'>prior</span> <span class='op'>&lt;-</span> <span class='fu'>simmr_elicit</span><span class='op'>(</span><span class='fl'>4</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.2</span>, <span class='fl'>0.2</span>, <span class='fl'>0.1</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.08</span>, <span class='fl'>0.02</span>, <span class='fl'>0.01</span>, <span class='fl'>0.02</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='no'>simmr_1a_out</span> <span class='kw'>=</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span>(<span class='no'>simmr_1</span>,<span class='kw'>prior_control</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>means</span><span class='kw'>=</span><span class='no'>prior</span>$<span class='no'>mean</span>,<span class='kw'>sd</span><span class='kw'>=</span><span class='no'>prior</span>$<span class='no'>sd</span>))
+<span class='va'>simmr_1a_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span><span class='op'>(</span><span class='va'>simmr_1</span>, prior_control <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>means <span class='op'>=</span> <span class='va'>prior</span><span class='op'>$</span><span class='va'>mean</span>, sd <span class='op'>=</span> <span class='va'>prior</span><span class='op'>$</span><span class='va'>sd</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>#' # Look at the prior influence now</span>
-<span class='fu'><a href='prior_viz.html'>prior_viz</a></span>(<span class='no'>simmr_1a_out</span>)
+<span class='fu'><a href='prior_viz.html'>prior_viz</a></span><span class='op'>(</span><span class='va'>simmr_1a_out</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>simmr_1a_out</span>,<span class='st'>'quantiles'</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>simmr_1a_out</span>, <span class='st'>"quantiles"</span><span class='op'>)</span>
 <span class='co'># Much more precise:</span>
 <span class='co'>#           2.5%   25%   50%   75% 97.5%</span>
 <span class='co'># Source A 0.441 0.494 0.523 0.553 0.610</span>
 <span class='co'># Source B 0.144 0.173 0.188 0.204 0.236</span>
 <span class='co'># Source C 0.160 0.183 0.196 0.207 0.228</span>
-<span class='co'># Source D 0.060 0.079 0.091 0.105 0.135 </span>
-}</div></pre>
+<span class='co'># Source D 0.060 0.079 0.091 0.105 0.135</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -266,7 +274,7 @@ deviations exactly. If this problem is severe, try increasing the
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

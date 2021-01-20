@@ -24,32 +24,36 @@ allows for more detailed random effects and the inclusion of covariates.
 \dontrun{
 # A first example with 2 tracers (isotopes), 10 observations, and 4 food sources
 data(geese_data_day1)
-simmr_in = with(geese_data_day1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_in <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_in)
 
 # MCMC run
-simmr_out = simmr_mcmc(simmr_in)
+simmr_out <- simmr_mcmc(simmr_in)
 
 # Check convergence - values should all be close to 1
-summary(simmr_out, type = 'diagnostics')
+summary(simmr_out, type = "diagnostics")
 
 # Look at output
-summary(simmr_out, type = 'statistics')
+summary(simmr_out, type = "statistics")
 
 # Look at influence of priors
 prior_viz(simmr_out)
 
 # Plot output
-plot(simmr_out, type = 'histogram')
+plot(simmr_out, type = "histogram")
 }
 }
 \references{

@@ -21,14 +21,18 @@ This function takes the output from \code{\link{simmr_mcmc}} and plots the poste
 \examples{
 \dontrun{
 data(geese_data_day1)
-simmr_1 = with(geese_data_day1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
@@ -37,9 +41,9 @@ plot(simmr_1)
 simmr_1
 
 # MCMC run
-simmr_1_out = simmr_mcmc(simmr_1)
+simmr_1_out <- simmr_mcmc(simmr_1)
 
 # Prior predictive
-post_pred = posterior_predictive(simmr_1_out)
+post_pred <- posterior_predictive(simmr_1_out)
 }
 }

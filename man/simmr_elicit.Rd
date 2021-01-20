@@ -60,23 +60,27 @@ deviations exactly. If this problem is severe, try increasing the
 \dontrun{
 # Data set: 10 observations, 2 tracers, 4 sources
 data(geese_data_day1)
-simmr_1 = with(geese_data_day1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # MCMC run
-simmr_1_out = simmr_mcmc(simmr_1)
+simmr_1_out <- simmr_mcmc(simmr_1)
 
 # Look at the prior influence
 prior_viz(simmr_1_out)
 
 # Summary
-summary(simmr_1_out,'quantiles')
+summary(simmr_1_out, "quantiles")
 # A bit vague:
 #           2.5\%   25\%   50\%   75\% 97.5\%
 # Source A 0.029 0.115 0.203 0.312 0.498
@@ -84,23 +88,23 @@ summary(simmr_1_out,'quantiles')
 # Source C 0.216 0.255 0.275 0.296 0.342
 # Source D 0.032 0.123 0.205 0.299 0.465
 
-# Now suppose I had prior information that: 
-# proportion means = 0.5,0.2,0.2,0.1 
+# Now suppose I had prior information that:
+# proportion means = 0.5,0.2,0.2,0.1
 # proportion sds = 0.08,0.02,0.01,0.02
-prior = simmr_elicit(4, c(0.5,0.2,0.2,0.1), c(0.08,0.02,0.01,0.02))
+prior <- simmr_elicit(4, c(0.5, 0.2, 0.2, 0.1), c(0.08, 0.02, 0.01, 0.02))
 
-simmr_1a_out = simmr_mcmc(simmr_1,prior_control=list(means=prior$mean,sd=prior$sd))
+simmr_1a_out <- simmr_mcmc(simmr_1, prior_control = list(means = prior$mean, sd = prior$sd))
 
 #' # Look at the prior influence now
 prior_viz(simmr_1a_out)
 
-summary(simmr_1a_out,'quantiles')
+summary(simmr_1a_out, "quantiles")
 # Much more precise:
 #           2.5\%   25\%   50\%   75\% 97.5\%
 # Source A 0.441 0.494 0.523 0.553 0.610
 # Source B 0.144 0.173 0.188 0.204 0.236
 # Source C 0.160 0.183 0.196 0.207 0.228
-# Source D 0.060 0.079 0.091 0.105 0.135 
+# Source D 0.060 0.079 0.091 0.105 0.135
 }
 }
 \author{

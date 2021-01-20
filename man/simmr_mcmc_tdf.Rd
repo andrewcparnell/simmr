@@ -21,7 +21,7 @@ simmr_mcmc_tdf(
 
 \item{prior_control}{A list of values including arguments named \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
-correction factors. These can usually be left at their default values unless 
+correction factors. These can usually be left at their default values unless
 you wish to include to include prior information on them.}
 
 \item{mcmc_control}{A list of values including arguments named \code{iter}
@@ -30,28 +30,28 @@ of thinning), and \code{n.chain} (number of MCMC chains).}
 }
 \value{
 An object of class \code{simmr_tdf} with two named top-level
-components: 
+components:
 \item{input}{The \code{simmr_input} object given to the
-\code{simmr_mcmc} function} 
+\code{simmr_mcmc} function}
 \item{output}{A set of MCMC chains of class
-\code{mcmc.list} from the coda package. These can be analysed using 
+\code{mcmc.list} from the coda package. These can be analysed using
 \code{\link{summary.simmr_output_tdf}}}.
 }
 \description{
-This function runs a slightly different version of the main 
+This function runs a slightly different version of the main
 \code{\link{simmr_mcmc}} function with the key difference that it estimates
 the correction factors (sometimes called trophic enrichment or trophic
 discrimination factors; TEFs/TDFs) for a given set of dietary proportions.
 }
 \details{
-The idea is that this code can be used for feeding studies where an 
+The idea is that this code can be used for feeding studies where an
 organism is fed a known proportional diet with a view to estimating
-the correction factors to be used in a later stable isotope mixing 
-model when the organisms are observed in the field. 
+the correction factors to be used in a later stable isotope mixing
+model when the organisms are observed in the field.
 
-The main argument of the function is an object created from 
+The main argument of the function is an object created from
 \code{\link{simmr_load}} which contains mixture data on a number of tracers
-and food source means and standard deviations. Any correction factors 
+and food source means and standard deviations. Any correction factors
 included in this object will be ignored. The known dietary proportions should be provided for each individual (i.e. should be a matrix with the same number of rows as \code{mix}). It is advisable to have multiple different dietary proportion values as part of the feeding experimental design
 
 The output of the function is a posterior distribution on the correction
@@ -74,46 +74,56 @@ increased by e.g. a factor of 10.
 # The data
 data(simmr_data_1)
 # Load into simmr
-simmr_1 = with(simmr_data_1,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means))
+simmr_1 <- with(
+  simmr_data_1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_tdf)
 
 # MCMC run
-simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf,
-                               p = matrix(rep(1/simmr_tdf$n_sources,
-                                              simmr_tdf$n_sources),
-                                          ncol = simmr_tdf$n_sources,
-                                          nrow = simmr_tdf$n_obs, 
-                                          byrow = TRUE))
+simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+  p = matrix(rep(
+    1 / simmr_tdf$n_sources,
+    simmr_tdf$n_sources
+  ),
+  ncol = simmr_tdf$n_sources,
+  nrow = simmr_tdf$n_obs,
+  byrow = TRUE
+  )
+)
 
 # Summary
-summary(simmr_tdf_out,type='diagnostics')
-summary(simmr_tdf_out,type='quantiles')
+summary(simmr_tdf_out, type = "diagnostics")
+summary(simmr_tdf_out, type = "quantiles")
 
-# Now put these corrections back into the model and check the 
+# Now put these corrections back into the model and check the
 # iso-space plots and dietary output
-simmr_tdf_2 = simmr_load(mixtures=mix,
-                         source_names=s_names,
-                         source_means=s_means,
-                         source_sds=s_sds,
-                         correction_means = simmr_tdf_out$c_mean_est,
-                         correction_sds = simmr_tdf_out$c_sd_est,
-                         concentration_means = conc)
+simmr_tdf_2 <- simmr_load(
+  mixtures = mix,
+  source_names = s_names,
+  source_means = s_means,
+  source_sds = s_sds,
+  correction_means = simmr_tdf_out$c_mean_est,
+  correction_sds = simmr_tdf_out$c_sd_est,
+  concentration_means = conc
+)
 
 # Plot with corrections now
 plot(simmr_tdf_2)
 
-simmr_tdf_2_out = simmr_mcmc(simmr_tdf_2)
-summary(simmr_tdf_2_out, type = 'diagnostics')
-plot(simmr_tdf_2_out, type = 'boxplot')
+simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2)
+summary(simmr_tdf_2_out, type = "diagnostics")
+plot(simmr_tdf_2_out, type = "boxplot")
 }
 
 }
@@ -129,7 +139,7 @@ PLoS ONE, 5(3):5, 2010.
 }
 \seealso{
 \code{\link{simmr_load}} for creating objects suitable for this
-function, \code{\link{simmr_mcmc}} for estimating dietary proportions, 
+function, \code{\link{simmr_mcmc}} for estimating dietary proportions,
 \code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{summary.simmr_output_tdf}} for summarising output
 }

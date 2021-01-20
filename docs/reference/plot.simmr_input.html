@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the <code>simmr_input</code> data created from <code>simmr_load</code> — plot.simmr_input • simmr</title>
+<title>Plot the simmr_input data created from simmr_load — plot.simmr_input • simmr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Plot the <code>simmr_input</code> data created from <code>simmr_load</code> — plot.simmr_input" />
+<meta property="og:title" content="Plot the simmr_input data created from simmr_load — plot.simmr_input" />
 <meta property="og:description" content="This function creates iso-space (AKA tracer-space or delta-space) plots.
 They are vital in determining whether the data are suitable for running in a
 SIMM." />
@@ -74,7 +74,7 @@ SIMM." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ SIMM." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -111,7 +111,7 @@ SIMM." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/andrewcparnell/simmr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -140,19 +140,19 @@ SIMM.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simmr_input</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>tracers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>),
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Tracers plot"</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>x</span>$<span class='no'>mixtures</span>)[<span class='no'>tracers</span>[<span class='fl'>1</span>]],
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>x</span>$<span class='no'>mixtures</span>)[<span class='no'>tracers</span>[<span class='fl'>2</span>]],
-  <span class='kw'>sigmas</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='no'>x</span>$<span class='no'>n_groups</span>,
-  <span class='kw'>mix_name</span> <span class='kw'>=</span> <span class='st'>"Mixtures"</span>,
-  <span class='kw'>ggargs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  tracers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>,
+  title <span class='op'>=</span> <span class='st'>"Tracers plot"</span>,
+  xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>mixtures</span><span class='op'>)</span><span class='op'>[</span><span class='va'>tracers</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>,
+  ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>mixtures</span><span class='op'>)</span><span class='op'>[</span><span class='va'>tracers</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>,
+  sigmas <span class='op'>=</span> <span class='fl'>1</span>,
+  group <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='va'>x</span><span class='op'>$</span><span class='va'>n_groups</span>,
+  mix_name <span class='op'>=</span> <span class='st'>"Mixtures"</span>,
+  ggargs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  colour <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,65 +222,83 @@ details of richer plots.</p>
     <div class='dont-index'><p>See <code><a href='plot.simmr_output.html'>plot.simmr_output</a></code> for plotting the output of a
 simmr run. See <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for running a simmr object once the
 iso-space is deemed acceptable.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># A simple example with 10 observations, 4 food sources and 2 tracers</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>geese_data_day1</span>)
-<span class='no'>simmr_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>geese_data_day1</span>,
-               <span class='fu'><a href='simmr_load.html'>simmr_load</a></span>(<span class='kw'>mixtures</span><span class='kw'>=</span><span class='no'>mixtures</span>,
-                          <span class='kw'>source_names</span><span class='kw'>=</span><span class='no'>source_names</span>,
-                          <span class='kw'>source_means</span><span class='kw'>=</span><span class='no'>source_means</span>,
-                          <span class='kw'>source_sds</span><span class='kw'>=</span><span class='no'>source_sds</span>,
-                          <span class='kw'>correction_means</span><span class='kw'>=</span><span class='no'>correction_means</span>,
-                          <span class='kw'>correction_sds</span><span class='kw'>=</span><span class='no'>correction_sds</span>,
-                          <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>concentration_means</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data_day1</span><span class='op'>)</span>
+<span class='va'>simmr_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>geese_data_day1</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>correction_means</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>correction_sds</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1</span><span class='op'>)</span>
 
 <span class='co'>### A more complicated example with 30 obs, 3 tracers and 4 sources</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>simmr_data_2</span>)
-<span class='no'>simmr_3</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>simmr_data_2</span>,
-               <span class='fu'><a href='simmr_load.html'>simmr_load</a></span>(<span class='kw'>mixtures</span><span class='kw'>=</span><span class='no'>mixtures</span>,
-                          <span class='kw'>source_names</span><span class='kw'>=</span><span class='no'>source_names</span>,
-                          <span class='kw'>source_means</span><span class='kw'>=</span><span class='no'>source_means</span>,
-                          <span class='kw'>source_sds</span><span class='kw'>=</span><span class='no'>source_sds</span>,
-                          <span class='kw'>correction_means</span><span class='kw'>=</span><span class='no'>correction_means</span>,
-                          <span class='kw'>correction_sds</span><span class='kw'>=</span><span class='no'>correction_sds</span>,
-                          <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>concentration_means</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>simmr_data_2</span><span class='op'>)</span>
+<span class='va'>simmr_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>simmr_data_2</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>correction_means</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>correction_sds</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='co'># Plot 3 times - first default d13C vs d15N </span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>)
+<span class='co'># Plot 3 times - first default d13C vs d15N</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_3</span><span class='op'>)</span>
 <span class='co'># Now plot d15N vs d34S</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>,<span class='kw'>tracers</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_3</span>, tracers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># and finally d13C vs d34S</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_3</span>,<span class='kw'>tracers</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_3</span>, tracers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># See vignette('simmr') for fancier x-axis labels</span>
 
 <span class='co'># An example with multiple groups - the Geese data from Inger et al 2006</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>geese_data</span>)
-<span class='no'>simmr_4</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>geese_data</span>,
-               <span class='fu'><a href='simmr_load.html'>simmr_load</a></span>(<span class='kw'>mixtures</span><span class='kw'>=</span><span class='no'>mixtures</span>,
-                          <span class='kw'>source_names</span><span class='kw'>=</span><span class='no'>source_names</span>,
-                          <span class='kw'>source_means</span><span class='kw'>=</span><span class='no'>source_means</span>,
-                          <span class='kw'>source_sds</span><span class='kw'>=</span><span class='no'>source_sds</span>,
-                          <span class='kw'>correction_means</span><span class='kw'>=</span><span class='no'>correction_means</span>,
-                          <span class='kw'>correction_sds</span><span class='kw'>=</span><span class='no'>correction_sds</span>,
-                          <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>concentration_means</span>,
-                          <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>groups</span>))
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data</span><span class='op'>)</span>
+<span class='va'>simmr_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>geese_data</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>correction_means</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>correction_sds</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>,
+    group <span class='op'>=</span> <span class='va'>groups</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 
 <span class='co'># Print</span>
-<span class='no'>simmr_4</span></div><div class='output co'>#&gt; This is a valid simmr input object with 251 observations, 2 tracers, and 4 sources.
+<span class='va'>simmr_4</span>
+</div><div class='output co'>#&gt; This is a valid simmr input object with 251 observations, 2 tracers, and 4 sources.
 #&gt; There are 8 groups.
 #&gt; The source names are: Zostera, Grass, U.lactuca, Enteromorpha.
 #&gt; The tracer names are: d13C_Pl, d15N_Pl.
 #&gt; </div><div class='input'>
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_4</span>,
-     <span class='kw'>xlab</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>delta</span>^<span class='fl'>13</span>, <span class='st'>"C (\u2030)"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>)),
-     <span class='kw'>ylab</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>delta</span>^<span class='fl'>15</span>, <span class='st'>"N (\u2030)"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>)),
-     <span class='kw'>title</span><span class='kw'>=</span><span class='st'>'Isospace plot of Inger et al Geese data'</span>)<span class='co'>#' </span></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_4</span>,
+  xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>delta</span><span class='op'>^</span><span class='fl'>13</span>, <span class='st'>"C (\u2030)"</span>, sep <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>,
+  ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>delta</span><span class='op'>^</span><span class='fl'>15</span>, <span class='st'>"N (\u2030)"</span>, sep <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>,
+  title <span class='op'>=</span> <span class='st'>"Isospace plot of Inger et al Geese data"</span>
+<span class='op'>)</span> <span class='co'>#'</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -296,7 +314,7 @@ iso-space is deemed acceptable.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

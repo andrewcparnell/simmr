@@ -39,10 +39,10 @@
 #' columns is the number of tracers. These should be between 0 and 1. If not
 #' provided these are all set to 1.
 #' @param group A grouping variable. These can be a character or factor variable
-#' 
+#'
 #' @import checkmate
 #'
-#' 
+#'
 #' @return An object of class \code{simmr_input} with the following elements:
 #' \item{mixtures }{The mixture data} \item{source_neams }{Source means}
 #' \item{sources_sds }{Source standard deviations} \item{correction_means
@@ -57,84 +57,96 @@
 #'
 #' # A simple example with 10 observations, 2 tracers and 4 sources
 #' #' data(geese_data_day1)
-#' simmr_1 = with(geese_data_day1,
-#'                simmr_load(mixtures=mixtures,
-#'                           source_names=source_names,
-#'                           source_means=source_means,
-#'                           source_sds=source_sds,
-#'                           correction_means=correction_means,
-#'                           correction_sds=correction_sds,
-#'                           concentration_means = concentration_means))
+#' simmr_1 <- with(
+#'   geese_data_day1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' print(simmr_1)
-#'
 #' @export simmr_load
-simmr_load = function(mixtures,
-                      source_names,
-                      source_means,
-                      source_sds,
-                      correction_means = NULL,
-                      correction_sds = NULL,
-                      concentration_means = NULL,
-                      group = NULL) {
+simmr_load <- function(mixtures,
+                       source_names,
+                       source_means,
+                       source_sds,
+                       correction_means = NULL,
+                       correction_sds = NULL,
+                       concentration_means = NULL,
+                       group = NULL) {
   # Function to load in data for simmr and check whether it's appropriate for running through simmr_mcmc
-  
+
   # Go through each object and check that it matches the requirements
-  
+
   # Mixtures must be a matrix - the number of rows is the number of observations and the number of columns is the number of tracers
   assert_matrix(mixtures)
-  n_obs = nrow(mixtures)
-  n_tracers = ncol(mixtures)
-  
+  n_obs <- nrow(mixtures)
+  n_tracers <- ncol(mixtures)
+
   # Add column names if they're not there
-  if (is.null(colnames(mixtures)))
-    colnames(mixtures) = paste0('tracer', 1:n_tracers)
-  
+  if (is.null(colnames(mixtures))) {
+    colnames(mixtures) <- paste0("tracer", 1:n_tracers)
+  }
+
   # source_names must be a character vector - the length of it is the number of sources
   assert_character(source_names)
-  n_sources = length(source_names)
-  
+  n_sources <- length(source_names)
+
   # source_means and source_sds must both be matrices where the number of rows is n_sources (in the same order as source_names) and the number of columns is n_tracers
   assert_matrix(source_means, nrows = n_sources, ncols = n_tracers)
   assert_matrix(source_sds, nrows = n_sources, ncols = n_tracers)
-  assert_matrix(correction_means, nrows = n_sources, 
-                ncols = n_tracers, 
-                null.ok = ifelse(is.null(correction_sds), 
-                                 TRUE, FALSE))
-  assert_matrix(correction_sds, nrows = n_sources, 
-                ncols = n_tracers, 
-                null.ok = ifelse(is.null(correction_means),
-                                 TRUE, FALSE))
-  assert_matrix(concentration_means, nrows = n_sources, 
-                ncols = n_tracers, null.ok = TRUE)
+  assert_matrix(correction_means,
+    nrows = n_sources,
+    ncols = n_tracers,
+    null.ok = ifelse(is.null(correction_sds),
+      TRUE, FALSE
+    )
+  )
+  assert_matrix(correction_sds,
+    nrows = n_sources,
+    ncols = n_tracers,
+    null.ok = ifelse(is.null(correction_means),
+      TRUE, FALSE
+    )
+  )
+  assert_matrix(concentration_means,
+    nrows = n_sources,
+    ncols = n_tracers, null.ok = TRUE
+  )
 
   # Fill in correction means
   if (is.null(correction_means)) {
-    correction_means = matrix(0, ncol = n_tracers, nrow = n_sources)
-    correction_sds = matrix(0, ncol = n_tracers, nrow = n_sources)
+    correction_means <- matrix(0, ncol = n_tracers, nrow = n_sources)
+    correction_sds <- matrix(0, ncol = n_tracers, nrow = n_sources)
   }
-  
+
   # concentration_means must be a matrix where all elements are less than 1
-  if(is.null(concentration_means)) {
-    concentration_means = matrix(1, ncol = n_tracers, nrow = n_sources)
+  if (is.null(concentration_means)) {
+    concentration_means <- matrix(1, ncol = n_tracers, nrow = n_sources)
   } else {
     assert_true(all(concentration_means < 1) & all(concentration_means > 0))
   }
-  
+
   # Check the groups are the right length and structure if given
   if (!is.null(group)) {
     # Allow for the group to be a factor variable
-    group = as.factor(group)
-    group_int = as.integer(group)
+    group <- as.factor(group)
+    group_int <- as.integer(group)
     assert_vector(group, len = n_obs)
   } else {
-    group = factor(rep(1, n_obs))
-    group_int = as.integer(group)
+    group <- factor(rep(1, n_obs))
+    group_int <- as.integer(group)
   }
-  n_groups = length(unique(group))
-  
+  n_groups <- length(unique(group))
+
   # Prepare output and give class
-  out = list(
+  out <- list(
     mixtures = mixtures,
     source_names = source_names,
     source_means = source_means,
@@ -149,14 +161,13 @@ simmr_load = function(mixtures,
     n_sources = n_sources,
     n_groups = n_groups
   )
-  
+
   # Look through to see whether there are any missing values in anything
-  if (any(unlist(lapply(out, 'is.na')))) {
+  if (any(unlist(lapply(out, "is.na")))) {
     warning("Missing values provided for some values. Check your inputs")
   }
-  
-  class(out) = 'simmr_input'
-  
+
+  class(out) <- "simmr_input"
+
   return(out)
-  
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot different features of an object created from <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code>. — plot.simmr_output • simmr</title>
+<title>Plot different features of an object created from simmr_mcmc. — plot.simmr_output • simmr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Plot different features of an object created from <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code>. — plot.simmr_output" />
+<meta property="og:title" content="Plot different features of an object created from simmr_mcmc. — plot.simmr_output" />
 <meta property="og:description" content="This function allows for 4 different types of plots of the simmr output
 created from simmr_mcmc. The types are: histogram, kernel
 density plot, matrix plot (most useful) and boxplot. There are some minor
@@ -75,7 +75,7 @@ customisation options." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ customisation options." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,7 +112,7 @@ customisation options." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/andrewcparnell/simmr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -142,17 +142,17 @@ customisation options.</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for simmr_output</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"isospace"</span>, <span class='st'>"histogram"</span>, <span class='st'>"density"</span>, <span class='st'>"matrix"</span>, <span class='st'>"boxplot"</span>),
-  <span class='kw'>group</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
-  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>group</span>) <span class='kw'>==</span> <span class='fl'>1</span>) {     <span class='st'>"simmr output plot"</span> } <span class='kw'>else</span> {
-    <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"simmr output plot: group"</span>, <span class='no'>group</span>) },
-  <span class='kw'>ggargs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"isospace"</span>, <span class='st'>"histogram"</span>, <span class='st'>"density"</span>, <span class='st'>"matrix"</span>, <span class='st'>"boxplot"</span><span class='op'>)</span>,
+  group <span class='op'>=</span> <span class='fl'>1</span>,
+  binwidth <span class='op'>=</span> <span class='fl'>0.05</span>,
+  alpha <span class='op'>=</span> <span class='fl'>0.5</span>,
+  title <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>group</span><span class='op'>)</span> <span class='op'>==</span> <span class='fl'>1</span><span class='op'>)</span> <span class='op'>{</span>     <span class='st'>"simmr output plot"</span> <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>    
+    <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"simmr output plot: group"</span>, <span class='va'>group</span><span class='op'>)</span> <span class='op'>}</span>,
+  ggargs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,38 +205,46 @@ Further detail about these plots is provided in the vignette.</p>
 function, and many more examples. See also <code><a href='simmr_load.html'>simmr_load</a></code> for
 creating simmr objects, <code><a href='plot.simmr_input.html'>plot.simmr_input</a></code> for creating isospace
 plots, <code><a href='summary.simmr_output.html'>summary.simmr_output</a></code> for summarising output.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># A simple example with 10 observations, 2 tracers and 4 sources</span>
 
 <span class='co'># The data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>geese_data</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data</span><span class='op'>)</span>
 
 <span class='co'># Load into simmr</span>
-<span class='no'>simmr_1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span>(<span class='no'>geese_data_day1</span>,
-               <span class='fu'><a href='simmr_load.html'>simmr_load</a></span>(<span class='kw'>mixtures</span><span class='kw'>=</span><span class='no'>mixtures</span>,
-                          <span class='kw'>source_names</span><span class='kw'>=</span><span class='no'>source_names</span>,
-                          <span class='kw'>source_means</span><span class='kw'>=</span><span class='no'>source_means</span>,
-                          <span class='kw'>source_sds</span><span class='kw'>=</span><span class='no'>source_sds</span>,
-                          <span class='kw'>correction_means</span><span class='kw'>=</span><span class='no'>correction_means</span>,
-                          <span class='kw'>correction_sds</span><span class='kw'>=</span><span class='no'>correction_sds</span>,
-                          <span class='kw'>concentration_means</span> <span class='kw'>=</span> <span class='no'>concentration_means</span>))
+<span class='va'>simmr_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>geese_data_day1</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>correction_means</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>correction_sds</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>
+  <span class='op'>)</span>
+<span class='op'>)</span>
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1</span><span class='op'>)</span>
 
 
 <span class='co'># MCMC run</span>
-<span class='no'>simmr_1_out</span> <span class='kw'>=</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span>(<span class='no'>simmr_1</span>)
+<span class='va'>simmr_1_out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simmr_mcmc.html'>simmr_mcmc</a></span><span class='op'>(</span><span class='va'>simmr_1</span><span class='op'>)</span>
 
 <span class='co'># Plot</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1_out</span>) <span class='co'># Creates all 4 plots</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1_out</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>'boxplot'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1_out</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>'histogram'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1_out</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>'density'</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>simmr_1_out</span>,<span class='kw'>type</span><span class='kw'>=</span><span class='st'>'matrix'</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span><span class='op'>)</span> <span class='co'># Creates all 4 plots</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span>, type <span class='op'>=</span> <span class='st'>"boxplot"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span>, type <span class='op'>=</span> <span class='st'>"histogram"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span>, type <span class='op'>=</span> <span class='st'>"density"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span>, type <span class='op'>=</span> <span class='st'>"matrix"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -252,7 +260,7 @@ plots, <code><a href='summary.simmr_output.html'>summary.simmr_output</a></code>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -48,43 +48,49 @@ required.
 \examples{
 \dontrun{
 data(geese_data)
-simmr_in = with(geese_data,
-               simmr_load(mixtures=mixtures,
-                          source_names=source_names,
-                          source_means=source_means,
-                          source_sds=source_sds,
-                          correction_means=correction_means,
-                          correction_sds=correction_sds,
-                          concentration_means = concentration_means,
-                          group = groups))
+simmr_in <- with(
+  geese_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means,
+    group = groups
+  )
+)
 
 # Print
 simmr_in
 
 # Plot
-plot(simmr_in,group=1:8,xlab=expression(paste(delta^13, "C (\u2030)",sep="")), 
-     ylab=expression(paste(delta^15, "N (\u2030)",sep="")), 
-     title='Isospace plot of Inger et al Geese data')
+plot(simmr_in,
+  group = 1:8, xlab = expression(paste(delta^13, "C (\\\\u2030)", sep = "")),
+  ylab = expression(paste(delta^15, "N (\\\\u2030)", sep = "")),
+  title = "Isospace plot of Inger et al Geese data"
+)
 
 # Run MCMC for each group
-simmr_out = simmr_mcmc(simmr_in)
+simmr_out <- simmr_mcmc(simmr_in)
 
 # Print output
 simmr_out
 
 # Summarise output
-summary(simmr_out,type='quantiles',group=1)
-summary(simmr_out,type='quantiles',group=c(1,3))
-summary(simmr_out,type=c('quantiles','statistics'),group=c(1,3))
+summary(simmr_out, type = "quantiles", group = 1)
+summary(simmr_out, type = "quantiles", group = c(1, 3))
+summary(simmr_out, type = c("quantiles", "statistics"), group = c(1, 3))
 
 # Plot - only a single group allowed
-plot(simmr_out,type='boxplot',group=2,title='simmr output group 2')
-plot(simmr_out,type=c('density','matrix'),grp=6,title='simmr output group 6')
+plot(simmr_out, type = "boxplot", group = 2, title = "simmr output group 2")
+plot(simmr_out, type = c("density", "matrix"), grp = 6, title = "simmr output group 6")
 
 # Compare groups
-compare_groups(simmr_out,source='Zostera',groups=1:2)
-compare_groups(simmr_out,source='Zostera',groups=1:3)
-compare_groups(simmr_out,source='U.lactuca',groups=c(4:5,7,2))
+compare_groups(simmr_out, source = "Zostera", groups = 1:2)
+compare_groups(simmr_out, source = "Zostera", groups = 1:3)
+compare_groups(simmr_out, source = "U.lactuca", groups = c(4:5, 7, 2))
 }
 
 }

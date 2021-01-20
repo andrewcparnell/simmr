@@ -1,6 +1,6 @@
 ## Test environments
-* local OS X install, R 4.0.0
-* travis
+* local OS X install, R 4.0.3
+* GitHub actions
 * rhub
 * win-builder (devel and release)
 
