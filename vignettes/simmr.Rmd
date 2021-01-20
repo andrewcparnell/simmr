@@ -27,7 +27,7 @@ tl;dr see the [Quick Start](https://cran.r-project.org/package=simmr/vignettes/q
 
 We assume that you have a sound working knowledge of stable isotopic mixing models, and the assumptions and potential pitfalls associated with these models. A list of required reading is presented in Appendix A of this guide. We strongly recommend reading Philips et al 2015, Canadian Journal of Zoology for the basic assumptions and dos and don'ts of running mixing models.
 
-We assume that if you have got this far you have [installed R](https://www.r-project.org). We also recommend installing [Rstudio](https://www.rstudio.com) as this provides a very neat interface to use R and `simmr`. The instructions below all assume you are using Rstudio.
+We assume that if you have got this far you have [installed R](https://www.r-project.org). We also recommend installing [Rstudio](https://rstudio.com) as this provides a very neat interface to use R and `simmr`. The instructions below all assume you are using Rstudio.
 
 If you find bugs in the software, or wish to suggest new features, please add your input to the `simmr` [GitHub page](https://github.com/andrewcparnell/simmr/issues).
 
