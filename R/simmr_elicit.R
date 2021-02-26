@@ -100,16 +100,15 @@ simmr_elicit <-
            proportion_sds = rep(0.1, n_sources),
            n_sims = 1000) {
     # proportion_means must be a vector of length n_sources
-    if (length(proportion_means) != n_sources) {
-      stop("proportion_means must be of same length as the number of sources")
-    }
+    assert_numeric(proportion_means,
+      len = n_sources,
+      lower = 0, upper = 1
+    )
     # proportion_sds must be a vector of length n_sources
-    if (length(proportion_sds) != n_sources) {
-      stop("proportion_sds must be of same length as the number of sources")
-    }
-    if (any(proportion_sds == 0)) {
-      stop("No proportion_sds should be 0 as this will mean that food source is not being consumed.")
-    }
+    assert_numeric(proportion_sds,
+      len = n_sources,
+      lower = 0, upper = 1
+    )
 
     low_cis <- proportion_means - 2 * proportion_sds
     high_cis <- proportion_means + 2 * proportion_sds

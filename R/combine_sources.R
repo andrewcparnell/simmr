@@ -18,7 +18,7 @@
 #' \code{\link{simmr_mcmc}}.
 #' @param to_combine The names of exactly two sources. These should match the
 #' names given to \code{\link{simmr_load}}.
-#' @param new_source_name A name to give to the new combined source
+#' @param new_source_name A name to give to the new combined source. 
 #' @return A new \code{simmr_output} object
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} and the associated vignette for
@@ -72,7 +72,7 @@
 #'
 #' simmr_out_combine <- combine_sources(simmr_1_out,
 #'   to_combine = c("Source A", "Source D"),
-#'   new_source_name = "Source A+D"
+#'   new_source_name = "Source A and D"
 #' )
 #' plot(simmr_out_combine$input)
 #' plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")
@@ -91,13 +91,14 @@ combine_sources.simmr_output <- function(simmr_out,
   # A posteriori combining of sources
 
   # Check only two sources to be combined
-  if (length(to_combine) != 2) {
-    stop("Currently only two sources can be combined")
-  }
-
-  # # Check class
-  # if (class(simmr_out) != 'simmr_output')
-  #   stop("Only objects of class simmr_output can be run through this function")
+  assert_character(to_combine,
+    any.missing = FALSE,
+    all.missing = FALSE,
+    len = 2,
+    unique = TRUE
+  )
+  # Check that to_combine is in the list of sources
+  assert_true(all(to_combine %in% simmr_out$input$source_names))
 
   # Find which columns to combine by number
   to_combine_cols <- sort(match(to_combine, simmr_out$input$source_names))

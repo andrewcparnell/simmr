@@ -102,10 +102,13 @@ compare_groups.simmr_output <- function(simmr_out,
   # An optional boxplot of the groups
 
   # Throw an error if only one group is specified
-  if (length(groups) == 1) stop("Please use plot(...) or summary(...) if you just want to look at one group.")
-
-  # Throw an error if the source name given doesn't match the source names
-  if (!source_name %in% simmr_out$input$source_names) stop("This source name not found in the current source names. Be sure to check case and spelling")
+  assert_true(simmr_out$input$n_groups > 1)
+  assert_numeric(groups, min.len = 2)
+  assert_character(source_name,
+                   any.missing = FALSE,
+                   len = 1,
+                   pattern = paste0(paste0('\\<',simmr_out$input$source_names,'\\>'), collapse = "|")
+  )
 
   # Get group names
   group_names <- levels(simmr_out$input$group)[groups]

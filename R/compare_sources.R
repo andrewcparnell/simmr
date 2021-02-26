@@ -104,14 +104,15 @@ compare_sources.simmr_output <- function(simmr_out,
   # An optional boxplot of the sources
 
   # Throw an error if only one group is specified
-  if (length(source_names) == 1) stop("Use compare_between_groups if you want to compare a single source between groups.")
-
-  # Throw an error if the source name given doesn't match the source names
-  if (!all(source_names %in% simmr_out$input$source_names)) stop("Some source names not found in the current source names. Be sure to check case and spelling")
-
-  # Throw an error if more than one group specified
-  if (length(group) > 1) stop("Only one group allowed")
-
+  assert_character(source_names,
+                   min.len = 2,
+                   any.missing = FALSE)
+  assert_true(all(source_names %in% simmr_out$input$source_names))
+  assert_numeric(group,
+                 len = 1,
+                 any.missing = FALSE)
+  assert_logical(plot)
+  
   # Start with two groups version
   if (length(source_names) == 2) {
     # Get the output for this particular source on these two groups

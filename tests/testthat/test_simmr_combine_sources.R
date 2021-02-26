@@ -34,7 +34,7 @@ test_that("simmr combine sources single group", {
   # Combine two sources
   simmr_out_combine <- combine_sources(simmr_1_out,
     to_combine = c("Zostera", "Grass"),
-    new_source_name = "Z+G"
+    new_source_name = "Z and G"
   )
   expect_s3_class(simmr_out_combine, "simmr_output")
   expect_s3_class(simmr_out_combine$input, "simmr_input")
@@ -44,6 +44,20 @@ test_that("simmr combine sources single group", {
   expect_true(simmr_out_combine$input$n_sources == 3)
 
   expect_output(summary(simmr_out_combine))
+
+  # Check some errors
+  expect_error(combine_sources(simmr_1_out,
+                  to_combine = c("Zostera2", "Grass"),
+                  new_source_name = "Z and G"
+  ))
+  expect_error(combine_sources(simmr_1_out,
+                               to_combine = c("Zostera", "Gass"),
+                               new_source_name = "Z and G"
+  ))
+  expect_error(combine_sources(simmr_1_out,
+                               to_combine = c("Zostera", "Grass", "Enteromorpha"),
+                               new_source_name = "Z and G"
+  ))
 })
 
 # Taken from the simmr_mcmc example
@@ -77,7 +91,7 @@ test_that("simmr combine sources multiple group", {
   # Combine two sources
   simmr_out_2_combine <- combine_sources(simmr_2_out,
     to_combine = c("Zostera", "Grass"),
-    new_source_name = "Z+G"
+    new_source_name = "Z and G"
   )
   expect_s3_class(simmr_out_2_combine, "simmr_output")
   expect_s3_class(simmr_out_2_combine$input, "simmr_input")
@@ -90,7 +104,7 @@ test_that("simmr combine sources multiple group", {
   # Check that it still works when you reverse the sources (previously crashed)
   simmr_out_3_combine <- combine_sources(simmr_2_out,
     to_combine = c("Grass", "Zostera"),
-    new_source_name = "Z+G"
+    new_source_name = "Z and G"
   )
   expect_s3_class(simmr_out_3_combine, "simmr_output")
 
@@ -100,17 +114,17 @@ test_that("simmr combine sources multiple group", {
   expect_false(summ_1$statistics[[1]][1, 1] == summ_2$statistics[[1]][1, 1])
 
   # Make sure compare groups is different
-  cg_1 <- compare_groups(simmr_out_2_combine, source_name = "Z+G", groups = 1:2)
-  cg_2 <- compare_groups(simmr_out_2_combine, source_name = "Z+G", groups = 2:3)
+  cg_1 <- compare_groups(simmr_out_2_combine, source_name = "Z and G", groups = 1:2)
+  cg_2 <- compare_groups(simmr_out_2_combine, source_name = "Z and G", groups = 2:3)
   expect_false(mean(cg_1[[1]]) == mean(cg_2[[1]]))
 
   # Make sure compare sources is different
   cs_1 <- compare_sources(simmr_out_2_combine,
-    source_names = c("Z+G", "Enteromorpha"),
+    source_names = c("Z and G", "Enteromorpha"),
     group = 1
   )
   cs_2 <- compare_sources(simmr_out_2_combine,
-    source_names = c("Z+G", "Enteromorpha"),
+    source_names = c("Z and G", "Enteromorpha"),
     group = 2
   )
   expect_false(mean(cs_1[[1]]) == mean(cs_2[[1]]))
@@ -162,7 +176,7 @@ test_that("simmr combine sources multiple groups", {
       "U.lactuca",
       "Enteromorpha"
     ),
-    new_source_name = "U.lac+Ent"
+    new_source_name = "U.lac and Ent"
   )
 
   expect_s3_class(simmr_out_4_combine, "simmr_output")
@@ -176,7 +190,7 @@ test_that("simmr combine sources multiple groups", {
   # Check that it still works when you reverse the sources (previously crashed)
   simmr_out_5_combine <- combine_sources(simmr_out_4_combine,
     to_combine = c("Grass", "Zostera"),
-    new_source_name = "Z+G"
+    new_source_name = "Z and G"
   )
   expect_s3_class(simmr_out_5_combine, "simmr_output")
 })
