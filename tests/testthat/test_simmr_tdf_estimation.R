@@ -50,6 +50,12 @@ test_that("main tdf function works", {
   expect_identical(names(tdf1), c("gelman", "quantiles", "statistics", "correlations"))
 })
 
+test_that("Other summary tdf functions produce output", {
+  expect_output(summary(simmr_tdf_out, type = "quantiles"))
+  expect_output(summary(simmr_tdf_out, type = "statistics"))
+  expect_output(summary(simmr_tdf_out, type = "correlations"))
+})
+
 test_that("tdf output can be re-used", {
   simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2,
     mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
