@@ -106,9 +106,9 @@ compare_groups.simmr_output <- function(simmr_out,
   assert_numeric(groups, min.len = 2)
   assert_character(source_name,
                    any.missing = FALSE,
-                   len = 1,
-                   pattern = paste0(paste0('\\<',simmr_out$input$source_names,'\\>'), collapse = "|")
+                   len = 1
   )
+  assert_true(all(source_name %in% simmr_out$input$source_names))
 
   # Get group names
   group_names <- levels(simmr_out$input$group)[groups]
