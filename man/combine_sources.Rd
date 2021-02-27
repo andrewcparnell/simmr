@@ -17,7 +17,7 @@ combine_sources(
 \item{to_combine}{The names of exactly two sources. These should match the
 names given to \code{\link{simmr_load}}.}
 
-\item{new_source_name}{A name to give to the new combined source}
+\item{new_source_name}{A name to give to the new combined source.}
 }
 \value{
 A new \code{simmr_output} object
@@ -87,7 +87,7 @@ plot(simmr_1_out, type = "matrix")
 
 simmr_out_combine <- combine_sources(simmr_1_out,
   to_combine = c("Source A", "Source D"),
-  new_source_name = "Source A+D"
+  new_source_name = "Source A and D"
 )
 plot(simmr_out_combine$input)
 plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")
