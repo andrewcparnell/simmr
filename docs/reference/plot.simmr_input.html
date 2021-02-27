@@ -74,7 +74,7 @@ SIMM." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4.9000</span>
       </span>
     </div>
 
@@ -245,7 +245,7 @@ iso-space is deemed acceptable.</p></div>
 
 <span class='co'># Plot</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1</span><span class='op'>)</span>
-
+</div><div class='img'><img src='plot.simmr_input-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>### A more complicated example with 30 obs, 3 tracers and 4 sources</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>simmr_data_2</span><span class='op'>)</span>
 <span class='va'>simmr_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
@@ -263,11 +263,11 @@ iso-space is deemed acceptable.</p></div>
 
 <span class='co'># Plot 3 times - first default d13C vs d15N</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_3</span><span class='op'>)</span>
-<span class='co'># Now plot d15N vs d34S</span>
+</div><div class='img'><img src='plot.simmr_input-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Now plot d15N vs d34S</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_3</span>, tracers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># and finally d13C vs d34S</span>
+</div><div class='img'><img src='plot.simmr_input-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># and finally d13C vs d34S</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_3</span>, tracers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># See vignette('simmr') for fancier x-axis labels</span>
+</div><div class='img'><img src='plot.simmr_input-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># See vignette('simmr') for fancier x-axis labels</span>
 
 <span class='co'># An example with multiple groups - the Geese data from Inger et al 2006</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data</span><span class='op'>)</span>
@@ -298,7 +298,7 @@ iso-space is deemed acceptable.</p></div>
   ylab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/expression.html'>expression</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>delta</span><span class='op'>^</span><span class='fl'>15</span>, <span class='st'>"N (\u2030)"</span>, sep <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span><span class='op'>)</span>,
   title <span class='op'>=</span> <span class='st'>"Isospace plot of Inger et al Geese data"</span>
 <span class='op'>)</span> <span class='co'>#'</span>
-</div></pre>
+</div><div class='img'><img src='plot.simmr_input-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

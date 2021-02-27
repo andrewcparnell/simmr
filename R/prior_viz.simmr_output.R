@@ -59,8 +59,8 @@ prior_viz.simmr_output <- function(simmr_out,
                                    ggargs = NULL) {
 
   # Can't do more than 1 group for now
-  if (length(group) > 1) stop("Multiple groups not supported")
-
+  assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
+  
   # Get group_name
   n_groups <- simmr_out$input$n_groups
   plot_title_1 <- "Prior distributions"

@@ -52,6 +52,8 @@ test_that("prior viz for multiple groups", {
   # Change some options
   p4 <- prior_viz(simmr_2_out, group = 2, plot = TRUE, include_posterior = FALSE, n_sims = 10)
   expect_true(is.matrix(p4))
+  expect_error(prior_viz(simmr_2_out, group = 1.5, n_sims = 10))
+  expect_error(prior_viz(simmr_2_out, group = 12, n_sims = 10))
 })
 
 test_that("posterior predictive for 1 groups", {

@@ -123,12 +123,6 @@ plot.simmr_input <-
     curr_mix <- x$mixtures[curr_rows, , drop = FALSE]
     curr_n_groups <- length(group)
 
-    # Throw error if too many groups (can only handle max 6 before it runs out of shapes)
-    # if((length(group)+x$n_sources)>6) stop("Too many groups specified. Total number of groups plus number of sources cannot exceed 6")
-
-    # Throw error if plotting only one isotope
-    # if(ncol(curr_mix)==1) stop("This function only works for two or more tracers")
-
     # First get the mean corrected sources and the sd corrected sources
     source_means_c <- x$source_means + x$correction_means
     source_sds_c <- sqrt(x$source_sds^2 + x$correction_sds^2)
@@ -221,5 +215,6 @@ plot.simmr_input <-
       }
     }
 
+    print(g)
     invisible(g)
   }

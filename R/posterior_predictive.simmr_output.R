@@ -52,7 +52,8 @@ posterior_predictive.simmr_output <- function(simmr_out,
                                               plot_ppc = TRUE) {
 
   # Can't do more than 1 group for now
-  if (length(group) > 1) stop("Multiple groups not supported")
+  assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
+  
   # Get the original jags script
   model_string_old <- simmr_out$output[[group]]$model$model()
 

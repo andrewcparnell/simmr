@@ -68,7 +68,7 @@ geese_simmr = simmr_load(mixtures = as.matrix(targets[, 1:2]),
 
 ## Step 4: plot the data 
 
-```{r, fig.width = 8, fig.height = 8}
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(geese_simmr, group = 1:8)
 ```
 
@@ -81,23 +81,23 @@ summary(geese_simmr_out, type = 'diagnostics',
 ```
 
 Check that the model fitted well:
-```{r}
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 posterior_predictive(geese_simmr_out, group = 5)
 ```
 
 ## Step 6: look at the output
 
 Look at the influence of the prior:
-```{r}
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 prior_viz(geese_simmr_out)
 ```
 
 Look at the histogram of the dietary proportions:
-```{r}
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(geese_simmr_out, type = 'histogram')
 ```
 
-```{r, fig.width = 8, fig.height = 8}
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 compare_groups(geese_simmr_out, groups = 1:4, 
                source_name = 'Enteromorpha')
 ```

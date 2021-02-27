@@ -102,10 +102,8 @@ combine_sources.simmr_output <- function(simmr_out,
 
   # Find which columns to combine by number
   to_combine_cols <- sort(match(to_combine, simmr_out$input$source_names))
-  if (any(is.na(to_combine_cols))) {
-    stop("1 or more source names not found")
-  }
-
+  
+  # Create a new object
   simmr_new_out <- simmr_out
 
   # 1 combine the chosen source means
