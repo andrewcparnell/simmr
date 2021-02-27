@@ -105,8 +105,8 @@ compare_groups.simmr_output <- function(simmr_out,
   assert_true(simmr_out$input$n_groups > 1)
   assert_numeric(groups, min.len = 2)
   assert_character(source_name,
-                   any.missing = FALSE,
-                   len = 1
+    any.missing = FALSE,
+    len = 1
   )
   assert_true(all(source_name %in% simmr_out$input$source_names))
 

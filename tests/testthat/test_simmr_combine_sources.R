@@ -47,16 +47,16 @@ test_that("simmr combine sources single group", {
 
   # Check some errors
   expect_error(combine_sources(simmr_1_out,
-                  to_combine = c("Zostera2", "Grass"),
-                  new_source_name = "Z and G"
+    to_combine = c("Zostera2", "Grass"),
+    new_source_name = "Z and G"
   ))
   expect_error(combine_sources(simmr_1_out,
-                               to_combine = c("Zostera", "Gass"),
-                               new_source_name = "Z and G"
+    to_combine = c("Zostera", "Gass"),
+    new_source_name = "Z and G"
   ))
   expect_error(combine_sources(simmr_1_out,
-                               to_combine = c("Zostera", "Grass", "Enteromorpha"),
-                               new_source_name = "Z and G"
+    to_combine = c("Zostera", "Grass", "Enteromorpha"),
+    new_source_name = "Z and G"
   ))
 })
 

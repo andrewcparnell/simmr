@@ -33,7 +33,6 @@
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
 #' \dontrun{
-#' # Data set: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' data(geese_data_day1)
 #' simmr_1 <- with(
 #'   geese_data_day1,
@@ -74,7 +73,7 @@
 #' plot(simmr_1_out, type = "matrix")
 #'
 #' # Compare two sources
-#' compare_sources(simmr_1_out, source_names = c("Source B", "Source D"))
+#' compare_sources(simmr_1_out, source_names = c("Zostera", "Grass"))
 #'
 #' # Compare multiple sources
 #' compare_sources(simmr_1_out)
@@ -105,14 +104,16 @@ compare_sources.simmr_output <- function(simmr_out,
 
   # Throw an error if only one group is specified
   assert_character(source_names,
-                   min.len = 2,
-                   any.missing = FALSE)
+    min.len = 2,
+    any.missing = FALSE
+  )
   assert_true(all(source_names %in% simmr_out$input$source_names))
   assert_numeric(group,
-                 len = 1,
-                 any.missing = FALSE)
+    len = 1,
+    any.missing = FALSE
+  )
   assert_logical(plot)
-  
+
   # Start with two groups version
   if (length(source_names) == 2) {
     # Get the output for this particular source on these two groups

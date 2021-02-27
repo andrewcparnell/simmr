@@ -73,7 +73,7 @@ two of the food sources. It works for single and multiple group data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -158,7 +158,7 @@ names given to <code><a href='simmr_load.html'>simmr_load</a></code>.</p></td>
     </tr>
     <tr>
       <th>new_source_name</th>
-      <td><p>A name to give to the new combined source</p></td>
+      <td><p>A name to give to the new combined source.</p></td>
     </tr>
     </table>
 
@@ -187,8 +187,6 @@ examples.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep</span>
-
 <span class='co'># The data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>geese_data</span><span class='op'>)</span>
 
@@ -233,8 +231,8 @@ examples.</p></div>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_1_out</span>, type <span class='op'>=</span> <span class='st'>"matrix"</span><span class='op'>)</span>
 
 <span class='va'>simmr_out_combine</span> <span class='op'>&lt;-</span> <span class='fu'>combine_sources</span><span class='op'>(</span><span class='va'>simmr_1_out</span>,
-  to_combine <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Source A"</span>, <span class='st'>"Source D"</span><span class='op'>)</span>,
-  new_source_name <span class='op'>=</span> <span class='st'>"Source A+D"</span>
+  to_combine <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"U.lactuca"</span>, <span class='st'>"Enteromorpha"</span><span class='op'>)</span>,
+  new_source_name <span class='op'>=</span> <span class='st'>"U.lac+Ent"</span>
 <span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_out_combine</span><span class='op'>$</span><span class='va'>input</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>simmr_out_combine</span>, type <span class='op'>=</span> <span class='st'>"boxplot"</span>, title <span class='op'>=</span> <span class='st'>"simmr output: combined sources"</span><span class='op'>)</span>

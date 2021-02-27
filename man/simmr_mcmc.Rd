@@ -91,7 +91,7 @@ plot(simmr_1_out, type = "density")
 plot(simmr_1_out, type = "matrix")
 
 # Compare two sources
-compare_sources(simmr_1_out, source_names = c("Source A", "Source D"))
+compare_sources(simmr_1_out, source_names = c("Zostera", "Enteromorpha"))
 
 # Compare multiple sources
 compare_sources(simmr_1_out)

@@ -40,8 +40,6 @@ the output after combination.
 }
 \examples{
 \dontrun{
-# Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
-
 # The data
 data(geese_data)
 
@@ -86,8 +84,8 @@ plot(simmr_1_out, type = "density")
 plot(simmr_1_out, type = "matrix")
 
 simmr_out_combine <- combine_sources(simmr_1_out,
-  to_combine = c("Source A", "Source D"),
-  new_source_name = "Source A and D"
+  to_combine = c("U.lactuca", "Enteromorpha"),
+  new_source_name = "U.lac+Ent"
 )
 plot(simmr_out_combine$input)
 plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")

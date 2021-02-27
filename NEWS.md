@@ -3,6 +3,7 @@
   - Updated new checkmate error checking for multiple functions
   - Added new tests for 90%+ code coverage
   - Fixed a bug that stopped some plots being outputted correctly
+  - Fixed some broken examples
 
 # simmr 0.4.4
 

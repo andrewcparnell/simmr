@@ -70,7 +70,7 @@
 #' # The data
 #' data(simmr_data_1)
 #' # Load into simmr
-#' simmr_1 <- with(
+#' simmr_tdf <- with(
 #'   simmr_data_1,
 #'   simmr_load(
 #'     mixtures = mixtures,
@@ -104,14 +104,17 @@
 #'
 #' # Now put these corrections back into the model and check the
 #' # iso-space plots and dietary output
-#' simmr_tdf_2 <- simmr_load(
-#'   mixtures = mix,
-#'   source_names = s_names,
-#'   source_means = s_means,
-#'   source_sds = s_sds,
-#'   correction_means = simmr_tdf_out$c_mean_est,
-#'   correction_sds = simmr_tdf_out$c_sd_est,
-#'   concentration_means = conc
+#' simmr_tdf_2 <- with(
+#'   simmr_data_1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = simmr_tdf_out$c_mean_est,
+#'     correction_sds = simmr_tdf_out$c_sd_est,
+#'     concentration_means = concentration_means
+#'   )
 #' )
 #'
 #' # Plot with corrections now

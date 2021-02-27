@@ -141,7 +141,7 @@ test_that("Compare groups", {
 
   # 1 group version should give an error
   expect_error(compare_groups(simmr_1_out))
-  
+
   # 2 isotopes, all groups
   cg1 <- compare_groups(simmr_2_out, groups = 1:simmr_2$n_groups)
   expect_true(is.list(cg1))
@@ -149,41 +149,42 @@ test_that("Compare groups", {
   expect_true(is.character(cg1$Ordering))
   expect_error(compare_groups(simmr_2_out, groups = 1))
   expect_error(compare_groups(simmr_2_out, groups = NA))
-  expect_error(compare_groups(simmr_2_out, 
-                              source_name = "Dracula"))
-  
-  cg2 <- compare_groups(simmr_2_out, groups =2:4)
+  expect_error(compare_groups(simmr_2_out,
+    source_name = "Dracula"
+  ))
+
+  cg2 <- compare_groups(simmr_2_out, groups = 2:4)
   expect_false(cg1$out_all[1, 1] == cg2$out_all[1, 1])
   expect_s3_class(cg1$plot + ylim(-1, 1), "ggplot")
 
-  
+
   # 2 isotopes, 2 groups
   cg3 <- compare_groups(simmr_2_out,
-    groups =c(1, 3),
+    groups = c(1, 3),
     source_name = simmr_2_out$input$source_names[2],
     plot = FALSE
   )
   expect_true(is.list(cg3))
   expect_true(is.vector(cg3))
   cg4 <- compare_groups(simmr_2_out,
-    groups =c(2, 4),
+    groups = c(2, 4),
     source_name = simmr_2_out$input$source_names[2],
     plot = FALSE
   )
   expect_false(cg3[[1]][1] == cg4[[1]][1])
 
   # 1 isotope, multiple groups
-  cg5 <- compare_groups(simmr_3_out, groups =1:simmr_3$n_groups)
+  cg5 <- compare_groups(simmr_3_out, groups = 1:simmr_3$n_groups)
   expect_true(is.list(cg5))
   expect_true(is.matrix(cg5$out_all))
   expect_true(is.character(cg5$Ordering))
-  cg6 <- compare_groups(simmr_3_out, groups =2:simmr_3$n_groups)
+  cg6 <- compare_groups(simmr_3_out, groups = 2:simmr_3$n_groups)
   expect_false(cg5$out_all[1, 1] == cg6$out_all[1, 1])
   expect_s3_class(cg5$plot + ylim(-1, 1), "ggplot")
 
   # 1 isotopes, 2 groups
   cg7 <- compare_groups(simmr_3_out,
-    groups =3:4,
+    groups = 3:4,
     source_name = simmr_3_out$input$source_names[3],
     plot = FALSE
   )

@@ -60,7 +60,7 @@ prior_viz.simmr_output <- function(simmr_out,
 
   # Can't do more than 1 group for now
   assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
-  
+
   # Get group_name
   n_groups <- simmr_out$input$n_groups
   plot_title_1 <- "Prior distributions"

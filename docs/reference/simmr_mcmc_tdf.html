@@ -77,7 +77,7 @@ discrimination factors; TEFs/TDFs) for a given set of dietary proportions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5</span>
       </span>
     </div>
 
@@ -236,7 +236,7 @@ function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating d
 <span class='co'># The data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>simmr_data_1</span><span class='op'>)</span>
 <span class='co'># Load into simmr</span>
-<span class='va'>simmr_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+<span class='va'>simmr_tdf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
   <span class='va'>simmr_data_1</span>,
   <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
     mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
@@ -270,14 +270,17 @@ function, <code><a href='simmr_mcmc.html'>simmr_mcmc</a></code> for estimating d
 
 <span class='co'># Now put these corrections back into the model and check the</span>
 <span class='co'># iso-space plots and dietary output</span>
-<span class='va'>simmr_tdf_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
-  mixtures <span class='op'>=</span> <span class='va'>mix</span>,
-  source_names <span class='op'>=</span> <span class='va'>s_names</span>,
-  source_means <span class='op'>=</span> <span class='va'>s_means</span>,
-  source_sds <span class='op'>=</span> <span class='va'>s_sds</span>,
-  correction_means <span class='op'>=</span> <span class='va'>simmr_tdf_out</span><span class='op'>$</span><span class='va'>c_mean_est</span>,
-  correction_sds <span class='op'>=</span> <span class='va'>simmr_tdf_out</span><span class='op'>$</span><span class='va'>c_sd_est</span>,
-  concentration_means <span class='op'>=</span> <span class='va'>conc</span>
+<span class='va'>simmr_tdf_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/with.html'>with</a></span><span class='op'>(</span>
+  <span class='va'>simmr_data_1</span>,
+  <span class='fu'><a href='simmr_load.html'>simmr_load</a></span><span class='op'>(</span>
+    mixtures <span class='op'>=</span> <span class='va'>mixtures</span>,
+    source_names <span class='op'>=</span> <span class='va'>source_names</span>,
+    source_means <span class='op'>=</span> <span class='va'>source_means</span>,
+    source_sds <span class='op'>=</span> <span class='va'>source_sds</span>,
+    correction_means <span class='op'>=</span> <span class='va'>simmr_tdf_out</span><span class='op'>$</span><span class='va'>c_mean_est</span>,
+    correction_sds <span class='op'>=</span> <span class='va'>simmr_tdf_out</span><span class='op'>$</span><span class='va'>c_sd_est</span>,
+    concentration_means <span class='op'>=</span> <span class='va'>concentration_means</span>
+  <span class='op'>)</span>
 <span class='op'>)</span>
 
 <span class='co'># Plot with corrections now</span>

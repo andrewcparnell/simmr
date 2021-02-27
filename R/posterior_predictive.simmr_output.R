@@ -53,7 +53,7 @@ posterior_predictive.simmr_output <- function(simmr_out,
 
   # Can't do more than 1 group for now
   assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
-  
+
   # Get the original jags script
   model_string_old <- simmr_out$output[[group]]$model$model()
 

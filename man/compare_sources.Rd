@@ -47,7 +47,6 @@ output for further analysis if required.
 }
 \examples{
 \dontrun{
-# Data set: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
 simmr_1 <- with(
   geese_data_day1,
@@ -88,7 +87,7 @@ plot(simmr_1_out, type = "density")
 plot(simmr_1_out, type = "matrix")
 
 # Compare two sources
-compare_sources(simmr_1_out, source_names = c("Source B", "Source D"))
+compare_sources(simmr_1_out, source_names = c("Zostera", "Grass"))
 
 # Compare multiple sources
 compare_sources(simmr_1_out)
