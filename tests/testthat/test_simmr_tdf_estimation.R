@@ -52,6 +52,31 @@ test_that("main tdf function works", {
   expect_identical(names(tdf1), c("gelman", "quantiles", "statistics", "correlations"))
 })
 
+test_that("Warnings in simmr tdf work", {
+  expect_warning(co(simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+    p = matrix(rep(
+      1 / simmr_tdf$n_sources,
+      simmr_tdf$n_sources
+    ),
+    ncol = simmr_tdf$n_sources,
+    nrow = simmr_tdf$n_obs, byrow = TRUE
+    ),
+    mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 1)
+  )))
+  # simmr_tdf2 <- simmr_tdf
+  # simmr_tdf2$group[3] <- 2
+  # expect_warning(co(simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf2,
+  #                                                   p = matrix(rep(
+  #                                                     1 / simmr_tdf$n_sources,
+  #                                                     simmr_tdf$n_sources
+  #                                                   ),
+  #                                                   ncol = simmr_tdf$n_sources,
+  #                                                   nrow = simmr_tdf$n_obs, byrow = TRUE
+  #                                                   ),
+  #                                                   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 1))
+  # ))
+})
+
 test_that("Other summary tdf functions produce output", {
   expect_output(summary(simmr_tdf_out, type = "quantiles"))
   expect_output(summary(simmr_tdf_out, type = "statistics"))
@@ -64,11 +89,10 @@ test_that("tdf output can be re-used", {
   ))
   # Plot with corrections now
   p <- plot(simmr_tdf_2)
-  expect_doppelganger('tdf_corrected_1', p)
+  expect_doppelganger("tdf_corrected_1", p)
   co(s1 <- summary(simmr_tdf_2_out, type = "diagnostics"))
   expect_true(is.list(s1))
   expect_identical(names(s1), c("gelman", "quantiles", "statistics", "correlations"))
   p2 <- plot(simmr_tdf_2_out, type = "boxplot")
-  expect_doppelganger('tdf_corrected_2', p)
-  
+  expect_doppelganger("tdf_corrected_2", p)
 })
