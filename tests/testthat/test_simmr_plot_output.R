@@ -1,6 +1,6 @@
-context("simmr plot output")
-
-library(simmr)
+set.seed(123)
+library(vdiffr)
+co <- function(expr) capture.output(expr, file = "NUL")
 
 data(geese_data_day1)
 
@@ -19,20 +19,26 @@ simmr_in <- with(
 )
 
 # MCMC run
-simmr_out <- simmr_mcmc(simmr_in,
+set.seed(123)
+co(simmr_out <- simmr_mcmc(simmr_in,
   mcmc_control = list(
     iter = 100,
     burn = 10,
     thin = 1,
     n.chain = 2
   )
-)
+))
 
 # Taken from the simmr_mcmc example
 test_that("plot.simmr_output", {
-  expect_s3_class(plot(simmr_out, type = "density"), "ggplot")
-  expect_s3_class(plot(simmr_out, type = "boxplot"), "ggplot")
-  # expect_s3_class(plot(simmr_out,type='isospace'), 'ggplot')
-  expect_s3_class(plot(simmr_out, type = "histogram"), "ggplot")
-  expect_null(plot(simmr_out, type = "matrix"), "ggplot")
+  p <- plot(simmr_out, type = "density")
+  expect_doppelganger('plot_output_dens', p)
+  p <- plot(simmr_out, type = "boxplot")
+  expect_doppelganger('plot_output_box', p)
+  # p <- plot(simmr_out,type='isospace')
+  # vdiffr::expect_doppelganger('out_iso', p)
+  p <- plot(simmr_out, type = "histogram")
+  expect_doppelganger('plot_output_hist', p)
+  p <- function() plot(simmr_out, type = "matrix")
+  expect_doppelganger('plot_output_matrix', p)
 })

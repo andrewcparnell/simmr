@@ -1,6 +1,5 @@
-context("Simple simmr_mcmc examples")
-
-library(simmr)
+set.seed(123)
+co <- function(expr) capture.output(expr, file = "NUL")
 
 mix <- matrix(c(
   -10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
@@ -30,14 +29,14 @@ test_that("simmr_mcmc_simplest", {
     concentration_means = conc
   )
   # MCMC run
-  simmr_1_out <- simmr_mcmc(simmr_1,
+  co(simmr_1_out <- simmr_mcmc(simmr_1,
     mcmc_control = list(
       iter = 100,
       burn = 10,
       thin = 1,
       n.chain = 2
     )
-  )
+  ))
   expect_s3_class(simmr_1_out, "simmr_output")
 })
 
@@ -56,13 +55,13 @@ test_that("simmr_mcmc_1obs", {
 
 
   # MCMC run - automatically detects the single observation
-  simmr_2_out <- simmr_mcmc(simmr_2,
+  co(simmr_2_out <- simmr_mcmc(simmr_2,
     mcmc_control = list(
       iter = 100,
       burn = 10,
       thin = 1,
       n.chain = 2
     )
-  )
+  ))
   expect_s3_class(simmr_2_out, "simmr_output")
 })

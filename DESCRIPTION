@@ -19,7 +19,7 @@ Imports:
     stats,
     viridis,
     bayesplot,
-    checkmate
+    checkmate,
 Encoding: UTF-8
 License: GPL (>= 2)
 LazyData: TRUE
@@ -28,7 +28,8 @@ Suggests:
     rmarkdown,
     readxl,
     testthat,
-    covr
+    covr,
+    vdiffr
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-07-03 17:48:43 UTC; andrewparnell

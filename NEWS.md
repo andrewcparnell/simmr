@@ -1,3 +1,8 @@
+# simmr 0.4.6
+
+  - Implemented vdiffr for better checking of output plots
+  - Added capture.output to remove verbose testing
+
 # simmr 0.4.5
 
   - Updated new checkmate error checking for multiple functions

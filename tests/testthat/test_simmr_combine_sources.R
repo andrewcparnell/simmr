@@ -1,6 +1,5 @@
-context("Test combining of sources")
-
-library(simmr)
+set.seed(123)
+co <- function(expr) capture.output(expr, file = "NUL")
 
 # Single group version first
 data("geese_data_day1")
@@ -22,14 +21,14 @@ test_that("simmr combine sources single group", {
     )
   )
   # MCMC run
-  simmr_1_out <- simmr_mcmc(simmr_1,
+  co(simmr_1_out <- simmr_mcmc(simmr_1,
     mcmc_control = list(
       iter = 100,
       burn = 10,
       thin = 1,
       n.chain = 2
     )
-  )
+  ))
 
   # Combine two sources
   simmr_out_combine <- combine_sources(simmr_1_out,
@@ -42,7 +41,6 @@ test_that("simmr combine sources single group", {
   expect_true(nrow(simmr_out_combine$input$correction_means) == 3)
   expect_true(nrow(simmr_out_combine$input$source_sds) == 3)
   expect_true(simmr_out_combine$input$n_sources == 3)
-
   expect_output(summary(simmr_out_combine))
 
   # Check some errors
@@ -79,14 +77,14 @@ test_that("simmr combine sources multiple group", {
     )
   )
   # MCMC run
-  simmr_2_out <- simmr_mcmc(simmr_2,
+  co(simmr_2_out <- simmr_mcmc(simmr_2,
     mcmc_control = list(
       iter = 100,
       burn = 10,
       thin = 1,
       n.chain = 2
     )
-  )
+  ))
 
   # Combine two sources
   simmr_out_2_combine <- combine_sources(simmr_2_out,
@@ -109,24 +107,24 @@ test_that("simmr combine sources multiple group", {
   expect_s3_class(simmr_out_3_combine, "simmr_output")
 
   # Make sure the summaries are different
-  summ_1 <- summary(simmr_out_2_combine, type = "statistics", group = 1)
-  summ_2 <- summary(simmr_out_2_combine, type = "statistics", group = 2)
+  co(summ_1 <- summary(simmr_out_2_combine, type = "statistics", group = 1))
+  co(summ_2 <- summary(simmr_out_2_combine, type = "statistics", group = 2))
   expect_false(summ_1$statistics[[1]][1, 1] == summ_2$statistics[[1]][1, 1])
 
   # Make sure compare groups is different
-  cg_1 <- compare_groups(simmr_out_2_combine, source_name = "Z and G", groups = 1:2)
-  cg_2 <- compare_groups(simmr_out_2_combine, source_name = "Z and G", groups = 2:3)
+  co(cg_1 <- compare_groups(simmr_out_2_combine, source_name = "Z and G", groups = 1:2))
+  co(cg_2 <- compare_groups(simmr_out_2_combine, source_name = "Z and G", groups = 2:3))
   expect_false(mean(cg_1[[1]]) == mean(cg_2[[1]]))
 
   # Make sure compare sources is different
-  cs_1 <- compare_sources(simmr_out_2_combine,
+  co(cs_1 <- compare_sources(simmr_out_2_combine,
     source_names = c("Z and G", "Enteromorpha"),
     group = 1
-  )
-  cs_2 <- compare_sources(simmr_out_2_combine,
+  ))
+  co(cs_2 <- compare_sources(simmr_out_2_combine,
     source_names = c("Z and G", "Enteromorpha"),
     group = 2
-  )
+  ))
   expect_false(mean(cs_1[[1]]) == mean(cs_2[[1]]))
 
   # Make sure the plots are different
@@ -161,14 +159,14 @@ test_that("simmr combine sources multiple groups", {
   )
 
   # Run through simmr
-  geese_simmr_out <- simmr_mcmc(geese_simmr,
+  co(geese_simmr_out <- simmr_mcmc(geese_simmr,
     mcmc_control = list(
       iter = 100,
       burn = 10,
       thin = 1,
       n.chain = 2
     )
-  )
+  ))
 
   # Combine sources
   simmr_out_4_combine <- combine_sources(geese_simmr_out,

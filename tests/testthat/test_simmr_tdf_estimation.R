@@ -1,4 +1,6 @@
-context("Test the simmr tdf estimation functions")
+set.seed(123)
+library(vdiffr)
+co <- function(expr) capture.output(expr, file = "NUL")
 
 mix <- matrix(c(
   -10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
@@ -21,7 +23,7 @@ simmr_tdf <- simmr_load(
 )
 
 # MCMC run
-simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+co(simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
   p = matrix(rep(
     1 / simmr_tdf$n_sources,
     simmr_tdf$n_sources
@@ -30,7 +32,7 @@ simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
   nrow = simmr_tdf$n_obs, byrow = TRUE
   ),
   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
-)
+))
 
 # Now put these corrections back into the model and check the
 # iso-space plots and dietary output
@@ -45,7 +47,7 @@ simmr_tdf_2 <- simmr_load(
 )
 
 test_that("main tdf function works", {
-  tdf1 <- summary(simmr_tdf_out, type = "diagnostics")
+  co(tdf1 <- summary(simmr_tdf_out, type = "diagnostics"))
   expect_true(is.list(tdf1))
   expect_identical(names(tdf1), c("gelman", "quantiles", "statistics", "correlations"))
 })
@@ -57,15 +59,16 @@ test_that("Other summary tdf functions produce output", {
 })
 
 test_that("tdf output can be re-used", {
-  simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2,
+  co(simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2,
     mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
-  )
+  ))
   # Plot with corrections now
-  p1 <- plot(simmr_tdf_2)
-  expect_s3_class(p1, "ggplot")
-  s1 <- summary(simmr_tdf_2_out, type = "diagnostics")
+  p <- plot(simmr_tdf_2)
+  expect_doppelganger('tdf_corrected_1', p)
+  co(s1 <- summary(simmr_tdf_2_out, type = "diagnostics"))
   expect_true(is.list(s1))
   expect_identical(names(s1), c("gelman", "quantiles", "statistics", "correlations"))
   p2 <- plot(simmr_tdf_2_out, type = "boxplot")
-  expect_s3_class(p2, "ggplot")
+  expect_doppelganger('tdf_corrected_2', p)
+  
 })
