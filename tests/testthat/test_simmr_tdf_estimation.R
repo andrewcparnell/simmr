@@ -1,4 +1,4 @@
-set.seed(123)
+set.seed(102)
 library(vdiffr)
 co <- function(expr) capture.output(expr, file = "NUL")
 
