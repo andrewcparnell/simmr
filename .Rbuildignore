@@ -15,3 +15,5 @@
 ^.*\.gcno$
 ^.*\.gcov$
 ^\.github$
+^NUL$
+^tests/testthat/NUL$

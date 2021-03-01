@@ -84,6 +84,7 @@ test_that("Other summary tdf functions produce output", {
 })
 
 test_that("tdf output can be re-used", {
+  set.seed(123)
   co(simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2,
     mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
   ))
