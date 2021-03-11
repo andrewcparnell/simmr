@@ -38,7 +38,7 @@ The `simmr` package uses the JAGS (Just Another Gibbs Sampler) programmer to run
 Next, start Rstudio and find the window with the command prompt (the symbol `>`). Type
 
 ```{r,eval = FALSE}
-install.packages('simmr')
+install.packages("simmr")
 ```
 It may ask you to pick your nearest CRAN mirror (the nearest site which hosts R packages). You will then see some activity on the screen as the `simmr` package and the other packages it uses are downloaded. The final line should then read: 
 
@@ -85,16 +85,18 @@ For the next part of this document, we concentrate on simple examples without gr
 `simmr` requires at minimum 3 input objects; the consumers or _mixtures_, the _source means_, and the _source standard deviations_. Optionally, you can also add correction data (also called trophic enrichment factors, TEFs) represented again as means and standard deviations, and concentration dependence values. The easiest way to get data into simmr is to create an Excel file, as shown in the included `vignette('quick_start)` guide. Alternatively you can copy and past your data, comma separated, as below:
 
 ```{r}
-mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
-               -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89, 
-               11.73, 10.89, 11.05, 12.3), ncol = 2, nrow = 10)
-colnames(mix) = c('d13C','d15N')
-s_names = c("Zostera", "Grass", "U.lactuca", "Enteromorpha")
-s_means = matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol = 2, nrow = 4)
-s_sds = matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol = 2, nrow = 4)
-c_means = matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol = 2, nrow = 4)
-c_sds = matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol = 2, nrow = 4)
-conc = matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol = 2, nrow = 4)
+mix <- matrix(c(
+  -10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+  -10.48, -9.93, -9.37, 11.59, 11.01, 10.59, 10.97, 11.52, 11.89,
+  11.73, 10.89, 11.05, 12.3
+), ncol = 2, nrow = 10)
+colnames(mix) <- c("d13C", "d15N")
+s_names <- c("Zostera", "Grass", "U.lactuca", "Enteromorpha")
+s_means <- matrix(c(-14, -15.1, -11.03, -14.44, 3.06, 7.05, 13.72, 5.96), ncol = 2, nrow = 4)
+s_sds <- matrix(c(0.48, 0.38, 0.48, 0.43, 0.46, 0.39, 0.42, 0.48), ncol = 2, nrow = 4)
+c_means <- matrix(c(2.63, 1.59, 3.41, 3.04, 3.28, 2.34, 2.14, 2.36), ncol = 2, nrow = 4)
+c_sds <- matrix(c(0.41, 0.44, 0.34, 0.46, 0.46, 0.48, 0.46, 0.66), ncol = 2, nrow = 4)
+conc <- matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol = 2, nrow = 4)
 ```
 
 The `mix` object above contains the stable isotopic data for the consumers. The data should be listed as the consumer values for the first isotope, followed by the consumer values for the second isotope and so on. The `matrix` function turns this into a matrix (a rectangle of numbers) with 2 columns. The first column contains the data for isotope 1, and the second the data for isotope 2. Any number of isotopes and observations can be used. It is recommended but not necessary to give the mixtures column names representing the isotopes to which each column corresponds.
@@ -111,13 +113,15 @@ To load the data into simmr, use:
 library(simmr)
 ```
 ```{r}
-simmr_in = simmr_load(mixtures = mix,
-                     source_names = s_names,
-                     source_means = s_means,
-                     source_sds = s_sds,
-                     correction_means = c_means,
-                     correction_sds = c_sds,
-                     concentration_means = conc)
+simmr_in <- simmr_load(
+  mixtures = mix,
+  source_names = s_names,
+  source_means = s_means,
+  source_sds = s_sds,
+  correction_means = c_means,
+  correction_sds = c_sds,
+  concentration_means = conc
+)
 ```
 
 Remember that the `correction_means`, `correction_sds`, and `concentration_means` are optional.
@@ -133,12 +137,15 @@ plot(simmr_in)
 This will produce a biplot with the isotope that is in the first column on the x-axis, and the isotope in the second column on the y-axis. You can make the plot slightly nicer with some extra arguments:
 
 ```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
-plot(simmr_in, 
-     xlab = expression(paste(delta^13, "C (\u2030)",
-                             sep = "")), 
-     ylab = expression(paste(delta^15, "N (\u2030)",
-                             sep = "")), 
-     title = 'Isospace plot of example data')
+plot(simmr_in,
+  xlab = expression(paste(delta^13, "C (\u2030)",
+    sep = ""
+  )),
+  ylab = expression(paste(delta^15, "N (\u2030)",
+    sep = ""
+  )),
+  title = "Isospace plot of example data"
+)
 ```
 
 See the help file ```help(plot.simmr_input)``` for more options on the plotting commands, including the ability to plot different tracers/isotopes when there are more than 2 isotopes.
@@ -150,7 +157,7 @@ If all the mixtures lie inside the mixing polygon defined by the sources, then t
 The next step is to actually run the model. This is achieved with the command:
 
 ```{r,results = 'hide'}
-simmr_out = simmr_mcmc(simmr_in)
+simmr_out <- simmr_mcmc(simmr_in)
 ```
 
 This command takes the object `simmr_in` we created earlier and uses it as input for the model. It tells `simmr` to store the output from the model run in an object called `simmr_out`.
@@ -162,7 +169,7 @@ The model should take less than a minute to run, though this will depend on the 
 Markov chain Monte Carlo (MCMC) works by repeatedly guessing the values of the dietary proportions and find those values which fit the data best. The initial guesses are usually poor and are discarded as part of an initial phase known as the burn-in. Subsequent iterations are then stored and used for the _posterior distribution_; the best estimates of the dietary proportions given the data and the model. Because it can take many thousands of iterations to move away from the initial guesses, _convergence diagnostics_ can be created to check the model has run properly. In `simmr` this is done with:
 
 ```{r}
-summary(simmr_out, type = 'diagnostics')
+summary(simmr_out, type = "diagnostics")
 ```
 
 If the model run has converged properly the values should be close to 1. If they are above 1.1, we recommend a longer run. See `help(simmr_mcmc)` for how to do this. 
@@ -172,7 +179,7 @@ If the model run has converged properly the values should be close to 1. If they
 You can check the fit of the model with a posterior predictive check. This is similar to a fitted values plot in a linear regression. If the data points (denoted by the plot as $y$) broadly lie in the fitted value intervals (denoted $y_rep$; the default is a 50% interval) then the model is fitting well:
 
 ```{r,results = 'hide',fig.align = 'center',fig.width = 7,fig.height = 5}
-post_pred = posterior_predictive(simmr_out)
+post_pred <- posterior_predictive(simmr_out)
 print(post_pred)
 ```
 
@@ -188,8 +195,8 @@ prior_viz(simmr_out)
 `simmr` produces both textual and graphical summaries of the model run. Starting with the textual summaries, we can get tables of the means, standard deviations and credible intervals (the Bayesian equivalent of a confidence interval) with:
 
 ```{r}
-summary(simmr_out, type = 'statistics')
-summary(simmr_out, type = 'quantiles')
+summary(simmr_out, type = "statistics")
+summary(simmr_out, type = "quantiles")
 ```
 
 These suggest that the dietary proportions for this model are quite uncertain. However we can see that the credible interval for U.lactuca is the narrowest, running from approximately 20% to 35% of the diet. The reason this one is the narrowest can be seen from the isospace plot - this source is the most clearly separated from the others.
@@ -197,7 +204,7 @@ These suggest that the dietary proportions for this model are quite uncertain. H
 `simmr` can also produce histograms, boxplots, density plots, and matrix plots of the output. Starting with the density plot:
 
 ```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
-plot(simmr_out, type = 'density')
+plot(simmr_out, type = "density")
 ```
 
 We can see that Zostera and Enteromorpha are poorly constrained in comparison to Grass and especially U.lactuca. Again this is unsurprising since the isospace plot indicated that these were the two most clearly separated sources.
@@ -205,7 +212,7 @@ We can see that Zostera and Enteromorpha are poorly constrained in comparison to
 The most useful output plot is the matrix plot:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
-plot(simmr_out, type = 'matrix')
+plot(simmr_out, type = "matrix")
 ```
 
 This shows the source histograms on the diagonal, contour plots of the relationship between the sources on the upper diagonal, and the correlation between the sources on the lower diagonal. Large negative correlations indicate that the model cannot discern between the two sources; they may lie close together in iso-space. Large positive correlations are also possible when mixture data lie in a polygon consisting of multiple competing sources. Here the largest negative correlation is between Zostera and Enteromorpha. This is because they lie closest together in isospace. In general, high correlations (negative or positive) are indicative of the model being unable to determine which food sources are being consumed, and are an unavoidable part of stable isotope mixing models.
@@ -213,17 +220,21 @@ This shows the source histograms on the diagonal, contour plots of the relations
 If you want to compare the dietary proportions between two different sources, you can use the `compare_sources` function. This takes two or more sources and compares the dietary proportions with an optional plot. For example:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
-compare_sources(simmr_out, 
-                source_names = c('Zostera','U.lactuca'))
+compare_sources(simmr_out,
+  source_names = c("Zostera", "U.lactuca")
+)
 ```
 
 This produces a direct probability that the dietary proportion for the first source is bigger than that of the second. If you want to compare more than two sources, specify them with:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_sources(simmr_out,
-                source_names = c('Zostera',
-                                 'U.lactuca',
-                                 'Enteromorpha'))
+  source_names = c(
+    "Zostera",
+    "U.lactuca",
+    "Enteromorpha"
+  )
+)
 ```
 
 For further information and options on comparing sources, see `help(compare_sources)`.
@@ -244,15 +255,19 @@ data(geese_data)
 ...and into simmr with:
 
 ```{r}
-simmr_groups = with(geese_data, 
-                    simmr_load(mixtures = mixtures,
-                               source_names = source_names,
-                               source_means = source_means,
-                               source_sds = source_sds,
-                               correction_means = correction_means,
-                               correction_sds = correction_sds,
-                               concentration_means = concentration_means,
-                               group = groups))
+simmr_groups <- with(
+  geese_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means,
+    group = groups
+  )
+)
 ```
 
 
@@ -264,13 +279,16 @@ When we create the isospace plot we can specify which groups we wish to plot:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 plot(simmr_groups,
-     group = 1:8,
-     xlab = expression(paste(delta^13, "C (\u2030)",
-                             sep = "")), 
-     ylab = expression(paste(delta^15, "N (\u2030)",
-                             sep = "")), 
-     title = 'Isospace plot of Inger et al Geese data',
-     mix_name = 'Geese')
+  group = 1:8,
+  xlab = expression(paste(delta^13, "C (\u2030)",
+    sep = ""
+  )),
+  ylab = expression(paste(delta^15, "N (\u2030)",
+    sep = ""
+  )),
+  title = "Isospace plot of Inger et al Geese data",
+  mix_name = "Geese"
+)
 ```
 
 In the above code `group = 1:8` can be changed specify any of the available groups. For example `group = 2` would plot just sampling period 2, or `group = c(1,3:7)` would plot just sampling period 1 and 3 to 7.
@@ -278,7 +296,7 @@ In the above code `group = 1:8` can be changed specify any of the available grou
 The command for running the `simmr` model is identical to before:
 
 ```{r,results = 'hide'}
-simmr_groups_out = simmr_mcmc(simmr_groups)
+simmr_groups_out <- simmr_mcmc(simmr_groups)
 ```
 
 `simmr` will automatically run the model for each group in turn. This may take slightly longer than a standard single group run.
@@ -286,36 +304,42 @@ simmr_groups_out = simmr_mcmc(simmr_groups)
 The `summary` command works the same as before. By default they will produce output for all groups, or you can specify the groups individually, e.g.:
 
 ```{r,reults = 'hide'}
-summary(simmr_groups_out, 
-        type = 'quantiles', 
-        group = 1)
-summary(simmr_groups_out, 
-        type = 'quantiles',
-        group = c(1,3))
-summary(simmr_groups_out, 
-        type = c('quantiles','statistics'),
-        group = c(1,3))
+summary(simmr_groups_out,
+  type = "quantiles",
+  group = 1
+)
+summary(simmr_groups_out,
+  type = "quantiles",
+  group = c(1, 3)
+)
+summary(simmr_groups_out,
+  type = c("quantiles", "statistics"),
+  group = c(1, 3)
+)
 ```
 
 For plotting output with multiple groups you can only specify a single group to plot. This is so that you are not overwhelmed with plots:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 plot(simmr_groups_out,
-     type = 'boxplot',
-     group = 2,
-     title = 'simmr output group 2')
+  type = "boxplot",
+  group = 2,
+  title = "simmr output group 2"
+)
 plot(simmr_groups_out,
-     type = c('density','matrix'),
-     group = 6,
-     title = 'simmr output group 6')
+  type = c("density", "matrix"),
+  group = 6,
+  title = "simmr output group 6"
+)
 ```
 
 Whilst you can use the `compare_sources` function for multi-group data, there is also an  extra function for comparing a single source between groups via the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_groups(simmr_groups_out,
-               source = 'Zostera',
-               groups = 1:2)
+  source = "Zostera",
+  groups = 1:2
+)
 ```
 
 This produces the probability of the group 1 dietary proportion of Zostera being greater than that of group 2. It also produces a boxplot of the difference between the dietary proportions and will save this into a new object if specified. You can turn the plot off by adding the argument `plot = FALSE`.
@@ -324,8 +348,9 @@ If you specify more than two groups `simmr` will produce the most likely probabi
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_groups(simmr_groups_out,
-               source = 'Zostera',
-               groups = 1:3)
+  source = "Zostera",
+  groups = 1:3
+)
 ```
 
 ## Combining sources
@@ -333,64 +358,81 @@ compare_groups(simmr_groups_out,
 A common request is that of combining sources. We would recommend always doing this after running simmr, known as _a-posteriori_ combining. Suppose for example, you wish to combine the U.lactuca and Enteromorpha sources which lie in a similar region in the isospace plot of the Geese data. To proceed, we can create a new `simmr` object using the `combine_sources` function:
 
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
-simmr_out_combine = combine_sources(simmr_out,
-                                    to_combine = c('U.lactuca',
-                                                   'Enteromorpha'),
-                                    new_source_name = 'U.lac+Ent')
+simmr_out_combine <- combine_sources(simmr_out,
+  to_combine = c(
+    "U.lactuca",
+    "Enteromorpha"
+  ),
+  new_source_name = "U.lac+Ent"
+)
 plot(simmr_out_combine$input)
 plot(simmr_out_combine,
-     type = 'boxplot',
-     title = 'simmr output: combined sources')
+  type = "boxplot",
+  title = "simmr output: combined sources"
+)
 ```
 
 This will also work with multiple groups:
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
-simmr_groups_out_combine = combine_sources(simmr_groups_out,
-                                           to_combine = c('U.lactuca',
-                                                          'Enteromorpha'),
-                                           new_source_name = 'U.Lac+Ent')
-plot(simmr_groups_out_combine$input, 
-     group = 1:8)
+simmr_groups_out_combine <- combine_sources(simmr_groups_out,
+  to_combine = c(
+    "U.lactuca",
+    "Enteromorpha"
+  ),
+  new_source_name = "U.Lac+Ent"
+)
+plot(simmr_groups_out_combine$input,
+  group = 1:8
+)
 plot(simmr_groups_out_combine,
-     type = 'boxplot',
-     title = 'simmr output: combined sources',
-     group = 8)
+  type = "boxplot",
+  title = "simmr output: combined sources",
+  group = 8
+)
 plot(simmr_groups_out_combine,
-     type = 'matrix',
-     title = 'simmr output: combined sources',
-     group = 8)
+  type = "matrix",
+  title = "simmr output: combined sources",
+  group = 8
+)
 
 # And we can now compare sources across groups on this new data set
-compare_groups(simmr_groups_out_combine, 
-               source = 'U.Lac+Ent', 
-               group = 1:3)
+compare_groups(simmr_groups_out_combine,
+  source = "U.Lac+Ent",
+  group = 1:3
+)
 ```
+
+To combine more than two sources, simply run `combine_sources` recursively over the sources you want to combine. 
 
 ## Running simmr with only one isotope
 
 `simmr` will run fine with only one tracer, and no changes should be required to any of the functions. Here is an example with only one isotope:
 
 ```{r}
-mix = matrix(c(-10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54, 
-               -10.48, -9.93, -9.37), ncol = 1, nrow = 10)
-colnames(mix) = c('d13C')
-s_names = c("Zostera", "Grass", "U.lactuca", "Enteromorpha")
-s_means = matrix(c(-14, -15.1, -11.03, -14.44), ncol = 1, nrow = 4)
-s_sds = matrix(c(0.48, 0.38, 0.48, 0.43), ncol = 1, nrow = 4)
-c_means = matrix(c(2.63, 1.59, 3.41, 3.04), ncol = 1, nrow = 4)
-c_sds = matrix(c(0.41, 0.44, 0.34, 0.46), ncol = 1, nrow = 4)
-conc = matrix(c(0.02, 0.1, 0.12, 0.04), ncol = 1, nrow = 4)
+mix <- matrix(c(
+  -10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,
+  -10.48, -9.93, -9.37
+), ncol = 1, nrow = 10)
+colnames(mix) <- c("d13C")
+s_names <- c("Zostera", "Grass", "U.lactuca", "Enteromorpha")
+s_means <- matrix(c(-14, -15.1, -11.03, -14.44), ncol = 1, nrow = 4)
+s_sds <- matrix(c(0.48, 0.38, 0.48, 0.43), ncol = 1, nrow = 4)
+c_means <- matrix(c(2.63, 1.59, 3.41, 3.04), ncol = 1, nrow = 4)
+c_sds <- matrix(c(0.41, 0.44, 0.34, 0.46), ncol = 1, nrow = 4)
+conc <- matrix(c(0.02, 0.1, 0.12, 0.04), ncol = 1, nrow = 4)
 ```
 
 Now load in with `simmr_load`:
 ```{r}
-simmr_in_1D = simmr_load(mixtures = mix,
-                     source_names = s_names,
-                     source_means = s_means,
-                     source_sds = s_sds,
-                     correction_means = c_means,
-                     correction_sds = c_sds,
-                     concentration_means =   conc)
+simmr_in_1D <- simmr_load(
+  mixtures = mix,
+  source_names = s_names,
+  source_means = s_means,
+  source_sds = s_sds,
+  correction_means = c_means,
+  correction_sds = c_sds,
+  concentration_means = conc
+)
 ```
 
 Create a plot. `plot.simmr_input` automatically creates a 1D version of these plots:
@@ -401,13 +443,13 @@ plot(simmr_in_1D)
 Now run simmr:
 
 ```{r}
-simmr_run_1D = simmr_mcmc(simmr_in_1D)
+simmr_run_1D <- simmr_mcmc(simmr_in_1D)
 ```
 
 Plot output
 
 ```{r}
-plot(simmr_run_1D, type = 'boxplot')
+plot(simmr_run_1D, type = "boxplot")
 ```
 
 The other `summary`, `compare` and `plot` functions should all work the same.
@@ -419,39 +461,45 @@ Most Bayesian models will work better when you include informative prior distrib
 We will use the `simmr_out` object created above. A reminder about the posterior values
 
 ```{r}
-summary(simmr_out, type = 'quantiles')
+summary(simmr_out, type = "quantiles")
 ```
 
 All these dietary proportions are very similar. We now suppose we had prior information (e.g. from stomach or fecal contents) that the mean dietary proportions were
 ```{r}
-proportion_means = c(0.4,0.3,0.2,0.1)
+proportion_means <- c(0.4, 0.3, 0.2, 0.1)
 ```
 
 ...and proportion standard deviations:
 ```{r}
-proportion_sds = c(0.08,0.02,0.01,0.02)
+proportion_sds <- c(0.08, 0.02, 0.01, 0.02)
 ```
 
 We put this into the `simmr_elicit` function as follows:
 ```{r}
-prior = simmr_elicit(4, proportion_means,
-                     proportion_sds)
+prior <- simmr_elicit(
+  4, proportion_means,
+  proportion_sds
+)
 ```
 
 This may take a few moments to run as the code tries to optimise the parameters of a prior distribution which matches these means and standard deviations, which sometimes may not be exactly possible. 
 
 When finished, the model can be run using these prior distributions:
 ```{r}
-simmr_out_informative = simmr_mcmc(simmr_in,
-                                   prior_control = 
-                                     list(means = prior$mean,
-                                          sd = prior$sd))
+simmr_out_informative <- simmr_mcmc(simmr_in,
+  prior_control =
+    list(
+      means = prior$mean,
+      sd = prior$sd
+    )
+)
 ```
 
 The new quantiles are:
 ```{r}
-summary(simmr_out_informative, 
-        type = 'quantiles')
+summary(simmr_out_informative,
+  type = "quantiles"
+)
 ```
 
 We can plot these priors with their posteriors
@@ -474,11 +522,13 @@ model when the organisms are observed in the field.
 To run this model, we first load data into `simmr` as normal using `simmr_load`. Correction factors/TDFs should not be provided at this stage, though if they are they will be ignored during a run of `simmr_mcmc_tdf`.
 
 ```{r}
-simmr_tdf = simmr_load(mixtures = mix,
-                       source_names = s_names,
-                       source_means = s_means,
-                       source_sds = s_sds,
-                       concentration_means = conc)
+simmr_tdf <- simmr_load(
+  mixtures = mix,
+  source_names = s_names,
+  source_means = s_means,
+  source_sds = s_sds,
+  concentration_means = conc
+)
 ```
 
 If we plot this data we end up with the mixtures being shifted slightly outside the mixing polygon. The job of this model is to move the values so that they match the known dietary proportions.
@@ -489,39 +539,45 @@ plot(simmr_tdf)
 
 We now run the model with some known dietary proportions. These dietary proportions should be given _for each individual_ in a matrix, even if they are the same for each individual. This example uses the same dietary proportions:
 ```{r}
-p_known = matrix(rep(1/simmr_tdf$n_sources,
-                     simmr_tdf$n_sources),
-                 ncol = simmr_tdf$n_sources,
-                 nrow = simmr_tdf$n_obs, 
-                 byrow = TRUE)
+p_known <- matrix(rep(
+  1 / simmr_tdf$n_sources,
+  simmr_tdf$n_sources
+),
+ncol = simmr_tdf$n_sources,
+nrow = simmr_tdf$n_obs,
+byrow = TRUE
+)
 ```
 
 We can then run the model with:
 ```{r, results = 'hide'}
-simmr_tdf_out = simmr_mcmc_tdf(simmr_tdf, 
-                               p = p_known)
+simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+  p = p_known
+)
 ```
 
 Seeing as this is another Bayesian statistical model, we can look at the:
 ```{r}
-summary(simmr_tdf_out,type = 'diagnostics')
+summary(simmr_tdf_out, type = "diagnostics")
 ```
 
 ... and then look at the predicted TDFs:
 ```{r}
-summary(simmr_tdf_out,type = 'quantiles')
+summary(simmr_tdf_out, type = "quantiles")
 ```
 
 We can put the predicted TDFs back into a new model and check that the iso-space plot now is correct
 
 ```{r}
-simmr_tdf_2 = simmr_load(mixtures = mix,
-                         source_names = s_names,
-                         source_means = s_means,
-                         source_sds = s_sds,
-                         correction_means =   simmr_tdf_out$c_mean_est,
-                         correction_sds = simmr_tdf_out$c_sd_est,
-                         concentration_means = conc)
+simmr_tdf_2 <- simmr_load(
+  mixtures = mix,
+  source_names = s_names,
+  source_means = s_means,
+  source_sds = s_sds,
+  correction_means = simmr_tdf_out$c_mean_est,
+  correction_sds = simmr_tdf_out$c_sd_est,
+  concentration_means = conc
+)
 plot(simmr_tdf_2)
 ```
 
@@ -537,9 +593,10 @@ or even on the output:
 
 ```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(simmr_groups_out,
-     type = 'boxplot',
-     group = 2,
-     title = 'simmr output group 2') + 
+  type = "boxplot",
+  group = 2,
+  title = "simmr output group 2"
+) +
   ylim(0, 0.5)
 ```
 
@@ -551,24 +608,26 @@ Here is an example where I change the colours of the boxplots:
 
 ```{r}
 # First extract the dietary proportions
-simmr_out2 = simmr_out$output[[1]]$BUGSoutput$sims.list$p
-colnames(simmr_out2) = simmr_out$input$source_names
+simmr_out2 <- simmr_out$output[[1]]$BUGSoutput$sims.list$p
+colnames(simmr_out2) <- simmr_out$input$source_names
 
 # Now turn into a proper data frame
-df = reshape2::melt(simmr_out2)
-colnames(df) = c('Num','Source','Proportion')
+df <- reshape2::melt(simmr_out2)
+colnames(df) <- c("Num", "Source", "Proportion")
 
 # Finally create the new variable that you want to colour by
-df$new_colour = 'Type 2'
-df$new_colour[df$Source == 'Zostera'] = 'Type 1'
+df$new_colour <- "Type 2"
+df$new_colour[df$Source == "Zostera"] <- "Type 1"
 
 # And create the plot
-ggplot(df,aes_string(y="Proportion",x="Source",
-                     fill="new_colour",alpha=0,5)) +
-  geom_boxplot(notch=TRUE,outlier.size=0) +
+ggplot(df, aes_string(
+  y = "Proportion", x = "Source",
+  fill = "new_colour", alpha = 0, 5
+)) +
+  geom_boxplot(notch = TRUE, outlier.size = 0) +
   theme_bw() +
-  ggtitle('simmr output boxplot with changed colours') +
-  theme(legend.position='none') +
+  ggtitle("simmr output boxplot with changed colours") +
+  theme(legend.position = "none") +
   coord_flip()
 ```
 
@@ -583,14 +642,14 @@ str(simmr_in)
 which will show their contents. The `simmr_out` object in particular allows for full access to all of the posterior dietary proportion samples. We can calculate for example the mean of the Zostera dietary proportion on the first (or only) group:
 
 ```{r}
-mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Zostera'])
+mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[, "Zostera"])
 ```
 
 The backquotes around the 1 are required above because they specify which group (the first). We can thus find the probability that the posterior dietary proportion for Zostera is bigger than for Grass:
 
 ```{r}
-mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Zostera']
-     > simmr_out$output$`1`$BUGSoutput$sims.list$p[,'Grass'])
+mean(simmr_out$output$`1`$BUGSoutput$sims.list$p[, "Zostera"]
+> simmr_out$output$`1`$BUGSoutput$sims.list$p[, "Grass"])
 ```
 
 With more detailed R knowledge, it is possible to create scripts which run multiple data sets in richer fashions than the default `simmr` functions. See the help file `help(simmr_mcmc)` for a full list of examples.
@@ -608,12 +667,3 @@ Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X. Semmens, Eric J.
 
 For some good advice about mixing models:  
 Donald L Phillips, Richard Inger, Stuart Bearhop, Andrew L Jackson, Jonathan W Moore, Andrew C Parnell, Brice X Semmens, and Eric J Ward. Best practices for use of stable isotope mixing models in food-web studies. Canadian Journal of Zoology, 92(10):823–835, 2014.
-
-
-
-
-
-
-
-
-
