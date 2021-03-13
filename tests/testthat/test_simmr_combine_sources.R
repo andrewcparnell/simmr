@@ -43,6 +43,20 @@ test_that("simmr combine sources single group", {
   expect_true(simmr_out_combine$input$n_sources == 3)
   expect_output(summary(simmr_out_combine))
 
+  # Check it works for multiple sources
+  simmr_out_combine_mult <- combine_sources(simmr_1_out,
+                                            to_combine = c("Zostera", "Grass", "Enteromorpha"),
+                                            new_source_name = "Z, G, and E")
+  expect_s3_class(simmr_out_combine_mult, "simmr_output")
+  expect_s3_class(simmr_out_combine_mult$input, "simmr_input")
+  expect_true(length(simmr_out_combine_mult$input$source_names) == 2)
+  expect_true(nrow(simmr_out_combine_mult$input$correction_means) == 2)
+  expect_true(nrow(simmr_out_combine_mult$input$source_sds) == 2)
+  expect_true(simmr_out_combine_mult$input$n_sources == 2)
+  expect_output(summary(simmr_out_combine_mult))
+  
+  # Haven't got an example with 5 sources to check? 
+  
   # Check some errors
   expect_error(combine_sources(simmr_1_out,
     to_combine = c("Zostera2", "Grass"),
@@ -52,11 +66,8 @@ test_that("simmr combine sources single group", {
     to_combine = c("Zostera", "Gass"),
     new_source_name = "Z and G"
   ))
-  expect_error(combine_sources(simmr_1_out,
-    to_combine = c("Zostera", "Grass", "Enteromorpha"),
-    new_source_name = "Z and G"
-  ))
 })
+
 
 # Taken from the simmr_mcmc example
 test_that("simmr combine sources multiple group", {

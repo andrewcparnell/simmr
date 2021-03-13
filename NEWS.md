@@ -2,6 +2,7 @@
 
   - Implemented vdiffr for better checking of output plots
   - Added capture.output to remove verbose testing
+  - Added feature to allow for >2 sources to combined in combine_sources
 
 # simmr 0.4.5
 

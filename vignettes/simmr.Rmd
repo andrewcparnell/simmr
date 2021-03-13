@@ -372,14 +372,15 @@ plot(simmr_out_combine,
 )
 ```
 
-This will also work with multiple groups:
+This will also work with multiple sources and/or multiple groups:
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 simmr_groups_out_combine <- combine_sources(simmr_groups_out,
   to_combine = c(
+    "Zostera",
     "U.lactuca",
     "Enteromorpha"
   ),
-  new_source_name = "U.Lac+Ent"
+  new_source_name = "U.Lac+Ent+Zos"
 )
 plot(simmr_groups_out_combine$input,
   group = 1:8
@@ -401,8 +402,6 @@ compare_groups(simmr_groups_out_combine,
   group = 1:3
 )
 ```
-
-To combine more than two sources, simply run `combine_sources` recursively over the sources you want to combine. 
 
 ## Running simmr with only one isotope
 
