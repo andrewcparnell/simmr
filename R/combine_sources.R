@@ -92,21 +92,22 @@ combine_sources.simmr_output <- function(simmr_out,
 
   # Check only two sources to be combined
   assert_character(to_combine,
-                   any.missing = FALSE,
-                   all.missing = FALSE,
-                   max.len = simmr_out$input$n_sources - 1,
-                   unique = TRUE
+    any.missing = FALSE,
+    all.missing = FALSE,
+    max.len = simmr_out$input$n_sources - 1,
+    unique = TRUE
   )
-  
+
   # If there are more than two sources call the function recursively
-  if(length(to_combine) > 2) {
-    curr_new_source_name <- paste0(to_combine[-1], collapse = '+')
+  if (length(to_combine) > 2) {
+    curr_new_source_name <- paste0(to_combine[-1], collapse = "+")
     simmr_out <- combine_sources(simmr_out,
-                                 to_combine = to_combine[-1],
-                                 new_source_name = curr_new_source_name)
-    to_combine = c(curr_new_source_name, to_combine[1])
+      to_combine = to_combine[-1],
+      new_source_name = curr_new_source_name
+    )
+    to_combine <- c(curr_new_source_name, to_combine[1])
   }
-  
+
   # Find which columns to combine by number
   to_combine_cols <- sort(match(to_combine, simmr_out$input$source_names))
 
