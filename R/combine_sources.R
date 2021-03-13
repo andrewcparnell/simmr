@@ -94,7 +94,7 @@ combine_sources.simmr_output <- function(simmr_out,
   assert_character(to_combine,
                    any.missing = FALSE,
                    all.missing = FALSE,
-                   max.len = simmr_out$input$n_sources,
+                   max.len = simmr_out$input$n_sources - 1,
                    unique = TRUE
   )
   

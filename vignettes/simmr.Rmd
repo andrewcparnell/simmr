@@ -398,7 +398,7 @@ plot(simmr_groups_out_combine,
 
 # And we can now compare sources across groups on this new data set
 compare_groups(simmr_groups_out_combine,
-  source = "U.Lac+Ent",
+  source = "U.Lac+Ent+Zos",
   group = 1:3
 )
 ```
