@@ -75,8 +75,9 @@ The general structure for running `simmr` is as follows:
 1. Call `simmr_load` on the data to get it into the right format
 2. Plot the data in isotope space ('iso-space') using `plot`
 3. Run the mixing model with `simmr_mcmc`
-4. Explore the results with `plot` and `summary`
-5. If you have multiple groups and want to compare output between them, use the `compare_groups' function
+4. Check the model converged with `summary`
+5. Check the model fit is calibrated with `posterior_predictive`
+6. Explore the results with `plot` and `summary`, and `prior_viz`. If you have multiple groups and want to compare output between them, use the `compare_groups' function
 
 For the next part of this document, we concentrate on simple examples without grouping structure. 
 
