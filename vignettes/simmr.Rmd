@@ -68,7 +68,7 @@ The best way to use the `simmr` package is by creating scripts. A script can be 
 
 Unless you specify a grouping variable `simmr` assumes that all the observations are from the same group. If you have extra variables (e.g. explanatory variables) that you think may influence the dietary proportions, you should consider using (MixSIAR)[https://github.com/brianstock/MixSIAR] instead.
 
-## Structure of the input files
+## How to run simmr
 
 The general structure for running `simmr` is as follows:
 
@@ -240,7 +240,7 @@ compare_sources(simmr_out,
 For further information and options on comparing sources, see `help(compare_sources)`.
 
 
-## Running `simmr` on multiple groups
+## How to run `simmr` on multiple groups
 
 In many cases we have data from different sampling locations, or different types of individuals (e.g. male/female) and we to compare between these groups. `simmr` can handle these data sets provided they all share the same sources, corrections and concentration dependence values. 
 
