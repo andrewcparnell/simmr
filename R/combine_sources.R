@@ -119,31 +119,31 @@ combine_sources.simmr_output <- function(simmr_out,
   simmr_new_out$input$source_means <- old_source_means[-to_combine_cols[2], ,
     drop = FALSE
   ]
-  simmr_new_out$input$source_means[to_combine_cols[1], ] <- apply(old_source_means[to_combine_cols, , drop = FALSE], 2, "mean")
+  simmr_new_out$input$source_means[to_combine_cols[1], ] <- matrix(apply(old_source_means[to_combine_cols, , drop = FALSE], 2, "mean"), nrow = 1)
 
   # 2 combine the source sds
   old_source_sds <- simmr_out$input$source_sds
   simmr_new_out$input$source_sds <- old_source_sds[-to_combine_cols[2], , drop = FALSE]
-  simmr_new_out$input$source_sds[to_combine_cols[1], ] <- apply(old_source_sds[to_combine_cols, , drop = FALSE], 2, function(x) {
+  simmr_new_out$input$source_sds[to_combine_cols[1], ] <- matrix(apply(old_source_sds[to_combine_cols, , drop = FALSE], 2, function(x) {
     sqrt(sum(x^2))
-  })
+  }), nrow = 1)
 
   # 3 combine the correction means
   old_correction_means <- simmr_out$input$correction_means
   simmr_new_out$input$correction_means <- old_correction_means[-to_combine_cols[2], , drop = FALSE]
-  simmr_new_out$input$correction_means[to_combine_cols[1], ] <- apply(old_correction_means[to_combine_cols, , drop = FALSE], 2, "mean")
+  simmr_new_out$input$correction_means[to_combine_cols[1], ] <- matrix(apply(old_correction_means[to_combine_cols, , drop = FALSE], 2, "mean"), nrow = 1)
 
   # 4 combine the correction sds
   old_correction_sds <- simmr_out$input$correction_sds
   simmr_new_out$input$correction_sds <- old_correction_sds[-to_combine_cols[2], , drop = FALSE]
-  simmr_new_out$input$correction_sds[to_combine_cols[1], ] <- apply(old_correction_sds[to_combine_cols, , drop = FALSE], 2, function(x) {
+  simmr_new_out$input$correction_sds[to_combine_cols[1], ] <- matrix(apply(old_correction_sds[to_combine_cols, , drop = FALSE], 2, function(x) {
     sqrt(sum(x^2))
-  })
+  }), nrow = 1)
 
-  # 5 combine the concentraion means
+  # 5 combine the concentration means
   old_concentration_means <- simmr_out$input$concentration_means
   simmr_new_out$input$concentration_means <- old_concentration_means[-to_combine_cols[2], , drop = FALSE]
-  simmr_new_out$input$concentration_means[to_combine_cols[1], ] <- apply(old_concentration_means[to_combine_cols, , drop = FALSE], 2, "mean")
+  simmr_new_out$input$concentration_means[to_combine_cols[1], ] <- matrix(apply(old_concentration_means[to_combine_cols, , drop = FALSE], 2, "mean"), nrow = 1)
 
   # 6 change the source names
   old_source_names <- simmr_out$input$source_names

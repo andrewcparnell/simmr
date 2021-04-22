@@ -128,14 +128,14 @@ plot.simmr_input <-
     source_sds_c <- sqrt(x$source_sds^2 + x$correction_sds^2)
 
     # Set up data frame for ggplot - have to do it this stupid way because of cran
-    x2 <- c(source_means_c[, tracers[1]], curr_mix[, tracers[1]])
-    x_lower <- c(source_means_c[, tracers[1]] - sigmas * source_sds_c[, tracers[1]], curr_mix[, tracers[1]])
-    x_upper <- c(source_means_c[, tracers[1]] + sigmas * source_sds_c[, tracers[1]], curr_mix[, tracers[1]])
+    x2 <- unlist(c(source_means_c[, tracers[1]], curr_mix[, tracers[1]]))
+    x_lower <- unlist(c(source_means_c[, tracers[1]] - sigmas * source_sds_c[, tracers[1]], curr_mix[, tracers[1]]))
+    x_upper <- unlist(c(source_means_c[, tracers[1]] + sigmas * source_sds_c[, tracers[1]], curr_mix[, tracers[1]]))
 
     if (ncol(curr_mix) > 1) {
-      y <- c(source_means_c[, tracers[2]], curr_mix[, tracers[2]])
-      y_lower <- c(source_means_c[, tracers[2]] - sigmas * source_sds_c[, tracers[2]], curr_mix[, tracers[2]])
-      y_upper <- c(source_means_c[, tracers[2]] + sigmas * source_sds_c[, tracers[2]], curr_mix[, tracers[2]])
+      y <- unlist(c(source_means_c[, tracers[2]], curr_mix[, tracers[2]]))
+      y_lower <- unlist(c(source_means_c[, tracers[2]] - sigmas * source_sds_c[, tracers[2]], curr_mix[, tracers[2]]))
+      y_upper <- unlist(c(source_means_c[, tracers[2]] + sigmas * source_sds_c[, tracers[2]], curr_mix[, tracers[2]]))
     }
 
     if (x$n_groups == 1) {

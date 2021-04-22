@@ -160,13 +160,13 @@ test_that("simmr combine sources multiple groups", {
 
   # Load the data into simmr
   geese_simmr <- simmr_load(
-    mixtures = as.matrix(targets[, 1:2]),
+    mixtures = targets[, 1:2],
     source_names = sources$Sources,
-    source_means = as.matrix(sources[, 2:3]),
-    source_sds = as.matrix(sources[, 4:5]),
-    correction_means = as.matrix(TEFs[, 2:3]),
-    correction_sds = as.matrix(TEFs[, 4:5]),
-    concentration_means = as.matrix(concdep[, 2:3]),
+    source_means = sources[, 2:3],
+    source_sds = sources[, 4:5],
+    correction_means = TEFs[, 2:3],
+    correction_sds = TEFs[, 4:5],
+    concentration_means = concdep[, 2:3],
     group = as.factor(paste("Day", targets$Time))
   )
 

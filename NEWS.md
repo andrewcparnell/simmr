@@ -3,6 +3,7 @@
   - Implemented vdiffr for better checking of output plots
   - Added capture.output to remove verbose testing
   - Added feature to allow for >2 sources to combined in combine_sources
+  - Added ability to use data in matrix, data frame, or tibble format without error
 
 # simmr 0.4.5
 

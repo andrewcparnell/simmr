@@ -88,7 +88,7 @@
       <h1 data-toc-skip>simmr: quick start guide</h1>
                         <h4 class="author">Andrew Parnell</h4>
             
-            <h4 class="date">2021-04-21</h4>
+            <h4 class="date">2021-04-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/master/vignettes/quick_start.Rmd"><code>vignettes/quick_start.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start.Rmd</code></div>
@@ -132,13 +132,13 @@
 <a href="#step-3-load-the-data-into-simmr" class="anchor"></a>Step 3: load the data into <code>simmr</code>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">geese_simmr</span> <span class="op">=</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>mixtures <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">targets</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">geese_simmr</span> <span class="op">=</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>mixtures <span class="op">=</span> <span class="va">targets</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,
                          source_names <span class="op">=</span> <span class="va">sources</span><span class="op">$</span><span class="va">Sources</span>,
-                         source_means <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">sources</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,
-                         source_sds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">sources</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>,
-                         correction_means <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">TEFs</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,
-                         correction_sds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">TEFs</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>,
-                         concentration_means <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="va">concdep</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span>,
+                         source_means <span class="op">=</span> <span class="va">sources</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,
+                         source_sds <span class="op">=</span> <span class="va">sources</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,
+                         correction_means <span class="op">=</span> <span class="va">TEFs</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,
+                         correction_sds <span class="op">=</span> <span class="va">TEFs</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,
+                         concentration_means <span class="op">=</span> <span class="va">concdep</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,
                          group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">'Day'</span>, <span class="va">targets</span><span class="op">$</span><span class="va">Time</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="step-4-plot-the-data" class="section level2">
@@ -185,30 +185,30 @@
                source_name <span class="op">=</span> <span class="st">'Enteromorpha'</span><span class="op">)</span></code></pre></div>
 <pre><code>## Most popular orderings are as follows:
 ##                                     Probability
-## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2114
-## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1772
-## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1664
-## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1156
-## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0764
-## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0725
-## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0408
-## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0372
+## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2167
+## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1794
+## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1614
+## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1133
+## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0858
+## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0753
+## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0389
+## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0353
 ## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0256
-## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0200
-## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0117
+## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0142
+## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0100
 ## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0097
-## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0069
-## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0064
-## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0053
-## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0036
-## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0025
+## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0056
+## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0047
+## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0044
+## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0039
+## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0031
+## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0025
 ## Day 1 &gt; Day 398 &gt; Day 428 &gt; Day 124      0.0022
-## Day 1 &gt; Day 124 &gt; Day 398 &gt; Day 428      0.0019
-## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0017
-## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0017
-## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0014
-## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0011
-## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0008</code></pre>
+## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0022
+## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0019
+## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0017
+## Day 1 &gt; Day 124 &gt; Day 398 &gt; Day 428      0.0011
+## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0011</code></pre>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>For the many more options available to run and analyse output, see the main vignette via <code><a href="../articles/simmr.html">vignette('simmr')</a></code></p>
 </div>

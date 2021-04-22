@@ -101,7 +101,7 @@ posterior_predictive.simmr_output <- function(simmr_out,
     curr_rows <- which(simmr_out$input$group_int == group)
     curr_mix <- simmr_out$input$mixtures[curr_rows, , drop = FALSE]
     g <- ppc_intervals(
-      y = as.vector(curr_mix),
+      y = unlist(as.vector(curr_mix)),
       yrep = y_rep,
       x = rep(1:nrow(curr_mix), simmr_out$input$n_tracers),
       prob = prob,

@@ -1,8 +1,8 @@
-pandoc: '2.13'
+pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   quick_start: quick_start.html
   simmr: simmr.html
-last_built: 2021-04-21T11:09Z
+last_built: 2021-04-22T15:50Z
 
