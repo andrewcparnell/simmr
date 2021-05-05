@@ -1,14 +1,15 @@
 #' Plot the prior distribution for a simmr run
 #'
-#' This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or as part of \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
+#' This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or together with \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
 #'
 #' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}}
 #' @param group Which group to run it for (currently only numeric rather than group names)
 #' @param plot Whether to create a density plot of the prior or not. The simulated prior values are returned as part of the object
 #' @param include_posterior Whether to include the posterior distribution on top of the priors. Defaults to TRUE
 #' @param n_sims The number of simulations from the prior distribution
-#' @param ggargs Extra arguments to be included in the ggplot (e.g. axis limits)
-
+#' @param scales The type of scale from \code{facet_wrap} allowing for \code{fixed}, \code{free}, \code{free_x}, \code{free_y}
+#'
+#' @returns A list containing \code{plot}: the ggplot object (useful if requires customisation), and \code{sim}: the simulated prior values which can be compared with the posterior densities
 #'
 #' @export
 #'
@@ -39,15 +40,15 @@
 #'
 #' # Prior predictive
 #' prior <- prior_viz(simmr_1_out)
-#' head(prior)
-#' summary(prior)
+#' head(prior$sim)
+#' summary(prior$sim)
 #' }
 prior_viz <- function(simmr_out,
                       group = 1,
                       plot = TRUE,
                       include_posterior = TRUE,
                       n_sims = 10000,
-                      ggargs = NULL) {
+                      scales = 'free') {
   UseMethod("prior_viz")
 }
 #' @export
@@ -56,7 +57,7 @@ prior_viz.simmr_output <- function(simmr_out,
                                    plot = TRUE,
                                    include_posterior = TRUE,
                                    n_sims = 10000,
-                                   ggargs = NULL) {
+                                   scales = 'free') {
 
   # Can't do more than 1 group for now
   assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
@@ -107,7 +108,7 @@ prior_viz.simmr_output <- function(simmr_out,
         theme_bw() +
         ggtitle(plot_title_2) +
         ylab("Density") +
-        facet_wrap("~ Source")
+        facet_wrap("~ Source", scales = scales)
     } else {
       g <- ggplot(
         df,
@@ -122,11 +123,11 @@ prior_viz.simmr_output <- function(simmr_out,
         theme_bw() +
         ggtitle(plot_title_1) +
         ylab("Density") +
-        facet_wrap("~ Source")
+        facet_wrap("~ Source", scales = scales)
     }
-    print(g) + ggargs
+    print(g)
   }
 
   # Return the simulations
-  invisible(p_prior_sim)
+  invisible(list(plot = g, sim = p_prior_sim))
 }

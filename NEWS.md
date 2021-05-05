@@ -4,6 +4,7 @@
   - Added capture.output to remove verbose testing
   - Added feature to allow for >2 sources to combined in combine_sources
   - Added ability to use data in matrix, data frame, or tibble format without error
+  - Changed the way prior_viz object is plotted and returned to allow for greater customisation
 
 # simmr 0.4.5
 

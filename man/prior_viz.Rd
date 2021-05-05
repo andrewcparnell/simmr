@@ -10,7 +10,7 @@ prior_viz(
   plot = TRUE,
   include_posterior = TRUE,
   n_sims = 10000,
-  ggargs = NULL
+  scales = "free"
 )
 }
 \arguments{
@@ -24,10 +24,13 @@ prior_viz(
 
 \item{n_sims}{The number of simulations from the prior distribution}
 
-\item{ggargs}{Extra arguments to be included in the ggplot (e.g. axis limits)}
+\item{scales}{The type of scale from \code{facet_wrap} allowing for \code{fixed}, \code{free}, \code{free_x}, \code{free_y}}
+}
+\value{
+A list containing \code{plot}: the ggplot object (useful if requires customisation), and \code{sim}: the simulated prior values which can be compared with the posterior densities
 }
 \description{
-This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or as part of \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
+This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or together with \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
 }
 \examples{
 \dontrun{
@@ -56,7 +59,7 @@ simmr_1_out <- simmr_mcmc(simmr_1)
 
 # Prior predictive
 prior <- prior_viz(simmr_1_out)
-head(prior)
-summary(prior)
+head(prior$sim)
+summary(prior$sim)
 }
 }
