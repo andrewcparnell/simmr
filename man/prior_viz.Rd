@@ -59,7 +59,7 @@ simmr_1_out <- simmr_mcmc(simmr_1)
 
 # Prior predictive
 prior <- prior_viz(simmr_1_out)
-head(prior$sim)
-summary(prior$sim)
+head(prior$p_prior_sim)
+summary(prior$p_prior_sim)
 }
 }

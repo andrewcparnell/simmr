@@ -40,8 +40,8 @@
 #'
 #' # Prior predictive
 #' prior <- prior_viz(simmr_1_out)
-#' head(prior$sim)
-#' summary(prior$sim)
+#' head(prior$p_prior_sim)
+#' summary(prior$p_prior_sim)
 #' }
 prior_viz <- function(simmr_out,
                       group = 1,
@@ -129,5 +129,9 @@ prior_viz.simmr_output <- function(simmr_out,
   }
 
   # Return the simulations
-  invisible(list(plot = g, sim = p_prior_sim))
+  if(exists('g')) {
+    invisible(list(plot = g, p_prior_sim = p_prior_sim))
+  } else {
+    invisible(p_prior_sim)
+  }
 }

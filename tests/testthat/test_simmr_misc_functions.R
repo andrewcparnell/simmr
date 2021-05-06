@@ -39,21 +39,25 @@ co(simmr_2_out <- simmr_mcmc(simmr_2,
 
 test_that("prior viz for 1 groups", {
   p1 <- prior_viz(simmr_1_out)
-  expect_true(is.matrix(p1))
+  expect_list(p1)
+  expect_class(p1$plot, 'ggplot')
+  expect_class(p1$p_prior_sim, 'matrix')
   # Change some options
   p1a <- prior_viz(simmr_1_out, plot = FALSE, include_posterior = FALSE, n_sims = 10)
-  expect_true(is.matrix(p1a))
+  expect_matrix(p1a)
 })
 
 test_that("prior viz for multiple groups", {
   p2 <- prior_viz(simmr_2_out)
-  expect_true(is.matrix(p2))
+  expect_list(p2)
+  expect_class(p2$plot, 'ggplot')
+  expect_class(p2$p_prior_sim, 'matrix')
   p3 <- prior_viz(simmr_2_out, group = 2)
-  expect_true(is.matrix(p2))
-  expect_false(p2[1, 1] == p3[1, 1])
+  expect_list(p3)
+  expect_false(p2$p_prior_sim[1, 1] == p3$p_prior_sim[1, 1])
   # Change some options
   p4 <- prior_viz(simmr_2_out, group = 2, plot = TRUE, include_posterior = FALSE, n_sims = 10)
-  expect_true(is.matrix(p4))
+  expect_list(p4)
   expect_error(prior_viz(simmr_2_out, group = 1.5, n_sims = 10))
   expect_error(prior_viz(simmr_2_out, group = 12, n_sims = 10))
 })
