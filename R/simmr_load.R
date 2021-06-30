@@ -123,9 +123,13 @@ simmr_load <- function(mixtures,
   n_sources <- length(source_names)
 
   # source_means and source_sds must both be matrices where the number of rows is n_sources (in the same order as source_names) and the number of columns is n_tracers
-  assert_2D_numeric(source_means)
+  assert_2D_numeric(source_means,
+                    nrows = n_sources,
+                    ncols = n_tracers)
   # assert_matrix(source_means, nrows = n_sources, ncols = n_tracers)
-  assert_2D_numeric(source_sds)
+  assert_2D_numeric(source_sds,
+                    nrows = n_sources,
+                    ncols = n_tracers)
   # assert_matrix(source_sds, nrows = n_sources, ncols = n_tracers)
   assert_2D_numeric(correction_means,
                     nrows = n_sources,

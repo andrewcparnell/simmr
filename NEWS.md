@@ -1,10 +1,11 @@
-# simmr 0.4.6
+# simmr 0.4.5.9000
 
   - Implemented vdiffr for better checking of output plots
   - Added capture.output to remove verbose testing
   - Added feature to allow for >2 sources to combined in combine_sources
   - Added ability to use data in matrix, data frame, or tibble format without error
   - Changed the way prior_viz object is plotted and returned to allow for greater customisation
+  - Improved test that to test for bad source mean and sd shapes
 
 # simmr 0.4.5
 
