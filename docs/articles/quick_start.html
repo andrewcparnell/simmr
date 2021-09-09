@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.5.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.6.9000</span>
       </span>
     </div>
 
@@ -82,13 +82,13 @@
 
       
 
-      </header><script src="quick_start_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="quick_start_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>simmr: quick start guide</h1>
                         <h4 class="author">Andrew Parnell</h4>
             
-            <h4 class="date">2021-04-22</h4>
+            <h4 class="date">2021-09-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/master/vignettes/quick_start.Rmd"><code>vignettes/quick_start.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start.Rmd</code></div>
@@ -126,6 +126,7 @@
 <span class="va">sources</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 <span class="va">TEFs</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>
 <span class="va">concdep</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<p>Note that if you don’t have TEFs or concentration dependence you can set these all to the value 0 or just leave them blank in the step below.</p>
 </div>
 <div id="step-3-load-the-data-into-simmr" class="section level2">
 <h2 class="hasAnchor">
@@ -185,30 +186,30 @@
                source_name <span class="op">=</span> <span class="st">'Enteromorpha'</span><span class="op">)</span></code></pre></div>
 <pre><code>## Most popular orderings are as follows:
 ##                                     Probability
-## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2167
-## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1794
-## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1614
-## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1133
-## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0858
-## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0753
-## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0389
-## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0353
-## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0256
-## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0142
-## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0100
-## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0097
-## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0056
-## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0047
-## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0044
-## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0039
-## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0031
-## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0025
-## Day 1 &gt; Day 398 &gt; Day 428 &gt; Day 124      0.0022
-## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0022
-## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0019
-## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0017
+## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2222
+## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1883
+## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1489
+## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1108
+## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0806
+## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0750
+## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0447
+## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0322
+## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0272
+## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0172
+## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0133
+## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0103
+## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0061
+## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0047
+## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0042
+## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0036
+## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0028
+## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0017
+## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0017
 ## Day 1 &gt; Day 124 &gt; Day 398 &gt; Day 428      0.0011
-## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0011</code></pre>
+## Day 1 &gt; Day 398 &gt; Day 428 &gt; Day 124      0.0011
+## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0011
+## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0008
+## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0003</code></pre>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>For the many more options available to run and analyse output, see the main vignette via <code><a href="../articles/simmr.html">vignette('simmr')</a></code></p>
 </div>
