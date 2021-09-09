@@ -53,6 +53,8 @@ TEFs = geese_data[[3]]
 concdep = geese_data[[4]]
 ```
 
+Note that if you don't have TEFs or concentration dependence you can set these all to the value 0 or just leave them blank in the step below. 
+
 ## Step 3: load the data into `simmr`
 
 ```{r}

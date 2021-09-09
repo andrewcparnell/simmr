@@ -600,7 +600,7 @@ plot(simmr_groups_out,
   ylim(0, 0.5)
 ```
 
-Note that the above actually changes the x-axis and not the x-axis despite the above command. This is because the coordinates are flipped in the ggplot. 
+Note that the above actually changes the x-axis and not the y-axis despite the above command. This is because the coordinates are flipped in the ggplot. 
 
 Other options you might like to customise include labels on axes, titles/subtitles, etc. More complicated changes can be made but these involve changing the ggplot commands that simmr uses in the background.
 
