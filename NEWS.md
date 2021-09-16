@@ -6,6 +6,7 @@
   - Added ability to use data in matrix, data frame, or tibble format without error
   - Changed the way prior_viz object is plotted and returned to allow for greater customisation
   - Improved test that to test for bad source mean and sd shapes
+  - Added a new vignette on advanced plotting (and moved other parts out of main vignette)
 
 # simmr 0.4.5
 
