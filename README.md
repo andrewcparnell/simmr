@@ -43,4 +43,5 @@ library(simmr)
 ```
 vignette('simmr')
 vignette('quick_start')
+vignette('advanced_plotting')
 ```
