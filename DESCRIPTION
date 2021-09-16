@@ -30,7 +30,8 @@ Suggests:
     testthat,
     covr,
     vdiffr,
-    tibble
+    tibble,
+    ggnewscale
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-07-03 17:48:43 UTC; andrewparnell
