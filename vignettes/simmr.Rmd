@@ -66,7 +66,7 @@ The best way to use the `simmr` package is by creating scripts. A script can be 
 - Multiple consumers. This may occur if you have multiple individuals in a single sampling period
 - Multiple groups of consumers. This may occur if you have multiple consumers which are observed over different sampling periods/locations, different demographic groups, etc.
 
-Unless you specify a grouping variable `simmr` assumes that all the observations are from the same group. If you have extra variables (e.g. explanatory variables) that you think may influence the dietary proportions, you should consider using (MixSIAR)[https://github.com/brianstock/MixSIAR] instead.
+Unless you specify a grouping variable `simmr` assumes that all the observations are from the same group. If you have extra variables (e.g. explanatory variables) that you think may influence the dietary proportions, you should consider using [MixSIAR](https://github.com/brianstock/MixSIAR) instead.
 
 ## How to run simmr
 
