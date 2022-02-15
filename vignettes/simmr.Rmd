@@ -29,7 +29,7 @@ We assume that you have a sound working knowledge of stable isotopic mixing mode
 
 We assume that if you have got this far you have [installed R](https://www.r-project.org). We also recommend installing [Rstudio](https://rstudio.com) as this provides a very neat interface to use R and `simmr`. The instructions below all assume you are using Rstudio.
 
-If you find bugs in the software, or wish to suggest new features, please add your input to the `simmr` [GitHub page](https://github.com/andrewcparnell/simmr/issues).
+If you find bugs in the software, or wish to suggest new features, please add your input to the `simmr` [GitHub issues page](https://github.com/andrewcparnell/simmr/issues).
 
 ## Installation of the `simmr` package
 
