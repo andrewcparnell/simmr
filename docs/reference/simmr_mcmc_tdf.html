@@ -34,7 +34,7 @@ discrimination factors; TEFs/TDFs) for a given set of dietary proportions."><!--
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -78,39 +78,49 @@ discrimination factors; TEFs/TDFs) for a given set of dietary proportions.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">simmr_mcmc_tdf</span><span class="op">(</span>
-  <span class="va">simmr_in</span>,
-  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span>, <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span>,
-    nrow <span class="op">=</span> <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_obs</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,
-  prior_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>c_mean_est <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_tracers</span><span class="op">)</span>, c_sd_est <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,
-    <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_tracers</span><span class="op">)</span><span class="op">)</span>,
-  mcmc_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iter <span class="op">=</span> <span class="fl">10000</span>, burn <span class="op">=</span> <span class="fl">1000</span>, thin <span class="op">=</span> <span class="fl">10</span>, n.chain <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simmr_mcmc_tdf</span><span class="op">(</span></span>
+<span>  <span class="va">simmr_in</span>,</span>
+<span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span>, <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_obs</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>  prior_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>c_mean_est <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>, <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_tracers</span><span class="op">)</span>, c_sd_est <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,</span>
+<span>    <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_tracers</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  mcmc_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iter <span class="op">=</span> <span class="fl">10000</span>, burn <span class="op">=</span> <span class="fl">1000</span>, thin <span class="op">=</span> <span class="fl">10</span>, n.chain <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>simmr_in</dt>
 <dd><p>An object created via the function <code><a href="simmr_load.html">simmr_load</a></code></p></dd>
+
+
 <dt>p</dt>
 <dd><p>The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)</p></dd>
+
+
 <dt>prior_control</dt>
 <dd><p>A list of values including arguments named <code>means</code>
 and <code>sd</code> which represent the prior means and standard deviations of the
 correction factors. These can usually be left at their default values unless
 you wish to include to include prior information on them.</p></dd>
+
+
 <dt>mcmc_control</dt>
 <dd><p>A list of values including arguments named <code>iter</code>
 (number of iterations), <code>burn</code> (size of burn-in), <code>thin</code> (amount
 of thinning), and <code>n.chain</code> (number of MCMC chains).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code>simmr_tdf</code> with two named top-level
+    
+
+<p>An object of class <code>simmr_tdf</code> with two named top-level
 components:</p>
 <dl><dt>input</dt>
 <dd><p>The <code>simmr_input</code> object given to the
 <code>simmr_mcmc</code> function</p></dd>
+
 <dt>output</dt>
 <dd><p>A set of MCMC chains of class
 <code>mcmc.list</code> from the coda package. These can be analysed using
@@ -160,70 +170,70 @@ function, <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> for estimating d
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## Example of estimating TDFs for a simple system with known dietary proportions</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep</span></span>
-<span class="r-in"><span class="co"># Assume p = c(0.25, 0.25, 0.25, 0.25)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">simmr_data_1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Load into simmr</span></span>
-<span class="r-in"><span class="va">simmr_tdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">simmr_data_1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
-<span class="r-in">    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span>
-<span class="r-in">    source_names <span class="op">=</span> <span class="va">source_names</span>,</span>
-<span class="r-in">    source_means <span class="op">=</span> <span class="va">source_means</span>,</span>
-<span class="r-in">    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span>
-<span class="r-in">    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span>
-<span class="r-in">    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span>
-<span class="r-in">    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MCMC run</span></span>
-<span class="r-in"><span class="va">simmr_tdf_out</span> <span class="op">&lt;-</span> <span class="fu">simmr_mcmc_tdf</span><span class="op">(</span><span class="va">simmr_tdf</span>,</span>
-<span class="r-in">  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span>
-<span class="r-in">    <span class="fl">1</span> <span class="op">/</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span>
-<span class="r-in">    <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span></span>
-<span class="r-in">  <span class="op">)</span>,</span>
-<span class="r-in">  ncol <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span>
-<span class="r-in">  nrow <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_obs</span>,</span>
-<span class="r-in">  byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Summary</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Now put these corrections back into the model and check the</span></span>
-<span class="r-in"><span class="co"># iso-space plots and dietary output</span></span>
-<span class="r-in"><span class="va">simmr_tdf_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">simmr_data_1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
-<span class="r-in">    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span>
-<span class="r-in">    source_names <span class="op">=</span> <span class="va">source_names</span>,</span>
-<span class="r-in">    source_means <span class="op">=</span> <span class="va">source_means</span>,</span>
-<span class="r-in">    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span>
-<span class="r-in">    correction_means <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_mean_est</span>,</span>
-<span class="r-in">    correction_sds <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_sd_est</span>,</span>
-<span class="r-in">    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot with corrections now</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf_2</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">simmr_tdf_2_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_tdf_2</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_2_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf_2_out</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## Example of estimating TDFs for a simple system with known dietary proportions</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep</span></span></span>
+<span class="r-in"><span><span class="co"># Assume p = c(0.25, 0.25, 0.25, 0.25)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">simmr_data_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Load into simmr</span></span></span>
+<span class="r-in"><span><span class="va">simmr_tdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">simmr_data_1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
+<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
+<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
+<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
+<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span></span>
+<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span></span>
+<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># MCMC run</span></span></span>
+<span class="r-in"><span><span class="va">simmr_tdf_out</span> <span class="op">&lt;-</span> <span class="fu">simmr_mcmc_tdf</span><span class="op">(</span><span class="va">simmr_tdf</span>,</span></span>
+<span class="r-in"><span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fl">1</span> <span class="op">/</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span></span>
+<span class="r-in"><span>    <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ncol <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span></span>
+<span class="r-in"><span>  nrow <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_obs</span>,</span></span>
+<span class="r-in"><span>  byrow <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Summary</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Now put these corrections back into the model and check the</span></span></span>
+<span class="r-in"><span><span class="co"># iso-space plots and dietary output</span></span></span>
+<span class="r-in"><span><span class="va">simmr_tdf_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">simmr_data_1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
+<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
+<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
+<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
+<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_mean_est</span>,</span></span>
+<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_sd_est</span>,</span></span>
+<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot with corrections now</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf_2</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">simmr_tdf_2_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_tdf_2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_2_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf_2_out</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -238,7 +248,7 @@ function, <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> for estimating d
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

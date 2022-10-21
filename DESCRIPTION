@@ -35,6 +35,6 @@ Suggests:
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-07-03 17:48:43 UTC; andrewparnell
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 Repository: CRAN
 Date/Publication: 2019-07-03 18:20:03 UTC

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.6.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/simmr.html">Get started</a>
 </li>
@@ -50,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -70,7 +66,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/andrewcparnell/simmr/">
+  <a href="https://github.com/andrewcparnell/simmr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,745 +81,1067 @@
 
       
 
-      </header><script src="simmr_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Stable Isotope Mixing Models in R with simmr</h1>
-                        <h4 class="author">Andrew Parnell and Richard Inger</h4>
+      <h1 data-toc-skip>Stable Isotope Mixing Models in R with
+simmr</h1>
+                        <h4 data-toc-skip class="author">Andrew Parnell
+and Richard Inger</h4>
             
-            <h4 class="date">2021-09-16</h4>
+            <h4 data-toc-skip class="date">2022-10-17</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/master/vignettes/simmr.Rmd"><code>vignettes/simmr.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/HEAD/vignettes/simmr.Rmd" class="external-link"><code>vignettes/simmr.Rmd</code></a></small>
       <div class="hidden name"><code>simmr.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>tl;dr see the <a href="https://cran.r-project.org/package=simmr/vignettes/quick_start.html">Quick Start</a> vignette</p>
-<p><code>simmr</code> is a package designed to solve mixing equations for stable isotopic data within a Bayesian framework. This guide is designed to get researchers up and running with the package and giving them a full list of all the available features. No expertise is required in the use of R.</p>
-<p><code>simmr</code> is designed as an upgrade to the <a href="https://CRAN.R-project.org/package=siar">SIAR</a> package and contains many of the same features. This new version contains a slightly more sophisticated mixing model, a simpler user interface, and more advanced plotting features. The key differences between SIAR and <code>simmr</code> are:</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>tl;dr see the <a href="https://cran.r-project.org/package=simmr/vignettes/quick_start.html" class="external-link">Quick
+Start</a> vignette</p>
+<p><code>simmr</code> is a package designed to solve mixing equations
+for stable isotopic data within a Bayesian framework. This guide is
+designed to get researchers up and running with the package and giving
+them a full list of all the available features. No expertise is required
+in the use of R.</p>
+<p><code>simmr</code> is designed as an upgrade to the <a href="https://CRAN.R-project.org/package=siar" class="external-link">SIAR</a> package and
+contains many of the same features. This new version contains a slightly
+more sophisticated mixing model, a simpler user interface, and more
+advanced plotting features. The key differences between SIAR and
+<code>simmr</code> are:</p>
 <ul>
 <li>
-<code>simmr</code> has a slightly richer mixing model based on code from the Parnell et al 2013 Environmetrics paper</li>
+<code>simmr</code> has a slightly richer mixing model based on code
+from the Parnell et al 2013 Environmetrics paper</li>
 <li>
-<code>simmr</code> does not have a menu system; all commands must be run through the console or script windows</li>
+<code>simmr</code> does not have a menu system; all commands must be
+run through the console or script windows</li>
 <li>
-<code>simmr</code> uses ggplot2 to create graphs and JAGS to run the mixing model</li>
+<code>simmr</code> uses ggplot2 to create graphs and JAGS to run the
+mixing model</li>
 </ul>
-<p>We assume that you have a sound working knowledge of stable isotopic mixing models, and the assumptions and potential pitfalls associated with these models. A list of required reading is presented in Appendix A of this guide. We strongly recommend reading Philips et al 2015, Canadian Journal of Zoology for the basic assumptions and dos and don’ts of running mixing models.</p>
-<p>We assume that if you have got this far you have <a href="https://www.r-project.org">installed R</a>. We also recommend installing <a href="https://rstudio.com">Rstudio</a> as this provides a very neat interface to use R and <code>simmr</code>. The instructions below all assume you are using Rstudio.</p>
-<p>If you find bugs in the software, or wish to suggest new features, please add your input to the <code>simmr</code> <a href="https://github.com/andrewcparnell/simmr/issues">GitHub page</a>.</p>
+<p>We assume that you have a sound working knowledge of stable isotopic
+mixing models, and the assumptions and potential pitfalls associated
+with these models. A list of required reading is presented in Appendix A
+of this guide. We strongly recommend reading Philips et al 2015,
+Canadian Journal of Zoology for the basic assumptions and dos and don’ts
+of running mixing models.</p>
+<p>We assume that if you have got this far you have <a href="https://www.r-project.org" class="external-link">installed R</a>. We also recommend
+installing <a href="https://rstudio.com" class="external-link">Rstudio</a> as this provides a
+very neat interface to use R and <code>simmr</code>. The instructions
+below all assume you are using Rstudio.</p>
+<p>If you find bugs in the software, or wish to suggest new features,
+please add your input to the <code>simmr</code> <a href="https://github.com/andrewcparnell/simmr/issues" class="external-link">GitHub issues
+page</a>.</p>
 </div>
-<div id="installation-of-the-simmr-package" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation-of-the-simmr-package" class="anchor"></a>Installation of the <code>simmr</code> package</h2>
-<p>The <code>simmr</code> package uses the JAGS (Just Another Gibbs Sampler) programmer to run the stable isotope mixing model. Before you install simmr, visit the <a href="https://sourceforge.net/projects/mcmc-jags/">JAGS</a> website and download and install JAGS for your operating system.</p>
-<p>Next, start Rstudio and find the window with the command prompt (the symbol <code><a href="https://rdrr.io/r/base/Comparison.html">&gt;</a></code>). Type</p>
+<div class="section level2">
+<h2 id="installation-of-the-simmr-package">Installation of the <code>simmr</code> package<a class="anchor" aria-label="anchor" href="#installation-of-the-simmr-package"></a>
+</h2>
+<p>The <code>simmr</code> package uses the JAGS (Just Another Gibbs
+Sampler) programmer to run the stable isotope mixing model. Before you
+install simmr, visit the <a href="https://sourceforge.net/projects/mcmc-jags/" class="external-link">JAGS</a> website and
+download and install JAGS for your operating system.</p>
+<p>Next, start Rstudio and find the window with the command prompt (the
+symbol <code>&gt;</code>). Type</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"simmr"</span><span class="op">)</span></code></pre></div>
-<p>It may ask you to pick your nearest CRAN mirror (the nearest site which hosts R packages). You will then see some activity on the screen as the <code>simmr</code> package and the other packages it uses are downloaded. The final line should then read:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"simmr"</span><span class="op">)</span></span></code></pre></div>
+<p>It may ask you to pick your nearest CRAN mirror (the nearest site
+which hosts R packages). You will then see some activity on the screen
+as the <code>simmr</code> package and the other packages it uses are
+downloaded. The final line should then read:</p>
 <p><code>package 'simmr' successfully unpacked and MD5 sums checked</code></p>
 <p>You then need to load the package. Type</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrewcparnell/simmr">simmr</a></span><span class="op">)</span></code></pre></div>
-<p>This will load the <code>simmr</code> package and all the associated packages. You’ll need to type the <code><a href="https://github.com/andrewcparnell/simmr">library(simmr)</a></code> command every time you start R. If you haven’t installed JAGS properly you will be informed at this point.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrewcparnell/simmr" class="external-link">simmr</a></span><span class="op">)</span></span></code></pre></div>
+<p>This will load the <code>simmr</code> package and all the associated
+packages. You’ll need to type the <code><a href="https://github.com/andrewcparnell/simmr" class="external-link">library(simmr)</a></code> command
+every time you start R. If you haven’t installed JAGS properly you will
+be informed at this point.</p>
 </div>
-<div id="considerations-before-running-simmr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#considerations-before-running-simmr" class="anchor"></a>Considerations before running simmr</h2>
+<div class="section level2">
+<h2 id="considerations-before-running-simmr">Considerations before running simmr<a class="anchor" aria-label="anchor" href="#considerations-before-running-simmr"></a>
+</h2>
 <p>Before getting started there are a couple of points to consider.</p>
-<div id="working-with-scripts" class="section level3">
-<h3 class="hasAnchor">
-<a href="#working-with-scripts" class="anchor"></a>Working with scripts</h3>
-<p>The best way to use the <code>simmr</code> package is by creating scripts. A script can be created in Rstudio by clicking <code>File &gt; New File &gt; Rscript</code>. This opens a text window which allows commands to be typed in order and saved. The command can be sent to the command prompt (which Rstudio calls the Console) by highlighting the command and clicking Run (or going to Code &gt; Run Lines). There are also keyboard shortcuts to speed up the process. We strongly recommend you learn to run R via scripts.</p>
+<div class="section level3">
+<h3 id="working-with-scripts">Working with scripts<a class="anchor" aria-label="anchor" href="#working-with-scripts"></a>
+</h3>
+<p>The best way to use the <code>simmr</code> package is by creating
+scripts. A script can be created in Rstudio by clicking
+<code>File &gt; New File &gt; Rscript</code>. This opens a text window
+which allows commands to be typed in order and saved. The command can be
+sent to the command prompt (which Rstudio calls the Console) by
+highlighting the command and clicking Run (or going to Code &gt; Run
+Lines). There are also keyboard shortcuts to speed up the process. We
+strongly recommend you learn to run R via scripts.</p>
 </div>
-<div id="data-structure" class="section level3">
-<h3 class="hasAnchor">
-<a href="#data-structure" class="anchor"></a>Data Structure</h3>
-<p><code>simmr</code> can handle three different types of data structure:</p>
+<div class="section level3">
+<h3 id="data-structure">Data Structure<a class="anchor" aria-label="anchor" href="#data-structure"></a>
+</h3>
+<p><code>simmr</code> can handle three different types of data
+structure:</p>
 <ul>
-<li>A single consumer. This may occur when you have only one data point on a single individual</li>
-<li>Multiple consumers. This may occur if you have multiple individuals in a single sampling period</li>
-<li>Multiple groups of consumers. This may occur if you have multiple consumers which are observed over different sampling periods/locations, different demographic groups, etc.</li>
+<li>A single consumer. This may occur when you have only one data point
+on a single individual</li>
+<li>Multiple consumers. This may occur if you have multiple individuals
+in a single sampling period</li>
+<li>Multiple groups of consumers. This may occur if you have multiple
+consumers which are observed over different sampling periods/locations,
+different demographic groups, etc.</li>
 </ul>
-<p>Unless you specify a grouping variable <code>simmr</code> assumes that all the observations are from the same group. If you have extra variables (e.g. explanatory variables) that you think may influence the dietary proportions, you should consider using (MixSIAR)[<a href="https://github.com/brianstock/MixSIAR" class="uri">https://github.com/brianstock/MixSIAR</a>] instead.</p>
+<p>Unless you specify a grouping variable <code>simmr</code> assumes
+that all the observations are from the same group. If you have extra
+variables (e.g. explanatory variables) that you think may influence the
+dietary proportions, you should consider using <a href="https://github.com/brianstock/MixSIAR" class="external-link">MixSIAR</a> instead.</p>
 </div>
 </div>
-<div id="how-to-run-simmr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-to-run-simmr" class="anchor"></a>How to run simmr</h2>
-<p>The general structure for running <code>simmr</code> is as follows:</p>
+<div class="section level2">
+<h2 id="how-to-run-simmr">How to run simmr<a class="anchor" aria-label="anchor" href="#how-to-run-simmr"></a>
+</h2>
+<p>The general structure for running <code>simmr</code> is as
+follows:</p>
 <ol style="list-style-type: decimal">
-<li>Call <code>simmr_load</code> on the data to get it into the right format</li>
-<li>Plot the data in isotope space (‘iso-space’) using <code>plot</code>
+<li>Call <code>simmr_load</code> on the data to get it into the right
+format</li>
+<li>Plot the data in isotope space (‘iso-space’) using
+<code>plot</code>
 </li>
 <li>Run the mixing model with <code>simmr_mcmc</code>
 </li>
 <li>Check the model converged with <code>summary</code>
 </li>
-<li>Check the model fit is calibrated with <code>posterior_predictive</code>
+<li>Check the model fit is calibrated with
+<code>posterior_predictive</code>
 </li>
-<li>Explore the results with <code>plot</code> and <code>summary</code>, and <code>prior_viz</code>. If you have multiple groups and want to compare output between them, use the `compare_groups’ function</li>
+<li>Explore the results with <code>plot</code> and <code>summary</code>,
+and <code>prior_viz</code>. If you have multiple groups and want to
+compare output between them, use the `compare_groups’ function</li>
 </ol>
-<p>For the next part of this document, we concentrate on simple examples without grouping structure.</p>
-<div id="step-1-getting-the-data-into-simmr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step-1-getting-the-data-into-simmr" class="anchor"></a>Step 1: Getting the data into simmr</h3>
-<p><code>simmr</code> requires at minimum 3 input objects; the consumers or <em>mixtures</em>, the <em>source means</em>, and the <em>source standard deviations</em>. Optionally, you can also add correction data (also called trophic enrichment factors, TEFs) represented again as means and standard deviations, and concentration dependence values. The easiest way to get data into simmr is to create an Excel file, as shown in the included <code>vignette('quick_start)</code> guide. Alternatively you can copy and past your data, comma separated, as below:</p>
+<p>For the next part of this document, we concentrate on simple examples
+without grouping structure.</p>
+<div class="section level3">
+<h3 id="step-1-getting-the-data-into-simmr">Step 1: Getting the data into simmr<a class="anchor" aria-label="anchor" href="#step-1-getting-the-data-into-simmr"></a>
+</h3>
+<p><code>simmr</code> requires at minimum 3 input objects; the consumers
+or <em>mixtures</em>, the <em>source means</em>, and the <em>source
+standard deviations</em>. Optionally, you can also add correction data
+(also called trophic enrichment factors, TEFs) represented again as
+means and standard deviations, and concentration dependence values. The
+easiest way to get data into simmr is to create an Excel file, as shown
+in the included <code>vignette('quick_start)</code> guide. Alternatively
+you can copy and past your data, comma separated, as below:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="op">-</span><span class="fl">10.13</span>, <span class="op">-</span><span class="fl">10.72</span>, <span class="op">-</span><span class="fl">11.39</span>, <span class="op">-</span><span class="fl">11.18</span>, <span class="op">-</span><span class="fl">10.81</span>, <span class="op">-</span><span class="fl">10.7</span>, <span class="op">-</span><span class="fl">10.54</span>,
-  <span class="op">-</span><span class="fl">10.48</span>, <span class="op">-</span><span class="fl">9.93</span>, <span class="op">-</span><span class="fl">9.37</span>, <span class="fl">11.59</span>, <span class="fl">11.01</span>, <span class="fl">10.59</span>, <span class="fl">10.97</span>, <span class="fl">11.52</span>, <span class="fl">11.89</span>,
-  <span class="fl">11.73</span>, <span class="fl">10.89</span>, <span class="fl">11.05</span>, <span class="fl">12.3</span>
-<span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">mix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"d13C"</span>, <span class="st">"d15N"</span><span class="op">)</span>
-<span class="va">s_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"Grass"</span>, <span class="st">"U.lactuca"</span>, <span class="st">"Enteromorpha"</span><span class="op">)</span>
-<span class="va">s_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">14</span>, <span class="op">-</span><span class="fl">15.1</span>, <span class="op">-</span><span class="fl">11.03</span>, <span class="op">-</span><span class="fl">14.44</span>, <span class="fl">3.06</span>, <span class="fl">7.05</span>, <span class="fl">13.72</span>, <span class="fl">5.96</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">s_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.48</span>, <span class="fl">0.38</span>, <span class="fl">0.48</span>, <span class="fl">0.43</span>, <span class="fl">0.46</span>, <span class="fl">0.39</span>, <span class="fl">0.42</span>, <span class="fl">0.48</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">c_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.63</span>, <span class="fl">1.59</span>, <span class="fl">3.41</span>, <span class="fl">3.04</span>, <span class="fl">3.28</span>, <span class="fl">2.34</span>, <span class="fl">2.14</span>, <span class="fl">2.36</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">c_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.41</span>, <span class="fl">0.44</span>, <span class="fl">0.34</span>, <span class="fl">0.46</span>, <span class="fl">0.46</span>, <span class="fl">0.48</span>, <span class="fl">0.46</span>, <span class="fl">0.66</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.04</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>, <span class="fl">0.09</span>, <span class="fl">0.05</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
-<p>The <code>mix</code> object above contains the stable isotopic data for the consumers. The data should be listed as the consumer values for the first isotope, followed by the consumer values for the second isotope and so on. The <code>matrix</code> function turns this into a matrix (a rectangle of numbers) with 2 columns. The first column contains the data for isotope 1, and the second the data for isotope 2. Any number of isotopes and observations can be used. It is recommended but not necessary to give the mixtures column names representing the isotopes to which each column corresponds.</p>
-<p>The source names are provided in the <code>s_names</code> object, and the source means and standard deviations in <code>s_means</code> and <code>s_sds</code>. These latter objects must also be matrices, where the number of rows is the number of sources, and the number of columns the number of isotopes. In each case, the data are included by listing the values for the first isotope, then the second isotope, and so on.</p>
-<p>The correction data is stored in <code>c_means</code> and <code>c_sds</code>. Again this should be a matrix of the same dimension as <code>s_means</code> and <code>s_sds</code>. Finally the concentration dependencies (i.e. the elemental concentration values) are included as <code>conc</code>.</p>
-<p>Some data sets are also included in <code>simmr</code> for quick access to examples. See <code><a href="https://rdrr.io/r/utils/data.html">data(package = "simmr")</a></code> for the list. They can all be accessed via, e.g. <code><a href="https://rdrr.io/r/utils/data.html">data("geese_data")</a></code>.</p>
+<code class="sourceCode R"><span><span class="va">mix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="op">-</span><span class="fl">10.13</span>, <span class="op">-</span><span class="fl">10.72</span>, <span class="op">-</span><span class="fl">11.39</span>, <span class="op">-</span><span class="fl">11.18</span>, <span class="op">-</span><span class="fl">10.81</span>, <span class="op">-</span><span class="fl">10.7</span>, <span class="op">-</span><span class="fl">10.54</span>,</span>
+<span>  <span class="op">-</span><span class="fl">10.48</span>, <span class="op">-</span><span class="fl">9.93</span>, <span class="op">-</span><span class="fl">9.37</span>, <span class="fl">11.59</span>, <span class="fl">11.01</span>, <span class="fl">10.59</span>, <span class="fl">10.97</span>, <span class="fl">11.52</span>, <span class="fl">11.89</span>,</span>
+<span>  <span class="fl">11.73</span>, <span class="fl">10.89</span>, <span class="fl">11.05</span>, <span class="fl">12.3</span></span>
+<span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"d13C"</span>, <span class="st">"d15N"</span><span class="op">)</span></span>
+<span><span class="va">s_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"Grass"</span>, <span class="st">"U.lactuca"</span>, <span class="st">"Enteromorpha"</span><span class="op">)</span></span>
+<span><span class="va">s_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">14</span>, <span class="op">-</span><span class="fl">15.1</span>, <span class="op">-</span><span class="fl">11.03</span>, <span class="op">-</span><span class="fl">14.44</span>, <span class="fl">3.06</span>, <span class="fl">7.05</span>, <span class="fl">13.72</span>, <span class="fl">5.96</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">s_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.48</span>, <span class="fl">0.38</span>, <span class="fl">0.48</span>, <span class="fl">0.43</span>, <span class="fl">0.46</span>, <span class="fl">0.39</span>, <span class="fl">0.42</span>, <span class="fl">0.48</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">c_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.63</span>, <span class="fl">1.59</span>, <span class="fl">3.41</span>, <span class="fl">3.04</span>, <span class="fl">3.28</span>, <span class="fl">2.34</span>, <span class="fl">2.14</span>, <span class="fl">2.36</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">c_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.41</span>, <span class="fl">0.44</span>, <span class="fl">0.34</span>, <span class="fl">0.46</span>, <span class="fl">0.46</span>, <span class="fl">0.48</span>, <span class="fl">0.46</span>, <span class="fl">0.66</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.04</span>, <span class="fl">0.02</span>, <span class="fl">0.1</span>, <span class="fl">0.09</span>, <span class="fl">0.05</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<p>The <code>mix</code> object above contains the stable isotopic data
+for the consumers. The data should be listed as the consumer values for
+the first isotope, followed by the consumer values for the second
+isotope and so on. The <code>matrix</code> function turns this into a
+matrix (a rectangle of numbers) with 2 columns. The first column
+contains the data for isotope 1, and the second the data for isotope 2.
+Any number of isotopes and observations can be used. It is recommended
+but not necessary to give the mixtures column names representing the
+isotopes to which each column corresponds.</p>
+<p>The source names are provided in the <code>s_names</code> object, and
+the source means and standard deviations in <code>s_means</code> and
+<code>s_sds</code>. These latter objects must also be matrices, where
+the number of rows is the number of sources, and the number of columns
+the number of isotopes. In each case, the data are included by listing
+the values for the first isotope, then the second isotope, and so
+on.</p>
+<p>The correction data is stored in <code>c_means</code> and
+<code>c_sds</code>. Again this should be a matrix of the same dimension
+as <code>s_means</code> and <code>s_sds</code>. Finally the
+concentration dependencies (i.e. the elemental concentration values) are
+included as <code>conc</code>.</p>
+<p>Some data sets are also included in <code>simmr</code> for quick
+access to examples. See <code>data(package = "simmr")</code> for the
+list. They can all be accessed via,
+e.g. <code>data("geese_data")</code>.</p>
 <p>To load the data into simmr, use:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>
-  mixtures <span class="op">=</span> <span class="va">mix</span>,
-  source_names <span class="op">=</span> <span class="va">s_names</span>,
-  source_means <span class="op">=</span> <span class="va">s_means</span>,
-  source_sds <span class="op">=</span> <span class="va">s_sds</span>,
-  correction_means <span class="op">=</span> <span class="va">c_means</span>,
-  correction_sds <span class="op">=</span> <span class="va">c_sds</span>,
-  concentration_means <span class="op">=</span> <span class="va">conc</span>
-<span class="op">)</span></code></pre></div>
-<p>Remember that the <code>correction_means</code>, <code>correction_sds</code>, and <code>concentration_means</code> are optional.</p>
+<code class="sourceCode R"><span><span class="va">simmr_in</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
+<span>  mixtures <span class="op">=</span> <span class="va">mix</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="va">s_names</span>,</span>
+<span>  source_means <span class="op">=</span> <span class="va">s_means</span>,</span>
+<span>  source_sds <span class="op">=</span> <span class="va">s_sds</span>,</span>
+<span>  correction_means <span class="op">=</span> <span class="va">c_means</span>,</span>
+<span>  correction_sds <span class="op">=</span> <span class="va">c_sds</span>,</span>
+<span>  concentration_means <span class="op">=</span> <span class="va">conc</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Remember that the <code>correction_means</code>,
+<code>correction_sds</code>, and <code>concentration_means</code> are
+optional.</p>
 </div>
-<div id="step-2-plotting-the-data-in-iso-space" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step-2-plotting-the-data-in-iso-space" class="anchor"></a>Step 2: Plotting the data in iso-space</h3>
+<div class="section level3">
+<h3 id="step-2-plotting-the-data-in-iso-space">Step 2: Plotting the data in iso-space<a class="anchor" aria-label="anchor" href="#step-2-plotting-the-data-in-iso-space"></a>
+</h3>
 <p>We can now plot the raw isotopic data with:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This will produce a biplot with the isotope that is in the first column on the x-axis, and the isotope in the second column on the y-axis. You can make the plot slightly nicer with some extra arguments:</p>
+<p>This will produce a biplot with the isotope that is in the first
+column on the x-axis, and the isotope in the second column on the
+y-axis. You can make the plot slightly nicer with some extra
+arguments:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_in</span>,
-  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (\u2030)"</span>,
-    sep <span class="op">=</span> <span class="st">""</span>
-  <span class="op">)</span><span class="op">)</span>,
-  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (\u2030)"</span>,
-    sep <span class="op">=</span> <span class="st">""</span>
-  <span class="op">)</span><span class="op">)</span>,
-  title <span class="op">=</span> <span class="st">"Isospace plot of example data"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_in</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (\u2030)"</span>,</span>
+<span>    sep <span class="op">=</span> <span class="st">""</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (\u2030)"</span>,</span>
+<span>    sep <span class="op">=</span> <span class="st">""</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Isospace plot of example data"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>See the help file <code><a href="../reference/plot.simmr_input.html">help(plot.simmr_input)</a></code> for more options on the plotting commands, including the ability to plot different tracers/isotopes when there are more than 2 isotopes.</p>
-<p>If all the mixtures lie inside the mixing polygon defined by the sources, then the data are acceptable for running <code>simmr</code>. See Philips et al 2015, Canadian Journal of Zoology for more details on when data are suitable for running through a mixing model.</p>
+<p>See the help file <code><a href="../reference/plot.simmr_input.html">help(plot.simmr_input)</a></code> for more
+options on the plotting commands, including the ability to plot
+different tracers/isotopes when there are more than 2 isotopes.</p>
+<p>If all the mixtures lie inside the mixing polygon defined by the
+sources, then the data are acceptable for running <code>simmr</code>.
+See Philips et al 2015, Canadian Journal of Zoology for more details on
+when data are suitable for running through a mixing model.</p>
 </div>
-<div id="step-3-running-simmr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step-3-running-simmr" class="anchor"></a>Step 3: Running simmr</h3>
-<p>The next step is to actually run the model. This is achieved with the command:</p>
+<div class="section level3">
+<h3 id="step-3-running-simmr">Step 3: Running simmr<a class="anchor" aria-label="anchor" href="#step-3-running-simmr"></a>
+</h3>
+<p>The next step is to actually run the model. This is achieved with the
+command:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></code></pre></div>
-<pre><code>## module glm loaded</code></pre>
-<p>This command takes the object <code>simmr_in</code> we created earlier and uses it as input for the model. It tells <code>simmr</code> to store the output from the model run in an object called <code>simmr_out</code>.</p>
-<p>The model should take less than a minute to run, though this will depend on the speed of the computer you are using. Other data sets might take slightly longer or shorter depending on the number of sources, isotopes, and observations. The progress of the model is displayed on the command line window, which shows the percentage complete.</p>
+<code class="sourceCode R"><span><span class="va">simmr_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## module glm loaded</span></span></code></pre>
+<p>This command takes the object <code>simmr_in</code> we created
+earlier and uses it as input for the model. It tells <code>simmr</code>
+to store the output from the model run in an object called
+<code>simmr_out</code>.</p>
+<p>The model should take less than a minute to run, though this will
+depend on the speed of the computer you are using. Other data sets might
+take slightly longer or shorter depending on the number of sources,
+isotopes, and observations. The progress of the model is displayed on
+the command line window, which shows the percentage complete.</p>
 </div>
-<div id="step-4-checking-the-algorithm-converged" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step-4-checking-the-algorithm-converged" class="anchor"></a>Step 4: Checking the algorithm converged</h3>
-<p>Markov chain Monte Carlo (MCMC) works by repeatedly guessing the values of the dietary proportions and find those values which fit the data best. The initial guesses are usually poor and are discarded as part of an initial phase known as the burn-in. Subsequent iterations are then stored and used for the <em>posterior distribution</em>; the best estimates of the dietary proportions given the data and the model. Because it can take many thousands of iterations to move away from the initial guesses, <em>convergence diagnostics</em> can be created to check the model has run properly. In <code>simmr</code> this is done with:</p>
+<div class="section level3">
+<h3 id="step-4-checking-the-algorithm-converged">Step 4: Checking the algorithm converged<a class="anchor" aria-label="anchor" href="#step-4-checking-the-algorithm-converged"></a>
+</h3>
+<p>Markov chain Monte Carlo (MCMC) works by repeatedly guessing the
+values of the dietary proportions and find those values which fit the
+data best. The initial guesses are usually poor and are discarded as
+part of an initial phase known as the burn-in. Subsequent iterations are
+then stored and used for the <em>posterior distribution</em>; the best
+estimates of the dietary proportions given the data and the model.
+Because it can take many thousands of iterations to move away from the
+initial guesses, <em>convergence diagnostics</em> can be created to
+check the model has run properly. In <code>simmr</code> this is done
+with:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for 1 
-## Gelman diagnostics - these values should all be close to 1.
-## If not, try a longer run of simmr_mcmc.
-##     deviance      Zostera        Grass    U.lactuca Enteromorpha     sd[d13C] 
-##            1            1            1            1            1            1 
-##     sd[d15N] 
-##            1</code></pre>
-<p>If the model run has converged properly the values should be close to 1. If they are above 1.1, we recommend a longer run. See <code><a href="../reference/simmr_mcmc.html">help(simmr_mcmc)</a></code> for how to do this.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for 1 </span></span>
+<span><span class="co">## Gelman diagnostics - these values should all be close to 1.</span></span>
+<span><span class="co">## If not, try a longer run of simmr_mcmc.</span></span>
+<span><span class="co">##     deviance      Zostera        Grass    U.lactuca Enteromorpha     sd[d13C] </span></span>
+<span><span class="co">##            1            1            1            1            1            1 </span></span>
+<span><span class="co">##     sd[d15N] </span></span>
+<span><span class="co">##            1</span></span></code></pre>
+<p>If the model run has converged properly the values should be close to
+1. If they are above 1.1, we recommend a longer run. See
+<code><a href="../reference/simmr_mcmc.html">help(simmr_mcmc)</a></code> for how to do this.</p>
 </div>
-<div id="step-5-checking-the-model-fit" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step-5-checking-the-model-fit" class="anchor"></a>Step 5: Checking the model fit</h3>
-<p>You can check the fit of the model with a posterior predictive check. This is similar to a fitted values plot in a linear regression. If the data points (denoted by the plot as <span class="math inline">\(y\)</span>) broadly lie in the fitted value intervals (denoted <span class="math inline">\(y_rep\)</span>; the default is a 50% interval) then the model is fitting well:</p>
+<div class="section level3">
+<h3 id="step-5-checking-the-model-fit">Step 5: Checking the model fit<a class="anchor" aria-label="anchor" href="#step-5-checking-the-model-fit"></a>
+</h3>
+<p>You can check the fit of the model with a posterior predictive check.
+This is similar to a fitted values plot in a linear regression. If the
+data points (denoted by the plot as <span class="math inline">\(y\)</span>) broadly lie in the fitted value
+intervals (denoted <span class="math inline">\(y_rep\)</span>; the
+default is a 50% interval) then the model is fitting well:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">post_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/posterior_predictive.html">posterior_predictive</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">post_pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/posterior_predictive.html">posterior_predictive</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">post_pred</span><span class="op">)</span></code></pre></div>
-<p>The output includes a table showing which observations lie outside the posterior predictive and the proportion doing so, which should approximately match the proportion specified in the <code>posterior_predictive</code> function (default 50%).</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">post_pred</span><span class="op">)</span></span></code></pre></div>
+<p>The output includes a table showing which observations lie outside
+the posterior predictive and the proportion doing so, which should
+approximately match the proportion specified in the
+<code>posterior_predictive</code> function (default 50%).</p>
 </div>
-<div id="step-6-exploring-the-results" class="section level3">
-<h3 class="hasAnchor">
-<a href="#step-6-exploring-the-results" class="anchor"></a>Step 6: Exploring the results</h3>
-<p>All SIMMs use informative (usually generalist) prior distributions as a default. You can plot the priors and the posteriors with:</p>
+<div class="section level3">
+<h3 id="step-6-exploring-the-results">Step 6: Exploring the results<a class="anchor" aria-label="anchor" href="#step-6-exploring-the-results"></a>
+</h3>
+<p>All SIMMs use informative (usually generalist) prior distributions as
+a default. You can plot the priors and the posteriors with:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
-<p><code>simmr</code> produces both textual and graphical summaries of the model run. Starting with the textual summaries, we can get tables of the means, standard deviations and credible intervals (the Bayesian equivalent of a confidence interval) with:</p>
+<p><code>simmr</code> produces both textual and graphical summaries of
+the model run. Starting with the textual summaries, we can get tables of
+the means, standard deviations and credible intervals (the Bayesian
+equivalent of a confidence interval) with:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"statistics"</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for 1 
-##                mean    sd
-## deviance     36.190 3.104
-## Zostera       0.226 0.131
-## Grass         0.284 0.078
-## U.lactuca     0.274 0.031
-## Enteromorpha  0.216 0.119
-## sd[d13C]      0.551 0.227
-## sd[d15N]      0.428 0.225</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"statistics"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for 1 </span></span>
+<span><span class="co">##                mean    sd</span></span>
+<span><span class="co">## deviance     36.215 3.099</span></span>
+<span><span class="co">## Zostera       0.221 0.129</span></span>
+<span><span class="co">## Grass         0.287 0.079</span></span>
+<span><span class="co">## U.lactuca     0.276 0.032</span></span>
+<span><span class="co">## Enteromorpha  0.216 0.116</span></span>
+<span><span class="co">## sd[d13C]      0.549 0.224</span></span>
+<span><span class="co">## sd[d15N]      0.425 0.226</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for 1 
-##                2.5%    25%    50%    75%  97.5%
-## deviance     32.268 33.906 35.487 37.746 43.740
-## Zostera       0.030  0.119  0.211  0.317  0.504
-## Grass         0.141  0.230  0.279  0.332  0.448
-## U.lactuca     0.216  0.253  0.273  0.294  0.341
-## Enteromorpha  0.035  0.119  0.203  0.297  0.472
-## sd[d13C]      0.176  0.400  0.522  0.673  1.068
-## sd[d15N]      0.059  0.272  0.409  0.549  0.956</code></pre>
-<p>These suggest that the dietary proportions for this model are quite uncertain. However we can see that the credible interval for U.lactuca is the narrowest, running from approximately 20% to 35% of the diet. The reason this one is the narrowest can be seen from the isospace plot - this source is the most clearly separated from the others.</p>
-<p><code>simmr</code> can also produce histograms, boxplots, density plots, and matrix plots of the output. Starting with the density plot:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for 1 </span></span>
+<span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## deviance     32.262 33.925 35.507 37.773 44.141</span></span>
+<span><span class="co">## Zostera       0.033  0.113  0.203  0.314  0.494</span></span>
+<span><span class="co">## Grass         0.149  0.231  0.283  0.336  0.456</span></span>
+<span><span class="co">## U.lactuca     0.217  0.254  0.275  0.296  0.338</span></span>
+<span><span class="co">## Enteromorpha  0.034  0.123  0.205  0.299  0.462</span></span>
+<span><span class="co">## sd[d13C]      0.188  0.398  0.524  0.663  1.084</span></span>
+<span><span class="co">## sd[d15N]      0.053  0.273  0.405  0.550  0.932</span></span></code></pre>
+<p>These suggest that the dietary proportions for this model are quite
+uncertain. However we can see that the credible interval for U.lactuca
+is the narrowest, running from approximately 20% to 35% of the diet. The
+reason this one is the narrowest can be seen from the isospace plot -
+this source is the most clearly separated from the others.</p>
+<p><code>simmr</code> can also produce histograms, boxplots, density
+plots, and matrix plots of the output. Starting with the density
+plot:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>We can see that Zostera and Enteromorpha are poorly constrained in comparison to Grass and especially U.lactuca. Again this is unsurprising since the isospace plot indicated that these were the two most clearly separated sources.</p>
+<p>We can see that Zostera and Enteromorpha are poorly constrained in
+comparison to Grass and especially U.lactuca. Again this is unsurprising
+since the isospace plot indicated that these were the two most clearly
+separated sources.</p>
 <p>The most useful output plot is the matrix plot:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This shows the source histograms on the diagonal, contour plots of the relationship between the sources on the upper diagonal, and the correlation between the sources on the lower diagonal. Large negative correlations indicate that the model cannot discern between the two sources; they may lie close together in iso-space. Large positive correlations are also possible when mixture data lie in a polygon consisting of multiple competing sources. Here the largest negative correlation is between Zostera and Enteromorpha. This is because they lie closest together in isospace. In general, high correlations (negative or positive) are indicative of the model being unable to determine which food sources are being consumed, and are an unavoidable part of stable isotope mixing models.</p>
-<p>If you want to compare the dietary proportions between two different sources, you can use the <code>compare_sources</code> function. This takes two or more sources and compares the dietary proportions with an optional plot. For example:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,
-  source_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"U.lactuca"</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Prob ( proportion of Zostera &gt; proportion of U.lactuca ) = 0.351</code></pre>
+<p>This shows the source histograms on the diagonal, contour plots of
+the relationship between the sources on the upper diagonal, and the
+correlation between the sources on the lower diagonal. Large negative
+correlations indicate that the model cannot discern between the two
+sources; they may lie close together in iso-space. Large positive
+correlations are also possible when mixture data lie in a polygon
+consisting of multiple competing sources. Here the largest negative
+correlation is between Zostera and Enteromorpha. This is because they
+lie closest together in isospace. In general, high correlations
+(negative or positive) are indicative of the model being unable to
+determine which food sources are being consumed, and are an unavoidable
+part of stable isotope mixing models.</p>
+<p>If you want to compare the dietary proportions between two different
+sources, you can use the <code>compare_sources</code> function. This
+takes two or more sources and compares the dietary proportions with an
+optional plot. For example:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"U.lactuca"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Prob ( proportion of Zostera &gt; proportion of U.lactuca ) = 0.345</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This produces a direct probability that the dietary proportion for the first source is bigger than that of the second. If you want to compare more than two sources, specify them with:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,
-  source_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="st">"Zostera"</span>,
-    <span class="st">"U.lactuca"</span>,
-    <span class="st">"Enteromorpha"</span>
-  <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Most popular orderings are as follows:
-##                                    Probability
-## Zostera &gt; U.lactuca &gt; Enteromorpha      0.3156
-## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2703
-## U.lactuca &gt; Enteromorpha &gt; Zostera      0.2067
-## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1717
-## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0186
-## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0172</code></pre>
+<p>This produces a direct probability that the dietary proportion for
+the first source is bigger than that of the second. If you want to
+compare more than two sources, specify them with:</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Zostera"</span>,</span>
+<span>    <span class="st">"U.lactuca"</span>,</span>
+<span>    <span class="st">"Enteromorpha"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
+<span><span class="co">##                                    Probability</span></span>
+<span><span class="co">## Zostera &gt; U.lactuca &gt; Enteromorpha      0.3053</span></span>
+<span><span class="co">## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2667</span></span>
+<span><span class="co">## U.lactuca &gt; Enteromorpha &gt; Zostera      0.2236</span></span>
+<span><span class="co">## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1647</span></span>
+<span><span class="co">## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0208</span></span>
+<span><span class="co">## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0189</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>For further information and options on comparing sources, see <code><a href="../reference/compare_sources.html">help(compare_sources)</a></code>.</p>
+<p>For further information and options on comparing sources, see
+<code><a href="../reference/compare_sources.html">help(compare_sources)</a></code>.</p>
 </div>
 </div>
-<div id="how-to-run-simmr-on-multiple-groups" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-to-run-simmr-on-multiple-groups" class="anchor"></a>How to run <code>simmr</code> on multiple groups</h2>
-<p>In many cases we have data from different sampling locations, or different types of individuals (e.g. male/female) and we to compare between these groups. <code>simmr</code> can handle these data sets provided they all share the same sources, corrections and concentration dependence values.</p>
-<p>A useful data set is given by Inger et al 2006 and provided as part of the original SIAR package. These data concern Brent Geese observed on 8 separate sampling periods.</p>
-<p>These data are included in the package, and we can load these data into R with:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">geese_data</span><span class="op">)</span></code></pre></div>
-<p>…and into simmr with:</p>
+<div class="section level2">
+<h2 id="how-to-run-simmr-on-multiple-groups">How to run <code>simmr</code> on multiple groups<a class="anchor" aria-label="anchor" href="#how-to-run-simmr-on-multiple-groups"></a>
+</h2>
+<p>In many cases we have data from different sampling locations, or
+different types of individuals (e.g. male/female) and we to compare
+between these groups. <code>simmr</code> can handle these data sets
+provided they all share the same sources, corrections and concentration
+dependence values.</p>
+<p>A useful data set is given by Inger et al 2006 and provided as part
+of the original SIAR package. These data concern Brent Geese observed on
+8 separate sampling periods.</p>
+<p>These data are included in the package, and we can load these data
+into R with:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html">with</a></span><span class="op">(</span>
-  <span class="va">geese_data</span>,
-  <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>
-    mixtures <span class="op">=</span> <span class="va">mixtures</span>,
-    source_names <span class="op">=</span> <span class="va">source_names</span>,
-    source_means <span class="op">=</span> <span class="va">source_means</span>,
-    source_sds <span class="op">=</span> <span class="va">source_sds</span>,
-    correction_means <span class="op">=</span> <span class="va">correction_means</span>,
-    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,
-    concentration_means <span class="op">=</span> <span class="va">concentration_means</span>,
-    group <span class="op">=</span> <span class="va">groups</span>
-  <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<p>Note that the <code>group</code> object above is specified to be a factor but can also be an integer, the levels of which will appear in plots. However, when specifying groups in later commands you should use the integer values to reference which groups to plot</p>
-<p>Next it is a matter of following the <code>simmr</code> commands as before to load in, with an extra argument specifying the groups:</p>
-<p>When we create the isospace plot we can specify which groups we wish to plot:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data</span><span class="op">)</span></span></code></pre></div>
+<p>…and into simmr with:</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups</span>,
-  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,
-  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (\u2030)"</span>,
-    sep <span class="op">=</span> <span class="st">""</span>
-  <span class="op">)</span><span class="op">)</span>,
-  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (\u2030)"</span>,
-    sep <span class="op">=</span> <span class="st">""</span>
-  <span class="op">)</span><span class="op">)</span>,
-  title <span class="op">=</span> <span class="st">"Isospace plot of Inger et al Geese data"</span>,
-  mix_name <span class="op">=</span> <span class="st">"Geese"</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>In the above code <code>group = 1:8</code> can be changed specify any of the available groups. For example <code>group = 2</code> would plot just sampling period 2, or <code>group = c(1,3:7)</code> would plot just sampling period 1 and 3 to 7.</p>
-<p>The command for running the <code>simmr</code> model is identical to before:</p>
+<code class="sourceCode R"><span><span class="va">simmr_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
+<span>  <span class="va">geese_data</span>,</span>
+<span>  <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
+<span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span>
+<span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span>
+<span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span>
+<span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span>
+<span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span>
+<span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span>
+<span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span>,</span>
+<span>    group <span class="op">=</span> <span class="va">groups</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Note that the <code>group</code> object above is specified to be a
+factor but can also be an integer, the levels of which will appear in
+plots. However, when specifying groups in later commands you should use
+the integer values to reference which groups to plot</p>
+<p>Next it is a matter of following the <code>simmr</code> commands as
+before to load in, with an extra argument specifying the groups:</p>
+<p>When we create the isospace plot we can specify which groups we wish
+to plot:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_groups_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_groups</span><span class="op">)</span></code></pre></div>
-<p><code>simmr</code> will automatically run the model for each group in turn. This may take slightly longer than a standard single group run.</p>
-<p>The <code>summary</code> command works the same as before. By default they will produce output for all groups, or you can specify the groups individually, e.g.:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (\u2030)"</span>,</span>
+<span>    sep <span class="op">=</span> <span class="st">""</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (\u2030)"</span>,</span>
+<span>    sep <span class="op">=</span> <span class="st">""</span></span>
+<span>  <span class="op">)</span><span class="op">)</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"Isospace plot of Inger et al Geese data"</span>,</span>
+<span>  mix_name <span class="op">=</span> <span class="st">"Geese"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>In the above code <code>group = 1:8</code> can be changed specify any
+of the available groups. For example <code>group = 2</code> would plot
+just sampling period 2, or <code>group = c(1,3:7)</code> would plot just
+sampling period 1 and 3 to 7.</p>
+<p>The command for running the <code>simmr</code> model is identical to
+before:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  type <span class="op">=</span> <span class="st">"quantiles"</span>,
-  group <span class="op">=</span> <span class="fl">1</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for Period 1 
-##                2.5%    25%    50%    75%  97.5%
-## deviance     51.087 52.492 53.992 56.114 62.871
-## Zostera       0.390  0.520  0.597  0.671  0.808
-## Grass         0.031  0.058  0.072  0.087  0.120
-## U.lactuca     0.021  0.075  0.126  0.190  0.327
-## Enteromorpha  0.021  0.090  0.170  0.274  0.483
-## sd[d13C_Pl]   0.058  0.517  0.898  1.316  2.428
-## sd[d15N_Pl]   0.016  0.165  0.351  0.616  1.402</code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  type <span class="op">=</span> <span class="st">"quantiles"</span>,
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for Period 1 
-##                2.5%    25%    50%    75%  97.5%
-## deviance     51.087 52.492 53.992 56.114 62.871
-## Zostera       0.390  0.520  0.597  0.671  0.808
-## Grass         0.031  0.058  0.072  0.087  0.120
-## U.lactuca     0.021  0.075  0.126  0.190  0.327
-## Enteromorpha  0.021  0.090  0.170  0.274  0.483
-## sd[d13C_Pl]   0.058  0.517  0.898  1.316  2.428
-## sd[d15N_Pl]   0.016  0.165  0.351  0.616  1.402
-## 
-## Summary for Period 3 
-##                 2.5%     25%     50%     75%   97.5%
-## deviance     454.592 456.333 458.075 460.261 466.515
-## Zostera        0.009   0.024   0.036   0.052   0.091
-## Grass          0.390   0.418   0.428   0.437   0.453
-## U.lactuca      0.278   0.396   0.439   0.476   0.523
-## Enteromorpha   0.014   0.049   0.087   0.140   0.292
-## sd[d13C_Pl]    0.414   0.656   0.764   0.866   1.070
-## sd[d15N_Pl]    0.007   0.073   0.157   0.267   0.541</code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"quantiles"</span>, <span class="st">"statistics"</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for Period 1 
-##                2.5%    25%    50%    75%  97.5%
-## deviance     51.087 52.492 53.992 56.114 62.871
-## Zostera       0.390  0.520  0.597  0.671  0.808
-## Grass         0.031  0.058  0.072  0.087  0.120
-## U.lactuca     0.021  0.075  0.126  0.190  0.327
-## Enteromorpha  0.021  0.090  0.170  0.274  0.483
-## sd[d13C_Pl]   0.058  0.517  0.898  1.316  2.428
-## sd[d15N_Pl]   0.016  0.165  0.351  0.616  1.402
-##                mean    sd
-## deviance     54.752 3.190
-## Zostera       0.596 0.111
-## Grass         0.073 0.022
-## U.lactuca     0.138 0.082
-## Enteromorpha  0.193 0.127
-## sd[d13C_Pl]   0.977 0.646
-## sd[d15N_Pl]   0.442 0.386
-## 
-## Summary for Period 3 
-##                 2.5%     25%     50%     75%   97.5%
-## deviance     454.592 456.333 458.075 460.261 466.515
-## Zostera        0.009   0.024   0.036   0.052   0.091
-## Grass          0.390   0.418   0.428   0.437   0.453
-## U.lactuca      0.278   0.396   0.439   0.476   0.523
-## Enteromorpha   0.014   0.049   0.087   0.140   0.292
-## sd[d13C_Pl]    0.414   0.656   0.764   0.866   1.070
-## sd[d15N_Pl]    0.007   0.073   0.157   0.267   0.541
-##                 mean    sd
-## deviance     458.695 3.194
-## Zostera        0.040 0.021
-## Grass          0.426 0.016
-## U.lactuca      0.430 0.062
-## Enteromorpha   0.104 0.072
-## sd[d13C_Pl]    0.758 0.166
-## sd[d15N_Pl]    0.188 0.145</code></pre>
-<p>For plotting output with multiple groups you can only specify a single group to plot. This is so that you are not overwhelmed with plots:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  type <span class="op">=</span> <span class="st">"boxplot"</span>,
-  group <span class="op">=</span> <span class="fl">2</span>,
-  title <span class="op">=</span> <span class="st">"simmr output group 2"</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">simmr_groups_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_groups</span><span class="op">)</span></span></code></pre></div>
+<p><code>simmr</code> will automatically run the model for each group in
+turn. This may take slightly longer than a standard single group
+run.</p>
+<p>The <code>summary</code> command works the same as before. By default
+they will produce output for all groups, or you can specify the groups
+individually, e.g.:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"quantiles"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for Period 1 </span></span>
+<span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## deviance     51.100 52.533 54.049 56.217 62.999</span></span>
+<span><span class="co">## Zostera       0.388  0.519  0.592  0.673  0.808</span></span>
+<span><span class="co">## Grass         0.031  0.058  0.072  0.087  0.120</span></span>
+<span><span class="co">## U.lactuca     0.021  0.075  0.129  0.196  0.336</span></span>
+<span><span class="co">## Enteromorpha  0.022  0.089  0.163  0.271  0.482</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.062  0.517  0.901  1.320  2.382</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.017  0.172  0.363  0.629  1.423</span></span></code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"quantiles"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for Period 1 </span></span>
+<span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## deviance     51.100 52.533 54.049 56.217 62.999</span></span>
+<span><span class="co">## Zostera       0.388  0.519  0.592  0.673  0.808</span></span>
+<span><span class="co">## Grass         0.031  0.058  0.072  0.087  0.120</span></span>
+<span><span class="co">## U.lactuca     0.021  0.075  0.129  0.196  0.336</span></span>
+<span><span class="co">## Enteromorpha  0.022  0.089  0.163  0.271  0.482</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.062  0.517  0.901  1.320  2.382</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.017  0.172  0.363  0.629  1.423</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Summary for Period 3 </span></span>
+<span><span class="co">##                 2.5%     25%     50%     75%   97.5%</span></span>
+<span><span class="co">## deviance     454.616 456.360 457.980 460.394 466.592</span></span>
+<span><span class="co">## Zostera        0.009   0.023   0.036   0.051   0.089</span></span>
+<span><span class="co">## Grass          0.389   0.417   0.428   0.437   0.453</span></span>
+<span><span class="co">## U.lactuca      0.276   0.397   0.441   0.479   0.527</span></span>
+<span><span class="co">## Enteromorpha   0.012   0.046   0.084   0.141   0.298</span></span>
+<span><span class="co">## sd[d13C_Pl]    0.393   0.648   0.765   0.870   1.083</span></span>
+<span><span class="co">## sd[d15N_Pl]    0.008   0.071   0.156   0.268   0.536</span></span></code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"quantiles"</span>, <span class="st">"statistics"</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for Period 1 </span></span>
+<span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## deviance     51.100 52.533 54.049 56.217 62.999</span></span>
+<span><span class="co">## Zostera       0.388  0.519  0.592  0.673  0.808</span></span>
+<span><span class="co">## Grass         0.031  0.058  0.072  0.087  0.120</span></span>
+<span><span class="co">## U.lactuca     0.021  0.075  0.129  0.196  0.336</span></span>
+<span><span class="co">## Enteromorpha  0.022  0.089  0.163  0.271  0.482</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.062  0.517  0.901  1.320  2.382</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.017  0.172  0.363  0.629  1.423</span></span>
+<span><span class="co">##                mean    sd</span></span>
+<span><span class="co">## deviance     54.792 3.130</span></span>
+<span><span class="co">## Zostera       0.595 0.109</span></span>
+<span><span class="co">## Grass         0.073 0.022</span></span>
+<span><span class="co">## U.lactuca     0.142 0.084</span></span>
+<span><span class="co">## Enteromorpha  0.190 0.125</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.974 0.630</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.451 0.386</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Summary for Period 3 </span></span>
+<span><span class="co">##                 2.5%     25%     50%     75%   97.5%</span></span>
+<span><span class="co">## deviance     454.616 456.360 457.980 460.394 466.592</span></span>
+<span><span class="co">## Zostera        0.009   0.023   0.036   0.051   0.089</span></span>
+<span><span class="co">## Grass          0.389   0.417   0.428   0.437   0.453</span></span>
+<span><span class="co">## U.lactuca      0.276   0.397   0.441   0.479   0.527</span></span>
+<span><span class="co">## Enteromorpha   0.012   0.046   0.084   0.141   0.298</span></span>
+<span><span class="co">## sd[d13C_Pl]    0.393   0.648   0.765   0.870   1.083</span></span>
+<span><span class="co">## sd[d15N_Pl]    0.008   0.071   0.156   0.268   0.536</span></span>
+<span><span class="co">##                 mean    sd</span></span>
+<span><span class="co">## deviance     458.716 3.193</span></span>
+<span><span class="co">## Zostera        0.039 0.021</span></span>
+<span><span class="co">## Grass          0.426 0.016</span></span>
+<span><span class="co">## U.lactuca      0.432 0.065</span></span>
+<span><span class="co">## Enteromorpha   0.103 0.077</span></span>
+<span><span class="co">## sd[d13C_Pl]    0.756 0.173</span></span>
+<span><span class="co">## sd[d15N_Pl]    0.186 0.144</span></span></code></pre>
+<p>For plotting output with multiple groups you can only specify a
+single group to plot. This is so that you are not overwhelmed with
+plots:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"density"</span>, <span class="st">"matrix"</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fl">6</span>,
-  title <span class="op">=</span> <span class="st">"simmr output group 6"</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;"><img src="simmr_files/figure-html/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;"></p>
-<p>Whilst you can use the <code>compare_sources</code> function for multi-group data, there is also an extra function for comparing a single source between groups via the <code>compare_groups</code> function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"simmr output group 2"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  source <span class="op">=</span> <span class="st">"Zostera"</span>,
-  groups <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Prob ( proportion of Zostera in group Period 1 &gt; proportion of Zostera in group Period 2 ) = 1</code></pre>
-<p><img src="simmr_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>This produces the probability of the group 1 dietary proportion of Zostera being greater than that of group 2. It also produces a boxplot of the difference between the dietary proportions and will save this into a new object if specified. You can turn the plot off by adding the argument <code>plot = FALSE</code>.</p>
-<p>If you specify more than two groups <code>simmr</code> will produce the most likely probabilistic orderings of the groups as well as the boxplot as before:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"density"</span>, <span class="st">"matrix"</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">6</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"simmr output group 6"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;"></p>
+<pre><code><span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span></code></pre>
+<p><img src="simmr_files/figure-html/unnamed-chunk-22-3.png" width="672" style="display: block; margin: auto;"></p>
+<p>Whilst you can use the <code>compare_sources</code> function for
+multi-group data, there is also an extra function for comparing a single
+source between groups via the <code>compare_groups</code> function. This
+allows for probabilistic output and plots comparing a single source
+across different groups. The simplest use is where you want to compare
+just two groups:</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  source <span class="op">=</span> <span class="st">"Zostera"</span>,
-  groups <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Most popular orderings are as follows:
-##                                Probability
-## Period 1 &gt; Period 2 &gt; Period 3      0.8172
-## Period 1 &gt; Period 3 &gt; Period 2      0.1828</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  source <span class="op">=</span> <span class="st">"Zostera"</span>,</span>
+<span>  groups <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Prob ( proportion of Zostera in group Period 1 &gt; proportion of Zostera in group Period 2 ) = 1</span></span></code></pre>
+<p><img src="simmr_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>This produces the probability of the group 1 dietary proportion of
+Zostera being greater than that of group 2. It also produces a boxplot
+of the difference between the dietary proportions and will save this
+into a new object if specified. You can turn the plot off by adding the
+argument <code>plot = FALSE</code>.</p>
+<p>If you specify more than two groups <code>simmr</code> will produce
+the most likely probabilistic orderings of the groups as well as the
+boxplot as before:</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  source <span class="op">=</span> <span class="st">"Zostera"</span>,</span>
+<span>  groups <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
+<span><span class="co">##                                Probability</span></span>
+<span><span class="co">## Period 1 &gt; Period 2 &gt; Period 3      0.8403</span></span>
+<span><span class="co">## Period 1 &gt; Period 3 &gt; Period 2      0.1597</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="combining-sources" class="section level2">
-<h2 class="hasAnchor">
-<a href="#combining-sources" class="anchor"></a>Combining sources</h2>
-<p>A common request is that of combining sources. We would recommend always doing this after running simmr, known as <em>a-posteriori</em> combining. Suppose for example, you wish to combine the U.lactuca and Enteromorpha sources which lie in a similar region in the isospace plot of the Geese data. To proceed, we can create a new <code>simmr</code> object using the <code>combine_sources</code> function:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_out_combine</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combine_sources.html">combine_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,
-  to_combine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="st">"U.lactuca"</span>,
-    <span class="st">"Enteromorpha"</span>
-  <span class="op">)</span>,
-  new_source_name <span class="op">=</span> <span class="st">"U.lac+Ent"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_out_combine</span><span class="op">$</span><span class="va">input</span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="combining-sources">Combining sources<a class="anchor" aria-label="anchor" href="#combining-sources"></a>
+</h2>
+<p>A common request is that of combining sources. We would recommend
+always doing this after running simmr, known as <em>a-posteriori</em>
+combining. Suppose for example, you wish to combine the U.lactuca and
+Enteromorpha sources which lie in a similar region in the isospace plot
+of the Geese data. To proceed, we can create a new <code>simmr</code>
+object using the <code>combine_sources</code> function:</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simmr_out_combine</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combine_sources.html">combine_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,</span>
+<span>  to_combine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"U.lactuca"</span>,</span>
+<span>    <span class="st">"Enteromorpha"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  new_source_name <span class="op">=</span> <span class="st">"U.lac+Ent"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_out_combine</span><span class="op">$</span><span class="va">input</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_out_combine</span>,
-  type <span class="op">=</span> <span class="st">"boxplot"</span>,
-  title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span>
-<span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_out_combine</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>This will also work with multiple sources and/or multiple groups:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_groups_out_combine</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combine_sources.html">combine_sources</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  to_combine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-    <span class="st">"Zostera"</span>,
-    <span class="st">"U.lactuca"</span>,
-    <span class="st">"Enteromorpha"</span>
-  <span class="op">)</span>,
-  new_source_name <span class="op">=</span> <span class="st">"U.Lac+Ent+Zos"</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span><span class="op">$</span><span class="va">input</span>,
-  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span>,
-  type <span class="op">=</span> <span class="st">"boxplot"</span>,
-  title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span>,
-  group <span class="op">=</span> <span class="fl">8</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span>,
-  type <span class="op">=</span> <span class="st">"matrix"</span>,
-  title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span>,
-  group <span class="op">=</span> <span class="fl">8</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">simmr_groups_out_combine</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/combine_sources.html">combine_sources</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  to_combine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Zostera"</span>,</span>
+<span>    <span class="st">"U.lactuca"</span>,</span>
+<span>    <span class="st">"Enteromorpha"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  new_source_name <span class="op">=</span> <span class="st">"U.Lac+Ent+Zos"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span><span class="op">$</span><span class="va">input</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># And we can now compare sources across groups on this new data set</span>
-<span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span>,
-  source <span class="op">=</span> <span class="st">"U.Lac+Ent+Zos"</span>,
-  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Most popular orderings are as follows:
-##                                Probability
-## Period 1 &gt; Period 2 &gt; Period 3      0.9956
-## Period 2 &gt; Period 1 &gt; Period 3      0.0044</code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">8</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"matrix"</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">8</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span>
+<span></span>
+<span><span class="co">## Warning in graphics::par(usr): argument 1 does not name a graphical parameter</span></span></code></pre>
+<p><img src="simmr_files/figure-html/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># And we can now compare sources across groups on this new data set</span></span>
+<span><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">simmr_groups_out_combine</span>,</span>
+<span>  source <span class="op">=</span> <span class="st">"U.Lac+Ent+Zos"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
+<span><span class="co">##                                Probability</span></span>
+<span><span class="co">## Period 1 &gt; Period 2 &gt; Period 3      0.9956</span></span>
+<span><span class="co">## Period 2 &gt; Period 1 &gt; Period 3      0.0044</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-26-4.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="running-simmr-with-only-one-isotope" class="section level2">
-<h2 class="hasAnchor">
-<a href="#running-simmr-with-only-one-isotope" class="anchor"></a>Running simmr with only one isotope</h2>
-<p><code>simmr</code> will run fine with only one tracer, and no changes should be required to any of the functions. Here is an example with only one isotope:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="op">-</span><span class="fl">10.13</span>, <span class="op">-</span><span class="fl">10.72</span>, <span class="op">-</span><span class="fl">11.39</span>, <span class="op">-</span><span class="fl">11.18</span>, <span class="op">-</span><span class="fl">10.81</span>, <span class="op">-</span><span class="fl">10.7</span>, <span class="op">-</span><span class="fl">10.54</span>,
-  <span class="op">-</span><span class="fl">10.48</span>, <span class="op">-</span><span class="fl">9.93</span>, <span class="op">-</span><span class="fl">9.37</span>
-<span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">mix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"d13C"</span><span class="op">)</span>
-<span class="va">s_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"Grass"</span>, <span class="st">"U.lactuca"</span>, <span class="st">"Enteromorpha"</span><span class="op">)</span>
-<span class="va">s_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">14</span>, <span class="op">-</span><span class="fl">15.1</span>, <span class="op">-</span><span class="fl">11.03</span>, <span class="op">-</span><span class="fl">14.44</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">s_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.48</span>, <span class="fl">0.38</span>, <span class="fl">0.48</span>, <span class="fl">0.43</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">c_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2.63</span>, <span class="fl">1.59</span>, <span class="fl">3.41</span>, <span class="fl">3.04</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">c_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.41</span>, <span class="fl">0.44</span>, <span class="fl">0.34</span>, <span class="fl">0.46</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>
-<span class="va">conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.04</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="running-simmr-with-only-one-isotope">Running simmr with only one isotope<a class="anchor" aria-label="anchor" href="#running-simmr-with-only-one-isotope"></a>
+</h2>
+<p><code>simmr</code> will run fine with only one tracer, and no changes
+should be required to any of the functions. Here is an example with only
+one isotope:</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="op">-</span><span class="fl">10.13</span>, <span class="op">-</span><span class="fl">10.72</span>, <span class="op">-</span><span class="fl">11.39</span>, <span class="op">-</span><span class="fl">11.18</span>, <span class="op">-</span><span class="fl">10.81</span>, <span class="op">-</span><span class="fl">10.7</span>, <span class="op">-</span><span class="fl">10.54</span>,</span>
+<span>  <span class="op">-</span><span class="fl">10.48</span>, <span class="op">-</span><span class="fl">9.93</span>, <span class="op">-</span><span class="fl">9.37</span></span>
+<span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">mix</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"d13C"</span><span class="op">)</span></span>
+<span><span class="va">s_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"Grass"</span>, <span class="st">"U.lactuca"</span>, <span class="st">"Enteromorpha"</span><span class="op">)</span></span>
+<span><span class="va">s_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">14</span>, <span class="op">-</span><span class="fl">15.1</span>, <span class="op">-</span><span class="fl">11.03</span>, <span class="op">-</span><span class="fl">14.44</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">s_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.48</span>, <span class="fl">0.38</span>, <span class="fl">0.48</span>, <span class="fl">0.43</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">c_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.63</span>, <span class="fl">1.59</span>, <span class="fl">3.41</span>, <span class="fl">3.04</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">c_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.41</span>, <span class="fl">0.44</span>, <span class="fl">0.34</span>, <span class="fl">0.46</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.02</span>, <span class="fl">0.1</span>, <span class="fl">0.12</span>, <span class="fl">0.04</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">1</span>, nrow <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p>Now load in with <code>simmr_load</code>:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_in_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>
-  mixtures <span class="op">=</span> <span class="va">mix</span>,
-  source_names <span class="op">=</span> <span class="va">s_names</span>,
-  source_means <span class="op">=</span> <span class="va">s_means</span>,
-  source_sds <span class="op">=</span> <span class="va">s_sds</span>,
-  correction_means <span class="op">=</span> <span class="va">c_means</span>,
-  correction_sds <span class="op">=</span> <span class="va">c_sds</span>,
-  concentration_means <span class="op">=</span> <span class="va">conc</span>
-<span class="op">)</span></code></pre></div>
-<p>Create a plot. <code>plot.simmr_input</code> automatically creates a 1D version of these plots:</p>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_in_1D</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simmr_in_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
+<span>  mixtures <span class="op">=</span> <span class="va">mix</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="va">s_names</span>,</span>
+<span>  source_means <span class="op">=</span> <span class="va">s_means</span>,</span>
+<span>  source_sds <span class="op">=</span> <span class="va">s_sds</span>,</span>
+<span>  correction_means <span class="op">=</span> <span class="va">c_means</span>,</span>
+<span>  correction_sds <span class="op">=</span> <span class="va">c_sds</span>,</span>
+<span>  concentration_means <span class="op">=</span> <span class="va">conc</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Create a plot. <code>plot.simmr_input</code> automatically creates a
+1D version of these plots:</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_in_1D</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-29-1.png" width="700"></p>
 <p>Now run simmr:</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_run_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_in_1D</span><span class="op">)</span></code></pre></div>
-<pre><code>## Compiling model graph
-##    Resolving undeclared variables
-##    Allocating nodes
-## Graph information:
-##    Observed stochastic nodes: 10
-##    Unobserved stochastic nodes: 5
-##    Total graph size: 79
-## 
-## Initializing model</code></pre>
-<p>Plot output</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_run_1D</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
-<p>The other <code>summary</code>, <code>compare</code> and <code>plot</code> functions should all work the same.</p>
-</div>
-<div id="setting-up-your-own-prior-distributions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#setting-up-your-own-prior-distributions" class="anchor"></a>Setting up your own prior distributions</h2>
-<p>Most Bayesian models will work better when you include informative prior distributions on the dietary proportions. For arguments as to why you should use prior informative information (and where you could get it from), see <a href="https://github.com/andrewcparnell/simms_course/blob/master/papers/Phillips_SIMMadvice_2014.pdf">here</a>. <code>simmr</code> tries to make this easier for practitioners by including a specific function (`simmr_elicit’) for including prior information.</p>
-<p>We will use the <code>simmr_out</code> object created above. A reminder about the posterior values</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for 1 
-##                2.5%    25%    50%    75%  97.5%
-## deviance     32.268 33.906 35.487 37.746 43.740
-## Zostera       0.030  0.119  0.211  0.317  0.504
-## Grass         0.141  0.230  0.279  0.332  0.448
-## U.lactuca     0.216  0.253  0.273  0.294  0.341
-## Enteromorpha  0.035  0.119  0.203  0.297  0.472
-## sd[d13C]      0.176  0.400  0.522  0.673  1.068
-## sd[d15N]      0.059  0.272  0.409  0.549  0.956</code></pre>
-<p>All these dietary proportions are very similar. We now suppose we had prior information (e.g. from stomach or fecal contents) that the mean dietary proportions were</p>
+<code class="sourceCode R"><span><span class="va">simmr_run_1D</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_in_1D</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Compiling model graph</span></span>
+<span><span class="co">##    Resolving undeclared variables</span></span>
+<span><span class="co">##    Allocating nodes</span></span>
+<span><span class="co">## Graph information:</span></span>
+<span><span class="co">##    Observed stochastic nodes: 10</span></span>
+<span><span class="co">##    Unobserved stochastic nodes: 5</span></span>
+<span><span class="co">##    Total graph size: 79</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Initializing model</span></span></code></pre>
+<p>Plot output</p>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">proportion_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
-<p>…and proportion standard deviations:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_run_1D</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-31-1.png" width="700"></p>
+<p>The other <code>summary</code>, <code>compare</code> and
+<code>plot</code> functions should all work the same.</p>
+</div>
+<div class="section level2">
+<h2 id="setting-up-your-own-prior-distributions">Setting up your own prior distributions<a class="anchor" aria-label="anchor" href="#setting-up-your-own-prior-distributions"></a>
+</h2>
+<p>Most Bayesian models will work better when you include informative
+prior distributions on the dietary proportions. For arguments as to why
+you should use prior informative information (and where you could get it
+from), see <a href="https://github.com/andrewcparnell/simms_course/blob/master/papers/Phillips_SIMMadvice_2014.pdf" class="external-link">here</a>.
+<code>simmr</code> tries to make this easier for practitioners by
+including a specific function (`simmr_elicit’) for including prior
+information.</p>
+<p>We will use the <code>simmr_out</code> object created above. A
+reminder about the posterior values</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">proportion_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.02</span>, <span class="fl">0.01</span>, <span class="fl">0.02</span><span class="op">)</span></code></pre></div>
-<p>We put this into the <code>simmr_elicit</code> function as follows:</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_elicit.html">simmr_elicit</a></span><span class="op">(</span>
-  <span class="fl">4</span>, <span class="va">proportion_means</span>,
-  <span class="va">proportion_sds</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Running elicitation optimisation routine...
-## Mean optimisation successful.
-## Standard deviation optimisation successful.
-## Best fit estimates provide proportion means of:
-## 0.436 0.301 0.184 0.08
-## ... and best fit standard deviations of:
-## 0.039 0.022 0.013 0.017
-## Check these match the input values before proceeding with a model run.</code></pre>
-<p>This may take a few moments to run as the code tries to optimise the parameters of a prior distribution which matches these means and standard deviations, which sometimes may not be exactly possible.</p>
-<p>When finished, the model can be run using these prior distributions:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for 1 </span></span>
+<span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## deviance     32.262 33.925 35.507 37.773 44.141</span></span>
+<span><span class="co">## Zostera       0.033  0.113  0.203  0.314  0.494</span></span>
+<span><span class="co">## Grass         0.149  0.231  0.283  0.336  0.456</span></span>
+<span><span class="co">## U.lactuca     0.217  0.254  0.275  0.296  0.338</span></span>
+<span><span class="co">## Enteromorpha  0.034  0.123  0.205  0.299  0.462</span></span>
+<span><span class="co">## sd[d13C]      0.188  0.398  0.524  0.663  1.084</span></span>
+<span><span class="co">## sd[d15N]      0.053  0.273  0.405  0.550  0.932</span></span></code></pre>
+<p>All these dietary proportions are very similar. We now suppose we had
+prior information (e.g. from stomach or fecal contents) that the mean
+dietary proportions were</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">proportion_means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
+<p>…and proportion standard deviations:</p>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_out_informative</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_in</span>,
-  prior_control <span class="op">=</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-      means <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">mean</span>,
-      sd <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">sd</span>
-    <span class="op">)</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## Compiling model graph
-##    Resolving undeclared variables
-##    Allocating nodes
-## Graph information:
-##    Observed stochastic nodes: 20
-##    Unobserved stochastic nodes: 6
-##    Total graph size: 136
-## 
-## Initializing model</code></pre>
+<code class="sourceCode R"><span><span class="va">proportion_sds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.02</span>, <span class="fl">0.01</span>, <span class="fl">0.02</span><span class="op">)</span></span></code></pre></div>
+<p>We put this into the <code>simmr_elicit</code> function as
+follows:</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_elicit.html">simmr_elicit</a></span><span class="op">(</span></span>
+<span>  <span class="fl">4</span>, <span class="va">proportion_means</span>,</span>
+<span>  <span class="va">proportion_sds</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Running elicitation optimisation routine...</span></span>
+<span><span class="co">## Mean optimisation successful.</span></span>
+<span><span class="co">## Standard deviation optimisation successful.</span></span>
+<span><span class="co">## Best fit estimates provide proportion means of:</span></span>
+<span><span class="co">## 0.432 0.299 0.185 0.084</span></span>
+<span><span class="co">## ... and best fit standard deviations of:</span></span>
+<span><span class="co">## 0.041 0.024 0.015 0.021</span></span>
+<span><span class="co">## Check these match the input values before proceeding with a model run.</span></span></code></pre>
+<p>This may take a few moments to run as the code tries to optimise the
+parameters of a prior distribution which matches these means and
+standard deviations, which sometimes may not be exactly possible.</p>
+<p>When finished, the model can be run using these prior
+distributions:</p>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simmr_out_informative</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_in</span>,</span>
+<span>  prior_control <span class="op">=</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>      means <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">mean</span>,</span>
+<span>      sd <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">sd</span></span>
+<span>    <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Compiling model graph</span></span>
+<span><span class="co">##    Resolving undeclared variables</span></span>
+<span><span class="co">##    Allocating nodes</span></span>
+<span><span class="co">## Graph information:</span></span>
+<span><span class="co">##    Observed stochastic nodes: 20</span></span>
+<span><span class="co">##    Unobserved stochastic nodes: 6</span></span>
+<span><span class="co">##    Total graph size: 136</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Initializing model</span></span></code></pre>
 <p>The new quantiles are:</p>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_out_informative</span>,
-  type <span class="op">=</span> <span class="st">"quantiles"</span>
-<span class="op">)</span></code></pre></div>
-<pre><code>## 
-## Summary for 1 
-##                2.5%    25%    50%    75%  97.5%
-## deviance     41.459 45.435 47.552 49.997 55.658
-## Zostera       0.334  0.378  0.404  0.430  0.482
-## Grass         0.270  0.301  0.316  0.331  0.359
-## U.lactuca     0.172  0.191  0.200  0.209  0.227
-## Enteromorpha  0.051  0.067  0.078  0.090  0.119
-## sd[d13C]      0.402  0.600  0.741  0.923  1.429
-## sd[d15N]      0.319  0.567  0.716  0.902  1.404</code></pre>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out_informative</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"quantiles"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Summary for 1 </span></span>
+<span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## deviance     40.331 44.183 46.502 49.192 54.771</span></span>
+<span><span class="co">## Zostera       0.324  0.370  0.397  0.424  0.473</span></span>
+<span><span class="co">## Grass         0.273  0.302  0.316  0.331  0.358</span></span>
+<span><span class="co">## U.lactuca     0.175  0.194  0.204  0.215  0.232</span></span>
+<span><span class="co">## Enteromorpha  0.049  0.068  0.080  0.093  0.128</span></span>
+<span><span class="co">## sd[d13C]      0.386  0.587  0.726  0.906  1.398</span></span>
+<span><span class="co">## sd[d15N]      0.273  0.524  0.682  0.860  1.417</span></span></code></pre>
 <p>We can plot these priors with their posteriors</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_out_informative</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_out_informative</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-38-1.png" width="700"></p>
 </div>
-<div id="estimating-trophic-discrimination-factors-from-feeding-studies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#estimating-trophic-discrimination-factors-from-feeding-studies" class="anchor"></a>Estimating trophic discrimination factors from feeding studies</h2>
-<p>The <code>simmr_mcmc_tdf</code> function runs a slightly different version of the main <code>simmr_mcmc</code> function with the key difference that it estimates the correction factors (i.e. trophic enrichment or trophic discrimination factors; TEFs/TDFs) for a <em>known</em> set of dietary proportions. However, these dietary proportions can change in a single model run; see the example below.</p>
-<p>The idea is that this code can be used for feeding studies where an organism is fed a known proportional diet with a view to estimating the correction factors to be used in a later stable isotope mixing model when the organisms are observed in the field.</p>
-<p>To run this model, we first load data into <code>simmr</code> as normal using <code>simmr_load</code>. Correction factors/TDFs should not be provided at this stage, though if they are they will be ignored during a run of <code>simmr_mcmc_tdf</code>.</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_tdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>
-  mixtures <span class="op">=</span> <span class="va">mix</span>,
-  source_names <span class="op">=</span> <span class="va">s_names</span>,
-  source_means <span class="op">=</span> <span class="va">s_means</span>,
-  source_sds <span class="op">=</span> <span class="va">s_sds</span>,
-  concentration_means <span class="op">=</span> <span class="va">conc</span>
-<span class="op">)</span></code></pre></div>
-<p>If we plot this data we end up with the mixtures being shifted slightly outside the mixing polygon. The job of this model is to move the values so that they match the known dietary proportions.</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_tdf</span><span class="op">)</span></code></pre></div>
-<p><img src="simmr_files/figure-html/unnamed-chunk-40-1.png" width="700"></p>
-<p>We now run the model with some known dietary proportions. These dietary proportions should be given <em>for each individual</em> in a matrix, even if they are the same for each individual. This example uses the same dietary proportions:</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">p_known</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span>
-  <span class="fl">1</span> <span class="op">/</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,
-  <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>
-<span class="op">)</span>,
-ncol <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,
-nrow <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_obs</span>,
-byrow <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span></code></pre></div>
-<p>We can then run the model with:</p>
+<div class="section level2">
+<h2 id="estimating-trophic-discrimination-factors-from-feeding-studies">Estimating trophic discrimination factors from feeding studies<a class="anchor" aria-label="anchor" href="#estimating-trophic-discrimination-factors-from-feeding-studies"></a>
+</h2>
+<p>The <code>simmr_mcmc_tdf</code> function runs a slightly different
+version of the main <code>simmr_mcmc</code> function with the key
+difference that it estimates the correction factors (i.e. trophic
+enrichment or trophic discrimination factors; TEFs/TDFs) for a
+<em>known</em> set of dietary proportions. However, these dietary
+proportions can change in a single model run; see the example below.</p>
+<p>The idea is that this code can be used for feeding studies where an
+organism is fed a known proportional diet with a view to estimating the
+correction factors to be used in a later stable isotope mixing model
+when the organisms are observed in the field.</p>
+<p>To run this model, we first load data into <code>simmr</code> as
+normal using <code>simmr_load</code>. Correction factors/TDFs should not
+be provided at this stage, though if they are they will be ignored
+during a run of <code>simmr_mcmc_tdf</code>.</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_tdf_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc_tdf.html">simmr_mcmc_tdf</a></span><span class="op">(</span><span class="va">simmr_tdf</span>,
-  p <span class="op">=</span> <span class="va">p_known</span>
-<span class="op">)</span></code></pre></div>
-<p>Seeing as this is another Bayesian statistical model, we can look at the:</p>
+<code class="sourceCode R"><span><span class="va">simmr_tdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
+<span>  mixtures <span class="op">=</span> <span class="va">mix</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="va">s_names</span>,</span>
+<span>  source_means <span class="op">=</span> <span class="va">s_means</span>,</span>
+<span>  source_sds <span class="op">=</span> <span class="va">s_sds</span>,</span>
+<span>  concentration_means <span class="op">=</span> <span class="va">conc</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>If we plot this data we end up with the mixtures being shifted
+slightly outside the mixing polygon. The job of this model is to move
+the values so that they match the known dietary proportions.</p>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></code></pre></div>
-<pre><code>## Gelman diagnostics - these values should all be close to 1.
-## If not, try a longer run of simmr_mcmc_tdf.
-## c_mean[1,1] c_mean[2,1] c_mean[3,1] c_mean[4,1]   c_sd[1,1]   c_sd[2,1] 
-##           1           1           1           1           1           1 
-##   c_sd[3,1]   c_sd[4,1]    deviance 
-##           1           1           1</code></pre>
-<p>… and then look at the predicted TDFs:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf</span><span class="op">)</span></span></code></pre></div>
+<p><img src="simmr_files/figure-html/unnamed-chunk-40-1.png" width="700"></p>
+<p>We now run the model with some known dietary proportions. These
+dietary proportions should be given <em>for each individual</em> in a
+matrix, even if they are the same for each individual. This example uses
+the same dietary proportions:</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">p_known</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span>
+<span>  <span class="fl">1</span> <span class="op">/</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span>
+<span>  <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span></span>
+<span><span class="op">)</span>,</span>
+<span>ncol <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span>
+<span>nrow <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_obs</span>,</span>
+<span>byrow <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>We can then run the model with:</p>
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></code></pre></div>
-<pre><code>##               2.5%    25%    50%    75%  97.5%
-## c_mean[1,1]  2.108  2.464  2.621  2.772  3.105
-## c_mean[2,1]  2.108  2.464  2.621  2.772  3.105
-## c_mean[3,1]  2.108  2.464  2.621  2.772  3.105
-## c_mean[4,1]  2.108  2.464  2.621  2.772  3.105
-## c_sd[1,1]    0.166  0.580  0.821  1.114  1.889
-## c_sd[2,1]    0.166  0.580  0.821  1.114  1.889
-## c_sd[3,1]    0.166  0.580  0.821  1.114  1.889
-## c_sd[4,1]    0.166  0.580  0.821  1.114  1.889
-## deviance    16.985 17.805 19.086 21.193 27.852</code></pre>
-<p>We can put the predicted TDFs back into a new model and check that the iso-space plot now is correct</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simmr_tdf_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>
-  mixtures <span class="op">=</span> <span class="va">mix</span>,
-  source_names <span class="op">=</span> <span class="va">s_names</span>,
-  source_means <span class="op">=</span> <span class="va">s_means</span>,
-  source_sds <span class="op">=</span> <span class="va">s_sds</span>,
-  correction_means <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_mean_est</span>,
-  correction_sds <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_sd_est</span>,
-  concentration_means <span class="op">=</span> <span class="va">conc</span>
-<span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_tdf_2</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">simmr_tdf_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc_tdf.html">simmr_mcmc_tdf</a></span><span class="op">(</span><span class="va">simmr_tdf</span>,</span>
+<span>  p <span class="op">=</span> <span class="va">p_known</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Seeing as this is another Bayesian statistical model, we can look at
+the:</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Gelman diagnostics - these values should all be close to 1.</span></span>
+<span><span class="co">## If not, try a longer run of simmr_mcmc_tdf.</span></span>
+<span><span class="co">## c_mean[1,1] c_mean[2,1] c_mean[3,1] c_mean[4,1]   c_sd[1,1]   c_sd[2,1] </span></span>
+<span><span class="co">##           1           1           1           1           1           1 </span></span>
+<span><span class="co">##   c_sd[3,1]   c_sd[4,1]    deviance </span></span>
+<span><span class="co">##           1           1           1</span></span></code></pre>
+<p>… and then look at the predicted TDFs:</p>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##               2.5%    25%    50%    75%  97.5%</span></span>
+<span><span class="co">## c_mean[1,1]  2.099  2.468  2.624  2.773  3.090</span></span>
+<span><span class="co">## c_mean[2,1]  2.099  2.468  2.624  2.773  3.090</span></span>
+<span><span class="co">## c_mean[3,1]  2.099  2.468  2.624  2.773  3.090</span></span>
+<span><span class="co">## c_mean[4,1]  2.099  2.468  2.624  2.773  3.090</span></span>
+<span><span class="co">## c_sd[1,1]    0.145  0.555  0.833  1.118  1.848</span></span>
+<span><span class="co">## c_sd[2,1]    0.145  0.555  0.833  1.118  1.848</span></span>
+<span><span class="co">## c_sd[3,1]    0.145  0.555  0.833  1.118  1.848</span></span>
+<span><span class="co">## c_sd[4,1]    0.145  0.555  0.833  1.118  1.848</span></span>
+<span><span class="co">## deviance    16.993 17.850 19.126 21.225 27.680</span></span></code></pre>
+<p>We can put the predicted TDFs back into a new model and check that
+the iso-space plot now is correct</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">simmr_tdf_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
+<span>  mixtures <span class="op">=</span> <span class="va">mix</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="va">s_names</span>,</span>
+<span>  source_means <span class="op">=</span> <span class="va">s_means</span>,</span>
+<span>  source_sds <span class="op">=</span> <span class="va">s_sds</span>,</span>
+<span>  correction_means <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_mean_est</span>,</span>
+<span>  correction_sds <span class="op">=</span> <span class="va">simmr_tdf_out</span><span class="op">$</span><span class="va">c_sd_est</span>,</span>
+<span>  concentration_means <span class="op">=</span> <span class="va">conc</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_tdf_2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-45-1.png" width="700"></p>
 </div>
-<div id="customising-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#customising-plots" class="anchor"></a>Customising plots</h2>
-<p>Many of the plots in <code>simmr</code> can be customised by adding on extra options just like a standard <code>ggplot</code>. For example:</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">xlim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="customising-plots">Customising plots<a class="anchor" aria-label="anchor" href="#customising-plots"></a>
+</h2>
+<p>Many of the plots in <code>simmr</code> can be customised by adding
+on extra options just like a standard <code>ggplot</code>. For
+example:</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">xlim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;"><img src="simmr_files/figure-html/unnamed-chunk-46-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>or even on the output:</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,
-  type <span class="op">=</span> <span class="st">"boxplot"</span>,
-  group <span class="op">=</span> <span class="fl">2</span>,
-  title <span class="op">=</span> <span class="st">"simmr output group 2"</span>
-<span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.window.html">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  title <span class="op">=</span> <span class="st">"simmr output group 2"</span></span>
+<span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;"></p>
-<pre><code>## Warning: Removed 1997 rows containing non-finite values (stat_boxplot).</code></pre>
+<pre><code><span><span class="co">## Warning: Removed 1958 rows containing non-finite values (stat_boxplot).</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-47-2.png" width="672" style="display: block; margin: auto;"></p>
-<p>Note that the above actually changes the x-axis and not the y-axis despite the above command. This is because the coordinates are flipped in the ggplot.</p>
-<p>Other options you might like to customise include labels on axes, titles/subtitles, etc. More complicated changes can be made but these involve changing the ggplot commands that simmr uses in the background.</p>
+<p>Note that the above actually changes the x-axis and not the y-axis
+despite the above command. This is because the coordinates are flipped
+in the ggplot.</p>
+<p>Other options you might like to customise include labels on axes,
+titles/subtitles, etc. More complicated changes can be made but these
+involve changing the ggplot commands that simmr uses in the
+background.</p>
 <p>Here is an example where I change the colours of the boxplots:</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># First extract the dietary proportions</span>
-<span class="va">simmr_out2</span> <span class="op">&lt;-</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">simmr_out2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">input</span><span class="op">$</span><span class="va">source_names</span>
-
-<span class="co"># Now turn into a proper data frame</span>
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">reshape2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html">melt</a></span><span class="op">(</span><span class="va">simmr_out2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Num"</span>, <span class="st">"Source"</span>, <span class="st">"Proportion"</span><span class="op">)</span>
-
-<span class="co"># Finally create the new variable that you want to colour by</span>
-<span class="va">df</span><span class="op">$</span><span class="va">new_colour</span> <span class="op">&lt;-</span> <span class="st">"Type 2"</span>
-<span class="va">df</span><span class="op">$</span><span class="va">new_colour</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">Source</span> <span class="op">==</span> <span class="st">"Zostera"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Type 1"</span>
-
-<span class="co"># And create the plot</span>
-<span class="fu">ggplot</span><span class="op">(</span><span class="va">df</span>, <span class="fu">aes_string</span><span class="op">(</span>
-  y <span class="op">=</span> <span class="st">"Proportion"</span>, x <span class="op">=</span> <span class="st">"Source"</span>,
-  fill <span class="op">=</span> <span class="st">"new_colour"</span>, alpha <span class="op">=</span> <span class="fl">0</span>, <span class="fl">5</span>
-<span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span>notch <span class="op">=</span> <span class="cn">TRUE</span>, outlier.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"simmr output boxplot with changed colours"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># First extract the dietary proportions</span></span>
+<span><span class="va">simmr_out2</span> <span class="op">&lt;-</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">simmr_out2</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">input</span><span class="op">$</span><span class="va">source_names</span></span>
+<span></span>
+<span><span class="co"># Now turn into a proper data frame</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">reshape2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/reshape2/man/melt.html" class="external-link">melt</a></span><span class="op">(</span><span class="va">simmr_out2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Num"</span>, <span class="st">"Source"</span>, <span class="st">"Proportion"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Finally create the new variable that you want to colour by</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">new_colour</span> <span class="op">&lt;-</span> <span class="st">"Type 2"</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">new_colour</span><span class="op">[</span><span class="va">df</span><span class="op">$</span><span class="va">Source</span> <span class="op">==</span> <span class="st">"Zostera"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Type 1"</span></span>
+<span></span>
+<span><span class="co"># And create the plot</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_.html" class="external-link">aes_string</a></span><span class="op">(</span></span>
+<span>  y <span class="op">=</span> <span class="st">"Proportion"</span>, x <span class="op">=</span> <span class="st">"Source"</span>,</span>
+<span>  fill <span class="op">=</span> <span class="st">"new_colour"</span>, alpha <span class="op">=</span> <span class="fl">0</span>, <span class="fl">5</span></span>
+<span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span>notch <span class="op">=</span> <span class="cn">TRUE</span>, outlier.size <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"simmr output boxplot with changed colours"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-48-1.png" width="700"></p>
 </div>
-<div id="other-advanced-use-of-simmr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#other-advanced-use-of-simmr" class="anchor"></a>Other advanced use of simmr</h2>
-<p>Whilst the above gives an introduction to the basic functions of simmr, the package is open source and all code is open to editing. The two objects created as part of this vignette <code>simmr_in</code> and <code>simmr_out</code> are R lists. They can be explored with e.g.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></code></pre></div>
-<p>which will show their contents. The <code>simmr_out</code> object in particular allows for full access to all of the posterior dietary proportion samples. We can calculate for example the mean of the Zostera dietary proportion on the first (or only) group:</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.2262039</code></pre>
-<p>The backquotes around the 1 are required above because they specify which group (the first). We can thus find the probability that the posterior dietary proportion for Zostera is bigger than for Grass:</p>
+<div class="section level2">
+<h2 id="other-advanced-use-of-simmr">Other advanced use of simmr<a class="anchor" aria-label="anchor" href="#other-advanced-use-of-simmr"></a>
+</h2>
+<p>Whilst the above gives an introduction to the basic functions of
+simmr, the package is open source and all code is open to editing. The
+two objects created as part of this vignette <code>simmr_in</code> and
+<code>simmr_out</code> are R lists. They can be explored with e.g.</p>
 <div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span>
-<span class="op">&gt;</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Grass"</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<pre><code>## [1] 0.3516667</code></pre>
-<p>With more detailed R knowledge, it is possible to create scripts which run multiple data sets in richer fashions than the default <code>simmr</code> functions. See the help file <code><a href="../reference/simmr_mcmc.html">help(simmr_mcmc)</a></code> for a full list of examples.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></span></code></pre></div>
+<p>which will show their contents. The <code>simmr_out</code> object in
+particular allows for full access to all of the posterior dietary
+proportion samples. We can calculate for example the mean of the Zostera
+dietary proportion on the first (or only) group:</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.2209223</span></span></code></pre>
+<p>The backquotes around the 1 are required above because they specify
+which group (the first). We can thus find the probability that the
+posterior dietary proportion for Zostera is bigger than for Grass:</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span></span>
+<span><span class="op">&gt;</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Grass"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 0.3436111</span></span></code></pre>
+<p>With more detailed R knowledge, it is possible to create scripts
+which run multiple data sets in richer fashions than the default
+<code>simmr</code> functions. See the help file
+<code><a href="../reference/simmr_mcmc.html">help(simmr_mcmc)</a></code> for a full list of examples.</p>
 </div>
-<div id="appendix---suggested-reading" class="section level2">
-<h2 class="hasAnchor">
-<a href="#appendix---suggested-reading" class="anchor"></a>Appendix - suggested reading</h2>
+<div class="section level2">
+<h2 id="appendix---suggested-reading">Appendix - suggested reading<a class="anchor" aria-label="anchor" href="#appendix---suggested-reading"></a>
+</h2>
 <p>For the maths on the original SIAR model:<br>
-Andrew C Parnell, Richard Inger, Stuart Bearhop, and Andrew L Jackson. Source partitioning using stable isotopes: coping with too much variation. PLoS ONE, 5(3):5, 2010.</p>
+Andrew C Parnell, Richard Inger, Stuart Bearhop, and Andrew L Jackson.
+Source partitioning using stable isotopes: coping with too much
+variation. PLoS ONE, 5(3):5, 2010.</p>
 <p>For the geese data:<br>
-Inger, R., Ruxton, G. D., Newton, J., Colhoun, K., Robinson, J. A., Jackson, A. L., &amp; Bearhop, S. (2006). Temporal and intrapopulation variation in prey choice of wintering geese determined by stable isotope analysis. Journal of Animal Ecology, 75, 1190–1200.</p>
+Inger, R., Ruxton, G. D., Newton, J., Colhoun, K., Robinson, J. A.,
+Jackson, A. L., &amp; Bearhop, S. (2006). Temporal and intrapopulation
+variation in prey choice of wintering geese determined by stable isotope
+analysis. Journal of Animal Ecology, 75, 1190–1200.</p>
 <p>For the maths behind the more advanced JAGS models:<br>
-Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X. Semmens, Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey, David J. Kelly, and Richard Inger. Bayesian stable isotope mixing models. Environmetrics, 24(6):387–399, 2013.</p>
+Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X. Semmens,
+Eric J. Ward, Jonathan W. Moore, Andrew L. Jackson, Jonathan Grey, David
+J. Kelly, and Richard Inger. Bayesian stable isotope mixing models.
+Environmetrics, 24(6):387–399, 2013.</p>
 <p>For some good advice about mixing models:<br>
-Donald L Phillips, Richard Inger, Stuart Bearhop, Andrew L Jackson, Jonathan W Moore, Andrew C Parnell, Brice X Semmens, and Eric J Ward. Best practices for use of stable isotope mixing models in food-web studies. Canadian Journal of Zoology, 92(10):823–835, 2014.</p>
+Donald L Phillips, Richard Inger, Stuart Bearhop, Andrew L Jackson,
+Jonathan W Moore, Andrew C Parnell, Brice X Semmens, and Eric J Ward.
+Best practices for use of stable isotope mixing models in food-web
+studies. Canadian Journal of Zoology, 92(10):823–835, 2014.</p>
 </div>
   </div>
 
@@ -838,11 +1156,13 @@ Donald L Phillips, Richard Inger, Stuart Bearhop, Andrew L Jackson, Jonathan W M
 
 
       <footer><div class="copyright">
-  <p>Developed by Andrew Parnell.</p>
+  <p></p>
+<p>Developed by Andrew Parnell.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -850,6 +1170,8 @@ Donald L Phillips, Richard Inger, Stuart Bearhop, Andrew L Jackson, Jonathan W M
 
   
 
+
+  
 
   </body>
 </html>

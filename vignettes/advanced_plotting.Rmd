@@ -143,12 +143,7 @@ library(ggnewscale)
 new_df <- data.frame(
   x = geese_data_day1$source_means[, "meand13CPl"] + geese_data_day1$correction_means[, "meand13CPl"],
   y = geese_data_day1$source_means[, "meand15NPl"] + geese_data_day1$correction_means[, "meand15NPl"],
-  x_lower = NA,
-  y_lower = NA,
-  x_upper = NA,
-  y_upper = NA,
-  Source = "Mixtures",
-  size = NA
+  Source = "Mixtures"
 )
 ```
 
@@ -168,19 +163,14 @@ p +
   geom_polygon(data = new_df2, aes(x = x, y = y), fill = "orange", alpha = 0.2)
 ```
 
-Or, finally, if we want a convex hull around the mixtures:
+Or if we want a convex hull around the mixtures:
 
 ```{r}
 # Create the new data frame
 new_mix <- data.frame(
   x = geese_data_day1$mixtures[, "d13C_Pl"],
   y = geese_data_day1$mixtures[, "d15N_Pl"],
-  x_lower = NA,
-  y_lower = NA,
-  x_upper = NA,
-  y_upper = NA,
-  Source = "Mixtures",
-  size = NA
+  Source = "Mixtures"
 )
 # Find the convex hull
 chull_mix_vals <- chull(new_mix[, 1], new_mix[, 2])
@@ -189,4 +179,31 @@ new_mix2 <- new_mix[chull_mix_vals, ]
 p +
   new_scale_color() +
   geom_polygon(data = new_mix2, aes(x = x, y = y), fill = "purple", alpha = 0.2)
+```
+
+We can even do more than 1 convex hull to fully cover e.g. 2 standard deviations of the source area. This might be useful for identifying rogue mixture points. 
+
+```{r}
+source_means_c <- geese_data_day1$source_means + geese_data_day1$correction_means
+source_sds_c <- sqrt(geese_data_day1$source_sds^2 + geese_data_day1$correction_sds^2)
+mix <- geese_data_day1$mixtures
+x <- c(source_means_c[, "meand13CPl"] - source_sds_c[, "SDd13C"],
+       source_means_c[, "meand13CPl"] - source_sds_c[, "SDd13C"],
+       source_means_c[, "meand13CPl"] + source_sds_c[,"SDd13C"],
+       source_means_c[, "meand13CPl"] + source_sds_c[,"SDd13C"])
+y <- c(source_means_c[, "meand15NPl"] - source_sds_c[, "SDd15N"],
+       source_means_c[, "meand15NPl"] + source_sds_c[, "SDd15N"],
+       source_means_c[, "meand15NPl"] - source_sds_c[, "SDd15N"],
+       source_means_c[, "meand15NPl"] + source_sds_c[, "SDd15N"])
+new_df3 <- data.frame(
+  x = x, 
+  y = y,
+  Source = "Mixtures"
+)
+chull_vals <- chull(new_df3[, 1], new_df3[, 2])
+new_df4 <- new_df3[chull_vals, ]
+p + new_scale_color() +
+  geom_polygon(data = new_df2, aes(x = x, y = y), fill = "orange", alpha = 0.3) + 
+  new_scale_color() +
+  geom_polygon(data = new_df4, aes(x = x, y = y), fill = "orange", alpha = 0.1)
 ```

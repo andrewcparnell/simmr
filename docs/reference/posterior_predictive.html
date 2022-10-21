@@ -29,7 +29,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -69,50 +69,57 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">posterior_predictive</span><span class="op">(</span><span class="va">simmr_out</span>, group <span class="op">=</span> <span class="fl">1</span>, prob <span class="op">=</span> <span class="fl">0.5</span>, plot_ppc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">posterior_predictive</span><span class="op">(</span><span class="va">simmr_out</span>, group <span class="op">=</span> <span class="fl">1</span>, prob <span class="op">=</span> <span class="fl">0.5</span>, plot_ppc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>simmr_out</dt>
 <dd><p>A run of the simmr model from <code><a href="simmr_mcmc.html">simmr_mcmc</a></code></p></dd>
+
+
 <dt>group</dt>
 <dd><p>Which group to run it for (currently only numeric rather than group names)</p></dd>
+
+
 <dt>prob</dt>
 <dd><p>The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)</p></dd>
+
+
 <dt>plot_ppc</dt>
 <dd><p>Whether to create a bayesplot of the posterior predictive or not.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">geese_data_day1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
-<span class="r-in">    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span>
-<span class="r-in">    source_names <span class="op">=</span> <span class="va">source_names</span>,</span>
-<span class="r-in">    source_means <span class="op">=</span> <span class="va">source_means</span>,</span>
-<span class="r-in">    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span>
-<span class="r-in">    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span>
-<span class="r-in">    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span>
-<span class="r-in">    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Print</span></span>
-<span class="r-in"><span class="va">simmr_1</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MCMC run</span></span>
-<span class="r-in"><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Prior predictive</span></span>
-<span class="r-in"><span class="va">post_pred</span> <span class="op">&lt;-</span> <span class="fu">posterior_predictive</span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
+<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
+<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
+<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
+<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span></span>
+<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span></span>
+<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Print</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># MCMC run</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Prior predictive</span></span></span>
+<span class="r-in"><span><span class="va">post_pred</span> <span class="op">&lt;-</span> <span class="fu">posterior_predictive</span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -127,7 +134,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

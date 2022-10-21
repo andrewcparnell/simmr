@@ -32,7 +32,7 @@ customisation options."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -75,18 +75,22 @@ customisation options.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for simmr_output</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
-  <span class="va">x</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"isospace"</span>, <span class="st">"histogram"</span>, <span class="st">"density"</span>, <span class="st">"matrix"</span>, <span class="st">"boxplot"</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fl">1</span>,
-  binwidth <span class="op">=</span> <span class="fl">0.05</span>,
-  alpha <span class="op">=</span> <span class="fl">0.5</span>,
-  title <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>     <span class="st">"simmr output plot"</span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>    
-    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"simmr output plot: group"</span>, <span class="va">group</span><span class="op">)</span> <span class="op">}</span>,
-  ggargs <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for simmr_output</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"isospace"</span>, <span class="st">"histogram"</span>, <span class="st">"density"</span>, <span class="st">"matrix"</span>, <span class="st">"boxplot"</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  binwidth <span class="op">=</span> <span class="fl">0.05</span>,</span>
+<span>  alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  title <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>     <span class="st">"simmr output plot"</span></span>
+<span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"simmr output plot: group"</span>, <span class="va">group</span><span class="op">)</span></span>
+<span> <span class="op">}</span>,</span>
+<span>  ggargs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -94,22 +98,37 @@ customisation options.</p>
     <dl><dt>x</dt>
 <dd><p>An object of class <code>simmr_output</code> created via
 <code><a href="simmr_mcmc.html">simmr_mcmc</a></code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>The type of plot required. Can be one or more of 'histogram',
 'density', 'matrix', or 'boxplot'</p></dd>
+
+
 <dt>group</dt>
 <dd><p>Which group(s) to plot.</p></dd>
+
+
 <dt>binwidth</dt>
 <dd><p>The width of the bins for the histogram. Defaults to 0.05</p></dd>
+
+
 <dt>alpha</dt>
 <dd><p>The degree of transparency of the plots. Not relevant for
 matrix plots</p></dd>
+
+
 <dt>title</dt>
 <dd><p>The title of the plot.</p></dd>
+
+
 <dt>ggargs</dt>
 <dd><p>Extra arguments to be included in the ggplot (e.g. axis limits)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Currently not used</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -131,40 +150,40 @@ plots, <code><a href="summary.simmr_output.html">summary.simmr_output</a></code>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># A simple example with 10 observations, 2 tracers and 4 sources</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Load into simmr</span></span>
-<span class="r-in"><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">geese_data_day1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
-<span class="r-in">    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span>
-<span class="r-in">    source_names <span class="op">=</span> <span class="va">source_names</span>,</span>
-<span class="r-in">    source_means <span class="op">=</span> <span class="va">source_means</span>,</span>
-<span class="r-in">    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span>
-<span class="r-in">    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span>
-<span class="r-in">    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span>
-<span class="r-in">    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MCMC run</span></span>
-<span class="r-in"><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span> <span class="co"># Creates all 4 plots</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># A simple example with 10 observations, 2 tracers and 4 sources</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Load into simmr</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
+<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
+<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
+<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
+<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span></span>
+<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span></span>
+<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># MCMC run</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span> <span class="co"># Creates all 4 plots</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -179,7 +198,7 @@ plots, <code><a href="summary.simmr_output.html">summary.simmr_output</a></code>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

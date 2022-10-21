@@ -10,8 +10,12 @@
   group = 1,
   binwidth = 0.05,
   alpha = 0.5,
-  title = if (length(group) == 1) {     "simmr output plot" } else {    
-    paste("simmr output plot: group", group) },
+  title = if (length(group) == 1) {
+     "simmr output plot"
+ } else {
+    
+    paste("simmr output plot: group", group)
+ },
   ggargs = NULL,
   ...
 )

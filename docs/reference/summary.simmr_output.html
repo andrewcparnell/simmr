@@ -34,7 +34,7 @@ which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -79,13 +79,13 @@ which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for simmr_output</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span>
-  <span class="va">object</span>,
-  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnostics"</span>, <span class="st">"quantiles"</span>, <span class="st">"statistics"</span>, <span class="st">"correlations"</span><span class="op">)</span>,
-  group <span class="op">=</span> <span class="fl">1</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for simmr_output</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span></span>
+<span>  <span class="va">object</span>,</span>
+<span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"diagnostics"</span>, <span class="st">"quantiles"</span>, <span class="st">"statistics"</span>, <span class="st">"correlations"</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -93,27 +93,36 @@ which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
     <dl><dt>object</dt>
 <dd><p>An object of class <code>simmr_output</code> produced by the
 function <code><a href="simmr_mcmc.html">simmr_mcmc</a></code></p></dd>
+
+
 <dt>type</dt>
 <dd><p>The type of output required. At least none of 'diagnostics',
 'quantiles', 'statistics', or 'correlations'.</p></dd>
+
+
 <dt>group</dt>
 <dd><p>Which group or groups the output is required for.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Not used</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A list containing the following components:</p>
+    
+
+<p>A list containing the following components:</p>
 <dl><dt>gelman </dt>
 <dd><p>The
 convergence diagnostics</p></dd>
-<dt>quantiles </dt>
+ <dt>quantiles </dt>
 <dd><p>The quantiles of each parameter
 from the posterior distribution</p></dd>
-<dt>statistics </dt>
+ <dt>statistics </dt>
 <dd><p>The means and standard
 deviations of each parameter</p></dd>
-<dt>correlations </dt>
+ <dt>correlations </dt>
 <dd><p>The posterior
 correlations between the parameters</p></dd>
 </dl><p>Note that this object is reported
@@ -144,39 +153,39 @@ plots, <code><a href="plot.simmr_output.html">plot.simmr_output</a></code> for p
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># A simple example with 10 observations, 2 tracers and 4 sources</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># The data</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span>
-<span class="r-in">  <span class="va">geese_data_day1</span>,</span>
-<span class="r-in">  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
-<span class="r-in">    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span>
-<span class="r-in">    source_names <span class="op">=</span> <span class="va">source_names</span>,</span>
-<span class="r-in">    source_means <span class="op">=</span> <span class="va">source_means</span>,</span>
-<span class="r-in">    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span>
-<span class="r-in">    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span>
-<span class="r-in">    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span>
-<span class="r-in">    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Plot</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># MCMC run</span></span>
-<span class="r-in"><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Summarise</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span> <span class="co"># This outputs all the summaries</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span> <span class="co"># Just the diagnostics</span></span>
-<span class="r-in"><span class="co"># Store the output in an</span></span>
-<span class="r-in"><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span>,</span>
-<span class="r-in">  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"quantiles"</span>, <span class="st">"statistics"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># A simple example with 10 observations, 2 tracers and 4 sources</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># The data</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
+<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
+<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
+<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
+<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span></span>
+<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span></span>
+<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># MCMC run</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Summarise</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span> <span class="co"># This outputs all the summaries</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span> <span class="co"># Just the diagnostics</span></span></span>
+<span class="r-in"><span><span class="co"># Store the output in an</span></span></span>
+<span class="r-in"><span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span>,</span></span>
+<span class="r-in"><span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"quantiles"</span>, <span class="st">"statistics"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -191,7 +200,7 @@ plots, <code><a href="plot.simmr_output.html">plot.simmr_output</a></code> for p
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
