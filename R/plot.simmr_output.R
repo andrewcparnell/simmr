@@ -87,7 +87,7 @@ plot.simmr_output <-
            },
            ggargs = NULL,
            ...) {
-
+if(class(x) == "simmr_output"||class(x) == "simmr_output_ffvb"){
     # Get the specified type
     type <- match.arg(type, several.ok = TRUE)
 
@@ -190,4 +190,6 @@ plot.simmr_output <-
       }
     }
     if (exists("g")) invisible(g)
+}
+
   }

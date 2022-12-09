@@ -9,8 +9,16 @@
 #' @export
 print.simmr_output <-
   function(x, ...) {
+    if(class(x) == "simmr_output"){
     print(x$input)
     cat("The input data has been run via simmr_mcmc and has produced ")
     cat(nrow(x$output[[1]]$BUGSoutput$sims.matrix), "iterations over", x$output[[1]]$BUGSoutput$n.chains, "MCMC chains.")
     cat("\n\n")
+    }
+    else if(class(x) == "simmr_output_ffvb"){
+      print(x$input)
+      cat("The input data has been run via simmr_ffvb and has produced")
+      cat(nrow(x$output[[1]]$BUGSoutput$sims.list$p), "samples.")
+    }
+    
   }
