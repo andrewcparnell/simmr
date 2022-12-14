@@ -87,7 +87,7 @@ plot.simmr_output <-
            },
            ggargs = NULL,
            ...) {
-if(class(x) == "simmr_output"||class(x) == "simmr_output_ffvb"){
+if(inherits(x, "simmr_output") == TRUE){
     # Get the specified type
     type <- match.arg(type, several.ok = TRUE)
 

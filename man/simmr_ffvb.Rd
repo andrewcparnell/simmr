@@ -9,7 +9,8 @@ simmr_ffvb(
   simmr_in,
   prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
     simmr_in$n_sources), c_0 = rep(1, simmr_in$n_tracers), d_0 = rep(1,
-    simmr_in$n_tracers))
+    simmr_in$n_tracers)),
+  ffvb_control = list(n_output = 3600)
 )
 }
 \arguments{

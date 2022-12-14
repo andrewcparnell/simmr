@@ -285,7 +285,12 @@ simmr_ffvb<-function(simmr_in,
                          simmr_in$n_tracers),
                        d_0 = rep(
                          1,
-                         simmr_in$n_tracers))
+                         simmr_in$n_tracers)),
+                       ffvb_control = list(
+                         n_output = 3600,
+                         mu_0 = 0,
+                         sigma_0 = 1
+                       )
 ){
   #### make sure this has right file name
   Rcpp::sourceCpp("~/Documents/GitHub/simmrwithffvb_2/R/run_VB.cpp")
@@ -298,7 +303,10 @@ simmr_ffvb<-function(simmr_in,
   names(output) <- levels(simmr_in$group)
   K<-simmr_in$n_sources
   n_tracers <- simmr_in$n_tracers
-  n_output<-3600
+  n_output<- ffvb_control$n_output
+  mu_a = ffvb_control$mu_0
+  sigma_a = ffvb_control$sigma_0
+  
   lambdares<-matrix(rep(NA, ((( K + (K * (K + 1)) / 2)) + n_tracers * 2) * simmr_in$n_groups),
                     nrow =((( K + (K * (K + 1)) / 2)) + n_tracers * 2),
                     ncol = simmr_in$n_groups)
@@ -333,16 +341,17 @@ simmr_ffvb<-function(simmr_in,
     correction_sds = simmr_in$correction_sds
     concentration_means = simmr_in$concentration_means
     y = curr_mix
+
     
     
     
-    lambdastart = c(rep(0, K), rep(1, (((K * (K + 1)) / 2) + n_tracers * 2)))
+    lambdastart = c(rep(mu_a, K), rep(sigma_a, (((K * (K + 1)) / 2) + n_tracers * 2)))
     
     lambdares[,i]<-run_VB_cpp(lambdastart, K, n_tracers, concentration_means, 
                               source_means, correction_means, correction_sds,
                               source_sds, y)
     
-    thetares[(1+3600*(i-1)):(3600*i),] = 
+    thetares[(1+n_output*(i-1)):(n_output*i),] = 
       sim_thetacpp(n_output, lambdares[,i], K, n_tracers)
     
   }
@@ -350,22 +359,27 @@ simmr_ffvb<-function(simmr_in,
   names(mylist) <- levels(simmr_in$group)  
   p_fun <- function(x) exp(x)/sum(exp(x))
   
+  p = t(apply(thetares[,1:K], 1, p_fun))
+  sigma =  1/sqrt(thetares[,(K+1):(K+n_tracers)])
+  colnames(p) = simmr_in$source_names
+  colnames(sigma) = colnames(simmr_in$source_sds)
   
   mylist[[i]]<-list(source_names = simmr_in$source_names,
                     theta = thetares,
                     groupnames = simmr_in$group,
                     lambdares = lambdares,
                     BUGSoutput = list(
-                      sims.list = list(p = t(apply(thetares[,1:K], 1, p_fun)),
-                                       sigma =  1/sqrt(thetares[,(K+1):(K+n_tracers)])))
+                      sims.list = list(p = p,
+                                       sigma = sigma),
+                      sims.matrix = cbind(p,
+                                          sigma)))
                     
-  )
   
   output_all <- vector("list")
   output_all$input <- simmr_in
   output_all$output <- mylist
   
-  class(output_all) <- "simmr_output_ffvb"
+  class(output_all) <- c("simmr_output", "ffvb")
   
   return(output_all)
   

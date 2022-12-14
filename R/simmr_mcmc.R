@@ -396,7 +396,7 @@ model{
   output_all <- vector("list")
   output_all$input <- simmr_in
   output_all$output <- output
-  class(output_all) <- "simmr_output"
+  class(output_all) <- c("simmr_output", "mcmc")
 
   return(output_all)
 }

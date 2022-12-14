@@ -74,7 +74,8 @@
 #' @export
 summary.simmr_output <-
   function(object, type = c("diagnostics", "quantiles", "statistics", "correlations"), group = 1, ...) {
-    if(class(object) == "simmr_output"){
+    if(inherits(object, "simmr_output") == TRUE){
+      if(inherits(object, "mcmc") == TRUE){
     # Get the specified type
     type <- match.arg(type, several.ok = TRUE)
 
@@ -129,9 +130,9 @@ summary.simmr_output <-
     } else {
       invisible(list(gelman = out_bgr, quantiles = out_quantiles, statistics = out_statistics, correlations = out_cor))
     }
-}
-    
-    else if(class(object) == "simmr_output_ffvb"){
+
+      }
+    else if(inherits(object, "ffvb") == TRUE){
       # Get the specified type
       type <- match.arg(type, several.ok = TRUE)
       
@@ -188,6 +189,7 @@ summary.simmr_output <-
       }
     
       
+    }
     }
     
     else(return(cat(paste0("incorrect object passed to function"))))
