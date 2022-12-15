@@ -10,7 +10,7 @@ simmr_ffvb(
   prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
     simmr_in$n_sources), c_0 = rep(1, simmr_in$n_tracers), d_0 = rep(1,
     simmr_in$n_tracers)),
-  ffvb_control = list(n_output = 3600)
+  ffvb_control = list(n_output = 3600, mu_0 = 0, sigma_0 = 1)
 )
 }
 \arguments{
@@ -23,7 +23,7 @@ left at their default values unless you wish to include to include prior
 information, in which case you should use the function
 \code{\link{simmr_elicit}}.}
 
-\item{mcmc_control}{A list of values including arguments named \code{iter}
+\item{ffvb_control}{A list of values including arguments named \code{iter}
 (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
 of thinning), and \code{n.chain} (number of MCMC chains).}
 }
@@ -40,15 +40,11 @@ NEED TO EDIT THIS TEXT
 }
 \details{
 This is the main function of simmr. It takes a \code{simmr_input} object
-created via \code{\link{simmr_load}}, runs an MCMC to determine the dietary
+created via \code{\link{simmr_load}}, runs it in fixed form
+variational bayes to determine the dietary
 proportions, and then outputs a \code{simmr_output} object for further
 analysis and plotting via \code{\link{summary.simmr_output}} and
 \code{\link{plot.simmr_output}}.
-
-If, after running \code{\link{simmr_mcmc}} the convergence diagnostics in
-\code{\link{summary.simmr_output}} are not satisfactory, the values of
-\code{iter}, \code{burn} and \code{thin} in \code{mcmc_control} should be
-increased by a factor of 10.
 }
 \examples{
 \dontrun{
@@ -56,18 +52,6 @@ increased by a factor of 10.
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
-simmr_1 <- with(
-  geese_data_day1,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 
 # Plot
 plot(simmr_1)
@@ -229,19 +213,6 @@ plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
 
 # Do this in raw data format - Note that there's quite a few mixtures!
 data(geese_data)
-simmr_5 <- with(
-  geese_data,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means,
-    group = groups
-  )
-)
 
 # Plot
 plot(simmr_5,

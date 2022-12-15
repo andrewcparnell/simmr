@@ -4,16 +4,13 @@
 #'NEED TO EDIT THIS TEXT
 #'
 #' This is the main function of simmr. It takes a \code{simmr_input} object
-#' created via \code{\link{simmr_load}}, runs an MCMC to determine the dietary
+#' created via \code{\link{simmr_load}}, runs it in fixed form
+#' variational bayes to determine the dietary
 #' proportions, and then outputs a \code{simmr_output} object for further
 #' analysis and plotting via \code{\link{summary.simmr_output}} and
 #' \code{\link{plot.simmr_output}}.
 #'
-#' If, after running \code{\link{simmr_mcmc}} the convergence diagnostics in
-#' \code{\link{summary.simmr_output}} are not satisfactory, the values of
-#' \code{iter}, \code{burn} and \code{thin} in \code{mcmc_control} should be
-#' increased by a factor of 10.
-#'
+
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
 #' @param prior_control A list of values including arguments named \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
@@ -21,7 +18,7 @@
 #' left at their default values unless you wish to include to include prior
 #' information, in which case you should use the function
 #' \code{\link{simmr_elicit}}.
-#' @param mcmc_control A list of values including arguments named \code{iter}
+#' @param ffvb_control A list of values including arguments named \code{iter}
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
 #' of thinning), and \code{n.chain} (number of MCMC chains).
 #' @return An object of class \code{simmr_output} with two named top-level
@@ -55,18 +52,18 @@
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' data(geese_data_day1)
-#' simmr_1 <- with(
-#'   geese_data_day1,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means
-#'   )
-#' )
+# simmr_1 <- with(
+#   geese_data_day1,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means
+#   )
+# )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -228,19 +225,19 @@
 #'
 #' # Do this in raw data format - Note that there's quite a few mixtures!
 #' data(geese_data)
-#' simmr_5 <- with(
-#'   geese_data,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means,
-#'     group = groups
-#'   )
-#' )
+# simmr_5 <- with(
+#   geese_data,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means,
+#     group = groups
+#   )
+# )
 #'
 #' # Plot
 #' plot(simmr_5,
@@ -314,6 +311,11 @@ simmr_ffvb<-function(simmr_in,
                    ncol = (K+n_tracers),
                    nrow = n_output*simmr_in$n_groups)
   
+  mylist <- vector("list", length = simmr_in$n_groups)
+  names(mylist) <- levels(simmr_in$group)  
+  p_fun <- function(x) exp(x)/sum(exp(x))
+  
+  
   # Loop through all the groups
   for (i in 1:simmr_in$n_groups) {
     if (simmr_in$n_groups > 1) cat(paste("\nRunning for group", levels(simmr_in$group)[i], "\n\n"))
@@ -354,13 +356,10 @@ simmr_ffvb<-function(simmr_in,
     thetares[(1+n_output*(i-1)):(n_output*i),] = 
       sim_thetacpp(n_output, lambdares[,i], K, n_tracers)
     
-  }
-  mylist <- vector("list", length = simmr_in$n_groups)
-  names(mylist) <- levels(simmr_in$group)  
-  p_fun <- function(x) exp(x)/sum(exp(x))
   
-  p = t(apply(thetares[,1:K], 1, p_fun))
-  sigma =  1/sqrt(thetares[,(K+1):(K+n_tracers)])
+
+  p = t(apply(thetares[(1+n_output*(i-1)):(n_output*i),1:K], 1, p_fun))
+  sigma =  1/sqrt(thetares[(1+n_output*(i-1)):(n_output*i),(K+1):(K+n_tracers)])
   colnames(p) = simmr_in$source_names
   colnames(sigma) = colnames(simmr_in$source_sds)
   
@@ -372,8 +371,10 @@ simmr_ffvb<-function(simmr_in,
                       sims.list = list(p = p,
                                        sigma = sigma),
                       sims.matrix = cbind(p,
-                                          sigma)))
-                    
+                                          sigma)),
+                    model = list( data = list(mu_f_mean =c(rep(mu_a, K)),
+                                              sigma_f_mean = c(rep(sigma_a, n_tracers)) )))
+  }                   
   
   output_all <- vector("list")
   output_all$input <- simmr_in
