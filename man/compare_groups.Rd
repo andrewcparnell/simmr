@@ -13,7 +13,7 @@ compare_groups(
 }
 \arguments{
 \item{simmr_out}{An object of class \code{simmr_output} created from
-\code{\link{simmr_mcmc}}.}
+\code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.}
 
 \item{source_name}{The name of a source. This should match the names exactly
 given to \code{\link{simmr_load}}.}

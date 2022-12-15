@@ -1,16 +1,17 @@
-#' Plot different features of an object created from \code{\link{simmr_mcmc}}.
+#' Plot different features of an object created from \code{\link{simmr_mcmc}} 
+#' or \code{\link{simmr_ffvb}}.
 #'
 #' This function allows for 4 different types of plots of the simmr output
-#' created from \code{\link{simmr_mcmc}}. The types are: histogram, kernel
-#' density plot, matrix plot (most useful) and boxplot. There are some minor
-#' customisation options.
+#' created from \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The 
+#' types are: histogram, kernel density plot, matrix plot (most useful) and 
+#' boxplot. There are some minor customisation options.
 #'
 #' The matrix plot should form a necessary part of any SIMM analysis since it
 #' allows the user to judge which sources are identifiable by the model.
 #' Further detail about these plots is provided in the vignette.
 #'
 #' @param x An object of class \code{simmr_output} created via
-#' \code{\link{simmr_mcmc}}
+#' \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.
 #' @param type The type of plot required. Can be one or more of 'histogram',
 #' 'density', 'matrix', or 'boxplot'
 #' @param group Which group(s) to plot.
@@ -28,10 +29,12 @@
 #' @importFrom stats "cor"
 #'
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
-#' @seealso See \code{\link{simmr_mcmc}} for creating objects suitable for this
-#' function, and many more examples. See also \code{\link{simmr_load}} for
-#' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
-#' plots, \code{\link{summary.simmr_output}} for summarising output.
+#' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for 
+#' creating objects suitable for this function, and many more examples. See 
+#' also \code{\link{simmr_load}} for creating simmr objects, 
+#' \code{\link{plot.simmr_input}} for creating isospace plots, 
+#' \code{\link{summary.simmr_output}} for summarising output.
+#' 
 #' @examples
 #'
 #' \dontrun{

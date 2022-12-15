@@ -7,44 +7,30 @@ Vayes(FFVB) function}
 \usage{
 simmr_ffvb(
   simmr_in,
-  prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
-    simmr_in$n_sources), c_0 = rep(1, simmr_in$n_tracers), d_0 = rep(1,
-    simmr_in$n_tracers)),
   ffvb_control = list(n_output = 3600, mu_0 = 0, sigma_0 = 1)
 )
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
-\item{prior_control}{A list of values including arguments named \code{means}
-and \code{sd} which represent the prior means and standard deviations of the
-dietary proportions in centralised log-ratio space. These can usually be
-left at their default values unless you wish to include to include prior
-information, in which case you should use the function
-\code{\link{simmr_elicit}}.}
-
-\item{ffvb_control}{A list of values including arguments named \code{iter}
-(number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
-of thinning), and \code{n.chain} (number of MCMC chains).}
+\item{ffvb_control}{A list of values including arguments named \code{n_output}
+(number of rows in theta output), \code{mu_0} (prior for mu), 
+and \code{sigma_0} (prior for sigma).}
 }
 \value{
 An object of class \code{simmr_output} with two named top-level
 components: \item{input }{The \code{simmr_input} object given to the
-\code{simmr_mcmc} function} \item{output }{A set of MCMC chains of class
-\code{mcmc.list} from the coda package. These can be analysed using the
+\code{simmr_ffvb} function} \item{output }{A set of outputs produced by
+the ffvb function. These can be analysed using the
 \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 functions.}
 }
 \description{
-NEED TO EDIT THIS TEXT
-}
-\details{
 This is the main function of simmr. It takes a \code{simmr_input} object
 created via \code{\link{simmr_load}}, runs it in fixed form
-variational bayes to determine the dietary
-proportions, and then outputs a \code{simmr_output} object for further
-analysis and plotting via \code{\link{summary.simmr_output}} and
-\code{\link{plot.simmr_output}}.
+Variational Bayes to determine the dietary proportions, and then 
+outputs a \code{simmr_output} object for further analysis and plotting 
+via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 }
 \examples{
 \dontrun{
@@ -60,13 +46,12 @@ plot(simmr_1)
 simmr_1
 
 # MCMC run
-simmr_1_out <- simmr_mcmc(simmr_1)
+simmr_1_out <- simmr_ffvb(simmr_1)
 
 # Print it
 print(simmr_1_out)
 
 # Summary
-summary(simmr_1_out, type = "diagnostics")
 summary(simmr_1_out, type = "correlations")
 summary(simmr_1_out, type = "statistics")
 ans <- summary(simmr_1_out, type = c("quantiles", "statistics"))
@@ -87,31 +72,18 @@ compare_sources(simmr_1_out)
 
 # A version with just one observation
 data(geese_data_day1)
-simmr_2 <- with(
-  geese_data_day1,
-  simmr_load(
-    mixtures = mixtures[1, , drop = FALSE],
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 
 # Plot
 plot(simmr_2)
 
-# MCMC run - automatically detects the single observation
-simmr_2_out <- simmr_mcmc(simmr_2)
+# FFVB run - automatically detects the single observation
+simmr_2_out <- simmr_ffvb(simmr_2)
 
 # Print it
 print(simmr_2_out)
 
 # Summary
 summary(simmr_2_out)
-summary(simmr_2_out, type = "diagnostics")
 ans <- summary(simmr_2_out, type = c("quantiles"))
 
 # Plot
@@ -125,18 +97,6 @@ plot(simmr_2_out, type = "matrix")
 
 # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
 data(simmr_data_2)
-simmr_3 <- with(
-  simmr_data_2,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 
 # Get summary
 print(simmr_3)
@@ -147,15 +107,14 @@ plot(simmr_3, tracers = c(2, 3))
 plot(simmr_3, tracers = c(1, 3))
 # See vignette('simmr') for fancier axis labels
 
-# MCMC run
-simmr_3_out <- simmr_mcmc(simmr_3)
+# FFVB run
+simmr_3_out <- simmr_ffvb(simmr_3)
 
 # Print it
 print(simmr_3_out)
 
 # Summary
 summary(simmr_3_out)
-summary(simmr_3_out, type = "diagnostics")
 summary(simmr_3_out, type = "quantiles")
 summary(simmr_3_out, type = "correlations")
 
@@ -173,15 +132,6 @@ plot(simmr_3_out, type = "matrix")
 
 # The data
 data(square_data)
-simmr_4 <- with(
-  square_data,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds
-  )
-)
 
 # Get summary
 print(simmr_4)
@@ -189,15 +139,14 @@ print(simmr_4)
 # Plot
 plot(simmr_4)
 
-# MCMC run - needs slightly longer
-simmr_4_out <- simmr_mcmc(simmr_4)
+# FFVB run
+simmr_4_out <- simmr_ffvb(simmr_4)
 
 # Print it
 print(simmr_4_out)
 
 # Summary
 summary(simmr_4_out)
-summary(simmr_4_out, type = "diagnostics")
 ans <- summary(simmr_4_out, type = c("quantiles", "statistics"))
 
 # Plot

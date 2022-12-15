@@ -12,7 +12,7 @@ combine_sources(
 }
 \arguments{
 \item{simmr_out}{An object of class \code{simmr_output} created from
-\code{\link{simmr_mcmc}}.}
+\code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}}
 
 \item{to_combine}{The names of exactly two sources. These should match the
 names given to \code{\link{simmr_load}}.}
@@ -33,10 +33,10 @@ experience high (negative) posterior correlations between the sources.
 Combining them can reduce this correlation and improve precision of the
 estimates. In case (2) we might wish to determine the joint amount eaten of
 the two sources when combined. This function thus combines two sources after
-a run of \code{\link{simmr_mcmc}} (known as a posteriori combination). The
-new object can then be called with \code{\link{plot.simmr_input}} or
-\code{\link{plot.simmr_output}} to produce iso-space plots of summaries of
-the output after combination.
+a run of \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}} (known as 
+a posteriori combination). The new object can then be called with 
+\code{\link{plot.simmr_input}} or \code{\link{plot.simmr_output}} to 
+produce iso-space plots of summaries of the output after combination.
 }
 \examples{
 \dontrun{
@@ -89,8 +89,8 @@ plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined source
 
 }
 \seealso{
-See \code{\link{simmr_mcmc}} and the associated vignette for
-examples.
+See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and 
+the associated vignette for examples.
 }
 \author{
 Andrew Parnell <andrew.parnell@mu.ie>

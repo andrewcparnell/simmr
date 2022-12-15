@@ -1,11 +1,12 @@
 #' Summarises the output created with \code{\link{simmr_mcmc}}
 #'
 #' Produces textual summaries and convergence diagnostics for an object created
-#' with \code{\link{simmr_mcmc}}. The different options are: 'diagnostics'
-#' which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
-#' 'quantiles' which produces credible intervals for the parameters,
-#' 'statistics' which produces means and standard deviations, and
-#' 'correlations' which produces correlations between the parameters.
+#' with \code{\link{simmr_mcmc}} or \code{\link{simmr_mcmc}}. The different 
+#' options are: 'diagnostics' which produces Brooks-Gelman-Rubin diagnostics 
+#' to assess MCMC convergence, 'quantiles' which produces credible intervals 
+#' for the parameters, 'statistics' which produces means and standard 
+#' deviations, and 'correlations' which produces correlations between the 
+#' parameters.
 #'
 #' The quantile output allows easy calculation of 95 per cent credible
 #' intervals of the posterior dietary proportions. The correlations, along with
@@ -17,7 +18,7 @@
 #' results for all groups.
 #'
 #' @param object An object of class \code{simmr_output} produced by the
-#' function \code{\link{simmr_mcmc}}
+#' function \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}
 #' @param type The type of output required. At least none of 'diagnostics',
 #' 'quantiles', 'statistics', or 'correlations'.
 #' @param group Which group or groups the output is required for.
@@ -30,10 +31,11 @@
 #' silently so will be discarded unless the function is called with an object
 #' as in the example below.
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
-#' @seealso See \code{\link{simmr_mcmc}} for creating objects suitable for this
-#' function, and many more examples. See also \code{\link{simmr_load}} for
-#' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
-#' plots, \code{\link{plot.simmr_output}} for plotting output.
+#' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}}for 
+#' creating objects suitable for this function, and many more examples. 
+#' See also \code{\link{simmr_load}} for creating simmr objects, 
+#' \code{\link{plot.simmr_input}} for creating isospace plots, 
+#' \code{\link{plot.simmr_output}} for plotting output.
 #'
 #' @importFrom stats sd cor
 #'

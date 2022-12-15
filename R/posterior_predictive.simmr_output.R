@@ -1,8 +1,12 @@
 #' Plot the posterior predictive distribution for a simmr run
 #'
-#' This function takes the output from \code{\link{simmr_mcmc}} and plots the posterior predictive distribution to enable visualisation of model fit. The simulated posterior predicted values are returned as part of the object and can be saved for external use
+#' This function takes the output from \code{\link{simmr_mcmc}} or 
+#' \code{\link{simmr_ffvb}} and plots the posterior predictive distribution 
+#' to enable visualisation of model fit. The simulated posterior predicted 
+#' values are returned as part of the object and can be saved for external use
 #'
-#' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}}
+#' @param simmr_out A run of the simmr model from \code{\link{simmr_mcmc}} or
+#' \code{\link{simmr_ffvb}}.
 #' @param group Which group to run it for (currently only numeric rather than group names)
 #' @param prob The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)
 #' @param plot_ppc Whether to create a bayesplot of the posterior predictive or not.

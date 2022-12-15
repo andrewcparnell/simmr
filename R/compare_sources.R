@@ -12,7 +12,7 @@
 #' output for further analysis if required.
 #'
 #' @param simmr_out An object of class \code{simmr_output} created from
-#' \code{\link{simmr_mcmc}}.
+#' \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.
 #' @param source_names The names of at least two sources. These should match
 #' the names exactly given to \code{\link{simmr_load}}.
 #' @param group The integer values of the group numbers to be compared. If not

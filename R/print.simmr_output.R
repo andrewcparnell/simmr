@@ -5,7 +5,8 @@
 #'
 #' @return Returns a neat summary of the object
 #'
-#' @seealso \code{\link{simmr_mcmc}} for creating \code{simmr_output} objects
+#' @seealso \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for creating 
+#' \code{simmr_output} objects
 #' @export
 print.simmr_output <-
   function(x, ...) {
