@@ -27,18 +27,32 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
   )
 ))
 
+# FFVB run
+co(simmr_1_out_ffvb <-simmr_ffvb(simmr_1))
+
 # Taken from the simmr_mcmc example
 test_that("print.simmr_input", {
   expect_output(print(simmr_1))
 })
 
+
+
 test_that("print.simmr_output", {
   expect_output(print(simmr_1_out))
+})
+
+test_that("print.simmr_output", {
+  expect_output(print(simmr_1_out_ffvb))
 })
 
 test_that("summary.simmr_output", {
   expect_output(summary(simmr_1_out, type = "diagnostics"))
   expect_output(summary(simmr_1_out))
+})
+
+test_that("summary.simmr_output", {
+  expect_output(summary(simmr_1_out_ffvb))
+  expect_output(summary(simmr_1_out_ffvb))
 })
 
 

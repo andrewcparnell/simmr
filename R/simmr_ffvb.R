@@ -349,7 +349,7 @@ simmr_ffvb<-function(simmr_in,
                       sims.matrix = cbind(p,
                                           sigma)),
                     model = list( data = list(mu_f_mean =c(rep(mu_a, K)),
-                                              sigma_f_mean = c(rep(sigma_a, n_tracers)) )))
+                                              sigma_f_sd = c(rep(sigma_a, K)) )))
   }                   
   
   output_all <- vector("list")
