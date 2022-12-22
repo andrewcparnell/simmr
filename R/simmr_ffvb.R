@@ -264,7 +264,7 @@ simmr_ffvb<-function(simmr_in,
                        )
 ){
   #### make sure this has right file name
-  Rcpp::sourceCpp("~/Documents/GitHub/simmrwithffvb_2/R/run_VB.cpp")
+  Rcpp::sourceCpp("~/Documents/GitHub/simmrwithffvb_2/src/run_VB.cpp")
   
   # Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")

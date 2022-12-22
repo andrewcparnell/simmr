@@ -282,7 +282,7 @@ test_that("Compare groups", {
   expect_error(compare_groups(simmr_1_out_ffvb))
   
   # 2 isotopes, all groups
-  co(cg1 <- compare_groups(simmr_2_out_ffvb, groups = 1:simmr_2_out_ffvb$n_groups))
+  co(cg1 <- compare_groups(simmr_2_out_ffvb, groups = 1:simmr_2_out_ffvb$input$n_groups))
   expect_true(is.list(cg1))
   expect_true(is.matrix(cg1$out_all))
   expect_true(is.character(cg1$Ordering))
@@ -313,11 +313,11 @@ test_that("Compare groups", {
   expect_false(cg3[[1]][1] == cg4[[1]][1])
   
   # 1 isotope, multiple groups
-  co(cg5 <- compare_groups(simmr_3_out_ffvb, groups = 1:simmr_3$n_groups))
+  co(cg5 <- compare_groups(simmr_3_out_ffvb, groups = 1:simmr_3_out_ffvb$input$n_groups))
   expect_true(is.list(cg5))
   expect_true(is.matrix(cg5$out_all))
   expect_true(is.character(cg5$Ordering))
-  co(cg6 <- compare_groups(simmr_3_out, groups = 2:simmr_3$n_groups))
+  co(cg6 <- compare_groups(simmr_3_out, groups = 2:simmr_3_out$input$n_groups))
   expect_false(cg5$out_all[1, 1] == cg6$out_all[1, 1])
   p <- cg5$plot + ylim(-1, 1)
   expect_doppelganger("iso1_multi_group", p)

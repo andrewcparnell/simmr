@@ -20,6 +20,9 @@ Imports:
     viridis,
     bayesplot,
     checkmate,
+    Rcpp,
+    RcppArmadillo,
+    RcppDist
 Encoding: UTF-8
 License: GPL (>= 2)
 LazyData: TRUE
@@ -35,6 +38,10 @@ Suggests:
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-07-03 17:48:43 UTC; andrewparnell
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Repository: CRAN
 Date/Publication: 2019-07-03 18:20:03 UTC
+LinkingTo: 
+    Rcpp,
+    RcppArmadillo,
+    RcppDist,

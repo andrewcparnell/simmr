@@ -14,7 +14,8 @@ prior_viz(
 )
 }
 \arguments{
-\item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}}}
+\item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}} or
+\code{\link{simmr_ffvb}}}
 
 \item{group}{Which group to run it for (currently only numeric rather than group names)}
 
@@ -30,7 +31,11 @@ prior_viz(
 A list containing \code{plot}: the ggplot object (useful if requires customisation), and \code{sim}: the simulated prior values which can be compared with the posterior densities
 }
 \description{
-This function takes the output from \code{\link{simmr_mcmc}} and plots the prior distribution to enable visual inspection. This can be used by itself or together with \code{\link{posterior_predictive}} to visually evaluate the influence of the prior on the posterior distribution.
+This function takes the output from \code{\link{simmr_mcmc}} or 
+\code{\link{simmr_ffvb}} and plots the prior distribution to enable visual 
+inspection. This can be used by itself or together with 
+\code{\link{posterior_predictive}} to visually evaluate the influence of 
+the prior on the posterior distribution.
 }
 \examples{
 \dontrun{

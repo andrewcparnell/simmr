@@ -29,18 +29,18 @@
 #' data(geese_data)
 #'
 #' # Load into simmr
-#' simmr_1 <- with(
-#'   geese_data_day1,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means
-#'   )
-#' )
+# simmr_1 <- with(
+#   geese_data_day1,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means
+#   )
+# )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -172,7 +172,12 @@ combine_sources.simmr_output <- function(simmr_out,
     colnames(new_sims.list$p)[to_combine_cols[1]] <- new_source_name
     simmr_new_out$output[[j]]$BUGSoutput$sims.list <- new_sims.list
   }
-
-  class(simmr_new_out) <- "simmr_output"
+  a<-c("ffvb", "mcmc")
+  if(inherits(simmr_out, "ffvb") == TRUE){
+    i = 1
+    }else if(inherits(simmr_out, "mcmc") == TRUE){
+    i = 2
+    }
+  class(simmr_new_out) <- c("simmr_output", a[i])
   return(simmr_new_out)
 }
