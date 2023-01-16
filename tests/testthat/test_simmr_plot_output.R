@@ -50,13 +50,13 @@ test_that("plot.simmr_output", {
 
 test_that("plot.simmr_output", {
   p <- plot(simmr_out_ffvb, type = "density")
-  vdiffr::expect_doppelganger("plot_output_dens", p)
+  vdiffr::expect_doppelganger("plot_output_dens_ffvb", p)
   p <- plot(simmr_out_ffvb, type = "boxplot")
-  vdiffr::expect_doppelganger("plot_output_box", p)
+  vdiffr::expect_doppelganger("plot_output_box_ffvb", p)
   # p <- plot(simmr_out,type='isospace')
-  # vdiffr::expect_doppelganger('out_iso', p)
+  # vdiffr::expect_doppelganger('out_iso_ffvb', p)
   p <- plot(simmr_out_ffvb, type = "histogram")
-  vdiffr::expect_doppelganger("plot_output_hist", p)
+  vdiffr::expect_doppelganger("plot_output_hist_ffvb", p)
   p <- plot(simmr_out_ffvb, type = "matrix")
-  vdiffr::expect_doppelganger("plot_output_matrix", p)
+  vdiffr::expect_doppelganger("plot_output_matrix_ffvb", p)
 })

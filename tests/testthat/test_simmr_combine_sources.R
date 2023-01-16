@@ -314,57 +314,58 @@ test_that("simmr combine sources multiple groups", {
   expect_s3_class(simmr_out_5_combine, "simmr_output")
 })
 
-# 
-# # Problem with working with tibbles
-# test_that("simmr combine sources multiple groups", {
-#   library(readxl)
-#   path <- system.file("extdata", "geese_data.xls", package = "simmr")
-#   geese_data <- lapply(excel_sheets(path), read_excel, path = path)
-#   
-#   # Separate the data into parts
-#   targets <- geese_data[[1]]
-#   sources <- geese_data[[2]]
-#   TEFs <- geese_data[[3]]
-#   concdep <- geese_data[[4]]
-#   
-# 
-#   
-#   # Load the data into simmr
-#   geese_simmr <- simmr_load(
-#     mixtures = targets[, 1:2],
-#     source_names = sources$Sources,
-#     source_means = sources[, 2:3],
-#     source_sds = sources[, 4:5],
-#     correction_means = TEFs[, 2:3],
-#     correction_sds = TEFs[, 4:5],
-#     concentration_means = concdep[, 2:3],
-#     group = as.factor(paste("Day", targets$Time))
-#   )
-#   
-#   # Run through simmr
-#   co(geese_simmr_out_ffvb <- simmr_ffvb(geese_simmr))
-#   
-#   # Combine sources
-#   simmr_out_4_combine_ffvb <- combine_sources(geese_simmr_out_ffvb,
-#                                          to_combine = c(
-#                                            "U.lactuca",
-#                                            "Enteromorpha"
-#                                          ),
-#                                          new_source_name = "U.lac and Ent"
-#   )
-#   
-#   expect_s3_class(simmr_out_4_combine_ffvb, "simmr_output")
-#   expect_s3_class(simmr_out_4_combine_ffvb$input, "simmr_input")
-#   expect_true(length(simmr_out_4_combine_ffvb$input$source_names) == 3)
-#   expect_true(nrow(simmr_out_4_combine_ffvb$input$correction_means) == 3)
-#   expect_true(nrow(simmr_out_4_combine_ffvb$input$source_sds) == 3)
-#   expect_true(simmr_out_4_combine_ffvb$input$n_sources == 3)
-#   expect_true(simmr_out_4_combine_ffvb$input$n_groups == 8)
-#   
-#   # Check that it still works when you reverse the sources (previously crashed)
-#   simmr_out_5_combine_ffvb <- combine_sources(simmr_out_4_combine_ffvb,
-#                                          to_combine = c("Grass", "Zostera"),
-#                                          new_source_name = "Z and G"
-#   )
-#   expect_s3_class(simmr_out_5_combine_ffvb, "simmr_output")
-# })
+
+# Problem with working with tibbles
+test_that("simmr combine sources multiple groups", {
+  library(readxl)
+  path <- system.file("extdata", "geese_data.xls", package = "simmr")
+  geese_data <- lapply(excel_sheets(path), read_excel, path = path)
+  
+  # Separate the data into parts
+  targets <- geese_data[[1]]
+  sources <- geese_data[[2]]
+  TEFs <- geese_data[[3]]
+  concdep <- geese_data[[4]]
+  
+  
+  
+  # Load the data into simmr
+  geese_simmr <- simmr_load(
+    mixtures = as.matrix(targets[, 1:2]),
+    source_names = sources$Sources,
+    source_means = as.matrix(sources[, 2:3]),
+    source_sds = as.matrix(sources[, 4:5]),
+    correction_means = as.matrix(TEFs[, 2:3]),
+    correction_sds = as.matrix(TEFs[, 4:5]),
+    concentration_means = as.matrix(concdep[, 2:3]),
+    group = as.factor(paste("Day", targets$Time))
+  )
+  
+  # Run through simmr
+  co(geese_simmr_out_ffvb <- simmr_ffvb(geese_simmr))
+  
+  # Combine sources
+  simmr_out_4_combine_ffvb <- combine_sources(geese_simmr_out_ffvb,
+                                              to_combine = c(
+                                                "U.lactuca",
+                                                "Enteromorpha"
+                                              ),
+                                              new_source_name = "U.lac and Ent"
+  )
+  
+  expect_s3_class(simmr_out_4_combine_ffvb, "simmr_output")
+  expect_s3_class(simmr_out_4_combine_ffvb$input, "simmr_input")
+  expect_true(length(simmr_out_4_combine_ffvb$input$source_names) == 3)
+  expect_true(nrow(simmr_out_4_combine_ffvb$input$correction_means) == 3)
+  expect_true(nrow(simmr_out_4_combine_ffvb$input$source_sds) == 3)
+  expect_true(simmr_out_4_combine_ffvb$input$n_sources == 3)
+  expect_true(simmr_out_4_combine_ffvb$input$n_groups == 8)
+  
+  # Check that it still works when you reverse the sources (previously crashed)
+  simmr_out_5_combine_ffvb <- combine_sources(simmr_out_4_combine_ffvb,
+                                              to_combine = c("Grass", "Zostera"),
+                                              new_source_name = "Z and G"
+  )
+  expect_s3_class(simmr_out_5_combine_ffvb, "simmr_output")
+})
+
