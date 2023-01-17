@@ -150,6 +150,7 @@ test_that("Compare sources", {
   expect_false(cs9[[1]][1] == cs10[[1]][1])
 })
 
+#FFVB
 test_that("Compare sources", {
   
   # 2 isotopes, 1 group, all sources
@@ -158,7 +159,7 @@ test_that("Compare sources", {
   expect_true(is.matrix(cs1$out_all))
   expect_true(is.character(cs1$Ordering))
   p <- cs1$plot + ylim(-1, 1)
-  expect_doppelganger("iso2_1_group_changed_ylim", p)
+  expect_doppelganger("iso2_1_group_changed_ylim_ffvb", p)
   
   # 2 isotopes, 1 group, two sources - change options
   co(cs2 <- compare_sources(simmr_1_out_ffvb, source_names = simmr_1_out_ffvb$input$source_names[1:2], plot = FALSE))
@@ -174,7 +175,7 @@ test_that("Compare sources", {
   co(cs4 <- compare_sources(simmr_2_out_ffvb, group = 2))
   expect_false(cs3$out_all[1, 1] == cs4$out_all[1, 1])
   p <- cs3$plot + ylim(-1, 1)
-  expect_doppelganger("iso2_multi_group_changed_ylim", p)
+  expect_doppelganger("iso2_multi_group_changed_ylim_ffvb", p)
   
   # 2 isotopes, multiple groups, 2 sources
   co(cs5 <- compare_sources(simmr_2_out_ffvb,
@@ -197,7 +198,7 @@ test_that("Compare sources", {
   co(cs8 <- compare_sources(simmr_3_out_ffvb, group = 2))
   expect_false(cs7$out_all[1, 1] == cs8$out_all[1, 1])
   p <- cs7$plot + ylim(-1, 1)
-  expect_doppelganger("iso2_multi_group_source_changed_ylim", p)
+  expect_doppelganger("iso2_multi_group_source_changed_ylim_ffvb", p)
   
   # 1 isotopes, multiple groups, 2 sources
   co(cs9 <- compare_sources(simmr_3_out_ffvb,
@@ -295,7 +296,7 @@ test_that("Compare groups", {
   co(cg2 <- compare_groups(simmr_2_out_ffvb, groups = 2:4))
   expect_false(cg1$out_all[1, 1] == cg2$out_all[1, 1])
   p <- cg1$plot + ylim(-1, 1)
-  expect_doppelganger("compare_groups_1", p)
+  expect_doppelganger("compare_groups_1_ffvb", p)
   
   # 2 isotopes, 2 groups
   co(cg3 <- compare_groups(simmr_2_out_ffvb,
@@ -320,7 +321,7 @@ test_that("Compare groups", {
   co(cg6 <- compare_groups(simmr_3_out, groups = 2:simmr_3_out$input$n_groups))
   expect_false(cg5$out_all[1, 1] == cg6$out_all[1, 1])
   p <- cg5$plot + ylim(-1, 1)
-  expect_doppelganger("iso1_multi_group", p)
+  expect_doppelganger("iso1_multi_group_ffvb", p)
   
   # 1 isotopes, 2 groups
   co(cg7 <- compare_groups(simmr_3_out_ffvb,
