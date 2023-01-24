@@ -301,8 +301,6 @@ simmr_mcmc.simmr_input <- function(simmr_in,
                                      thin = 10,
                                      n.chain = 4
                                    )) {
-
-
   # Throw warning if n.chain =1
   if (mcmc_control$n.chain == 1) warning("Running only 1 MCMC chain will cause an error in the convergence diagnostics")
 

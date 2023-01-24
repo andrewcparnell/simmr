@@ -14,7 +14,7 @@ simmr_ffvb(
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
 \item{ffvb_control}{A list of values including arguments named \code{n_output}
-(number of rows in theta output), \code{mu_0} (prior for mu), 
+(number of rows in theta output), \code{mu_0} (prior for mu),
 and \code{sigma_0} (prior for sigma).}
 }
 \value{
@@ -28,8 +28,8 @@ functions.}
 \description{
 This is the main function of simmr. It takes a \code{simmr_input} object
 created via \code{\link{simmr_load}}, runs it in fixed form
-Variational Bayes to determine the dietary proportions, and then 
-outputs a \code{simmr_output} object for further analysis and plotting 
+Variational Bayes to determine the dietary proportions, and then
+outputs a \code{simmr_output} object for further analysis and plotting
 via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 }
 \examples{
@@ -38,6 +38,16 @@ via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
+#  geese_data_day1,
+#  simmr_load(
+#    mixtures = mixtures,
+#    source_names = source_names,
+#    source_means = source_means,
+#    source_sds = source_sds,
+#    correction_means = correction_means,
+#    correction_sds = correction_sds,
+#    concentration_means = concentration_means
+#  )
 
 # Plot
 plot(simmr_1)
@@ -72,6 +82,16 @@ compare_sources(simmr_1_out)
 
 # A version with just one observation
 data(geese_data_day1)
+#  geese_data_day1,
+#  simmr_load(
+#    mixtures = mixtures[1, , drop = FALSE],
+#    source_names = source_names,
+#    source_means = source_means,
+#    source_sds = source_sds,
+#    correction_means = correction_means,
+#    correction_sds = correction_sds,
+#    concentration_means = concentration_means
+#  )
 
 # Plot
 plot(simmr_2)
@@ -97,6 +117,16 @@ plot(simmr_2_out, type = "matrix")
 
 # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
 data(simmr_data_2)
+#  simmr_data_2,
+#  simmr_load(
+#    mixtures = mixtures,
+#    source_names = source_names,
+#    source_means = source_means,
+#    source_sds = source_sds,
+#    correction_means = correction_means,
+#    correction_sds = correction_sds,
+#    concentration_means = concentration_means
+#  )
 
 # Get summary
 print(simmr_3)
@@ -132,6 +162,13 @@ plot(simmr_3_out, type = "matrix")
 
 # The data
 data(square_data)
+#  square_data,
+#  simmr_load(
+#    mixtures = mixtures,
+#    source_names = source_names,
+#    source_means = source_means,
+#    source_sds = source_sds
+#  )
 
 # Get summary
 print(simmr_4)
@@ -162,6 +199,17 @@ plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
 
 # Do this in raw data format - Note that there's quite a few mixtures!
 data(geese_data)
+#  geese_data,
+#  simmr_load(
+#    mixtures = mixtures,
+#    source_names = source_names,
+#    source_means = source_means,
+#    source_sds = source_sds,
+#    correction_means = correction_means,
+#    correction_sds = correction_sds,
+#    concentration_means = concentration_means,
+#    group = groups
+#  )
 
 # Plot
 plot(simmr_5,

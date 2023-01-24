@@ -18,6 +18,6 @@ Returns a neat summary of the object
 Print a simmr output object
 }
 \seealso{
-\code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for creating 
+\code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for creating
 \code{simmr_output} objects
 }

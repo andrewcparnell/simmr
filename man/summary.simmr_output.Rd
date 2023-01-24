@@ -33,11 +33,11 @@ as in the example below.
 }
 \description{
 Produces textual summaries and convergence diagnostics for an object created
-with \code{\link{simmr_mcmc}} or \code{\link{simmr_mcmc}}. The different 
-options are: 'diagnostics' which produces Brooks-Gelman-Rubin diagnostics 
-to assess MCMC convergence, 'quantiles' which produces credible intervals 
-for the parameters, 'statistics' which produces means and standard 
-deviations, and 'correlations' which produces correlations between the 
+with \code{\link{simmr_mcmc}} or \code{\link{simmr_mcmc}}. The different
+options are: 'diagnostics' which produces Brooks-Gelman-Rubin diagnostics
+to assess MCMC convergence, 'quantiles' which produces credible intervals
+for the parameters, 'statistics' which produces means and standard
+deviations, and 'correlations' which produces correlations between the
 parameters.
 }
 \details{
@@ -86,10 +86,10 @@ ans <- summary(simmr_1_out,
 }
 }
 \seealso{
-See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}}for 
-creating objects suitable for this function, and many more examples. 
-See also \code{\link{simmr_load}} for creating simmr objects, 
-\code{\link{plot.simmr_input}} for creating isospace plots, 
+See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}}for
+creating objects suitable for this function, and many more examples.
+See also \code{\link{simmr_load}} for creating simmr objects,
+\code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{plot.simmr_output}} for plotting output.
 }
 \author{

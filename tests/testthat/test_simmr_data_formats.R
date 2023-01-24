@@ -32,7 +32,7 @@ test_that("matrices", {
 
 test_that("data frames", {
   data("geese_data_day1")
-  
+
   # Load in with simmr_load
   simmr_1 <- with(
     geese_data_day1,
@@ -57,7 +57,7 @@ test_that("data frames", {
 
 test_that("tibbles", {
   data("geese_data_day1")
-  
+
   # Load in with simmr_load
   simmr_1 <- with(
     geese_data_day1,

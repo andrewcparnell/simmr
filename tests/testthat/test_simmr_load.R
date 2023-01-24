@@ -81,7 +81,7 @@ test_that("test without tefs and concentration", {
   data("geese_data_day1")
   geese_data_day1_tmp <- geese_data_day1
   geese_data_day1_tmp$mixtures <- matrix(as.character(geese_data_day1$mixtures), nrow = 9, ncol = 2)
-  
+
   # Load in with simmr_load
   expect_error(with(
     geese_data_day1_tmp,
@@ -96,25 +96,23 @@ test_that("test without tefs and concentration", {
 
 test_that("test it works from excel", {
   library(readxl)
-  path = system.file("extdata", "geese_data.xls", package = "simmr")
-  geese_data = lapply(excel_sheets(path), read_excel, path = path)
-  
-  targets = geese_data[[1]]
-  sources = geese_data[[2]]
-  TEFs = geese_data[[3]]
-  concdep = geese_data[[4]]
-  
-  geese_simmr = simmr_load(mixtures = targets[, 1:2],
-                           source_names = sources$Sources,
-                           source_means = sources[,2:3],
-                           source_sds = sources[,4:5],
-                           correction_means = TEFs[,2:3],
-                           correction_sds = TEFs[,4:5],
-                           concentration_means = concdep[,2:3],
-                           group = as.factor(paste('Day', targets$Time)))
+  path <- system.file("extdata", "geese_data.xls", package = "simmr")
+  geese_data <- lapply(excel_sheets(path), read_excel, path = path)
+
+  targets <- geese_data[[1]]
+  sources <- geese_data[[2]]
+  TEFs <- geese_data[[3]]
+  concdep <- geese_data[[4]]
+
+  geese_simmr <- simmr_load(
+    mixtures = targets[, 1:2],
+    source_names = sources$Sources,
+    source_means = sources[, 2:3],
+    source_sds = sources[, 4:5],
+    correction_means = TEFs[, 2:3],
+    correction_sds = TEFs[, 4:5],
+    concentration_means = concdep[, 2:3],
+    group = as.factor(paste("Day", targets$Time))
+  )
   expect_s3_class(simmr_mcmc(geese_simmr), "simmr_output")
-  
-  
 })
-
-

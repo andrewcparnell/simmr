@@ -9,9 +9,9 @@
 #' Combining them can reduce this correlation and improve precision of the
 #' estimates. In case (2) we might wish to determine the joint amount eaten of
 #' the two sources when combined. This function thus combines two sources after
-#' a run of \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}} (known as 
-#' a posteriori combination). The new object can then be called with 
-#' \code{\link{plot.simmr_input}} or \code{\link{plot.simmr_output}} to 
+#' a run of \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}} (known as
+#' a posteriori combination). The new object can then be called with
+#' \code{\link{plot.simmr_input}} or \code{\link{plot.simmr_output}} to
 #' produce iso-space plots of summaries of the output after combination.
 #'
 #' @param simmr_out An object of class \code{simmr_output} created from
@@ -21,7 +21,7 @@
 #' @param new_source_name A name to give to the new combined source.
 #' @return A new \code{simmr_output} object
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
-#' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and 
+#' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and
 #' the associated vignette for examples.
 #' @examples
 #' \dontrun{
@@ -86,7 +86,6 @@ combine_sources <- function(simmr_out,
 combine_sources.simmr_output <- function(simmr_out,
                                          to_combine = simmr_out$input$source_names[1:2],
                                          new_source_name = "combined_source") {
-
   # Check that to_combine is in the list of sources
   assert_true(all(to_combine %in% simmr_out$input$source_names))
 
@@ -172,12 +171,12 @@ combine_sources.simmr_output <- function(simmr_out,
     colnames(new_sims.list$p)[to_combine_cols[1]] <- new_source_name
     simmr_new_out$output[[j]]$BUGSoutput$sims.list <- new_sims.list
   }
-  a<-c("ffvb", "mcmc")
-  if(inherits(simmr_out, "ffvb") == TRUE){
-    i = 1
-    }else if(inherits(simmr_out, "mcmc") == TRUE){
-    i = 2
-    }
+  a <- c("ffvb", "mcmc")
+  if (inherits(simmr_out, "ffvb") == TRUE) {
+    i <- 1
+  } else if (inherits(simmr_out, "mcmc") == TRUE) {
+    i <- 2
+  }
   class(simmr_new_out) <- c("simmr_output", a[i])
   return(simmr_new_out)
 }

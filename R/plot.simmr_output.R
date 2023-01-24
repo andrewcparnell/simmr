@@ -110,11 +110,11 @@ if(inherits(x, "simmr_output") == TRUE){
       colnames(df) <- c("Num", "Source", "Proportion")
       if ("histogram" %in% type) {
         g <- ggplot(df, aes_string(
-          x = "Proportion", y = "..density..",
+          x = "Proportion",
           fill = "Source"
         )) +
           scale_fill_viridis(discrete = TRUE) +
-          geom_histogram(binwidth = binwidth, alpha = alpha) +
+          geom_histogram(aes(y = after_stat(density)), binwidth = binwidth, alpha = alpha) +
           theme_bw() +
           ggtitle(title[i]) +
           facet_wrap("~ Source") +
@@ -124,12 +124,13 @@ if(inherits(x, "simmr_output") == TRUE){
       }
 
       if ("density" %in% type) {
+      
         g <- ggplot(df, aes_string(
-          x = "Proportion", y = "..density..",
+          x = "Proportion",
           fill = "Source"
         )) +
           scale_fill_viridis(discrete = TRUE) +
-          geom_density(alpha = alpha, linetype = 0) +
+          geom_density(aes(y = after_stat(density)), alpha = alpha, linetype = 0) +
           theme_bw() +
           theme(legend.position = "none") +
           ggtitle(title[i]) +
@@ -160,30 +161,48 @@ if(inherits(x, "simmr_output") == TRUE){
 
       if ("matrix" %in% type) {
         # These taken from the help(pairs) file
-        panel.hist <- function(x, ...) {
+        # panel.hist <- function(x, ...) {
+        #   usr <- graphics::par("usr")
+        #   on.exit(graphics::par(usr))
+        #   graphics::par(usr = c(usr[1:2], 0, 1.5))
+        #   h <- graphics::hist(x, plot = FALSE)
+        #   breaks <- h$breaks
+        #   nB <- length(breaks)
+        #   y <- h$counts
+        #   y <- y / max(y)
+        #   graphics::rect(breaks[-nB], 0, breaks[-1], y, col = "lightblue", ...)
+        # }
+        panel.hist <- function(x, ...)
+        {
           usr <- graphics::par("usr")
-          on.exit(graphics::par(usr))
-          graphics::par(usr = c(usr[1:2], 0, 1.5))
-          h <- graphics::hist(x, plot = FALSE)
-          breaks <- h$breaks
-          nB <- length(breaks)
-          y <- h$counts
-          y <- y / max(y)
-          graphics::rect(breaks[-nB], 0, breaks[-1], y, col = "lightblue", ...)
+          graphics::par(usr = c(usr[1:2], 0, 1.5) )
+          h <- hist(x, plot = FALSE)
+          breaks <- h$breaks; nB <- length(breaks)
+          y <- h$counts; y <- y/max(y)
+          rect(breaks[-nB], 0, breaks[-1], y, col = "lightblue", ...)
         }
-        panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
-          usr <- graphics::par("usr")
-          on.exit(graphics::par(usr))
-          graphics::par(usr = c(0, 1, 0, 1))
-          r <- stats::cor(x, y)
+        # panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...) {
+        #   usr <- graphics::par("usr")
+        #   on.exit(graphics::par(usr))
+        #   graphics::par(usr = c(0, 1, 0, 1))
+        #   r <- stats::cor(x, y)
+        #   txt <- format(c(r, 0.123456789), digits = digits)[1]
+        #   txt <- paste0(prefix, txt)
+        #   if (missing(cex.cor)) cex.cor <- 0.8 / graphics::strwidth(txt)
+        #   graphics::text(0.5, 0.5, txt, cex = cex.cor * abs(r))
+        # }
+        panel.cor <- function(x, y, digits = 2, prefix = "", cex.cor, ...)
+        {
+          par(usr = c(0, 1, 0, 1))
+          r <- abs(cor(x, y))
           txt <- format(c(r, 0.123456789), digits = digits)[1]
           txt <- paste0(prefix, txt)
-          if (missing(cex.cor)) cex.cor <- 0.8 / graphics::strwidth(txt)
-          graphics::text(0.5, 0.5, txt, cex = cex.cor * abs(r))
+          if(missing(cex.cor)) cex.cor <- 0.8/strwidth(txt)
+          text(0.5, 0.5, txt, cex = cex.cor * r)
         }
         panel.contour <- function(x, y, ...) {
           usr <- graphics::par("usr")
-          on.exit(graphics::par(usr))
+          #on.exit(graphics::par(usr))
           graphics::par(usr = c(usr[1:2], 0, 1.5))
           kd <- MASS::kde2d(x, y)
           kdmax <- max(kd$z)

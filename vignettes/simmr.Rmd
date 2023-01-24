@@ -539,13 +539,14 @@ plot(simmr_tdf)
 
 We now run the model with some known dietary proportions. These dietary proportions should be given _for each individual_ in a matrix, even if they are the same for each individual. This example uses the same dietary proportions:
 ```{r}
-p_known <- matrix(rep(
-  1 / simmr_tdf$n_sources,
-  simmr_tdf$n_sources
-),
-ncol = simmr_tdf$n_sources,
-nrow = simmr_tdf$n_obs,
-byrow = TRUE
+p_known <- matrix(
+  rep(
+    1 / simmr_tdf$n_sources,
+    simmr_tdf$n_sources
+  ),
+  ncol = simmr_tdf$n_sources,
+  nrow = simmr_tdf$n_obs,
+  byrow = TRUE
 )
 ```
 

@@ -24,12 +24,13 @@ simmr_tdf <- simmr_load(
 
 # MCMC run
 co(simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-  p = matrix(rep(
-    1 / simmr_tdf$n_sources,
-    simmr_tdf$n_sources
-  ),
-  ncol = simmr_tdf$n_sources,
-  nrow = simmr_tdf$n_obs, byrow = TRUE
+  p = matrix(
+    rep(
+      1 / simmr_tdf$n_sources,
+      simmr_tdf$n_sources
+    ),
+    ncol = simmr_tdf$n_sources,
+    nrow = simmr_tdf$n_obs, byrow = TRUE
   ),
   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
 ))
@@ -54,12 +55,13 @@ test_that("main tdf function works", {
 
 test_that("Warnings in simmr tdf work", {
   expect_warning(co(simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-    p = matrix(rep(
-      1 / simmr_tdf$n_sources,
-      simmr_tdf$n_sources
-    ),
-    ncol = simmr_tdf$n_sources,
-    nrow = simmr_tdf$n_obs, byrow = TRUE
+    p = matrix(
+      rep(
+        1 / simmr_tdf$n_sources,
+        simmr_tdf$n_sources
+      ),
+      ncol = simmr_tdf$n_sources,
+      nrow = simmr_tdf$n_obs, byrow = TRUE
     ),
     mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 1)
   )))

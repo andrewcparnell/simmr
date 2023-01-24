@@ -17,7 +17,6 @@ conc <- matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol = 2, nrow =
 
 # Taken from the simmr_mcmc example
 test_that("simmr_mcmc_simplest", {
-
   # Load into simmr
   simmr_1 <- simmr_load(
     mixtures = mix,

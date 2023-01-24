@@ -28,7 +28,7 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
 ))
 
 # FFVB run
-co(simmr_1_out_ffvb <-simmr_ffvb(simmr_1))
+co(simmr_1_out_ffvb <- simmr_ffvb(simmr_1))
 
 # Taken from the simmr_mcmc example
 test_that("print.simmr_input", {

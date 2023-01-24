@@ -90,7 +90,6 @@ compare_groups.simmr_output <- function(simmr_out,
                                         source_name = simmr_out$input$source_names[1],
                                         groups = 1:2,
                                         plot = TRUE) {
-
   # Function to compare between groups both via textual output and with boxplots
   # Things to supply are:
   # If two groups are given:

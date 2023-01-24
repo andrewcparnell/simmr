@@ -117,7 +117,6 @@ plot.simmr_input <-
            ggargs = NULL,
            colour = TRUE,
            ...) {
-
     # Get mixtures to match current group(s)
     curr_rows <- which(x$group_int %in% group)
     curr_mix <- x$mixtures[curr_rows, , drop = FALSE]

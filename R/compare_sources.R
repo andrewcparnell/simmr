@@ -91,7 +91,6 @@ compare_sources.simmr_output <- function(simmr_out,
                                          source_names = simmr_out$input$source_names,
                                          group = 1,
                                          plot = TRUE) {
-
   # Function to compare between sources within a group both via textual output and with boxplots
   # Things to ly are:
   # If two sources are given:

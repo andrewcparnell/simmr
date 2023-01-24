@@ -17,7 +17,6 @@ conc <- matrix(c(0.02, 0.1, 0.12, 0.04, 0.02, 0.1, 0.09, 0.05), ncol = 2, nrow =
 
 # Taken from the simmr_mcmc example
 test_that("simmr_ffvb_simplest", {
-  
   # Load into simmr
   simmr_1 <- simmr_load(
     mixtures = mix,
@@ -30,7 +29,7 @@ test_that("simmr_ffvb_simplest", {
   )
   # MCMC run
   co(simmr_1_out <- simmr_ffvb(simmr_1))
-  
+
   expect_s3_class(simmr_1_out, "simmr_output")
 })
 
@@ -46,10 +45,9 @@ test_that("simmr_ffvb_1obs", {
     correction_sds = c_sds,
     concentration_means = conc
   )
-  
-  
+
+
   # MCMC run - automatically detects the single observation
   co(simmr_2_out <- simmr_ffvb(simmr_2))
   expect_s3_class(simmr_2_out, "simmr_output")
 })
-

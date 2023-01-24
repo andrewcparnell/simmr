@@ -2,62 +2,62 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 dmvnrm_arma_fast <- function(x, mean, sigma, logd = TRUE) {
-    .Call('_simmr_dmvnrm_arma_fast', PACKAGE = 'simmr', x, mean, sigma, logd)
+    .Call(`_simmr_dmvnrm_arma_fast`, x, mean, sigma, logd)
 }
 
 crossprod <- function(X) {
-    .Call('_simmr_crossprod', PACKAGE = 'simmr', X)
+    .Call(`_simmr_crossprod`, X)
 }
 
 rMVNormCpp <- function(n, mu, U) {
-    .Call('_simmr_rMVNormCpp', PACKAGE = 'simmr', n, mu, U)
+    .Call(`_simmr_rMVNormCpp`, n, mu, U)
 }
 
 solvearma <- function(X) {
-    .Call('_simmr_solvearma', PACKAGE = 'simmr', X)
+    .Call(`_simmr_solvearma`, X)
 }
 
 sim_thetacpp <- function(S, lambda, n_sources, n_tracers) {
-    .Call('_simmr_sim_thetacpp', PACKAGE = 'simmr', S, lambda, n_sources, n_tracers)
+    .Call(`_simmr_sim_thetacpp`, S, lambda, n_sources, n_tracers)
 }
 
 hfn <- function(theta, n_sources) {
-    .Call('_simmr_hfn', PACKAGE = 'simmr', theta, n_sources)
+    .Call(`_simmr_hfn`, theta, n_sources)
 }
 
 hcpp <- function(n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y) {
-    .Call('_simmr_hcpp', PACKAGE = 'simmr', n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y)
+    .Call(`_simmr_hcpp`, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y)
 }
 
 log_q_cpp <- function(theta, lambda, n_sources, n_tracers) {
-    .Call('_simmr_log_q_cpp', PACKAGE = 'simmr', theta, lambda, n_sources, n_tracers)
+    .Call(`_simmr_log_q_cpp`, theta, lambda, n_sources, n_tracers)
 }
 
 delta_lqltcpp <- function(lambda, theta, eps, n_sources, n_tracers) {
-    .Call('_simmr_delta_lqltcpp', PACKAGE = 'simmr', lambda, theta, eps, n_sources, n_tracers)
+    .Call(`_simmr_delta_lqltcpp`, lambda, theta, eps, n_sources, n_tracers)
 }
 
 h_lambdacpp <- function(n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda) {
-    .Call('_simmr_h_lambdacpp', PACKAGE = 'simmr', n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda)
+    .Call(`_simmr_h_lambdacpp`, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda)
 }
 
 cov_mat_cpp <- function(x, y) {
-    .Call('_simmr_cov_mat_cpp', PACKAGE = 'simmr', x, y)
+    .Call(`_simmr_cov_mat_cpp`, x, y)
 }
 
 nabla_LB_cpp <- function(lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c) {
-    .Call('_simmr_nabla_LB_cpp', PACKAGE = 'simmr', lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c)
+    .Call(`_simmr_nabla_LB_cpp`, lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c)
 }
 
 control_var_cpp <- function(lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
-    .Call('_simmr_control_var_cpp', PACKAGE = 'simmr', lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
+    .Call(`_simmr_control_var_cpp`, lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 
 LB_lambda_cpp <- function(theta, lambda, p, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
-    .Call('_simmr_LB_lambda_cpp', PACKAGE = 'simmr', theta, lambda, p, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
+    .Call(`_simmr_LB_lambda_cpp`, theta, lambda, p, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 
 run_VB_cpp <- function(lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
-    .Call('_simmr_run_VB_cpp', PACKAGE = 'simmr', lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
+    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 

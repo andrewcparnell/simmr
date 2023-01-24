@@ -92,13 +92,14 @@ plot(simmr_tdf)
 
 # MCMC run
 simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-  p = matrix(rep(
-    1 / simmr_tdf$n_sources,
-    simmr_tdf$n_sources
-  ),
-  ncol = simmr_tdf$n_sources,
-  nrow = simmr_tdf$n_obs,
-  byrow = TRUE
+  p = matrix(
+    rep(
+      1 / simmr_tdf$n_sources,
+      simmr_tdf$n_sources
+    ),
+    ncol = simmr_tdf$n_sources,
+    nrow = simmr_tdf$n_obs,
+    byrow = TRUE
   )
 )
 
