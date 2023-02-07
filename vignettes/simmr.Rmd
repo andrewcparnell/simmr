@@ -27,7 +27,7 @@ tl;dr see the [Quick Start](https://cran.r-project.org/package=simmr/vignettes/q
 
 We assume that you have a sound working knowledge of stable isotopic mixing models, and the assumptions and potential pitfalls associated with these models. A list of required reading is presented in Appendix A of this guide. We strongly recommend reading Philips et al 2015, Canadian Journal of Zoology for the basic assumptions and dos and don'ts of running mixing models.
 
-We assume that if you have got this far you have [installed R](https://www.r-project.org). We also recommend installing [Rstudio](https://rstudio.com) as this provides a very neat interface to use R and `simmr`. The instructions below all assume you are using Rstudio.
+We assume that if you have got this far you have [installed R](https://www.r-project.org). We also recommend installing [Rstudio](https://posit.co) as this provides a very neat interface to use R and `simmr`. The instructions below all assume you are using Rstudio.
 
 If you find bugs in the software, or wish to suggest new features, please add your input to the `simmr` [GitHub issues page](https://github.com/andrewcparnell/simmr/issues).
 
@@ -74,7 +74,7 @@ The general structure for running `simmr` is as follows:
 
 1. Call `simmr_load` on the data to get it into the right format
 2. Plot the data in isotope space ('iso-space') using `plot`
-3. Run the mixing model with `simmr_mcmc`
+3. Run the mixing model with `simmr_mcmc` or `simmr_ffvb`
 4. Check the model converged with `summary`
 5. Check the model fit is calibrated with `posterior_predictive`
 6. Explore the results with `plot` and `summary`, and `prior_viz`. If you have multiple groups and want to compare output between them, use the `compare_groups' function
@@ -155,13 +155,21 @@ If all the mixtures lie inside the mixing polygon defined by the sources, then t
 
 ### Step 3: Running simmr
 
-The next step is to actually run the model. This is achieved with the command:
+The next step is to actually run the model. There are two options to choose from here. The code to run the model using a Markov chain Monte Carlo (MCMC) algorithm is as follows:
 
 ```{r,results = 'hide'}
 simmr_out <- simmr_mcmc(simmr_in)
 ```
 
 This command takes the object `simmr_in` we created earlier and uses it as input for the model. It tells `simmr` to store the output from the model run in an object called `simmr_out`.
+
+Alternatively, it can be run using a Fixed Form Variational Bayes (FFVB) algorithm, as follows:
+
+```{r,results = 'hide'}
+simmr_out <- simmr_ffvb(simmr_in)
+```
+
+#############EDIT HERE DOWN
 
 The model should take less than a minute to run, though this will depend on the speed of the computer you are using. Other data sets might take slightly longer or shorter depending on the number of sources, isotopes, and observations. The progress of the model is displayed on the command line window, which shows the percentage complete. 
 
