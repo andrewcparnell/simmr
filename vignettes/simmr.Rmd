@@ -166,7 +166,7 @@ This command takes the object `simmr_in` we created earlier and uses it as input
 Alternatively, it can be run using a Fixed Form Variational Bayes (FFVB) algorithm, as follows:
 
 ```{r,results = 'hide'}
-simmr_out <- simmr_ffvb(simmr_in)
+simmr_out_ffvb <- simmr_ffvb(simmr_in)
 ```
 
 
@@ -310,9 +310,9 @@ The command for running the `simmr` model is identical to before:
 simmr_groups_out <- simmr_mcmc(simmr_groups)
 ```
 or
-```{r,results = 'hide'}
-simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
-```
+ ```{r,results = 'hide'}
+ simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
+ ```
 `simmr` will automatically run the model for each group in turn. This may take slightly longer than a standard single group run.
 
 The `summary` command works the same as before. By default they will produce output for all groups, or you can specify the groups individually, e.g.:
@@ -459,9 +459,9 @@ Now run simmr:
 simmr_run_1D <- simmr_mcmc(simmr_in_1D)
 ```
 or
-```{r}
-simmr_run_1D_ffvb <- simmr_ffvb(simmr_in_1D)
-```
+ ```{r}
+ simmr_run_1D_ffvb <- simmr_ffvb(simmr_in_1D)
+ ```
 Plot output
 
 ```{r}
