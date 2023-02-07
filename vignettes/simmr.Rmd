@@ -169,7 +169,7 @@ Alternatively, it can be run using a Fixed Form Variational Bayes (FFVB) algorit
 simmr_out <- simmr_ffvb(simmr_in)
 ```
 
-#############EDIT HERE DOWN
+
 
 The model should take less than a minute to run, though this will depend on the speed of the computer you are using. Other data sets might take slightly longer or shorter depending on the number of sources, isotopes, and observations. The progress of the model is displayed on the command line window, which shows the percentage complete. 
 
@@ -182,6 +182,8 @@ summary(simmr_out, type = "diagnostics")
 ```
 
 If the model run has converged properly the values should be close to 1. If they are above 1.1, we recommend a longer run. See `help(simmr_mcmc)` for how to do this. 
+
+Fixed Form Variational Bayes (FFVB) is an optimisation based technique. It doesn't require this diagnostic function. 
 
 ### Step 5: Checking the model fit
 
@@ -196,7 +198,7 @@ The output includes a table showing which observations lie outside the posterior
 
 ### Step 6: Exploring the results
 
-All SIMMs use informative (usually generalist) prior distributions as a default. You can plot the priors and the posteriors with:
+All SIMMs use informative (usually generalist) prior distributions as a default. These functions work whether the model has been run through MCMC or FFVB.  You can plot the priors and the posteriors with:
 ```{r,results = 'hide', fig.align = 'center',fig.width = 7,fig.height = 5}
 prior_viz(simmr_out)
 ```
@@ -307,7 +309,10 @@ The command for running the `simmr` model is identical to before:
 ```{r,results = 'hide'}
 simmr_groups_out <- simmr_mcmc(simmr_groups)
 ```
-
+or
+```{r,results = 'hide'}
+simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
+```
 `simmr` will automatically run the model for each group in turn. This may take slightly longer than a standard single group run.
 
 The `summary` command works the same as before. By default they will produce output for all groups, or you can specify the groups individually, e.g.:
@@ -453,7 +458,10 @@ Now run simmr:
 ```{r}
 simmr_run_1D <- simmr_mcmc(simmr_in_1D)
 ```
-
+or
+```{r}
+simmr_run_1D_ffvb <- simmr_ffvb(simmr_in_1D)
+```
 Plot output
 
 ```{r}
