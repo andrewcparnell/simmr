@@ -9,9 +9,10 @@
 #'
 
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
+#' @param prior_control A list of values including arguments named \code{mu_0} 
+#' (prior for mu), and \code{sigma_0} (prior for sigma).
 #' @param ffvb_control A list of values including arguments named \code{n_output}
-#' (number of rows in theta output), \code{mu_0} (prior for mu),
-#' and \code{sigma_0} (prior for sigma).
+#' (number of rows in theta output)
 #' @return An object of class \code{simmr_output} with two named top-level
 #' components: \item{input }{The \code{simmr_input} object given to the
 #' \code{simmr_ffvb} function} \item{output }{A set of outputs produced by
@@ -257,10 +258,12 @@
 #'
 #' @export
 simmr_ffvb <- function(simmr_in,
-                       ffvb_control = list(
-                         n_output = 3600,
-                         mu_0 = 0,
+                       prior_control = list(
+                         mu_0 = rep(0, simmr_in$n_sources),
                          sigma_0 = 1
+                       ),
+                       ffvb_control = list(
+                         n_output = 3600
                        )) {
   #### make sure this has right file name
   #Rcpp::sourceCpp("src/run_VB.cpp")
@@ -274,8 +277,8 @@ simmr_ffvb <- function(simmr_in,
   K <- simmr_in$n_sources
   n_tracers <- simmr_in$n_tracers
   n_output <- ffvb_control$n_output
-  mu_a <- ffvb_control$mu_0
-  sigma_a <- ffvb_control$sigma_0
+  mu_a <- prior_control$mu_0
+  sigma_a <- prior_control$sigma_0
 
   lambdares <- matrix(rep(NA, (((K + (K * (K + 1)) / 2)) + n_tracers * 2) * simmr_in$n_groups),
     nrow = (((K + (K * (K + 1)) / 2)) + n_tracers * 2),
@@ -324,7 +327,7 @@ simmr_ffvb <- function(simmr_in,
 
 
 
-    lambdastart <- c(rep(mu_a, K), rep(sigma_a, (((K * (K + 1)) / 2) + n_tracers * 2)))
+    lambdastart <- c(mu_a, rep(sigma_a, (((K * (K + 1)) / 2) + n_tracers * 2)))
 
     lambdares[, i] <- run_VB_cpp(
       lambdastart, K, n_tracers, concentration_means,
@@ -358,7 +361,7 @@ simmr_ffvb <- function(simmr_in,
         )
       ),
       model = list(data = list(
-        mu_f_mean = c(rep(mu_a, K)),
+        mu_f_mean = c(mu_a),
         sigma_f_sd = c(rep(sigma_a, K))
       ))
     )
