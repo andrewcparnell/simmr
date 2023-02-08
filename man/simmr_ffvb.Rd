@@ -7,15 +7,18 @@ Vayes(FFVB) function}
 \usage{
 simmr_ffvb(
   simmr_in,
-  ffvb_control = list(n_output = 3600, mu_0 = 0, sigma_0 = 1)
+  prior_control = list(mu_0 = rep(0, simmr_in$n_sources), sigma_0 = 1),
+  ffvb_control = list(n_output = 3600)
 )
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
+\item{prior_control}{A list of values including arguments named \code{mu_0} 
+(prior for mu), and \code{sigma_0} (prior for sigma).}
+
 \item{ffvb_control}{A list of values including arguments named \code{n_output}
-(number of rows in theta output), \code{mu_0} (prior for mu),
-and \code{sigma_0} (prior for sigma).}
+(number of rows in theta output)}
 }
 \value{
 An object of class \code{simmr_output} with two named top-level
