@@ -346,7 +346,8 @@ simmr_ffvb <- function(simmr_in,
     colnames(p) <- simmr_in$source_names
     #colnames(sigma) <- c(colnames(simmr_in$mixtures))
     
-    sims.mat<-matrix(cbind(p, sigma))
+    sims.mat<-(cbind(p, sigma))
+    
     colnames(sims.mat) = c(simmr_in$source_names, colnames(simmr_in$mixtures))
 
     mylist[[i]] <- list(
