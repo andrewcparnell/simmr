@@ -344,7 +344,7 @@ simmr_ffvb <- function(simmr_in,
     sigma <- data.frame(1 / sqrt(thetares[(1 + n_output * (i - 1)):(n_output * i), 
                                       (K + 1):(K + n_tracers)]), ncol = n_tracers)
     colnames(p) <- simmr_in$source_names
-    colnames(sigma) <- colnames(simmr_in$mixtures)
+    colnames(sigma) <- c(colnames(simmr_in$mixtures))
 
     mylist[[i]] <- list(
       source_names = simmr_in$source_names,
