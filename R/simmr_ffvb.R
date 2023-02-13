@@ -341,14 +341,18 @@ simmr_ffvb <- function(simmr_in,
 
 
     p <- t(apply(thetares[(1 + n_output * (i - 1)):(n_output * i), 1:K], 1, p_fun))
-    sigma <- data.frame(1 / sqrt(thetares[(1 + n_output * (i - 1)):(n_output * i), 
-                                      (K + 1):(K + n_tracers)]), ncol = n_tracers)
+    sigma <- (1 / sqrt(thetares[(1 + n_output * (i - 1)):(n_output * i), 
+                                      (K + 1):(K + n_tracers)]))
+    
     colnames(p) <- simmr_in$source_names
-    #colnames(sigma) <- c(colnames(simmr_in$mixtures))
     
-    sims.mat<-(cbind(p, sigma))
     
-    colnames(sims.mat) = c(simmr_in$source_names, colnames(simmr_in$mixtures))
+    sims.matrix = cbind(
+      p,
+      sigma
+    )
+    
+    colnames(sims.matrix) = c(simmr_in$source_names, colnames(simmr_in$mixtures))
 
     mylist[[i]] <- list(
       source_names = simmr_in$source_names,
@@ -360,7 +364,7 @@ simmr_ffvb <- function(simmr_in,
           p = p,
           sigma = sigma
         ),
-        sims.matrix = sims.mat
+        sims.matrix = sims.matrix
       ),
       model = list(data = list(
         mu_f_mean = c(mu_a),
