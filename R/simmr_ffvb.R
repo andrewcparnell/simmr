@@ -344,7 +344,10 @@ simmr_ffvb <- function(simmr_in,
     sigma <- data.frame(1 / sqrt(thetares[(1 + n_output * (i - 1)):(n_output * i), 
                                       (K + 1):(K + n_tracers)]), ncol = n_tracers)
     colnames(p) <- simmr_in$source_names
-    colnames(sigma) <- c(colnames(simmr_in$mixtures))
+    #colnames(sigma) <- c(colnames(simmr_in$mixtures))
+    
+    sims.mat<-matrix(cbind(p, sigma))
+    colnames(sims.mat) = c(simmr_in$source_names, colnames(simmr_in$mixtures))
 
     mylist[[i]] <- list(
       source_names = simmr_in$source_names,
@@ -356,10 +359,7 @@ simmr_ffvb <- function(simmr_in,
           p = p,
           sigma = sigma
         ),
-        sims.matrix = cbind(
-          p,
-          sigma
-        )
+        sims.matrix = sims.mat
       ),
       model = list(data = list(
         mu_f_mean = c(mu_a),

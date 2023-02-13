@@ -147,10 +147,8 @@ summary.simmr_output <-
         # Loop through groups
         for (i in 1:length(group)) {
           cat(paste("\nSummary for", group_names[group[i]], "\n"))
-          out_all <- cbind(
-            object$output[[group[i]]]$BUGSoutput$sims.list$p,
-            object$output[[group[i]]]$BUGSoutput$sims.list$sigma
-          )
+          out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
+          
 
 
           # Get objects
