@@ -152,6 +152,8 @@ combine_sources.simmr_output <- function(simmr_out,
   # 7 Change n_sources
   simmr_new_out$input$n_sources <- simmr_new_out$input$n_sources - 1
 
+  
+  if (inherits(simmr_out, "mcmc") == TRUE) {
   # 8 Sum across all the output values
   n_groups <- simmr_out$input$n_groups
   for (j in 1:n_groups) {
@@ -171,6 +173,32 @@ combine_sources.simmr_output <- function(simmr_out,
     colnames(new_sims.list$p)[to_combine_cols[1]] <- new_source_name
     simmr_new_out$output[[j]]$BUGSoutput$sims.list <- new_sims.list
   }
+  
+  }
+  if (inherits(simmr_out, "ffvb") == TRUE) {
+    # 8 Sum across all the output values
+    n_groups <- simmr_out$input$n_groups
+    for (j in 1:n_groups) {
+      simmr_new_out$output[[j]] <- simmr_out$output[[j]]
+      # Change sims.list and sims.matrix
+      # First sims.matrix
+      sims.matrix <- simmr_out$output[[j]]$BUGSoutput$sims.matrix
+      new_sims.matrix <- sims.matrix[, -(to_combine_cols[2])]
+      new_sims.matrix[, to_combine_cols[1]] <- sims.matrix[, to_combine_cols[1]] + sims.matrix[, to_combine_cols[2]]
+      colnames(new_sims.matrix)[to_combine_cols[1]] <- new_source_name
+      simmr_new_out$output[[j]]$BUGSoutput$sims.matrix <- new_sims.matrix
+      # Now sims.list
+      sims.list <- simmr_out$output[[j]]$BUGSoutput$sims.list
+      new_sims.list <- sims.list
+      new_sims.list$p <- sims.list$p[, -to_combine_cols[2]]
+      new_sims.list$p[, to_combine_cols[1]] <- sims.list$p[, to_combine_cols[2]] + sims.list$p[, to_combine_cols[1]]
+      colnames(new_sims.list$p)[to_combine_cols[1]] <- new_source_name
+      simmr_new_out$output[[j]]$BUGSoutput$sims.list <- new_sims.list
+    } 
+    
+  }
+  
+  
   a <- c("ffvb", "mcmc")
   if (inherits(simmr_out, "ffvb") == TRUE) {
     i <- 1
