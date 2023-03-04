@@ -20,7 +20,8 @@ Imports:
     viridis,
     bayesplot,
     checkmate,
-    Rcpp
+    Rcpp,
+    GGally
 Encoding: UTF-8
 License: GPL (>= 2)
 LazyData: TRUE
