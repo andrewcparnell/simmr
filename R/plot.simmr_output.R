@@ -164,7 +164,7 @@ if(inherits(x, "simmr_output") == TRUE){
 
       if ("matrix" %in% type) {
          modified_bar = function(data, mapping, ...) {
-          GGally::ggally_barDiag(data, mapping, ..., binwidth = 0.025)  + scale_x_continuous(limits = c(0, 1)) +theme_bw()
+          GGally::ggally_barDiag(data, mapping, ..., binwidth = 0.025)  + coord_cartesian(xlim = c(0,1)) +theme_bw()
         }
         modified_density = function(data, mapping, ...){
           ggplot(data = data, mapping = mapping, ...)+ stat_density_2d(geom = "polygon", contour = TRUE,

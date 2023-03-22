@@ -12,7 +12,9 @@
 #' @param prior_control A list of values including arguments named \code{mu_0} 
 #' (prior for mu), and \code{sigma_0} (prior for sigma).
 #' @param ffvb_control A list of values including arguments named \code{n_output}
-#' (number of rows in theta output)
+#' (number of rows in theta output), \code{S} (number of samples taken at each 
+#' iteration of the algorithm), \code{P} (patience parameter), \code{beta_1} 
+#' and \code{beta_2} (learning rates), \code{tau}, \code{eps_0}, \code{t_W}
 #' @return An object of class \code{simmr_output} with two named top-level
 #' components: \item{input }{The \code{simmr_input} object given to the
 #' \code{simmr_ffvb} function} \item{output }{A set of outputs produced by
