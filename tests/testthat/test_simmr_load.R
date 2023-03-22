@@ -1,6 +1,7 @@
 context("simmr_load")
 
 library(simmr)
+co <- function(expr) capture.output(expr, file = "NUL")
 
 test_that("simplest example", {
   data("geese_data_day1")
@@ -114,5 +115,13 @@ test_that("test it works from excel", {
     concentration_means = concdep[, 2:3],
     group = as.factor(paste("Day", targets$Time))
   )
-  expect_s3_class(simmr_mcmc(geese_simmr), "simmr_output")
+  co(simmr_out <- simmr_mcmc(geese_simmr,
+                             mcmc_control = list(
+                               iter = 100,
+                               burn = 10,
+                               thin = 1,
+                               n.chain = 2
+                             )
+  ))
+  expect_s3_class(simmr_out, "simmr_output")
 })
