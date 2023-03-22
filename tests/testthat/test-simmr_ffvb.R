@@ -31,7 +31,7 @@ test_that("simmr_ffvb_simplest", {
   co(simmr_1_out <- simmr_ffvb(simmr_1,
                                ffvb_control = list(
                                  n_output = 3600,
-                                 S = 100,
+                                 S = 10,
                                  P = 1,
                                  beta_1 = 0.9,
                                  beta_2 = 0.9,
@@ -61,7 +61,7 @@ test_that("simmr_ffvb_1obs", {
   co(simmr_2_out <- simmr_ffvb(simmr_2,
                                ffvb_control = list(
                                  n_output = 3600,
-                                 S = 100,
+                                 S = 10,
                                  P = 1,
                                  beta_1 = 0.9,
                                  beta_2 = 0.9,

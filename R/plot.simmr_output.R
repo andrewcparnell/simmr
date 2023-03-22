@@ -112,9 +112,9 @@ if(inherits(x, "simmr_output") == TRUE){
       df <- reshape2::melt(out_all)
       colnames(df) <- c("Num", "Source", "Proportion")
       if ("histogram" %in% type) {
-        g <- ggplot(df, aes_string(
-          x = "Proportion",
-          fill = "Source"
+        g <- ggplot(df, aes(
+          x = Proportion,
+          fill = Source
         )) +
           scale_fill_viridis(discrete = TRUE) +
           geom_histogram(aes(y = after_stat(density)), binwidth = binwidth, alpha = alpha) +
@@ -128,9 +128,9 @@ if(inherits(x, "simmr_output") == TRUE){
 
       if ("density" %in% type) {
       
-        g <- ggplot(df, aes_string(
-          x = "Proportion",
-          fill = "Source"
+        g <- ggplot(df, aes(
+          x = Proportion,
+          fill = Source
         )) +
           scale_fill_viridis(discrete = TRUE) +
           geom_density(aes(y = after_stat(density)), alpha = alpha, linetype = 0) +
@@ -144,9 +144,9 @@ if(inherits(x, "simmr_output") == TRUE){
       }
 
       if ("boxplot" %in% type) {
-        g <- ggplot(df, aes_string(
-          y = "Proportion", x = "Source",
-          fill = "Source", alpha = "alpha"
+        g <- ggplot(df, aes(
+          y = Proportion, x = Source,
+          fill = Source, alpha = alpha
         )) +
           scale_fill_viridis(discrete = TRUE) +
           geom_boxplot(alpha = alpha, notch = TRUE, outlier.size = 0) +
