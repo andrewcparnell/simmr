@@ -44,17 +44,18 @@
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' data(geese_data_day1)
- # simmr_1 <- with(  geese_data_day1,
- #  simmr_load(
- #    mixtures = mixtures,
- #    source_names = source_names,
- #    source_means = source_means,
- #    source_sds = source_sds,
- #    correction_means = correction_means,
- #    correction_sds = correction_sds,
- #    concentration_means = concentration_means
- #  ))
-# # 
+#' simmr_1 <- with(
+#'  geese_data_day1,
+#'  simmr_load(
+#'    mixtures = mixtures,
+#'    source_names = source_names,
+#'    source_means = source_means,
+#'    source_sds = source_sds,
+#'    correction_means = correction_means,
+#'    correction_sds = correction_sds,
+#'    concentration_means = concentration_means
+#'  )
+# )
 #'
 #' # Plot
 #' plot(simmr_1)

@@ -51,6 +51,9 @@ boxplot. There are some minor customisation options.
 The matrix plot should form a necessary part of any SIMM analysis since it
 allows the user to judge which sources are identifiable by the model.
 Further detail about these plots is provided in the vignette.
+Some code from 
+https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-palette-for-ggallyggpairs-using-ggplot 
+accessed March 2023
 }
 \examples{
 
@@ -61,18 +64,6 @@ Further detail about these plots is provided in the vignette.
 data(geese_data)
 
 # Load into simmr
-simmr_1 <- with(
-  geese_data_day1,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 # Plot
 plot(simmr_1)
 
@@ -96,5 +87,5 @@ also \code{\link{simmr_load}} for creating simmr objects,
 \code{\link{summary.simmr_output}} for summarising output.
 }
 \author{
-Andrew Parnell <andrew.parnell@mu.ie>
+c(person(Andrew Parnell <andrew.parnell@mu.ie>), person(Emma Govan <emma.govan.2021@mumail.ie>))
 }
