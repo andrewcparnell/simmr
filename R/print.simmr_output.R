@@ -18,7 +18,7 @@ print.simmr_output <-
         cat("\n\n")
       } else if (inherits(x, "ffvb") == TRUE) {
         print(x$input)
-        cat("The input data has been run via simmr_ffvb and has produced")
+        cat("The input data has been run via simmr_ffvb and has produced ")
         cat(nrow(x$output[[1]]$BUGSoutput$sims.list$p), "samples.")
       }
     }
