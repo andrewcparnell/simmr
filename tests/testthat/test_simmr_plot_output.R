@@ -32,7 +32,7 @@ set.seed(123)
 co(simmr_out_ffvb <- simmr_ffvb(simmr_in,
                                 ffvb_control = list(
                                   n_output = 3600,
-                                  S = 100,
+                                  S = 10,
                                   P = 1,
                                   beta_1 = 0.9,
                                   beta_2 = 0.9,

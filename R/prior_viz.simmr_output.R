@@ -101,10 +101,10 @@ prior_viz.simmr_output <- function(simmr_out,
       if (include_posterior) {
         g <- ggplot(
           df_all,
-          aes_string(
-            x = "Proportion",
-            fill = "Source",
-            linetype = "Type"
+          aes(
+            x = Proportion,
+            fill = Source,
+            linetype = Type
           )
         ) +
           scale_fill_viridis(discrete = TRUE) +
@@ -116,9 +116,9 @@ prior_viz.simmr_output <- function(simmr_out,
       } else {
         g <- ggplot(
           df,
-          aes_string(
-            x = "Proportion",
-            fill = "Source"
+          aes(
+            x = Proportion,
+            fill = Source
           )
         ) +
           scale_fill_viridis(discrete = TRUE) +
@@ -175,11 +175,11 @@ prior_viz.simmr_output <- function(simmr_out,
       if (include_posterior) {
         g <- ggplot(
           df_all,
-          aes_string(
-            x = "Proportion",
-            y = "..density..",
-            fill = "Source",
-            linetype = "Type"
+          aes(
+            x = Proportion,
+            y = after_stat(density),
+            fill = Source,
+            linetype = Type
           )
         ) +
           scale_fill_viridis(discrete = TRUE) +
@@ -191,10 +191,10 @@ prior_viz.simmr_output <- function(simmr_out,
       } else {
         g <- ggplot(
           df,
-          aes_string(
-            x = "Proportion",
-            y = "..density..",
-            fill = "Source"
+          aes(
+            x = Proportion,
+            y = after_stat(density),
+            fill = Source
           )
         ) +
           scale_fill_viridis(discrete = TRUE) +
