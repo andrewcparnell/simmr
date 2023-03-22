@@ -9,6 +9,9 @@
 #' The matrix plot should form a necessary part of any SIMM analysis since it
 #' allows the user to judge which sources are identifiable by the model.
 #' Further detail about these plots is provided in the vignette.
+#' Some code from 
+#' https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-palette-for-ggallyggpairs-using-ggplot 
+#' accessed March 2023
 #'
 #' @param x An object of class \code{simmr_output} created via
 #' \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.
@@ -28,7 +31,7 @@
 #' @importFrom reshape2 "melt"
 #' @importFrom stats "cor"
 #'
-#' @author Andrew Parnell <andrew.parnell@@mu.ie>
+#' @author c(person(Andrew Parnell <andrew.parnell@@mu.ie>), person(Emma Govan <emma.govan.2021@@mumail.ie>))
 #' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for 
 #' creating objects suitable for this function, and many more examples. See 
 #' also \code{\link{simmr_load}} for creating simmr objects, 
@@ -44,18 +47,18 @@
 #' data(geese_data)
 #'
 #' # Load into simmr
-#' simmr_1 <- with(
-#'   geese_data_day1,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means
-#'   )
-#' )
+# simmr_1 <- with(
+#   geese_data_day1,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means
+#   )
+# )
 #' # Plot
 #' plot(simmr_1)
 #'
@@ -165,7 +168,7 @@ if(inherits(x, "simmr_output") == TRUE){
         }
         modified_density = function(data, mapping, ...){
           ggplot(data = data, mapping = mapping, ...)+ stat_density_2d(geom = "polygon", contour = TRUE,
-                                                                       aes(fill = after_stat(level)), colour = "black",
+                                                                       aes(fill = after_stat(..level..)), colour = "black",
                                                                        bins = 5) +
             scale_fill_distiller(palette = "Blues", direction = 1) +
             theme_bw()+ scale_x_continuous(limits = c(0, 1)) +scale_y_continuous(limits = c(0,1))
