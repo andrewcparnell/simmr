@@ -41,9 +41,6 @@ co(simmr_out_ffvb <- simmr_ffvb(simmr_in,
                                   t_W = 1
                                 )))
 
-# FFVB
-
-
 # Taken from the simmr_mcmc example
 test_that("plot.simmr_output", {
   p <- plot(simmr_out, type = "density")
@@ -63,8 +60,8 @@ test_that("plot.simmr_output", {
   vdiffr::expect_doppelganger("plot_output_dens_ffvb", p)
   p <- plot(simmr_out_ffvb, type = "boxplot")
   vdiffr::expect_doppelganger("plot_output_box_ffvb", p)
-  # p <- plot(simmr_out,type='isospace')
-  # vdiffr::expect_doppelganger('out_iso_ffvb', p)
+  p <- plot(simmr_out,type='isospace')
+  vdiffr::expect_doppelganger('out_iso_ffvb', p)
   p <- plot(simmr_out_ffvb, type = "histogram")
   vdiffr::expect_doppelganger("plot_output_hist_ffvb", p)
   p <- plot(simmr_out_ffvb, type = "matrix")
