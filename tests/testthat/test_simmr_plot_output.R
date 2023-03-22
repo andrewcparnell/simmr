@@ -29,7 +29,17 @@ co(simmr_out <- simmr_mcmc(simmr_in,
   )
 ))
 set.seed(123)
-co(simmr_out_ffvb <- simmr_ffvb(simmr_in))
+co(simmr_out_ffvb <- simmr_ffvb(simmr_in,
+                                ffvb_control = list(
+                                  n_output = 3600,
+                                  S = 100,
+                                  P = 1,
+                                  beta_1 = 0.9,
+                                  beta_2 = 0.9,
+                                  tau = 1000,
+                                  eps_0 = 0.1,
+                                  t_W = 1
+                                )))
 
 # FFVB
 

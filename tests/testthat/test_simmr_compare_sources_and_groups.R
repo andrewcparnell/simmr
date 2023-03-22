@@ -28,7 +28,17 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
 ))
 
 # FFVB run
-co(simmr_1_out_ffvb <- simmr_ffvb(simmr_1))
+co(simmr_1_out_ffvb <- simmr_ffvb(simmr_1,
+                                  ffvb_control = list(
+                                    n_output = 3600,
+                                    S = 100,
+                                    P = 1,
+                                    beta_1 = 0.9,
+                                    beta_2 = 0.9,
+                                    tau = 1000,
+                                    eps_0 = 0.1,
+                                    t_W = 1
+                                  )))
 
 data("geese_data")
 
