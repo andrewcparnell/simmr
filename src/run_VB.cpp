@@ -755,17 +755,17 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
                          NumericMatrix correctionmeans,
                          NumericMatrix corrsds,
                          NumericMatrix sourcesds,
-                         NumericMatrix y
+                         NumericMatrix y,
+                         int S,
+                         int P,
+                         double beta_1,
+                         double beta_2,
+                         int tau,
+                         double eps_0,
+                         int t_W
 ){
   
-  // starting values
-  int S = 100;
-  int P = 9;
-  double beta_1 = 0.9;
-  double beta_2 = 0.9;
-  int tau = 1000;
-  double eps_0 = 0.1;
-  int t_W = 50;
+ 
   
   int lsl = lambdastart.length();
   

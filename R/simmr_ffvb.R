@@ -62,7 +62,7 @@
 #' # Print
 #' simmr_1
 #'
-#' # MCMC run
+#' # FFVB run
 #' simmr_1_out <- simmr_ffvb(simmr_1)
 #'
 #' # Print it
@@ -262,7 +262,14 @@ simmr_ffvb <- function(simmr_in,
                          sigma_0 = 1
                        ),
                        ffvb_control = list(
-                         n_output = 3600
+                         n_output = 3600,
+                         S = 100,
+                         P = 9,
+                         beta_1 = 0.9,
+                         beta_2 = 0.9,
+                         tau = 1000,
+                         eps_0 = 0.1,
+                         t_W = 50
                        )) {
   #### make sure this has right file name
   #Rcpp::sourceCpp("src/run_VB.cpp")
@@ -331,8 +338,13 @@ simmr_ffvb <- function(simmr_in,
     lambdares[, i] <- run_VB_cpp(
       lambdastart, K, n_tracers, concentration_means,
       source_means, correction_means, correction_sds,
-      source_sds, y
+      source_sds, y, ffvb_control$S, 
+      ffvb_control$P, ffvb_control$beta_1, 
+      ffvb_control$beta_2, ffvb_control$tau, 
+      ffvb_control$eps_0, ffvb_control$t_W
     )
+    
+
 
     thetares[(1 + n_output * (i - 1)):(n_output * i), ] <-
       sim_thetacpp(n_output, lambdares[, i], K, n_tracers)

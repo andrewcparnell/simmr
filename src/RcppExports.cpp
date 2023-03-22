@@ -229,8 +229,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // run_VB_cpp
-NumericVector run_VB_cpp(NumericVector lambdastart, int n_sources, int n_tracers, NumericMatrix concentrationmeans, NumericMatrix sourcemeans, NumericMatrix correctionmeans, NumericMatrix corrsds, NumericMatrix sourcesds, NumericMatrix y);
-RcppExport SEXP _simmr_run_VB_cpp(SEXP lambdastartSEXP, SEXP n_sourcesSEXP, SEXP n_tracersSEXP, SEXP concentrationmeansSEXP, SEXP sourcemeansSEXP, SEXP correctionmeansSEXP, SEXP corrsdsSEXP, SEXP sourcesdsSEXP, SEXP ySEXP) {
+NumericVector run_VB_cpp(NumericVector lambdastart, int n_sources, int n_tracers, NumericMatrix concentrationmeans, NumericMatrix sourcemeans, NumericMatrix correctionmeans, NumericMatrix corrsds, NumericMatrix sourcesds, NumericMatrix y, int S, int P, double beta_1, double beta_2, int tau, double eps_0, int t_W);
+RcppExport SEXP _simmr_run_VB_cpp(SEXP lambdastartSEXP, SEXP n_sourcesSEXP, SEXP n_tracersSEXP, SEXP concentrationmeansSEXP, SEXP sourcemeansSEXP, SEXP correctionmeansSEXP, SEXP corrsdsSEXP, SEXP sourcesdsSEXP, SEXP ySEXP, SEXP SSEXP, SEXP PSEXP, SEXP beta_1SEXP, SEXP beta_2SEXP, SEXP tauSEXP, SEXP eps_0SEXP, SEXP t_WSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -243,7 +243,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericMatrix >::type corrsds(corrsdsSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type sourcesds(sourcesdsSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(run_VB_cpp(lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y));
+    Rcpp::traits::input_parameter< int >::type S(SSEXP);
+    Rcpp::traits::input_parameter< int >::type P(PSEXP);
+    Rcpp::traits::input_parameter< double >::type beta_1(beta_1SEXP);
+    Rcpp::traits::input_parameter< double >::type beta_2(beta_2SEXP);
+    Rcpp::traits::input_parameter< int >::type tau(tauSEXP);
+    Rcpp::traits::input_parameter< double >::type eps_0(eps_0SEXP);
+    Rcpp::traits::input_parameter< int >::type t_W(t_WSEXP);
+    rcpp_result_gen = Rcpp::wrap(run_VB_cpp(lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -263,7 +270,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_simmr_nabla_LB_cpp", (DL_FUNC) &_simmr_nabla_LB_cpp, 11},
     {"_simmr_control_var_cpp", (DL_FUNC) &_simmr_control_var_cpp, 10},
     {"_simmr_LB_lambda_cpp", (DL_FUNC) &_simmr_LB_lambda_cpp, 11},
-    {"_simmr_run_VB_cpp", (DL_FUNC) &_simmr_run_VB_cpp, 9},
+    {"_simmr_run_VB_cpp", (DL_FUNC) &_simmr_run_VB_cpp, 16},
     {NULL, NULL, 0}
 };
 
