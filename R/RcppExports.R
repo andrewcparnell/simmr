@@ -57,7 +57,7 @@ LB_lambda_cpp <- function(theta, lambda, p, n_sources, n_isotopes, concentration
     .Call(`_simmr_LB_lambda_cpp`, theta, lambda, p, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 
-run_VB_cpp <- function(lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
-    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
+run_VB_cpp <- function(lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W) {
+    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W)
 }
 
