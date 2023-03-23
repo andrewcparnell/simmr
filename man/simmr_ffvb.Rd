@@ -15,13 +15,15 @@ simmr_ffvb(
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
-\item{prior_control}{A list of values including arguments named \code{mu_0} 
+\item{prior_control}{A list of values including arguments named \code{mu_0}
 (prior for mu), and \code{sigma_0} (prior for sigma).}
 
 \item{ffvb_control}{A list of values including arguments named \code{n_output}
 (number of rows in theta output), \code{S} (number of samples taken at each 
 iteration of the algorithm), \code{P} (patience parameter), \code{beta_1} 
-and \code{beta_2} (learning rates), \code{tau}, \code{eps_0}, \code{t_W}}
+and \code{beta_2} (adaptive learning weights), \code{tau} (threshold for
+exploring learning space), \code{eps_0} (fixed learning rate),
+\code{t_W} (rolling window size)}
 }
 \value{
 An object of class \code{simmr_output} with two named top-level
@@ -45,16 +47,16 @@ via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
 simmr_1 <- with(
- geese_data_day1,
- simmr_load(
-   mixtures = mixtures,
-   source_names = source_names,
-   source_means = source_means,
-   source_sds = source_sds,
-   correction_means = correction_means,
-   correction_sds = correction_sds,
-   concentration_means = concentration_means
- )
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
 )
 
 # Plot
@@ -91,16 +93,16 @@ compare_sources(simmr_1_out)
 # A version with just one observation
 data(geese_data_day1)
 simmr_2 <- with(
- geese_data_day1,
- simmr_load(
-   mixtures = mixtures[1, , drop = FALSE],
-   source_names = source_names,
-   source_means = source_means,
-   source_sds = source_sds,
-   correction_means = correction_means,
-   correction_sds = correction_sds,
-   concentration_means = concentration_means
- )
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures[1, , drop = FALSE],
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
 )
 
 # Plot
@@ -128,16 +130,16 @@ plot(simmr_2_out, type = "matrix")
 # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
 data(simmr_data_2)
 simmr_3 <- with(
- simmr_data_2,
- simmr_load(
-   mixtures = mixtures,
-   source_names = source_names,
-   source_means = source_means,
-   source_sds = source_sds,
-   correction_means = correction_means,
-   correction_sds = correction_sds,
-   concentration_means = concentration_means
- )
+  simmr_data_2,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
 )
 
 # Get summary
@@ -175,13 +177,13 @@ plot(simmr_3_out, type = "matrix")
 # The data
 data(square_data)
 simmr_4 <- with(
- square_data,
- simmr_load(
-   mixtures = mixtures,
-   source_names = source_names,
-   source_means = source_means,
-   source_sds = source_sds
- )
+  square_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds
+  )
 )
 
 # Get summary
