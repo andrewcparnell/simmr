@@ -103,19 +103,6 @@ plot.simmr_output <-
       # Get group names
       group_names <- levels(x$input$group)[group]
 
-      # Check global variables
-      if (getRversion() >= "2.15.1") {
-        utils::globalVariables(
-          names = c(
-            "Proportion",
-            "Source",
-            "Type",
-            "..level.."
-          ),
-          package = "simmr",
-          add = FALSE
-        )
-      }
 
       for (i in 1:length(group)) {
         # Prep data

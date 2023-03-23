@@ -1,7 +1,7 @@
 context("simmr_load")
 
 library(simmr)
-co <- function(expr) capture.output(expr, file = "NUL")
+co <- function(expr) capture.output(expr, file = NULL)
 
 test_that("simplest example", {
   data("geese_data_day1")

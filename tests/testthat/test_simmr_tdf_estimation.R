@@ -1,6 +1,6 @@
 set.seed(102)
 library(vdiffr)
-co <- function(expr) capture.output(expr, file = "NUL")
+co <- function(expr) capture.output(expr, file = NULL)
 
 mix <- matrix(c(
   -10.13, -10.72, -11.39, -11.18, -10.81, -10.7, -10.54,

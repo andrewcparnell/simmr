@@ -2,7 +2,7 @@
 
 library(simmr)
 library(tibble)
-co <- function(expr) capture.output(expr, file = "NUL")
+co <- function(expr) capture.output(expr, file = NULL)
 
 # Simmr should really work with data that are specified as matrices, data frames or tibbles. None of these should cause any problems
 
