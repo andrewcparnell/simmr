@@ -8,7 +8,8 @@ Vayes(FFVB) function}
 simmr_ffvb(
   simmr_in,
   prior_control = list(mu_0 = rep(0, simmr_in$n_sources), sigma_0 = 1),
-  ffvb_control = list(n_output = 3600)
+  ffvb_control = list(n_output = 3600, S = 100, P = 9, beta_1 = 0.9, beta_2 = 0.9, tau =
+    1000, eps_0 = 0.1, t_W = 50)
 )
 }
 \arguments{
@@ -18,7 +19,9 @@ simmr_ffvb(
 (prior for mu), and \code{sigma_0} (prior for sigma).}
 
 \item{ffvb_control}{A list of values including arguments named \code{n_output}
-(number of rows in theta output)}
+(number of rows in theta output), \code{S} (number of samples taken at each 
+iteration of the algorithm), \code{P} (patience parameter), \code{beta_1} 
+and \code{beta_2} (learning rates), \code{tau}, \code{eps_0}, \code{t_W}}
 }
 \value{
 An object of class \code{simmr_output} with two named top-level
@@ -41,6 +44,17 @@ via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
+simmr_1 <- with(
+ geese_data_day1,
+ simmr_load(
+   mixtures = mixtures,
+   source_names = source_names,
+   source_means = source_means,
+   source_sds = source_sds,
+   correction_means = correction_means,
+   correction_sds = correction_sds,
+   concentration_means = concentration_means
+ )
 
 # Plot
 plot(simmr_1)
@@ -48,7 +62,7 @@ plot(simmr_1)
 # Print
 simmr_1
 
-# MCMC run
+# FFVB run
 simmr_1_out <- simmr_ffvb(simmr_1)
 
 # Print it
