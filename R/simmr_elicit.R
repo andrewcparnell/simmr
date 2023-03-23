@@ -43,7 +43,6 @@
 #' @importFrom boot logit
 #'
 #' @examples
-#'
 #' \dontrun{
 #' # Data set: 10 observations, 2 tracers, 4 sources
 #' data(geese_data_day1)

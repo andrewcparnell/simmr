@@ -20,7 +20,6 @@ An even longer term replacement for properly running SIMMs is MixSIAR, which
 allows for more detailed random effects and the inclusion of covariates.
 }
 \examples{
-
 \dontrun{
 # A first example with 2 tracers (isotopes), 10 observations, and 4 food sources
 data(geese_data_day1)

@@ -31,16 +31,17 @@ test_that("simmr combine sources single group", {
 
   # FFVB run
   co(simmr_1_out_ffvb <- simmr_ffvb(simmr_1,
-                                    ffvb_control = list(
-                                      n_output = 3600,
-                                      S = 10,
-                                      P = 1,
-                                      beta_1 = 0.9,
-                                      beta_2 = 0.9,
-                                      tau = 1000,
-                                      eps_0 = 0.1,
-                                      t_W = 1
-                                    )))
+    ffvb_control = list(
+      n_output = 3600,
+      S = 10,
+      P = 1,
+      beta_1 = 0.9,
+      beta_2 = 0.9,
+      tau = 1000,
+      eps_0 = 0.1,
+      t_W = 1
+    )
+  ))
 
   # Combine two sources
   simmr_out_combine <- combine_sources(simmr_1_out,
@@ -214,16 +215,17 @@ test_that("simmr combine sources multiple group", {
   )
   # MCMC run
   co(simmr_2_out <- simmr_ffvb(simmr_2,
-                               ffvb_control = list(
-                                 n_output = 3600,
-                                 S = 10,
-                                 P = 1,
-                                 beta_1 = 0.9,
-                                 beta_2 = 0.9,
-                                 tau = 1000,
-                                 eps_0 = 0.1,
-                                 t_W = 1
-                               )))
+    ffvb_control = list(
+      n_output = 3600,
+      S = 10,
+      P = 1,
+      beta_1 = 0.9,
+      beta_2 = 0.9,
+      tau = 1000,
+      eps_0 = 0.1,
+      t_W = 1
+    )
+  ))
 
   # Combine two sources
   simmr_out_2_combine <- combine_sources(simmr_2_out,
@@ -360,16 +362,17 @@ test_that("simmr combine sources multiple groups", {
 
   # Run through simmr
   co(geese_simmr_out_ffvb <- simmr_ffvb(geese_simmr,
-                                        ffvb_control = list(
-                                          n_output = 3600,
-                                          S = 10,
-                                          P = 1,
-                                          beta_1 = 0.9,
-                                          beta_2 = 0.9,
-                                          tau = 1000,
-                                          eps_0 = 0.1,
-                                          t_W = 1
-                                        )))
+    ffvb_control = list(
+      n_output = 3600,
+      S = 10,
+      P = 1,
+      beta_1 = 0.9,
+      beta_2 = 0.9,
+      tau = 1000,
+      eps_0 = 0.1,
+      t_W = 1
+    )
+  ))
 
   # Combine sources
   simmr_out_4_combine_ffvb <- combine_sources(geese_simmr_out_ffvb,

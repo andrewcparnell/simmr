@@ -311,7 +311,7 @@ simmr_groups_out <- simmr_mcmc(simmr_groups)
 ```
 or
 ```{r,results = 'hide'}
- simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
+simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
 ```
 `simmr` will automatically run the model for each group in turn. This may take slightly longer than a standard single group run.
 
@@ -460,7 +460,7 @@ simmr_run_1D <- simmr_mcmc(simmr_in_1D)
 ```
 or
 ```{r}
- simmr_run_1D_ffvb <- simmr_ffvb(simmr_in_1D)
+simmr_run_1D_ffvb <- simmr_ffvb(simmr_in_1D)
 ```
 Plot output
 

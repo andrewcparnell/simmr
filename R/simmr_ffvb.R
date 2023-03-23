@@ -9,11 +9,11 @@
 #'
 
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
-#' @param prior_control A list of values including arguments named \code{mu_0} 
+#' @param prior_control A list of values including arguments named \code{mu_0}
 #' (prior for mu), and \code{sigma_0} (prior for sigma).
 #' @param ffvb_control A list of values including arguments named \code{n_output}
-#' (number of rows in theta output), \code{S} (number of samples taken at each 
-#' iteration of the algorithm), \code{P} (patience parameter), \code{beta_1} 
+#' (number of rows in theta output), \code{S} (number of samples taken at each
+#' iteration of the algorithm), \code{P} (patience parameter), \code{beta_1}
 #' and \code{beta_2} (learning rates), \code{tau}, \code{eps_0}, \code{t_W}
 #' @return An object of class \code{simmr_output} with two named top-level
 #' components: \item{input }{The \code{simmr_input} object given to the
@@ -47,17 +47,17 @@
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' data(geese_data_day1)
 #' simmr_1 <- with(
-#'  geese_data_day1,
-#'  simmr_load(
-#'    mixtures = mixtures,
-#'    source_names = source_names,
-#'    source_means = source_means,
-#'    source_sds = source_sds,
-#'    correction_means = correction_means,
-#'    correction_sds = correction_sds,
-#'    concentration_means = concentration_means
-#'  )
-# )
+#'   geese_data_day1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -92,18 +92,18 @@
 #'
 #' # A version with just one observation
 #' data(geese_data_day1)
-# simmr_2 <- with(
-#' #  geese_data_day1,
-#' #  simmr_load(
-#' #    mixtures = mixtures[1, , drop = FALSE],
-#' #    source_names = source_names,
-#' #    source_means = source_means,
-#' #    source_sds = source_sds,
-#' #    correction_means = correction_means,
-#' #    correction_sds = correction_sds,
-#' #    concentration_means = concentration_means
-#' #  )
-# )
+#' simmr_2 <- with(
+#'   geese_data_day1,
+#'   simmr_load(
+#'     mixtures = mixtures[1, , drop = FALSE],
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_2)
@@ -129,18 +129,18 @@
 #'
 #' # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
 #' data(simmr_data_2)
-# simmr_3 <- with(
-#' #  simmr_data_2,
-#' #  simmr_load(
-#' #    mixtures = mixtures,
-#' #    source_names = source_names,
-#' #    source_means = source_means,
-#' #    source_sds = source_sds,
-#' #    correction_means = correction_means,
-#' #    correction_sds = correction_sds,
-#' #    concentration_means = concentration_means
-#' #  )
-# )
+#' simmr_3 <- with(
+#'   simmr_data_2,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Get summary
 #' print(simmr_3)
@@ -176,15 +176,15 @@
 #'
 #' # The data
 #' data(square_data)
-# simmr_4 <- with(
-#' #  square_data,
-#' #  simmr_load(
-#' #    mixtures = mixtures,
-#' #    source_names = source_names,
-#' #    source_means = source_means,
-#' #    source_sds = source_sds
-#' #  )
-# )
+#' simmr_4 <- with(
+#'   square_data,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds
+#'   )
+#' )
 #'
 #' # Get summary
 #' print(simmr_4)
@@ -275,7 +275,7 @@ simmr_ffvb <- function(simmr_in,
                          t_W = 50
                        )) {
   #### make sure this has right file name
-  #Rcpp::sourceCpp("src/run_VB.cpp")
+  # Rcpp::sourceCpp("src/run_VB.cpp")
 
   # Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
@@ -341,12 +341,12 @@ simmr_ffvb <- function(simmr_in,
     lambdares[, i] <- run_VB_cpp(
       lambdastart, K, n_tracers, concentration_means,
       source_means, correction_means, correction_sds,
-      source_sds, y, ffvb_control$S, 
-      ffvb_control$P, ffvb_control$beta_1, 
-      ffvb_control$beta_2, ffvb_control$tau, 
+      source_sds, y, ffvb_control$S,
+      ffvb_control$P, ffvb_control$beta_1,
+      ffvb_control$beta_2, ffvb_control$tau,
       ffvb_control$eps_0, ffvb_control$t_W
     )
-    
+
 
 
     thetares[(1 + n_output * (i - 1)):(n_output * i), ] <-
@@ -355,18 +355,20 @@ simmr_ffvb <- function(simmr_in,
 
 
     p <- t(apply(thetares[(1 + n_output * (i - 1)):(n_output * i), 1:K], 1, p_fun))
-    sigma <- (1 / sqrt(thetares[(1 + n_output * (i - 1)):(n_output * i), 
-                                      (K + 1):(K + n_tracers)]))
-    
+    sigma <- (1 / sqrt(thetares[
+      (1 + n_output * (i - 1)):(n_output * i),
+      (K + 1):(K + n_tracers)
+    ]))
+
     colnames(p) <- simmr_in$source_names
-    
-    
-    sims.matrix = cbind(
+
+
+    sims.matrix <- cbind(
       p,
       sigma
     )
-    
-    colnames(sims.matrix) = c(simmr_in$source_names, colnames(simmr_in$mixtures))
+
+    colnames(sims.matrix) <- c(simmr_in$source_names, colnames(simmr_in$mixtures))
 
     mylist[[i]] <- list(
       source_names = simmr_in$source_names,

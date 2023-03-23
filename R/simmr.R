@@ -27,7 +27,6 @@
 #' PLoS ONE, 5(3):5, 2010.
 #' @keywords multivariate
 #' @examples
-#'
 #' \dontrun{
 #' # A first example with 2 tracers (isotopes), 10 observations, and 4 food sources
 #' data(geese_data_day1)

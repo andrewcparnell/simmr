@@ -55,6 +55,7 @@ simmr_1 <- with(
    correction_sds = correction_sds,
    concentration_means = concentration_means
  )
+)
 
 # Plot
 plot(simmr_1)
@@ -89,16 +90,18 @@ compare_sources(simmr_1_out)
 
 # A version with just one observation
 data(geese_data_day1)
-#  geese_data_day1,
-#  simmr_load(
-#    mixtures = mixtures[1, , drop = FALSE],
-#    source_names = source_names,
-#    source_means = source_means,
-#    source_sds = source_sds,
-#    correction_means = correction_means,
-#    correction_sds = correction_sds,
-#    concentration_means = concentration_means
-#  )
+simmr_2 <- with(
+ geese_data_day1,
+ simmr_load(
+   mixtures = mixtures[1, , drop = FALSE],
+   source_names = source_names,
+   source_means = source_means,
+   source_sds = source_sds,
+   correction_means = correction_means,
+   correction_sds = correction_sds,
+   concentration_means = concentration_means
+ )
+)
 
 # Plot
 plot(simmr_2)
@@ -124,16 +127,18 @@ plot(simmr_2_out, type = "matrix")
 
 # Data set 2: 3 isotopes (d13C, d15N and d34S), 30 observations, 4 sources
 data(simmr_data_2)
-#  simmr_data_2,
-#  simmr_load(
-#    mixtures = mixtures,
-#    source_names = source_names,
-#    source_means = source_means,
-#    source_sds = source_sds,
-#    correction_means = correction_means,
-#    correction_sds = correction_sds,
-#    concentration_means = concentration_means
-#  )
+simmr_3 <- with(
+ simmr_data_2,
+ simmr_load(
+   mixtures = mixtures,
+   source_names = source_names,
+   source_means = source_means,
+   source_sds = source_sds,
+   correction_means = correction_means,
+   correction_sds = correction_sds,
+   concentration_means = concentration_means
+ )
+)
 
 # Get summary
 print(simmr_3)
@@ -169,13 +174,15 @@ plot(simmr_3_out, type = "matrix")
 
 # The data
 data(square_data)
-#  square_data,
-#  simmr_load(
-#    mixtures = mixtures,
-#    source_names = source_names,
-#    source_means = source_means,
-#    source_sds = source_sds
-#  )
+simmr_4 <- with(
+ square_data,
+ simmr_load(
+   mixtures = mixtures,
+   source_names = source_names,
+   source_means = source_means,
+   source_sds = source_sds
+ )
+)
 
 # Get summary
 print(simmr_4)

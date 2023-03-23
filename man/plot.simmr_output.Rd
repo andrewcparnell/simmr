@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.simmr_output.R
 \name{plot.simmr_output}
 \alias{plot.simmr_output}
-\title{Plot different features of an object created from \code{\link{simmr_mcmc}} 
+\title{Plot different features of an object created from \code{\link{simmr_mcmc}}
 or \code{\link{simmr_ffvb}}.}
 \usage{
 \method{plot}{simmr_output}(
@@ -43,20 +43,19 @@ matrix plots}
 }
 \description{
 This function allows for 4 different types of plots of the simmr output
-created from \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The 
-types are: histogram, kernel density plot, matrix plot (most useful) and 
+created from \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The
+types are: histogram, kernel density plot, matrix plot (most useful) and
 boxplot. There are some minor customisation options.
 }
 \details{
 The matrix plot should form a necessary part of any SIMM analysis since it
 allows the user to judge which sources are identifiable by the model.
 Further detail about these plots is provided in the vignette.
-Some code from 
-https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-palette-for-ggallyggpairs-using-ggplot 
+Some code from
+https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-palette-for-ggallyggpairs-using-ggplot
 accessed March 2023
 }
 \examples{
-
 \dontrun{
 # A simple example with 10 observations, 2 tracers and 4 sources
 
@@ -80,10 +79,10 @@ plot(simmr_1_out, type = "matrix")
 }
 }
 \seealso{
-See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for 
-creating objects suitable for this function, and many more examples. See 
-also \code{\link{simmr_load}} for creating simmr objects, 
-\code{\link{plot.simmr_input}} for creating isospace plots, 
+See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for
+creating objects suitable for this function, and many more examples. See
+also \code{\link{simmr_load}} for creating simmr objects,
+\code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{summary.simmr_output}} for summarising output.
 }
 \author{

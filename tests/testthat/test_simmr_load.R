@@ -116,12 +116,12 @@ test_that("test it works from excel", {
     group = as.factor(paste("Day", targets$Time))
   )
   co(simmr_out <- simmr_mcmc(geese_simmr,
-                             mcmc_control = list(
-                               iter = 100,
-                               burn = 10,
-                               thin = 1,
-                               n.chain = 2
-                             )
+    mcmc_control = list(
+      iter = 100,
+      burn = 10,
+      thin = 1,
+      n.chain = 2
+    )
   ))
   expect_s3_class(simmr_out, "simmr_output")
 })

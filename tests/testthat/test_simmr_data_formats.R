@@ -29,12 +29,12 @@ test_that("matrices", {
   expect_true(is.matrix(simmr_1$correction_sds))
   expect_true(is.matrix(simmr_1$concentration_means))
   co(simmr_1_out <- simmr_mcmc(simmr_1,
-                               mcmc_control = list(
-                                 iter = 100,
-                                 burn = 10,
-                                 thin = 1,
-                                 n.chain = 2
-                               )
+    mcmc_control = list(
+      iter = 100,
+      burn = 10,
+      thin = 1,
+      n.chain = 2
+    )
   ))
   expect_s3_class(simmr_1_out, "simmr_output")
 })
@@ -62,12 +62,12 @@ test_that("data frames", {
   expect_true(is.data.frame(simmr_1$correction_sds))
   expect_true(is.data.frame(simmr_1$concentration_means))
   co(simmr_1_out <- simmr_mcmc(simmr_1,
-                               mcmc_control = list(
-                                 iter = 100,
-                                 burn = 10,
-                                 thin = 1,
-                                 n.chain = 2
-                               )
+    mcmc_control = list(
+      iter = 100,
+      burn = 10,
+      thin = 1,
+      n.chain = 2
+    )
   ))
   expect_s3_class(simmr_1_out, "simmr_output")
 })
@@ -95,12 +95,12 @@ test_that("tibbles", {
   expect_true(is_tibble(simmr_1$correction_sds))
   expect_true(is_tibble(simmr_1$concentration_means))
   co(simmr_1_out <- simmr_mcmc(simmr_1,
-                               mcmc_control = list(
-                                 iter = 100,
-                                 burn = 10,
-                                 thin = 1,
-                                 n.chain = 2
-                               )
+    mcmc_control = list(
+      iter = 100,
+      burn = 10,
+      thin = 1,
+      n.chain = 2
+    )
   ))
   expect_s3_class(simmr_1_out, "simmr_output")
 })

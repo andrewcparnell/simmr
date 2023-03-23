@@ -148,7 +148,7 @@ summary.simmr_output <-
         for (i in 1:length(group)) {
           cat(paste("\nSummary for", group_names[group[i]], "\n"))
           out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
-          
+
 
 
           # Get objects

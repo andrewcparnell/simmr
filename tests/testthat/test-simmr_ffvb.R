@@ -29,16 +29,17 @@ test_that("simmr_ffvb_simplest", {
   )
   # MCMC run
   co(simmr_1_out <- simmr_ffvb(simmr_1,
-                               ffvb_control = list(
-                                 n_output = 3600,
-                                 S = 10,
-                                 P = 1,
-                                 beta_1 = 0.9,
-                                 beta_2 = 0.9,
-                                 tau = 1000,
-                                 eps_0 = 0.1,
-                                 t_W = 1
-                               )))
+    ffvb_control = list(
+      n_output = 3600,
+      S = 10,
+      P = 1,
+      beta_1 = 0.9,
+      beta_2 = 0.9,
+      tau = 1000,
+      eps_0 = 0.1,
+      t_W = 1
+    )
+  ))
 
   expect_s3_class(simmr_1_out, "simmr_output")
 })
@@ -59,15 +60,16 @@ test_that("simmr_ffvb_1obs", {
 
   # MCMC run - automatically detects the single observation
   co(simmr_2_out <- simmr_ffvb(simmr_2,
-                               ffvb_control = list(
-                                 n_output = 3600,
-                                 S = 10,
-                                 P = 1,
-                                 beta_1 = 0.9,
-                                 beta_2 = 0.9,
-                                 tau = 1000,
-                                 eps_0 = 0.1,
-                                 t_W = 1
-                               )))
+    ffvb_control = list(
+      n_output = 3600,
+      S = 10,
+      P = 1,
+      beta_1 = 0.9,
+      beta_2 = 0.9,
+      tau = 1000,
+      eps_0 = 0.1,
+      t_W = 1
+    )
+  ))
   expect_s3_class(simmr_2_out, "simmr_output")
 })

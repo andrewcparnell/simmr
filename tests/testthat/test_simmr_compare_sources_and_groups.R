@@ -29,16 +29,17 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
 
 # FFVB run
 co(simmr_1_out_ffvb <- simmr_ffvb(simmr_1,
-                                  ffvb_control = list(
-                                    n_output = 3600,
-                                    S = 10,
-                                    P = 1,
-                                    beta_1 = 0.9,
-                                    beta_2 = 0.9,
-                                    tau = 1000,
-                                    eps_0 = 0.1,
-                                    t_W = 1
-                                  )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 data("geese_data")
 
@@ -68,16 +69,17 @@ co(simmr_2_out <- simmr_mcmc(simmr_2,
 
 # FFVB run
 co(simmr_2_out_ffvb <- simmr_ffvb(simmr_2,
-                                  ffvb_control = list(
-                                    n_output = 3600,
-                                    S = 10,
-                                    P = 1,
-                                    beta_1 = 0.9,
-                                    beta_2 = 0.9,
-                                    tau = 1000,
-                                    eps_0 = 0.1,
-                                    t_W = 1
-                                  )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 
 # Multiple groups, 1 isotope
@@ -106,16 +108,17 @@ co(simmr_3_out <- simmr_mcmc(simmr_3,
 
 # FFVB run
 co(simmr_3_out_ffvb <- simmr_ffvb(simmr_3,
-                                  ffvb_control = list(
-                                    n_output = 3600,
-                                    S = 10,
-                                    P = 1,
-                                    beta_1 = 0.9,
-                                    beta_2 = 0.9,
-                                    tau = 1000,
-                                    eps_0 = 0.1,
-                                    t_W = 1
-                                  )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 test_that("Compare sources", {
   # 2 isotopes, 1 group, all sources
