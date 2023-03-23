@@ -93,9 +93,11 @@ plot.simmr_output <-
            },
            ggargs = NULL,
            ...) {
-if(inherits(x, "simmr_output") == TRUE){
-    # Get the specified type
-    type <- match.arg(type, several.ok = TRUE)
+    
+    
+    if(inherits(x, "simmr_output") == TRUE){
+      # Get the specified type
+      type <- match.arg(type, several.ok = TRUE)
 
     # Iso-space plot is special as all groups go on one plot
     # Add in extra dots here as they can be sent to this plot function
@@ -104,6 +106,12 @@ if(inherits(x, "simmr_output") == TRUE){
     # Get group names
     group_names <- levels(x$input$group)[group]
 
+    # Check global variables
+    if(getRversion() >= "2.15.1")  utils::globalVariables(c("Proportion", 
+                                                            "Source",
+                                                            "Type",
+                                                            "..level.."))
+    
     for (i in 1:length(group)) {
 
       # Prep data
