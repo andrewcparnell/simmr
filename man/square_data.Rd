@@ -23,7 +23,7 @@ A list with the following elements
 }
 }
 \source{
-\url{https://www.int-res.com/abstracts/meps/v490/p285-289/}
+\url{https://doi.org/10.3354/meps10535}
 }
 \usage{
 square_data

@@ -21,7 +21,7 @@ A list with the following elements
 }
 }
 \source{
-\url{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2656.2006.01142.x}
+\url{https://doi.org/10.1111/j.1365-2656.2006.01142.x}
 }
 \usage{
 geese_data_day1
