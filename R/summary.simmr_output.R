@@ -30,7 +30,7 @@
 #' correlations between the parameters} Note that this object is reported
 #' silently so will be discarded unless the function is called with an object
 #' as in the example below.
-#' @author Andrew Parnell <andrew.parnell@@mu.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>, Emma Govan
 #' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}}for
 #' creating objects suitable for this function, and many more examples.
 #' See also \code{\link{simmr_load}} for creating simmr objects,

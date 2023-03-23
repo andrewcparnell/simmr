@@ -31,7 +31,7 @@
 #' @importFrom reshape2 "melt"
 #' @importFrom stats "cor"
 #'
-#' @author c(person(Andrew Parnell <andrew.parnell@@mu.ie>), person(Emma Govan <emma.govan.2021@@mumail.ie>))
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>, Emma Govan
 #' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for
 #' creating objects suitable for this function, and many more examples. See
 #' also \code{\link{simmr_load}} for creating simmr objects,

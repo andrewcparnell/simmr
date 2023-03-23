@@ -274,5 +274,5 @@ function, \code{\link{plot.simmr_input}} for creating isospace plots,
 \code{\link{plot.simmr_output}} for plotting output.
 }
 \author{
-Andrew Parnell <andrew.parnell@mu.ie>
+Andrew Parnell <andrew.parnell@mu.ie>, Emma Govan
 }

@@ -81,5 +81,5 @@ See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and
 the associated vignette for examples.
 }
 \author{
-Andrew Parnell <andrew.parnell@mu.ie>
+Andrew Parnell <andrew.parnell@mu.ie>, Emma Govan
 }

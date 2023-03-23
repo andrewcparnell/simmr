@@ -86,5 +86,5 @@ also \code{\link{simmr_load}} for creating simmr objects,
 \code{\link{summary.simmr_output}} for summarising output.
 }
 \author{
-c(person(Andrew Parnell <andrew.parnell@mu.ie>), person(Emma Govan <emma.govan.2021@mumail.ie>))
+Andrew Parnell <andrew.parnell@mu.ie>, Emma Govan
 }

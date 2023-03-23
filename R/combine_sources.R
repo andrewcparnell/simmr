@@ -20,7 +20,7 @@
 #' names given to \code{\link{simmr_load}}.
 #' @param new_source_name A name to give to the new combined source.
 #' @return A new \code{simmr_output} object
-#' @author Andrew Parnell <andrew.parnell@@mu.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>, Emma Govan
 #' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and
 #' the associated vignette for examples.
 #' @examples

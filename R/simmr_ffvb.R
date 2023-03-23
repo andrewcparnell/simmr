@@ -24,7 +24,7 @@
 #' \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 #' functions.}
 #'
-#' @author Andrew Parnell <andrew.parnell@@mu.ie>
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>, Emma Govan
 #'
 #' @seealso \code{\link{simmr_load}} for creating objects suitable for this
 #' function, \code{\link{plot.simmr_input}} for creating isospace plots,
