@@ -1,0 +1,70 @@
+
+R version 4.2.3 (2023-03-15) -- "Shortstop Beagle"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin22.3.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(testthat)
+> library(simmr)
+Loading required package: R2jags
+Loading required package: rjags
+Loading required package: coda
+Linked to JAGS 4.3.2
+Loaded modules: basemod,bugs
+
+Attaching package: 'R2jags'
+
+The following object is masked from 'package:coda':
+
+    traceplot
+
+Loading required package: ggplot2
+> library(vdiffr)
+> 
+> co <- function(expr) capture.output(expr, file = "NUL")
+> 
+> test_check("simmr")
+NULL
+NULL
+[ FAIL 0 | WARN 11 | SKIP 0 | PASS 270 ]
+
+══ Warnings ════════════════════════════════════════════════════════════════════
+── Warning ('test_simmr_plot_output.R:48:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-dens.svg'
+── Warning ('test_simmr_plot_output.R:50:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-box.svg'
+── Warning ('test_simmr_plot_output.R:52:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/out-iso.svg'
+── Warning ('test_simmr_plot_output.R:54:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-hist.svg'
+── Warning ('test_simmr_plot_output.R:56:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-matrix.svg'
+── Warning ('test_simmr_plot_output.R:61:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-dens-ffvb.svg'
+── Warning ('test_simmr_plot_output.R:63:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-box-ffvb.svg'
+── Warning ('test_simmr_plot_output.R:65:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/out-iso-ffvb.svg'
+── Warning ('test_simmr_plot_output.R:67:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-hist-ffvb.svg'
+── Warning ('test_simmr_plot_output.R:69:3'): plot.simmr_output ────────────────
+Adding new file snapshot: 'tests/testthat/_snaps/plot-output-matrix-ffvb.svg'
+── Warning ('test_simmr_tdf_estimation.R:100:3'): tdf output can be re-used ────
+Adding new file snapshot: 'tests/testthat/_snaps/tdf-corrected-2.svg'
+
+[ FAIL 0 | WARN 11 | SKIP 0 | PASS 270 ]
+> 
+> proc.time()
+   user  system elapsed 
+ 27.532  24.213  43.351 
