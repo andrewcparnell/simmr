@@ -22,7 +22,7 @@ discrimination factors; TEFs/TDFs) for a given set of dietary proportions."><!--
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -197,13 +197,14 @@ function, <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> for estimating d
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># MCMC run</span></span></span>
 <span class="r-in"><span><span class="va">simmr_tdf_out</span> <span class="op">&lt;-</span> <span class="fu">simmr_mcmc_tdf</span><span class="op">(</span><span class="va">simmr_tdf</span>,</span></span>
-<span class="r-in"><span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="fl">1</span> <span class="op">/</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span></span>
-<span class="r-in"><span>    <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span>,</span></span>
-<span class="r-in"><span>  ncol <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span></span>
-<span class="r-in"><span>  nrow <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_obs</span>,</span></span>
-<span class="r-in"><span>  byrow <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>      <span class="fl">1</span> <span class="op">/</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span></span>
+<span class="r-in"><span>      <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span>,</span></span>
+<span class="r-in"><span>    ncol <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_sources</span>,</span></span>
+<span class="r-in"><span>    nrow <span class="op">=</span> <span class="va">simmr_tdf</span><span class="op">$</span><span class="va">n_obs</span>,</span></span>
+<span class="r-in"><span>    byrow <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -244,11 +245,11 @@ function, <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> for estimating d
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell.</p>
+  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

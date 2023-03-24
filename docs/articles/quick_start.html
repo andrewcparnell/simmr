@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Andrew
 Parnell</h4>
             
-            <h4 data-toc-skip class="date">2022-10-17</h4>
+            <h4 data-toc-skip class="date">2023-03-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/HEAD/vignettes/quick_start.Rmd" class="external-link"><code>vignettes/quick_start.Rmd</code></a></small>
       <div class="hidden name"><code>quick_start.Rmd</code></div>
@@ -102,7 +102,7 @@ Parnell</h4>
 </h2>
 <p>Use:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'simmr'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"simmr"</span><span class="op">)</span></span></code></pre></div>
 <p>then</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/andrewcparnell/simmr" class="external-link">simmr</a></span><span class="op">)</span></span></code></pre></div>
@@ -117,16 +117,16 @@ is with:</p>
 <p>Load into R with:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org" class="external-link">readxl</a></span><span class="op">)</span></span>
-<span><span class="va">path</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"geese_data.xls"</span>, package <span class="op">=</span> <span class="st">"simmr"</span><span class="op">)</span></span>
-<span><span class="va">geese_data</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html" class="external-link">excel_sheets</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, <span class="va">read_excel</span>, path <span class="op">=</span> <span class="va">path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"geese_data.xls"</span>, package <span class="op">=</span> <span class="st">"simmr"</span><span class="op">)</span></span>
+<span><span class="va">geese_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/excel_sheets.html" class="external-link">excel_sheets</a></span><span class="op">(</span><span class="va">path</span><span class="op">)</span>, <span class="va">read_excel</span>, path <span class="op">=</span> <span class="va">path</span><span class="op">)</span></span></code></pre></div>
 <p>If you want to see what the original Excel sheet looks like you can
 run <code>system(paste('open',path))</code>.</p>
 <p>We can now separate out the data into parts</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">targets</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">sources</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">TEFs</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">concdep</span> <span class="op">=</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">targets</span> <span class="op">&lt;-</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">sources</span> <span class="op">&lt;-</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">TEFs</span> <span class="op">&lt;-</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">concdep</span> <span class="op">&lt;-</span> <span class="va">geese_data</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>Note that if you don’t have TEFs or concentration dependence you can
 set these all to the value 0 or just leave them blank in the step
 below.</p>
@@ -135,14 +135,16 @@ below.</p>
 <h2 id="step-3-load-the-data-into-simmr">Step 3: load the data into <code>simmr</code><a class="anchor" aria-label="anchor" href="#step-3-load-the-data-into-simmr"></a>
 </h2>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">geese_simmr</span> <span class="op">=</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span>mixtures <span class="op">=</span> <span class="va">targets</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>                         source_names <span class="op">=</span> <span class="va">sources</span><span class="op">$</span><span class="va">Sources</span>,</span>
-<span>                         source_means <span class="op">=</span> <span class="va">sources</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>                         source_sds <span class="op">=</span> <span class="va">sources</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
-<span>                         correction_means <span class="op">=</span> <span class="va">TEFs</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>                         correction_sds <span class="op">=</span> <span class="va">TEFs</span><span class="op">[</span>,<span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
-<span>                         concentration_means <span class="op">=</span> <span class="va">concdep</span><span class="op">[</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span>                         group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">'Day'</span>, <span class="va">targets</span><span class="op">$</span><span class="va">Time</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">geese_simmr</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_load.html">simmr_load</a></span><span class="op">(</span></span>
+<span>  mixtures <span class="op">=</span> <span class="va">targets</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  source_names <span class="op">=</span> <span class="va">sources</span><span class="op">$</span><span class="va">Sources</span>,</span>
+<span>  source_means <span class="op">=</span> <span class="va">sources</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
+<span>  source_sds <span class="op">=</span> <span class="va">sources</span><span class="op">[</span>, <span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>  correction_means <span class="op">=</span> <span class="va">TEFs</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
+<span>  correction_sds <span class="op">=</span> <span class="va">TEFs</span><span class="op">[</span>, <span class="fl">4</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>  concentration_means <span class="op">=</span> <span class="va">concdep</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>,</span>
+<span>  group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Day"</span>, <span class="va">targets</span><span class="op">$</span><span class="va">Time</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="step-4-plot-the-data">Step 4: plot the data<a class="anchor" aria-label="anchor" href="#step-4-plot-the-data"></a>
@@ -155,9 +157,11 @@ below.</p>
 <h2 id="step-5-run-through-simmr-and-check-convergence">Step 5: run through <code>simmr</code> and check convergence<a class="anchor" aria-label="anchor" href="#step-5-run-through-simmr-and-check-convergence"></a>
 </h2>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">geese_simmr_out</span> <span class="op">=</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">geese_simmr</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>, type <span class="op">=</span> <span class="st">'diagnostics'</span>,</span>
-<span>        group <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">geese_simmr_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">geese_simmr</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"diagnostics"</span>,</span>
+<span>  group <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Check that the model fitted well:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/posterior_predictive.html">posterior_predictive</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>, group <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
@@ -181,37 +185,38 @@ below.</p>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Look at the histogram of the dietary proportions:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>, type <span class="op">=</span> <span class="st">'histogram'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>, type <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>, groups <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, </span>
-<span>               source_name <span class="op">=</span> <span class="st">'Enteromorpha'</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_groups.html">compare_groups</a></span><span class="op">(</span><span class="va">geese_simmr_out</span>,</span>
+<span>  groups <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
+<span>  source_name <span class="op">=</span> <span class="st">"Enteromorpha"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
 <span><span class="co">##                                     Probability</span></span>
-<span><span class="co">## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2103</span></span>
-<span><span class="co">## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1917</span></span>
-<span><span class="co">## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1575</span></span>
-<span><span class="co">## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1067</span></span>
-<span><span class="co">## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0883</span></span>
-<span><span class="co">## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0767</span></span>
-<span><span class="co">## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0419</span></span>
-<span><span class="co">## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0325</span></span>
-<span><span class="co">## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0253</span></span>
-<span><span class="co">## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0161</span></span>
-<span><span class="co">## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0100</span></span>
-<span><span class="co">## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0092</span></span>
+<span><span class="co">## Day 428 &gt; Day 124 &gt; Day 398 &gt; Day 1      0.2217</span></span>
+<span><span class="co">## Day 428 &gt; Day 398 &gt; Day 124 &gt; Day 1      0.1722</span></span>
+<span><span class="co">## Day 428 &gt; Day 124 &gt; Day 1 &gt; Day 398      0.1589</span></span>
+<span><span class="co">## Day 428 &gt; Day 398 &gt; Day 1 &gt; Day 124      0.1050</span></span>
+<span><span class="co">## Day 428 &gt; Day 1 &gt; Day 124 &gt; Day 398      0.0781</span></span>
+<span><span class="co">## Day 428 &gt; Day 1 &gt; Day 398 &gt; Day 124      0.0653</span></span>
+<span><span class="co">## Day 124 &gt; Day 428 &gt; Day 398 &gt; Day 1      0.0525</span></span>
+<span><span class="co">## Day 398 &gt; Day 428 &gt; Day 124 &gt; Day 1      0.0347</span></span>
+<span><span class="co">## Day 124 &gt; Day 428 &gt; Day 1 &gt; Day 398      0.0322</span></span>
+<span><span class="co">## Day 398 &gt; Day 428 &gt; Day 1 &gt; Day 124      0.0208</span></span>
+<span><span class="co">## Day 124 &gt; Day 398 &gt; Day 428 &gt; Day 1      0.0139</span></span>
+<span><span class="co">## Day 398 &gt; Day 124 &gt; Day 428 &gt; Day 1      0.0122</span></span>
 <span><span class="co">## Day 1 &gt; Day 428 &gt; Day 124 &gt; Day 398      0.0075</span></span>
-<span><span class="co">## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0058</span></span>
+<span><span class="co">## Day 1 &gt; Day 428 &gt; Day 398 &gt; Day 124      0.0050</span></span>
+<span><span class="co">## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0044</span></span>
 <span><span class="co">## Day 124 &gt; Day 1 &gt; Day 428 &gt; Day 398      0.0042</span></span>
-<span><span class="co">## Day 1 &gt; Day 124 &gt; Day 428 &gt; Day 398      0.0031</span></span>
-<span><span class="co">## Day 1 &gt; Day 398 &gt; Day 428 &gt; Day 124      0.0031</span></span>
-<span><span class="co">## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0031</span></span>
-<span><span class="co">## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0022</span></span>
-<span><span class="co">## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0014</span></span>
-<span><span class="co">## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0011</span></span>
-<span><span class="co">## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0011</span></span>
-<span><span class="co">## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0011</span></span>
-<span><span class="co">## Day 1 &gt; Day 124 &gt; Day 398 &gt; Day 428      0.0003</span></span></code></pre>
+<span><span class="co">## Day 124 &gt; Day 398 &gt; Day 1 &gt; Day 428      0.0028</span></span>
+<span><span class="co">## Day 398 &gt; Day 1 &gt; Day 428 &gt; Day 124      0.0019</span></span>
+<span><span class="co">## Day 1 &gt; Day 398 &gt; Day 428 &gt; Day 124      0.0017</span></span>
+<span><span class="co">## Day 398 &gt; Day 124 &gt; Day 1 &gt; Day 428      0.0017</span></span>
+<span><span class="co">## Day 1 &gt; Day 398 &gt; Day 124 &gt; Day 428      0.0014</span></span>
+<span><span class="co">## Day 124 &gt; Day 1 &gt; Day 398 &gt; Day 428      0.0014</span></span>
+<span><span class="co">## Day 398 &gt; Day 1 &gt; Day 124 &gt; Day 428      0.0006</span></span></code></pre>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>For the many more options available to run and analyse output, see
 the main vignette via <code><a href="../articles/simmr.html">vignette('simmr')</a></code></p>
@@ -230,12 +235,12 @@ the main vignette via <code><a href="../articles/simmr.html">vignette('simmr')</
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Andrew Parnell.</p>
+<p>Developed by Andrew Parnell, Emma Govan.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
