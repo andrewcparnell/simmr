@@ -44,7 +44,7 @@
 #'
 #' A real Geese data set with 251 observations on 2 isotopes, with 4 sources, and with corrections/trophic enrichment factors (TEFs or TDFs), and concentration dependence means. Taken from Inger et al (2016). See link for paper
 #'
-#' @source \url{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2656.2006.01142.x}
+#' @source <doi:10.1111/j.1365-2656.2006.01142.x>
 #'
 #' @format A list with the following elements
 #' \describe{
@@ -67,7 +67,7 @@
 #' A fake box data set identified by Fry (2014) as a failing of SIMMs
 #' See the link for more interpretation of these data and the output
 #'
-#' @source \url{https://www.int-res.com/abstracts/meps/v490/p285-289/}
+#' @source <doi:10.3354/meps10535>
 #'
 #' @format A list with the following elements
 #' \describe{
@@ -91,7 +91,7 @@
 #'
 #' A real Geese data set with 9 observations on 2 isotopes, with 4 sources, and with corrections/trophic enrichment factors (TEFs or TDFs), and concentration dependence means. Taken from Inger et al (2016). See link for paper
 #'
-#' @source \url{https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/j.1365-2656.2006.01142.x}
+#' @source <doi:10.1111/j.1365-2656.2006.01142.x>
 #'
 #' @format A list with the following elements
 #' \describe{

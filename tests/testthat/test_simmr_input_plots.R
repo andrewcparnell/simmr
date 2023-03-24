@@ -1,5 +1,5 @@
 set.seed(123)
-co <- function(expr) capture.output(expr, file = "NUL")
+co <- function(expr) capture.output(expr, file = NULL)
 
 data("geese_data_day1")
 simmr_1 <- with(
@@ -17,11 +17,11 @@ simmr_1 <- with(
 
 test_that("basic simmr_input plot", {
   p <- plot(simmr_1)
-  expect_doppelganger("simmr_input", p)
+  vdiffr::expect_doppelganger("simmr_input", p)
   p <- plot(simmr_1, colour = FALSE)
-  expect_doppelganger("simmr_input_no_col", p)
+  vdiffr::expect_doppelganger("simmr_input_no_col", p)
   p <- plot(simmr_1, tracers = c(2, 1))
-  expect_doppelganger("simmr_input_rev_tracers", p)
+  vdiffr::expect_doppelganger("simmr_input_rev_tracers", p)
 })
 
 test_that("1D simmr plot", {
@@ -39,9 +39,9 @@ test_that("1D simmr plot", {
   )
 
   p <- plot(simmr_2)
-  expect_doppelganger("simmr_input_1obs", p)
+  vdiffr::expect_doppelganger("simmr_input_1obs", p)
   p <- plot(simmr_2, colour = FALSE)
-  expect_doppelganger("simmr_input_1obs_nocol", p)
+  vdiffr::expect_doppelganger("simmr_input_1obs_nocol", p)
 })
 
 test_that("Multi-groups plot", {
@@ -61,9 +61,9 @@ test_that("Multi-groups plot", {
   )
 
   p <- plot(simmr_4)
-  expect_doppelganger("simmr_input_groups", p)
+  vdiffr::expect_doppelganger("simmr_input_groups", p)
   p <- plot(simmr_4, group = 5)
-  expect_doppelganger("simmr_input_groups_specified", p)
+  vdiffr::expect_doppelganger("simmr_input_groups_specified", p)
 })
 
 test_that("Single iso plot", {
@@ -83,9 +83,9 @@ test_that("Single iso plot", {
   )
 
   p <- plot(simmr_5)
-  expect_doppelganger("simmr_input_iso1", p)
+  vdiffr::expect_doppelganger("simmr_input_iso1", p)
   p <- plot(simmr_5, group = 5)
-  expect_doppelganger("simmr_input_iso1_group5", p)
+  vdiffr::expect_doppelganger("simmr_input_iso1_group5", p)
   p <- plot(simmr_5, group = 5, colour = FALSE)
-  expect_doppelganger("simmr_input_iso1_group5_nocol", p)
+  vdiffr::expect_doppelganger("simmr_input_iso1_group5_nocol", p)
 })

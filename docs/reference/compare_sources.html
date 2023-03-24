@@ -19,7 +19,7 @@ also be specified."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@ also be specified.</p>
     <h2>Arguments</h2>
     <dl><dt>simmr_out</dt>
 <dd><p>An object of class <code>simmr_output</code> created from
-<code><a href="simmr_mcmc.html">simmr_mcmc</a></code>.</p></dd>
+<code><a href="simmr_mcmc.html">simmr_mcmc</a></code> or <code><a href="simmr_ffvb.html">simmr_ffvb</a></code>.</p></dd>
 
 
 <dt>source_names</dt>
@@ -140,18 +140,6 @@ output for further analysis if required.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
-<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
-<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
-<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
-<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span></span>
-<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span></span>
-<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
@@ -195,11 +183,11 @@ output for further analysis if required.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell.</p>
+  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

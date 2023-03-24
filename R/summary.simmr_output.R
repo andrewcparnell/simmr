@@ -1,11 +1,12 @@
 #' Summarises the output created with \code{\link{simmr_mcmc}}
 #'
 #' Produces textual summaries and convergence diagnostics for an object created
-#' with \code{\link{simmr_mcmc}}. The different options are: 'diagnostics'
-#' which produces Brooks-Gelman-Rubin diagnostics to assess MCMC convergence,
-#' 'quantiles' which produces credible intervals for the parameters,
-#' 'statistics' which produces means and standard deviations, and
-#' 'correlations' which produces correlations between the parameters.
+#' with \code{\link{simmr_mcmc}} or \code{\link{simmr_mcmc}}. The different
+#' options are: 'diagnostics' which produces Brooks-Gelman-Rubin diagnostics
+#' to assess MCMC convergence, 'quantiles' which produces credible intervals
+#' for the parameters, 'statistics' which produces means and standard
+#' deviations, and 'correlations' which produces correlations between the
+#' parameters.
 #'
 #' The quantile output allows easy calculation of 95 per cent credible
 #' intervals of the posterior dietary proportions. The correlations, along with
@@ -17,7 +18,7 @@
 #' results for all groups.
 #'
 #' @param object An object of class \code{simmr_output} produced by the
-#' function \code{\link{simmr_mcmc}}
+#' function \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}
 #' @param type The type of output required. At least none of 'diagnostics',
 #' 'quantiles', 'statistics', or 'correlations'.
 #' @param group Which group or groups the output is required for.
@@ -29,11 +30,12 @@
 #' correlations between the parameters} Note that this object is reported
 #' silently so will be discarded unless the function is called with an object
 #' as in the example below.
-#' @author Andrew Parnell <andrew.parnell@@mu.ie>
-#' @seealso See \code{\link{simmr_mcmc}} for creating objects suitable for this
-#' function, and many more examples. See also \code{\link{simmr_load}} for
-#' creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
-#' plots, \code{\link{plot.simmr_output}} for plotting output.
+#' @author Andrew Parnell <andrew.parnell@@mu.ie>, Emma Govan
+#' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}}for
+#' creating objects suitable for this function, and many more examples.
+#' See also \code{\link{simmr_load}} for creating simmr objects,
+#' \code{\link{plot.simmr_input}} for creating isospace plots,
+#' \code{\link{plot.simmr_output}} for plotting output.
 #'
 #' @importFrom stats sd cor
 #'
@@ -74,59 +76,117 @@
 #' @export
 summary.simmr_output <-
   function(object, type = c("diagnostics", "quantiles", "statistics", "correlations"), group = 1, ...) {
+    if (inherits(object, "simmr_output") == TRUE) {
+      if (inherits(object, "mcmc") == TRUE) {
+        # Get the specified type
+        type <- match.arg(type, several.ok = TRUE)
 
-    # Get the specified type
-    type <- match.arg(type, several.ok = TRUE)
+        # Set up containers
+        out_bgr <- out_quantiles <- out_statistics <- out_cor <- vector("list", length = length(group))
+        group_names <- levels(object$input$group)
+        names(out_bgr) <- paste0("group_", group)
+        names(out_quantiles) <- paste0("group_", group)
+        names(out_statistics) <- paste0("group_", group)
+        names(out_cor) <- paste0("group_", group)
 
-    # Set up containers
-    out_bgr <- out_quantiles <- out_statistics <- out_cor <- vector("list", length = length(group))
-    group_names <- levels(object$input$group)
-    names(out_bgr) <- paste0("group_", group)
-    names(out_quantiles) <- paste0("group_", group)
-    names(out_statistics) <- paste0("group_", group)
-    names(out_cor) <- paste0("group_", group)
+        # Loop through groups
+        for (i in 1:length(group)) {
+          cat(paste("\nSummary for", group_names[group[i]], "\n"))
+          out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
 
-    # Loop through groups
-    for (i in 1:length(group)) {
-      cat(paste("\nSummary for", group_names[group[i]], "\n"))
-      out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
+          # Get objects
+          out_bgr[[i]] <- object$output[[i]]$BUGSoutput$summary[, "Rhat"]
+          out_quantiles[[i]] <- t(apply(out_all, 2, "quantile", probs = c(0.025, 0.25, 0.5, 0.75, 0.975)))
+          #  coda:::summary.mcmc.list(object$output)$quantiles
+          out_statistics[[i]] <- t(apply(out_all, 2, function(x) {
+            return(c(mean = mean(x), sd = stats::sd(x)))
+          }))
+          # coda:::summary.mcmc.list(object$output)$statistics[,1:2]
+          out_cor[[i]] <- stats::cor(out_all)
 
-      # Get objects
-      out_bgr[[i]] <- object$output[[i]]$BUGSoutput$summary[, "Rhat"]
-      out_quantiles[[i]] <- t(apply(out_all, 2, "quantile", probs = c(0.025, 0.25, 0.5, 0.75, 0.975)))
-      #  coda:::summary.mcmc.list(object$output)$quantiles
-      out_statistics[[i]] <- t(apply(out_all, 2, function(x) {
-        return(c(mean = mean(x), sd = stats::sd(x)))
-      }))
-      # coda:::summary.mcmc.list(object$output)$statistics[,1:2]
-      out_cor[[i]] <- stats::cor(out_all)
+          if ("diagnostics" %in% type) {
+            # Print out gelman diagnostics of the output
+            cat("Gelman diagnostics - these values should all be close to 1.\n")
+            cat("If not, try a longer run of simmr_mcmc.\n")
+            print(round(out_bgr[[i]], 2))
+          }
 
-      if ("diagnostics" %in% type) {
-        # Print out gelman diagnostics of the output
-        cat("Gelman diagnostics - these values should all be close to 1.\n")
-        cat("If not, try a longer run of simmr_mcmc.\n")
-        print(round(out_bgr[[i]], 2))
+          if ("quantiles" %in% type) {
+            # Print out quantiles argument
+            print(round(out_quantiles[[i]], 3))
+          }
+
+          if ("statistics" %in% type) {
+            # Print out quantiles argument
+            print(round(out_statistics[[i]], 3))
+          }
+
+          if ("correlations" %in% type) {
+            # Print out quantiles argument
+            print(round(out_cor[[i]], 3))
+          }
+        }
+
+        if (object$input$n_groups == 1) {
+          invisible(list(gelman = out_bgr[[1]], quantiles = out_quantiles[[1]], statistics = out_statistics[[1]], correlations = out_cor[[1]]))
+        } else {
+          invisible(list(gelman = out_bgr, quantiles = out_quantiles, statistics = out_statistics, correlations = out_cor))
+        }
+      } else if (inherits(object, "ffvb") == TRUE) {
+        # Get the specified type
+        type <- match.arg(type, several.ok = TRUE)
+
+        # Set up containers
+        out_bgr <- out_quantiles <- out_statistics <- out_cor <- vector("list", length = length(group))
+        group_names <- levels(object$input$group)
+        names(out_bgr) <- paste0("group_", group)
+        names(out_quantiles) <- paste0("group_", group)
+        names(out_statistics) <- paste0("group_", group)
+        names(out_cor) <- paste0("group_", group)
+
+        # Loop through groups
+        for (i in 1:length(group)) {
+          cat(paste("\nSummary for", group_names[group[i]], "\n"))
+          out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
+
+
+
+          # Get objects
+          out_quantiles[[i]] <- t(apply(out_all, 2, "quantile", probs = c(0.025, 0.25, 0.5, 0.75, 0.975)))
+          #  coda:::summary.mcmc.list(object$output)$quantiles
+          out_statistics[[i]] <- t(apply(out_all, 2, function(x) {
+            return(c(mean = mean(x), sd = stats::sd(x)))
+          }))
+          # coda:::summary.mcmc.list(object$output)$statistics[,1:2]
+          out_cor[[i]] <- stats::cor(out_all)
+
+          if ("diagnostics" %in% type) {
+            cat("Diagnostics can't be printed for ffvb \n")
+          }
+
+          if ("quantiles" %in% type) {
+            # Print out quantiles argument
+            print(round(out_quantiles[[i]], 3))
+          }
+
+          if ("statistics" %in% type) {
+            # Print out quantiles argument
+            print(round(out_statistics[[i]], 3))
+          }
+
+          if ("correlations" %in% type) {
+            # Print out quantiles argument
+            print(round(out_cor[[i]], 3))
+          }
+        }
+
+        if (object$input$n_groups == 1) {
+          invisible(list(gelman = out_bgr[[1]], quantiles = out_quantiles[[1]], statistics = out_statistics[[1]], correlations = out_cor[[1]]))
+        } else {
+          invisible(list(gelman = out_bgr, quantiles = out_quantiles, statistics = out_statistics, correlations = out_cor))
+        }
       }
-
-      if ("quantiles" %in% type) {
-        # Print out quantiles argument
-        print(round(out_quantiles[[i]], 3))
-      }
-
-      if ("statistics" %in% type) {
-        # Print out quantiles argument
-        print(round(out_statistics[[i]], 3))
-      }
-
-      if ("correlations" %in% type) {
-        # Print out quantiles argument
-        print(round(out_cor[[i]], 3))
-      }
-    }
-
-    if (object$input$n_groups == 1) {
-      invisible(list(gelman = out_bgr[[1]], quantiles = out_quantiles[[1]], statistics = out_statistics[[1]], correlations = out_cor[[1]]))
     } else {
-      invisible(list(gelman = out_bgr, quantiles = out_quantiles, statistics = out_statistics, correlations = out_cor))
+      (return(cat(paste0("incorrect object passed to function"))))
     }
   }

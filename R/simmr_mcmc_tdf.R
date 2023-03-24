@@ -88,13 +88,14 @@
 #'
 #' # MCMC run
 #' simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-#'   p = matrix(rep(
-#'     1 / simmr_tdf$n_sources,
-#'     simmr_tdf$n_sources
-#'   ),
-#'   ncol = simmr_tdf$n_sources,
-#'   nrow = simmr_tdf$n_obs,
-#'   byrow = TRUE
+#'   p = matrix(
+#'     rep(
+#'       1 / simmr_tdf$n_sources,
+#'       simmr_tdf$n_sources
+#'     ),
+#'     ncol = simmr_tdf$n_sources,
+#'     nrow = simmr_tdf$n_obs,
+#'     byrow = TRUE
 #'   )
 #' )
 #'
@@ -127,13 +128,14 @@
 #'
 #' @export
 simmr_mcmc_tdf <- function(simmr_in,
-                           p = matrix(rep(
-                             1 / simmr_in$n_sources,
-                             simmr_in$n_sources
-                           ),
-                           ncol = simmr_in$n_sources,
-                           nrow = simmr_in$n_obs,
-                           byrow = TRUE
+                           p = matrix(
+                             rep(
+                               1 / simmr_in$n_sources,
+                               simmr_in$n_sources
+                             ),
+                             ncol = simmr_in$n_sources,
+                             nrow = simmr_in$n_obs,
+                             byrow = TRUE
                            ),
                            prior_control = list(
                              c_mean_est = rep(
@@ -155,13 +157,14 @@ simmr_mcmc_tdf <- function(simmr_in,
 }
 #' @export
 simmr_mcmc_tdf.simmr_input <- function(simmr_in,
-                                       p = matrix(rep(
-                                         1 / simmr_in$n_sources,
-                                         simmr_in$n_sources
-                                       ),
-                                       ncol = simmr_in$n_sources,
-                                       nrow = simmr_in$n_obs,
-                                       byrow = TRUE
+                                       p = matrix(
+                                         rep(
+                                           1 / simmr_in$n_sources,
+                                           simmr_in$n_sources
+                                         ),
+                                         ncol = simmr_in$n_sources,
+                                         nrow = simmr_in$n_obs,
+                                         byrow = TRUE
                                        ),
                                        prior_control = list(
                                          c_mean_est = rep(
@@ -179,7 +182,6 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
                                          thin = 10,
                                          n.chain = 4
                                        )) {
-
   # Throw warning if n.chain =1
   if (mcmc_control$n.chain == 1) warning("Running only 1 MCMC chain will cause an error in the convergence diagnostics")
 
@@ -196,7 +198,7 @@ model {
       var_y[i,j] <- inprod(pow(p[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p[i,],q[,j]),2)
 + pow(sigma[j],2)
     }
-    
+
   }
 
   # Prior on sigma
@@ -211,7 +213,7 @@ model {
     c_mean_j[j] ~ dgamma(c_mean_est[j], 1)
     c_sd_j[j] ~ dgamma(c_sd_est[j], 1)
   }
-  
+
 }
 "
 

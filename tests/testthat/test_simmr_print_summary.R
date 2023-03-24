@@ -1,6 +1,6 @@
 set.seed(123)
 library(vdiffr)
-co <- function(expr) capture.output(expr, file = "NUL")
+co <- function(expr) capture.output(expr, file = NULL)
 
 data(geese_data_day1)
 
@@ -27,18 +27,43 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
   )
 ))
 
+# FFVB run
+co(simmr_1_out_ffvb <- simmr_ffvb(simmr_1,
+  ffvb_control = list(
+    n_output = 3600,
+    S = 100,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
+
 # Taken from the simmr_mcmc example
 test_that("print.simmr_input", {
   expect_output(print(simmr_1))
 })
 
+
+
 test_that("print.simmr_output", {
   expect_output(print(simmr_1_out))
+})
+
+test_that("print.simmr_output", {
+  expect_output(print(simmr_1_out_ffvb))
 })
 
 test_that("summary.simmr_output", {
   expect_output(summary(simmr_1_out, type = "diagnostics"))
   expect_output(summary(simmr_1_out))
+})
+
+test_that("summary.simmr_output", {
+  expect_output(summary(simmr_1_out_ffvb))
+  expect_output(summary(simmr_1_out_ffvb))
 })
 
 

@@ -12,7 +12,7 @@
 #' output for further analysis if required.
 #'
 #' @param simmr_out An object of class \code{simmr_output} created from
-#' \code{\link{simmr_mcmc}}.
+#' \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.
 #' @param source_names The names of at least two sources. These should match
 #' the names exactly given to \code{\link{simmr_load}}.
 #' @param group The integer values of the group numbers to be compared. If not
@@ -34,18 +34,18 @@
 #' @examples
 #' \dontrun{
 #' data(geese_data_day1)
-#' simmr_1 <- with(
-#'   geese_data_day1,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means
-#'   )
-#' )
+# simmr_1 <- with(
+#   geese_data_day1,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means
+#   )
+# )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -91,7 +91,6 @@ compare_sources.simmr_output <- function(simmr_out,
                                          source_names = simmr_out$input$source_names,
                                          group = 1,
                                          plot = TRUE) {
-
   # Function to compare between sources within a group both via textual output and with boxplots
   # Things to ly are:
   # If two sources are given:

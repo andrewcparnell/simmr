@@ -187,23 +187,27 @@ We can even do more than 1 convex hull to fully cover e.g. 2 standard deviations
 source_means_c <- geese_data_day1$source_means + geese_data_day1$correction_means
 source_sds_c <- sqrt(geese_data_day1$source_sds^2 + geese_data_day1$correction_sds^2)
 mix <- geese_data_day1$mixtures
-x <- c(source_means_c[, "meand13CPl"] - source_sds_c[, "SDd13C"],
-       source_means_c[, "meand13CPl"] - source_sds_c[, "SDd13C"],
-       source_means_c[, "meand13CPl"] + source_sds_c[,"SDd13C"],
-       source_means_c[, "meand13CPl"] + source_sds_c[,"SDd13C"])
-y <- c(source_means_c[, "meand15NPl"] - source_sds_c[, "SDd15N"],
-       source_means_c[, "meand15NPl"] + source_sds_c[, "SDd15N"],
-       source_means_c[, "meand15NPl"] - source_sds_c[, "SDd15N"],
-       source_means_c[, "meand15NPl"] + source_sds_c[, "SDd15N"])
+x <- c(
+  source_means_c[, "meand13CPl"] - source_sds_c[, "SDd13C"],
+  source_means_c[, "meand13CPl"] - source_sds_c[, "SDd13C"],
+  source_means_c[, "meand13CPl"] + source_sds_c[, "SDd13C"],
+  source_means_c[, "meand13CPl"] + source_sds_c[, "SDd13C"]
+)
+y <- c(
+  source_means_c[, "meand15NPl"] - source_sds_c[, "SDd15N"],
+  source_means_c[, "meand15NPl"] + source_sds_c[, "SDd15N"],
+  source_means_c[, "meand15NPl"] - source_sds_c[, "SDd15N"],
+  source_means_c[, "meand15NPl"] + source_sds_c[, "SDd15N"]
+)
 new_df3 <- data.frame(
-  x = x, 
+  x = x,
   y = y,
   Source = "Mixtures"
 )
 chull_vals <- chull(new_df3[, 1], new_df3[, 2])
 new_df4 <- new_df3[chull_vals, ]
 p + new_scale_color() +
-  geom_polygon(data = new_df2, aes(x = x, y = y), fill = "orange", alpha = 0.3) + 
+  geom_polygon(data = new_df2, aes(x = x, y = y), fill = "orange", alpha = 0.3) +
   new_scale_color() +
   geom_polygon(data = new_df4, aes(x = x, y = y), fill = "orange", alpha = 0.1)
 ```

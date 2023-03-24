@@ -12,7 +12,7 @@
 #' required.
 #'
 #' @param simmr_out An object of class \code{simmr_output} created from
-#' \code{\link{simmr_mcmc}}.
+#' \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.
 #' @param source_name The name of a source. This should match the names exactly
 #' given to \code{\link{simmr_load}}.
 #' @param groups The integer values of the group numbers to be compared. At
@@ -90,7 +90,6 @@ compare_groups.simmr_output <- function(simmr_out,
                                         source_name = simmr_out$input$source_names[1],
                                         groups = 1:2,
                                         plot = TRUE) {
-
   # Function to compare between groups both via textual output and with boxplots
   # Things to supply are:
   # If two groups are given:

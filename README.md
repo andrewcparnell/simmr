@@ -4,7 +4,7 @@
 [![Codecov test coverage](https://codecov.io/gh/andrewcparnell/simmr/branch/master/graph/badge.svg)](https://codecov.io/gh/andrewcparnell/simmr?branch=master)
 [![R build status](https://github.com/andrewcparnell/simmr/workflows/R-CMD-check/badge.svg)](https://github.com/andrewcparnell/simmr/actions)
 
-<a href="http://andrewcparnell.github.io/simmr/"><img src="https://raw.githubusercontent.com/andrewcparnell/simmr/master/badge/simmr_badge.png" height="200" align="right" /></a>
+<a href="http://andrewcparnell.github.io/simmr/"><img src="https://raw.githubusercontent.com/andrewcparnell/simmr/master/badge/simmr_badge.png" height="80" align="right" /></a>
 
 
 **Welcome to simmr!**

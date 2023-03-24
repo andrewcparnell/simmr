@@ -85,30 +85,34 @@ simmr_load <- function(mixtures,
   # Go through each object and check that it matches the requirements
 
   # Write a function that generically tests for any 2D numeric data shape such as matrix, data frame or tibble
-  assert_2D_numeric <- function(x, 
-                                nrows = NULL, 
-                                ncols = NULL, 
+  assert_2D_numeric <- function(x,
+                                nrows = NULL,
+                                ncols = NULL,
                                 null.ok = FALSE) {
-    assert(test_data_frame(x,
-                           types = c('double', 'numeric'),
-                           nrows = nrows,
-                           ncols = ncols,
-                           null.ok = null.ok), 
-           test_matrix(x,
-                       mode = 'numeric',
-                       nrows = nrows,
-                       ncols = ncols,
-                       null.ok = null.ok
-                       ),
-           test_tibble(x,
-                       types = c('double', 'numeric'),
-                       nrows = nrows,
-                       ncols = ncols,
-                       null.ok = null.ok))
+    assert(
+      test_data_frame(x,
+        types = c("double", "numeric"),
+        nrows = nrows,
+        ncols = ncols,
+        null.ok = null.ok
+      ),
+      test_matrix(x,
+        mode = "numeric",
+        nrows = nrows,
+        ncols = ncols,
+        null.ok = null.ok
+      ),
+      test_tibble(x,
+        types = c("double", "numeric"),
+        nrows = nrows,
+        ncols = ncols,
+        null.ok = null.ok
+      )
+    )
   }
-  
+
   # Mixtures must be a matrix - the number of rows is the number of observations and the number of columns is the number of tracers
-  #assert_matrix(mixtures)
+  # assert_matrix(mixtures)
   assert_2D_numeric(mixtures)
   n_obs <- nrow(mixtures)
   n_tracers <- ncol(mixtures)
@@ -124,19 +128,22 @@ simmr_load <- function(mixtures,
 
   # source_means and source_sds must both be matrices where the number of rows is n_sources (in the same order as source_names) and the number of columns is n_tracers
   assert_2D_numeric(source_means,
-                    nrows = n_sources,
-                    ncols = n_tracers)
+    nrows = n_sources,
+    ncols = n_tracers
+  )
   # assert_matrix(source_means, nrows = n_sources, ncols = n_tracers)
   assert_2D_numeric(source_sds,
-                    nrows = n_sources,
-                    ncols = n_tracers)
+    nrows = n_sources,
+    ncols = n_tracers
+  )
   # assert_matrix(source_sds, nrows = n_sources, ncols = n_tracers)
   assert_2D_numeric(correction_means,
-                    nrows = n_sources,
-                    ncols = n_tracers,
-                    null.ok = ifelse(is.null(correction_sds),
-                                     TRUE, FALSE
-                    ))
+    nrows = n_sources,
+    ncols = n_tracers,
+    null.ok = ifelse(is.null(correction_sds),
+      TRUE, FALSE
+    )
+  )
   # assert_matrix(correction_means,
   #   nrows = n_sources,
   #   ncols = n_tracers,
@@ -145,11 +152,12 @@ simmr_load <- function(mixtures,
   #   )
   # )
   assert_2D_numeric(correction_sds,
-                    nrows = n_sources,
-                    ncols = n_tracers,
-                    null.ok = ifelse(is.null(correction_sds),
-                                     TRUE, FALSE
-                    ))
+    nrows = n_sources,
+    ncols = n_tracers,
+    null.ok = ifelse(is.null(correction_sds),
+      TRUE, FALSE
+    )
+  )
   # assert_matrix(correction_sds,
   #   nrows = n_sources,
   #   ncols = n_tracers,
@@ -158,9 +166,9 @@ simmr_load <- function(mixtures,
   #   )
   # )
   assert_2D_numeric(concentration_means,
-                nrows = n_sources,
-                ncols = n_tracers,
-                null.ok = TRUE
+    nrows = n_sources,
+    ncols = n_tracers,
+    null.ok = TRUE
   )
   # assert_matrix(concentration_means,
   #   nrows = n_sources,

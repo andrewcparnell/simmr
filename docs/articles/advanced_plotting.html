@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Andrew
 Parnell</h4>
             
-            <h4 data-toc-skip class="date">2022-10-17</h4>
+            <h4 data-toc-skip class="date">2023-03-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/HEAD/vignettes/advanced_plotting.Rmd" class="external-link"><code>vignettes/advanced_plotting.Rmd</code></a></small>
       <div class="hidden name"><code>advanced_plotting.Rmd</code></div>
@@ -185,7 +185,8 @@ example:</p>
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>subtitle <span class="op">=</span> <span class="st">"Something else"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"A new ylab"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Removed 3163 rows containing non-finite values (stat_boxplot).</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Removed 3224 rows containing non-finite values</span></span>
+<span><span class="co">## (`stat_boxplot()`).</span></span></code></pre>
 <p><img src="advanced_plotting_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>If you cut off a part of the graph with e.g. a <code>ylim</code>
 command then R will provide a warning. Note that the above
@@ -218,6 +219,11 @@ boxplots:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"simmr output boxplot with changed colours"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use tidy evaluation ideoms with `aes()`</span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="advanced_plotting_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -227,7 +233,7 @@ boxplots:</p>
 iso-space plots. This does require a bit of hacking though, and is
 assisted by use of the package <code>ggnewscale</code>. Starting for
 example with the iso-space plot above:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_in</span><span class="op">)</span></span></code></pre></div>
 <p><img src="advanced_plotting_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can add a polygon around the mixtures by creating a new data frame
@@ -236,7 +242,7 @@ this data frame to include some other parts of the data frame used by
 the <code>plot.simmr_input</code> function; we can set these to
 <code>NA</code>.</p>
 <p>We first create the new data frame.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://eliocamp.github.io/ggnewscale/" class="external-link">ggnewscale</a></span><span class="op">)</span></span>
 <span><span class="va">new_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">source_means</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">correction_means</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span>,</span>
@@ -246,14 +252,14 @@ the <code>plot.simmr_input</code> function; we can set these to
 <p>Then we call the <code>new_scale_color</code> function from
 <code>ggnewscale</code> with the <code>geom_polygon</code> command to
 create the polygon</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://eliocamp.github.io/ggnewscale/reference/new_scale.html" class="external-link">new_scale_color</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">geom_polygon</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"orange"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="advanced_plotting_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>If we wanted a convex hull we can use the <code>chull</code> function
 on the first two columns</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chull_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/chull.html" class="external-link">chull</a></span><span class="op">(</span><span class="va">new_df</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">new_df</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">new_df2</span> <span class="op">&lt;-</span> <span class="va">new_df</span><span class="op">[</span><span class="va">chull_vals</span>, <span class="op">]</span></span>
 <span><span class="va">p</span> <span class="op">+</span></span>
@@ -261,7 +267,7 @@ on the first two columns</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">geom_polygon</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_df2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"orange"</span>, alpha <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span></span></code></pre></div>
 <p><img src="advanced_plotting_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Or if we want a convex hull around the mixtures:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create the new data frame</span></span>
 <span><span class="va">new_mix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">mixtures</span><span class="op">[</span>, <span class="st">"d13C_Pl"</span><span class="op">]</span>,</span>
@@ -279,27 +285,31 @@ on the first two columns</p>
 <p>We can even do more than 1 convex hull to fully cover e.g. 2 standard
 deviations of the source area. This might be useful for identifying
 rogue mixture points.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">source_means_c</span> <span class="op">&lt;-</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">source_means</span> <span class="op">+</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">correction_means</span></span>
 <span><span class="va">source_sds_c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">$</span><span class="va">source_sds</span><span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">correction_sds</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">mix</span> <span class="op">&lt;-</span> <span class="va">geese_data_day1</span><span class="op">$</span><span class="va">mixtures</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd13C"</span><span class="op">]</span>,</span>
-<span>       <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd13C"</span><span class="op">]</span>,</span>
-<span>       <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>,<span class="st">"SDd13C"</span><span class="op">]</span>,</span>
-<span>       <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>,<span class="st">"SDd13C"</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span>,</span>
-<span>       <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span>,</span>
-<span>       <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span>,</span>
-<span>       <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd13C"</span><span class="op">]</span>,</span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd13C"</span><span class="op">]</span>,</span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd13C"</span><span class="op">]</span>,</span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand13CPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd13C"</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span>,</span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span>,</span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">-</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span>,</span>
+<span>  <span class="va">source_means_c</span><span class="op">[</span>, <span class="st">"meand15NPl"</span><span class="op">]</span> <span class="op">+</span> <span class="va">source_sds_c</span><span class="op">[</span>, <span class="st">"SDd15N"</span><span class="op">]</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">new_df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  x <span class="op">=</span> <span class="va">x</span>, </span>
+<span>  x <span class="op">=</span> <span class="va">x</span>,</span>
 <span>  y <span class="op">=</span> <span class="va">y</span>,</span>
 <span>  Source <span class="op">=</span> <span class="st">"Mixtures"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">chull_vals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/chull.html" class="external-link">chull</a></span><span class="op">(</span><span class="va">new_df3</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">new_df3</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="va">new_df4</span> <span class="op">&lt;-</span> <span class="va">new_df3</span><span class="op">[</span><span class="va">chull_vals</span>, <span class="op">]</span></span>
 <span><span class="va">p</span> <span class="op">+</span> <span class="fu"><a href="https://eliocamp.github.io/ggnewscale/reference/new_scale.html" class="external-link">new_scale_color</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">geom_polygon</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_df2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"orange"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">geom_polygon</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_df2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"orange"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://eliocamp.github.io/ggnewscale/reference/new_scale.html" class="external-link">new_scale_color</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_polygon.html" class="external-link">geom_polygon</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">new_df4</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span>, fill <span class="op">=</span> <span class="st">"orange"</span>, alpha <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="advanced_plotting_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -318,12 +328,12 @@ rogue mixture points.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Andrew Parnell.</p>
+<p>Developed by Andrew Parnell, Emma Govan.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

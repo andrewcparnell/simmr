@@ -18,7 +18,7 @@ two of the food sources. It works for single and multiple group data."><!-- math
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.4.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@ two of the food sources. It works for single and multiple group data.</p>
     <h2>Arguments</h2>
     <dl><dt>simmr_out</dt>
 <dd><p>An object of class <code>simmr_output</code> created from
-<code><a href="simmr_mcmc.html">simmr_mcmc</a></code>.</p></dd>
+<code><a href="simmr_mcmc.html">simmr_mcmc</a></code> or <code><a href="simmr_ffvb.html">simmr_ffvb</a></code></p></dd>
 
 
 <dt>to_combine</dt>
@@ -108,19 +108,19 @@ experience high (negative) posterior correlations between the sources.
 Combining them can reduce this correlation and improve precision of the
 estimates. In case (2) we might wish to determine the joint amount eaten of
 the two sources when combined. This function thus combines two sources after
-a run of <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> (known as a posteriori combination). The
-new object can then be called with <code><a href="plot.simmr_input.html">plot.simmr_input</a></code> or
-<code><a href="plot.simmr_output.html">plot.simmr_output</a></code> to produce iso-space plots of summaries of
-the output after combination.</p>
+a run of <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> or <code><a href="simmr_ffvb.html">simmr_ffvb</a></code> (known as
+a posteriori combination). The new object can then be called with
+<code><a href="plot.simmr_input.html">plot.simmr_input</a></code> or <code><a href="plot.simmr_output.html">plot.simmr_output</a></code> to
+produce iso-space plots of summaries of the output after combination.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>See <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> and the associated vignette for
-examples.</p></div>
+    <div class="dont-index"><p>See <code><a href="simmr_mcmc.html">simmr_mcmc</a></code> and <code><a href="simmr_ffvb.html">simmr_ffvb</a></code> and
+the associated vignette for examples.</p></div>
     </div>
     <div id="author">
     <h2>Author</h2>
-    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;</p>
+    <p>Andrew Parnell &lt;andrew.parnell@mu.ie&gt;, Emma Govan</p>
     </div>
 
     <div id="ref-examples">
@@ -130,18 +130,6 @@ examples.</p></div>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Load into simmr</span></span></span>
-<span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
-<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
-<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
-<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span>,</span></span>
-<span class="r-in"><span>    correction_means <span class="op">=</span> <span class="va">correction_means</span>,</span></span>
-<span class="r-in"><span>    correction_sds <span class="op">=</span> <span class="va">correction_sds</span>,</span></span>
-<span class="r-in"><span>    concentration_means <span class="op">=</span> <span class="va">concentration_means</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
@@ -169,10 +157,6 @@ examples.</p></div>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, type <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">simmr_out_combine</span> <span class="op">&lt;-</span> <span class="fu">combine_sources</span><span class="op">(</span><span class="va">simmr_1_out</span>,</span></span>
-<span class="r-in"><span>  to_combine <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"U.lactuca"</span>, <span class="st">"Enteromorpha"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  new_source_name <span class="op">=</span> <span class="st">"U.lac+Ent"</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_out_combine</span><span class="op">$</span><span class="va">input</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_out_combine</span>, type <span class="op">=</span> <span class="st">"boxplot"</span>, title <span class="op">=</span> <span class="st">"simmr output: combined sources"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
@@ -187,11 +171,11 @@ examples.</p></div>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell.</p>
+  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

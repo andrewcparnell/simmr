@@ -2,7 +2,8 @@
 % Please edit documentation in R/plot.simmr_output.R
 \name{plot.simmr_output}
 \alias{plot.simmr_output}
-\title{Plot different features of an object created from \code{\link{simmr_mcmc}}.}
+\title{Plot different features of an object created from \code{\link{simmr_mcmc}}
+or \code{\link{simmr_ffvb}}.}
 \usage{
 \method{plot}{simmr_output}(
   x,
@@ -22,7 +23,7 @@
 }
 \arguments{
 \item{x}{An object of class \code{simmr_output} created via
-\code{\link{simmr_mcmc}}}
+\code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}.}
 
 \item{type}{The type of plot required. Can be one or more of 'histogram',
 'density', 'matrix', or 'boxplot'}
@@ -42,17 +43,19 @@ matrix plots}
 }
 \description{
 This function allows for 4 different types of plots of the simmr output
-created from \code{\link{simmr_mcmc}}. The types are: histogram, kernel
-density plot, matrix plot (most useful) and boxplot. There are some minor
-customisation options.
+created from \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The
+types are: histogram, kernel density plot, matrix plot (most useful) and
+boxplot. There are some minor customisation options.
 }
 \details{
 The matrix plot should form a necessary part of any SIMM analysis since it
 allows the user to judge which sources are identifiable by the model.
 Further detail about these plots is provided in the vignette.
+Some code from
+https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-palette-for-ggallyggpairs-using-ggplot
+accessed March 2023
 }
 \examples{
-
 \dontrun{
 # A simple example with 10 observations, 2 tracers and 4 sources
 
@@ -60,18 +63,6 @@ Further detail about these plots is provided in the vignette.
 data(geese_data)
 
 # Load into simmr
-simmr_1 <- with(
-  geese_data_day1,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 # Plot
 plot(simmr_1)
 
@@ -88,11 +79,12 @@ plot(simmr_1_out, type = "matrix")
 }
 }
 \seealso{
-See \code{\link{simmr_mcmc}} for creating objects suitable for this
-function, and many more examples. See also \code{\link{simmr_load}} for
-creating simmr objects, \code{\link{plot.simmr_input}} for creating isospace
-plots, \code{\link{summary.simmr_output}} for summarising output.
+See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for
+creating objects suitable for this function, and many more examples. See
+also \code{\link{simmr_load}} for creating simmr objects,
+\code{\link{plot.simmr_input}} for creating isospace plots,
+\code{\link{summary.simmr_output}} for summarising output.
 }
 \author{
-Andrew Parnell <andrew.parnell@mu.ie>
+Andrew Parnell <andrew.parnell@mu.ie>, Emma Govan
 }
