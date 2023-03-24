@@ -13,7 +13,6 @@ Language: en-US
 Description: Fits Stable Isotope Mixing Models (SIMMs) and is meant as a longer term replacement to the previous widely-used package SIAR. SIMMs are used to infer dietary proportions of organisms consuming various food sources from observations on the stable isotope values taken from the organisms' tissue samples. However SIMMs can also be used in other scenarios, such as in sediment mixing or the composition of fatty acids. The main functions are simmr_load and simmr_mcmc. The two vignettes contain a quick start and a full listing of all the features. The methods used are detailed in the papers Parnell et al 2010 <doi:10.1371/journal.pone.0009672>, and Parnell et al 2013 <doi:10.1002/env.2221>.
 Depends: R (>= 3.5.0), R2jags, ggplot2
 Imports: 
-    MASS,
     compositions,
     boot,
     reshape2,
