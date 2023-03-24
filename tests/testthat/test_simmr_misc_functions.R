@@ -19,6 +19,18 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
 ))
 
+co(simmr_1ffvb_out <- simmr_ffvb(simmr_1,
+                                 ffvb_control = list(
+                                   n_output = 3600,
+                                   S = 10,
+                                   P = 1,
+                                   beta_1 = 0.9,
+                                   beta_2 = 0.9,
+                                   tau = 1000,
+                                   eps_0 = 0.1,
+                                   t_W = 1
+                                 )))
+
 data(geese_data)
 simmr_2 <- with(
   geese_data,
@@ -36,8 +48,19 @@ simmr_2 <- with(
 co(simmr_2_out <- simmr_mcmc(simmr_2,
   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
 ))
+co(simmr_2ffvb_out <- simmr_ffvb(simmr_2,
+                                 ffvb_control = list(
+                                   n_output = 3600,
+                                   S = 10,
+                                   P = 1,
+                                   beta_1 = 0.9,
+                                   beta_2 = 0.9,
+                                   tau = 1000,
+                                   eps_0 = 0.1,
+                                   t_W = 1
+                                 )))
 
-test_that("prior viz for 1 groups", {
+test_that("prior viz for 1 group", {
   p1 <- prior_viz(simmr_1_out)
   expect_list(p1)
   expect_class(p1$plot, "ggplot")
@@ -61,6 +84,32 @@ test_that("prior viz for multiple groups", {
   expect_error(prior_viz(simmr_2_out, group = 1.5, n_sims = 10))
   expect_error(prior_viz(simmr_2_out, group = 12, n_sims = 10))
 })
+
+test_that("prior viz for ffvb 1 group", {
+  p1 <- prior_viz(simmr_1ffvb_out)
+  expect_list(p1)
+  expect_class(p1$plot, "ggplot")
+  expect_class(p1$p_prior_sim, "matrix")
+  # Change some options
+  p1a <- prior_viz(simmr_1ffvb_out, plot = FALSE, include_posterior = FALSE, n_sims = 10)
+  expect_matrix(p1a)
+})
+
+test_that("prior viz for ffvb for multiple groups", {
+  p2 <- prior_viz(simmr_2ffvb_out)
+  expect_list(p2)
+  expect_class(p2$plot, "ggplot")
+  expect_class(p2$p_prior_sim, "matrix")
+  p3 <- prior_viz(simmr_2ffvb_out, group = 2)
+  expect_list(p3)
+  expect_false(p2$p_prior_sim[1, 1] == p3$p_prior_sim[1, 1])
+  # Change some options
+  p4 <- prior_viz(simmr_2ffvb_out, group = 2, plot = TRUE, include_posterior = FALSE, n_sims = 10)
+  expect_list(p4)
+  expect_error(prior_viz(simmr_2ffvb_out, group = 1.5, n_sims = 10))
+  expect_error(prior_viz(simmr_2ffvb_out, group = 12, n_sims = 10))
+})
+
 
 test_that("posterior predictive for 1 groups", {
   co(pp1 <- posterior_predictive(simmr_1_out))

@@ -1,4 +1,9 @@
-# simmr 0.4.5.9000
+# simmr 0.5.0
+
+  - Implemented new Fixed Form Variational Bayes method for fitting SIMMs (publication forthcoming)
+  - Added new GGally matrix plots
+
+# simmr 0.4.6
 
   - Implemented vdiffr for better checking of output plots
   - Added capture.output to remove verbose testing
