@@ -3,7 +3,7 @@
 \name{simmr_ffvb}
 \alias{simmr_ffvb}
 \title{Run a \code{simmr_input} object through the Fixed Form Variational
-Vayes(FFVB) function}
+Bayes(FFVB) function}
 \usage{
 simmr_ffvb(
   simmr_in,
@@ -29,7 +29,7 @@ exploring learning space), \code{eps_0} (fixed learning rate),
 An object of class \code{simmr_output} with two named top-level
 components: \item{input }{The \code{simmr_input} object given to the
 \code{simmr_ffvb} function} \item{output }{A set of outputs produced by
-the ffvb function. These can be analysed using the
+the FFVB function. These can be analysed using the
 \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 functions.}
 }

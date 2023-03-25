@@ -10,6 +10,8 @@ On win-builder I got a warning about a possibly invalid DOI in the DESCRIPTION. 
 
 The R-hub runs failed because it couldn't find JAGS but I think this is a missing dependency on R-hub rather than a problem with the package (or a missing option that I need to add in somehow).
 
+When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
+
 ## Previous CRAN package checks
 There are no previous errors or warnings for the package on CRAN.
 
