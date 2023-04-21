@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ simmr</h1>
                         <h4 data-toc-skip class="author">Andrew Parnell
 and Richard Inger</h4>
             
-            <h4 data-toc-skip class="date">2023-03-24</h4>
+            <h4 data-toc-skip class="date">2023-04-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/HEAD/vignettes/simmr.Rmd" class="external-link"><code>vignettes/simmr.Rmd</code></a></small>
       <div class="hidden name"><code>simmr.Rmd</code></div>
@@ -405,25 +405,25 @@ equivalent of a confidence interval) with:</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for 1 </span></span>
 <span><span class="co">##                mean    sd</span></span>
-<span><span class="co">## deviance     36.277 3.245</span></span>
-<span><span class="co">## Zostera       0.220 0.131</span></span>
-<span><span class="co">## Grass         0.287 0.080</span></span>
+<span><span class="co">## deviance     36.349 3.235</span></span>
+<span><span class="co">## Zostera       0.219 0.129</span></span>
+<span><span class="co">## Grass         0.288 0.081</span></span>
 <span><span class="co">## U.lactuca     0.276 0.032</span></span>
-<span><span class="co">## Enteromorpha  0.217 0.119</span></span>
-<span><span class="co">## sd[d13C]      0.550 0.231</span></span>
-<span><span class="co">## sd[d15N]      0.429 0.229</span></span></code></pre>
+<span><span class="co">## Enteromorpha  0.217 0.120</span></span>
+<span><span class="co">## sd[d13C]      0.552 0.235</span></span>
+<span><span class="co">## sd[d15N]      0.432 0.235</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for 1 </span></span>
 <span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     32.265 33.921 35.579 37.831 44.583</span></span>
-<span><span class="co">## Zostera       0.029  0.113  0.201  0.312  0.500</span></span>
-<span><span class="co">## Grass         0.142  0.234  0.283  0.336  0.457</span></span>
-<span><span class="co">## U.lactuca     0.215  0.254  0.276  0.296  0.342</span></span>
-<span><span class="co">## Enteromorpha  0.033  0.121  0.206  0.298  0.464</span></span>
-<span><span class="co">## sd[d13C]      0.180  0.397  0.517  0.673  1.084</span></span>
-<span><span class="co">## sd[d15N]      0.051  0.279  0.406  0.555  0.940</span></span></code></pre>
+<span><span class="co">## deviance     32.299 34.017 35.582 37.988 44.587</span></span>
+<span><span class="co">## Zostera       0.031  0.115  0.201  0.310  0.498</span></span>
+<span><span class="co">## Grass         0.143  0.232  0.283  0.337  0.466</span></span>
+<span><span class="co">## U.lactuca     0.216  0.254  0.274  0.295  0.341</span></span>
+<span><span class="co">## Enteromorpha  0.032  0.121  0.204  0.301  0.465</span></span>
+<span><span class="co">## sd[d13C]      0.170  0.396  0.524  0.677  1.098</span></span>
+<span><span class="co">## sd[d15N]      0.051  0.273  0.409  0.551  0.983</span></span></code></pre>
 <p>These suggest that the dietary proportions for this model are quite
 uncertain. However we can see that the credible interval for U.lactuca
 is the narrowest, running from approximately 20% to 35% of the diet. The
@@ -466,7 +466,7 @@ optional plot. For example:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,</span>
 <span>  source_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"U.lactuca"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Prob ( proportion of Zostera &gt; proportion of U.lactuca ) = 0.336</span></span></code></pre>
+<pre><code><span><span class="co">## Prob ( proportion of Zostera &gt; proportion of U.lactuca ) = 0.329</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This produces a direct probability that the dietary proportion for
 the first source is bigger than that of the second. If you want to
@@ -481,12 +481,12 @@ compare more than two sources, specify them with:</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
 <span><span class="co">##                                    Probability</span></span>
-<span><span class="co">## Zostera &gt; U.lactuca &gt; Enteromorpha      0.2986</span></span>
-<span><span class="co">## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2692</span></span>
-<span><span class="co">## U.lactuca &gt; Enteromorpha &gt; Zostera      0.2214</span></span>
-<span><span class="co">## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1731</span></span>
-<span><span class="co">## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0225</span></span>
-<span><span class="co">## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0153</span></span></code></pre>
+<span><span class="co">## Zostera &gt; U.lactuca &gt; Enteromorpha      0.2931</span></span>
+<span><span class="co">## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2697</span></span>
+<span><span class="co">## U.lactuca &gt; Enteromorpha &gt; Zostera      0.2233</span></span>
+<span><span class="co">## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1781</span></span>
+<span><span class="co">## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0183</span></span>
+<span><span class="co">## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0175</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>For further information and options on comparing sources, see
 <code><a href="../reference/compare_sources.html">help(compare_sources)</a></code>.</p>
@@ -568,13 +568,13 @@ individually, e.g.:</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for Period 1 </span></span>
 <span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     51.043 52.463 53.957 56.215 62.645</span></span>
-<span><span class="co">## Zostera       0.373  0.517  0.590  0.670  0.808</span></span>
-<span><span class="co">## Grass         0.031  0.057  0.071  0.086  0.118</span></span>
-<span><span class="co">## U.lactuca     0.022  0.074  0.126  0.188  0.324</span></span>
-<span><span class="co">## Enteromorpha  0.023  0.093  0.176  0.280  0.495</span></span>
-<span><span class="co">## sd[d13C_Pl]   0.061  0.532  0.885  1.292  2.387</span></span>
-<span><span class="co">## sd[d15N_Pl]   0.016  0.162  0.348  0.612  1.369</span></span></code></pre>
+<span><span class="co">## deviance     51.068 52.569 53.970 56.136 63.366</span></span>
+<span><span class="co">## Zostera       0.389  0.521  0.597  0.675  0.808</span></span>
+<span><span class="co">## Grass         0.031  0.058  0.072  0.087  0.119</span></span>
+<span><span class="co">## U.lactuca     0.019  0.075  0.129  0.194  0.321</span></span>
+<span><span class="co">## Enteromorpha  0.023  0.090  0.164  0.269  0.485</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.066  0.523  0.884  1.289  2.532</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.018  0.169  0.360  0.634  1.403</span></span></code></pre>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"quantiles"</span>,</span>
@@ -583,23 +583,23 @@ individually, e.g.:</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for Period 1 </span></span>
 <span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     51.043 52.463 53.957 56.215 62.645</span></span>
-<span><span class="co">## Zostera       0.373  0.517  0.590  0.670  0.808</span></span>
-<span><span class="co">## Grass         0.031  0.057  0.071  0.086  0.118</span></span>
-<span><span class="co">## U.lactuca     0.022  0.074  0.126  0.188  0.324</span></span>
-<span><span class="co">## Enteromorpha  0.023  0.093  0.176  0.280  0.495</span></span>
-<span><span class="co">## sd[d13C_Pl]   0.061  0.532  0.885  1.292  2.387</span></span>
-<span><span class="co">## sd[d15N_Pl]   0.016  0.162  0.348  0.612  1.369</span></span>
+<span><span class="co">## deviance     51.068 52.569 53.970 56.136 63.366</span></span>
+<span><span class="co">## Zostera       0.389  0.521  0.597  0.675  0.808</span></span>
+<span><span class="co">## Grass         0.031  0.058  0.072  0.087  0.119</span></span>
+<span><span class="co">## U.lactuca     0.019  0.075  0.129  0.194  0.321</span></span>
+<span><span class="co">## Enteromorpha  0.023  0.090  0.164  0.269  0.485</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.066  0.523  0.884  1.289  2.532</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.018  0.169  0.360  0.634  1.403</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Summary for Period 3 </span></span>
 <span><span class="co">##                 2.5%     25%     50%     75%   97.5%</span></span>
-<span><span class="co">## deviance     454.633 456.486 458.156 460.466 466.828</span></span>
-<span><span class="co">## Zostera        0.010   0.025   0.038   0.053   0.089</span></span>
-<span><span class="co">## Grass          0.390   0.416   0.427   0.436   0.451</span></span>
-<span><span class="co">## U.lactuca      0.276   0.383   0.429   0.468   0.519</span></span>
-<span><span class="co">## Enteromorpha   0.016   0.056   0.097   0.155   0.300</span></span>
-<span><span class="co">## sd[d13C_Pl]    0.416   0.668   0.777   0.879   1.087</span></span>
-<span><span class="co">## sd[d15N_Pl]    0.007   0.071   0.152   0.266   0.526</span></span></code></pre>
+<span><span class="co">## deviance     454.577 456.399 458.072 460.292 466.667</span></span>
+<span><span class="co">## Zostera        0.010   0.024   0.037   0.053   0.088</span></span>
+<span><span class="co">## Grass          0.392   0.417   0.428   0.437   0.453</span></span>
+<span><span class="co">## U.lactuca      0.288   0.392   0.437   0.473   0.523</span></span>
+<span><span class="co">## Enteromorpha   0.014   0.051   0.089   0.146   0.279</span></span>
+<span><span class="co">## sd[d13C_Pl]    0.422   0.659   0.771   0.879   1.080</span></span>
+<span><span class="co">## sd[d15N_Pl]    0.008   0.076   0.155   0.268   0.515</span></span></code></pre>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_groups_out</span>,</span>
 <span>  type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"quantiles"</span>, <span class="st">"statistics"</span><span class="op">)</span>,</span>
@@ -608,39 +608,39 @@ individually, e.g.:</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for Period 1 </span></span>
 <span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     51.043 52.463 53.957 56.215 62.645</span></span>
-<span><span class="co">## Zostera       0.373  0.517  0.590  0.670  0.808</span></span>
-<span><span class="co">## Grass         0.031  0.057  0.071  0.086  0.118</span></span>
-<span><span class="co">## U.lactuca     0.022  0.074  0.126  0.188  0.324</span></span>
-<span><span class="co">## Enteromorpha  0.023  0.093  0.176  0.280  0.495</span></span>
-<span><span class="co">## sd[d13C_Pl]   0.061  0.532  0.885  1.292  2.387</span></span>
-<span><span class="co">## sd[d15N_Pl]   0.016  0.162  0.348  0.612  1.369</span></span>
+<span><span class="co">## deviance     51.068 52.569 53.970 56.136 63.366</span></span>
+<span><span class="co">## Zostera       0.389  0.521  0.597  0.675  0.808</span></span>
+<span><span class="co">## Grass         0.031  0.058  0.072  0.087  0.119</span></span>
+<span><span class="co">## U.lactuca     0.019  0.075  0.129  0.194  0.321</span></span>
+<span><span class="co">## Enteromorpha  0.023  0.090  0.164  0.269  0.485</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.066  0.523  0.884  1.289  2.532</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.018  0.169  0.360  0.634  1.403</span></span>
 <span><span class="co">##                mean    sd</span></span>
-<span><span class="co">## deviance     54.708 3.073</span></span>
-<span><span class="co">## Zostera       0.592 0.110</span></span>
-<span><span class="co">## Grass         0.072 0.022</span></span>
-<span><span class="co">## U.lactuca     0.138 0.081</span></span>
-<span><span class="co">## Enteromorpha  0.198 0.129</span></span>
-<span><span class="co">## sd[d13C_Pl]   0.969 0.613</span></span>
-<span><span class="co">## sd[d15N_Pl]   0.439 0.372</span></span>
+<span><span class="co">## deviance     54.800 3.197</span></span>
+<span><span class="co">## Zostera       0.597 0.110</span></span>
+<span><span class="co">## Grass         0.073 0.023</span></span>
+<span><span class="co">## U.lactuca     0.139 0.082</span></span>
+<span><span class="co">## Enteromorpha  0.190 0.126</span></span>
+<span><span class="co">## sd[d13C_Pl]   0.969 0.632</span></span>
+<span><span class="co">## sd[d15N_Pl]   0.455 0.391</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Summary for Period 3 </span></span>
 <span><span class="co">##                 2.5%     25%     50%     75%   97.5%</span></span>
-<span><span class="co">## deviance     454.633 456.486 458.156 460.466 466.828</span></span>
-<span><span class="co">## Zostera        0.010   0.025   0.038   0.053   0.089</span></span>
-<span><span class="co">## Grass          0.390   0.416   0.427   0.436   0.451</span></span>
-<span><span class="co">## U.lactuca      0.276   0.383   0.429   0.468   0.519</span></span>
-<span><span class="co">## Enteromorpha   0.016   0.056   0.097   0.155   0.300</span></span>
-<span><span class="co">## sd[d13C_Pl]    0.416   0.668   0.777   0.879   1.087</span></span>
-<span><span class="co">## sd[d15N_Pl]    0.007   0.071   0.152   0.266   0.526</span></span>
+<span><span class="co">## deviance     454.577 456.399 458.072 460.292 466.667</span></span>
+<span><span class="co">## Zostera        0.010   0.024   0.037   0.053   0.088</span></span>
+<span><span class="co">## Grass          0.392   0.417   0.428   0.437   0.453</span></span>
+<span><span class="co">## U.lactuca      0.288   0.392   0.437   0.473   0.523</span></span>
+<span><span class="co">## Enteromorpha   0.014   0.051   0.089   0.146   0.279</span></span>
+<span><span class="co">## sd[d13C_Pl]    0.422   0.659   0.771   0.879   1.080</span></span>
+<span><span class="co">## sd[d15N_Pl]    0.008   0.076   0.155   0.268   0.515</span></span>
 <span><span class="co">##                 mean    sd</span></span>
-<span><span class="co">## deviance     458.876 3.244</span></span>
-<span><span class="co">## Zostera        0.041 0.021</span></span>
-<span><span class="co">## Grass          0.425 0.016</span></span>
-<span><span class="co">## U.lactuca      0.421 0.063</span></span>
-<span><span class="co">## Enteromorpha   0.114 0.075</span></span>
-<span><span class="co">## sd[d13C_Pl]    0.770 0.167</span></span>
-<span><span class="co">## sd[d15N_Pl]    0.182 0.140</span></span></code></pre>
+<span><span class="co">## deviance     458.719 3.198</span></span>
+<span><span class="co">## Zostera        0.040 0.021</span></span>
+<span><span class="co">## Grass          0.426 0.015</span></span>
+<span><span class="co">## U.lactuca      0.428 0.061</span></span>
+<span><span class="co">## Enteromorpha   0.106 0.072</span></span>
+<span><span class="co">## sd[d13C_Pl]    0.767 0.168</span></span>
+<span><span class="co">## sd[d15N_Pl]    0.187 0.142</span></span></code></pre>
 <p>For plotting output with multiple groups you can only specify a
 single group to plot. This is so that you are not overwhelmed with
 plots:</p>
@@ -686,8 +686,8 @@ boxplot as before:</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
 <span><span class="co">##                                Probability</span></span>
-<span><span class="co">## Period 1 &gt; Period 2 &gt; Period 3      0.7875</span></span>
-<span><span class="co">## Period 1 &gt; Period 3 &gt; Period 2      0.2125</span></span></code></pre>
+<span><span class="co">## Period 1 &gt; Period 2 &gt; Period 3      0.8225</span></span>
+<span><span class="co">## Period 1 &gt; Period 3 &gt; Period 2      0.1775</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -751,8 +751,8 @@ object using the <code>combine_sources</code> function:</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Most popular orderings are as follows:</span></span>
 <span><span class="co">##                                Probability</span></span>
-<span><span class="co">## Period 1 &gt; Period 2 &gt; Period 3      0.9956</span></span>
-<span><span class="co">## Period 2 &gt; Period 1 &gt; Period 3      0.0044</span></span></code></pre>
+<span><span class="co">## Period 1 &gt; Period 2 &gt; Period 3       0.995</span></span>
+<span><span class="co">## Period 2 &gt; Period 1 &gt; Period 3       0.005</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-28-4.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
@@ -828,13 +828,13 @@ reminder about the posterior values</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for 1 </span></span>
 <span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     32.265 33.921 35.579 37.831 44.583</span></span>
-<span><span class="co">## Zostera       0.029  0.113  0.201  0.312  0.500</span></span>
-<span><span class="co">## Grass         0.142  0.234  0.283  0.336  0.457</span></span>
-<span><span class="co">## U.lactuca     0.215  0.254  0.276  0.296  0.342</span></span>
-<span><span class="co">## Enteromorpha  0.033  0.121  0.206  0.298  0.464</span></span>
-<span><span class="co">## sd[d13C]      0.180  0.397  0.517  0.673  1.084</span></span>
-<span><span class="co">## sd[d15N]      0.051  0.279  0.406  0.555  0.940</span></span></code></pre>
+<span><span class="co">## deviance     32.299 34.017 35.582 37.988 44.587</span></span>
+<span><span class="co">## Zostera       0.031  0.115  0.201  0.310  0.498</span></span>
+<span><span class="co">## Grass         0.143  0.232  0.283  0.337  0.466</span></span>
+<span><span class="co">## U.lactuca     0.216  0.254  0.274  0.295  0.341</span></span>
+<span><span class="co">## Enteromorpha  0.032  0.121  0.204  0.301  0.465</span></span>
+<span><span class="co">## sd[d13C]      0.170  0.396  0.524  0.677  1.098</span></span>
+<span><span class="co">## sd[d15N]      0.051  0.273  0.409  0.551  0.983</span></span></code></pre>
 <p>All these dietary proportions are very similar. We now suppose we had
 prior information (e.g. from stomach or fecal contents) that the mean
 dietary proportions were</p>
@@ -854,9 +854,9 @@ follows:</p>
 <span><span class="co">## Mean optimisation successful.</span></span>
 <span><span class="co">## Standard deviation optimisation successful.</span></span>
 <span><span class="co">## Best fit estimates provide proportion means of:</span></span>
-<span><span class="co">## 0.465 0.271 0.181 0.083</span></span>
+<span><span class="co">## 0.429 0.312 0.18 0.079</span></span>
 <span><span class="co">## ... and best fit standard deviations of:</span></span>
-<span><span class="co">## 0.043 0.022 0.016 0.023</span></span>
+<span><span class="co">## 0.047 0.026 0.015 0.013</span></span>
 <span><span class="co">## Check these match the input values before proceeding with a model run.</span></span></code></pre>
 <p>This may take a few moments to run as the code tries to optimise the
 parameters of a prior distribution which matches these means and
@@ -888,13 +888,13 @@ distributions:</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for 1 </span></span>
 <span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     38.747 42.500 44.861 47.518 53.860</span></span>
-<span><span class="co">## Zostera       0.351  0.400  0.427  0.455  0.510</span></span>
-<span><span class="co">## Grass         0.250  0.278  0.292  0.307  0.333</span></span>
-<span><span class="co">## U.lactuca     0.171  0.192  0.203  0.214  0.234</span></span>
-<span><span class="co">## Enteromorpha  0.045  0.063  0.075  0.089  0.123</span></span>
-<span><span class="co">## sd[d13C]      0.340  0.535  0.662  0.819  1.279</span></span>
-<span><span class="co">## sd[d15N]      0.262  0.522  0.668  0.851  1.391</span></span></code></pre>
+<span><span class="co">## deviance     45.185 48.302 50.228 52.458 57.920</span></span>
+<span><span class="co">## Zostera       0.305  0.356  0.385  0.412  0.469</span></span>
+<span><span class="co">## Grass         0.289  0.321  0.337  0.353  0.381</span></span>
+<span><span class="co">## U.lactuca     0.168  0.187  0.196  0.206  0.222</span></span>
+<span><span class="co">## Enteromorpha  0.060  0.073  0.082  0.091  0.110</span></span>
+<span><span class="co">## sd[d13C]      0.469  0.673  0.823  1.012  1.527</span></span>
+<span><span class="co">## sd[d15N]      0.360  0.599  0.752  0.949  1.474</span></span></code></pre>
 <p>We can plot these priors with their posteriors</p>
 <div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_out_informative</span><span class="op">)</span></span></code></pre></div>
@@ -964,15 +964,15 @@ the:</p>
 <div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_tdf_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##               2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## c_mean[1,1]  2.112  2.467  2.617  2.769  3.115</span></span>
-<span><span class="co">## c_mean[2,1]  2.112  2.467  2.617  2.769  3.115</span></span>
-<span><span class="co">## c_mean[3,1]  2.112  2.467  2.617  2.769  3.115</span></span>
-<span><span class="co">## c_mean[4,1]  2.112  2.467  2.617  2.769  3.115</span></span>
-<span><span class="co">## c_sd[1,1]    0.164  0.570  0.825  1.085  1.788</span></span>
-<span><span class="co">## c_sd[2,1]    0.164  0.570  0.825  1.085  1.788</span></span>
-<span><span class="co">## c_sd[3,1]    0.164  0.570  0.825  1.085  1.788</span></span>
-<span><span class="co">## c_sd[4,1]    0.164  0.570  0.825  1.085  1.788</span></span>
-<span><span class="co">## deviance    16.978 17.831 19.039 21.204 27.893</span></span></code></pre>
+<span><span class="co">## c_mean[1,1]  2.095  2.475  2.635  2.779  3.098</span></span>
+<span><span class="co">## c_mean[2,1]  2.095  2.475  2.635  2.779  3.098</span></span>
+<span><span class="co">## c_mean[3,1]  2.095  2.475  2.635  2.779  3.098</span></span>
+<span><span class="co">## c_mean[4,1]  2.095  2.475  2.635  2.779  3.098</span></span>
+<span><span class="co">## c_sd[1,1]    0.176  0.566  0.828  1.082  1.849</span></span>
+<span><span class="co">## c_sd[2,1]    0.176  0.566  0.828  1.082  1.849</span></span>
+<span><span class="co">## c_sd[3,1]    0.176  0.566  0.828  1.082  1.849</span></span>
+<span><span class="co">## c_sd[4,1]    0.176  0.566  0.828  1.082  1.849</span></span>
+<span><span class="co">## deviance    16.992 17.849 19.061 21.290 27.909</span></span></code></pre>
 <p>We can put the predicted TDFs back into a new model and check that
 the iso-space plot now is correct</p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
@@ -1006,7 +1006,7 @@ example:</p>
 <span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/lims.html" class="external-link">ylim</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="simmr_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;"></p>
-<pre><code><span><span class="co">## Warning: Removed 2171 rows containing non-finite values</span></span>
+<pre><code><span><span class="co">## Warning: Removed 2009 rows containing non-finite values</span></span>
 <span><span class="co">## (`stat_boxplot()`).</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-50-2.png" width="672" style="display: block; margin: auto;"></p>
 <p>Note that the above actually changes the x-axis and not the y-axis
@@ -1041,7 +1041,8 @@ background.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use tidy evaluation ideoms with `aes()`</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use tidy evaluation idioms with `aes()`.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> See also `vignette("ggplot2-in-packages")` for more information.</span></span>
 <span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
 <span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
 <span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
@@ -1062,14 +1063,14 @@ proportion samples. We can calculate for example the mean of the Zostera
 dietary proportion on the first (or only) group:</p>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.2203963</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.2190643</span></span></code></pre>
 <p>The backquotes around the 1 are required above because they specify
 which group (the first). We can thus find the probability that the
 posterior dietary proportion for Zostera is bigger than for Grass:</p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span></span>
 <span><span class="op">&gt;</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Grass"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.3358333</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.3297222</span></span></code></pre>
 <p>With more detailed R knowledge, it is possible to create scripts
 which run multiple data sets in richer fashions than the default
 <code>simmr</code> functions. See the help file
