@@ -20,16 +20,17 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
 ))
 
 co(simmr_1ffvb_out <- simmr_ffvb(simmr_1,
-                                 ffvb_control = list(
-                                   n_output = 3600,
-                                   S = 10,
-                                   P = 1,
-                                   beta_1 = 0.9,
-                                   beta_2 = 0.9,
-                                   tau = 1000,
-                                   eps_0 = 0.1,
-                                   t_W = 1
-                                 )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 data(geese_data)
 simmr_2 <- with(
@@ -49,16 +50,17 @@ co(simmr_2_out <- simmr_mcmc(simmr_2,
   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
 ))
 co(simmr_2ffvb_out <- simmr_ffvb(simmr_2,
-                                 ffvb_control = list(
-                                   n_output = 3600,
-                                   S = 10,
-                                   P = 1,
-                                   beta_1 = 0.9,
-                                   beta_2 = 0.9,
-                                   tau = 1000,
-                                   eps_0 = 0.1,
-                                   t_W = 1
-                                 )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 test_that("prior viz for 1 group", {
   p1 <- prior_viz(simmr_1_out)
