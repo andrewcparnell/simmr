@@ -106,7 +106,7 @@ simmr_elicit <-
     # proportion_sds must be a vector of length n_sources
     assert_numeric(proportion_sds,
       len = n_sources,
-      lower = 0, upper = 1
+      lower = .Machine$double.eps, upper = 1
     )
 
     low_cis <- proportion_means - 2 * proportion_sds
