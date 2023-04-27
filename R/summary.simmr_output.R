@@ -149,8 +149,6 @@ summary.simmr_output <-
           cat(paste("\nSummary for", group_names[group[i]], "\n"))
           out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
 
-
-
           # Get objects
           out_quantiles[[i]] <- t(apply(out_all, 2, "quantile", probs = c(0.025, 0.25, 0.5, 0.75, 0.975)))
           #  coda:::summary.mcmc.list(object$output)$quantiles
