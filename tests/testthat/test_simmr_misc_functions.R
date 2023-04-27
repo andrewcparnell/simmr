@@ -168,4 +168,16 @@ test_that("simmr elicit function", {
     proportion_sds = c(1, 1.5, 1, 0.02),
     n_sims = 10
   )))
+  expect_error(co(simmr_elicit(
+    n_sources = 4,
+    proportion_means = c(0.5, 0.2, 0.2, 0.1),
+    proportion_sds = c(0, 0, 0, 0),
+    n_sims = 10
+  )))
+  expect_error(co(simmr_elicit(
+    n_sources = 4,
+    proportion_means = c(0.5, 0.2, 0.2, 0.1),
+    proportion_sds = c(0, 0.02, 0.01, 0.02),
+    n_sims = 10
+  )))
 })
