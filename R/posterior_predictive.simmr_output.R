@@ -103,6 +103,8 @@ posterior_predictive.simmr_output <- function(simmr_out,
     dim(y_rep) <- c(dim(y_post_pred)[1], dim(y_post_pred)[2] * dim(y_post_pred)[3])
     curr_rows <- which(simmr_out$input$group_int == group)
     curr_mix <- simmr_out$input$mixtures[curr_rows, , drop = FALSE]
+    bayesplot::color_scheme_set("viridis")
+    bayesplot::bayesplot_theme_set(new = theme_bw())
     g <- ppc_intervals(
       y = unlist(as.vector(curr_mix)),
       yrep = y_rep,
@@ -112,7 +114,6 @@ posterior_predictive.simmr_output <- function(simmr_out,
     ) + ggplot2::ylab("Tracer value") +
       ggplot2::xlab("Observation") +
       ggplot2::ggtitle(paste0(prob * 100, "% posterior predictive")) +
-      ggplot2::theme_bw() +
       ggplot2::scale_x_continuous(breaks = 1:simmr_out$input$n_obs)
     print(g)
   }
