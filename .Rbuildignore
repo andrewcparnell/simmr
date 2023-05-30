@@ -17,3 +17,4 @@
 ^\.github$
 ^NUL$
 ^tests/testthat/NUL$
+^CRAN-SUBMISSION$

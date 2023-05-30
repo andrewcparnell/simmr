@@ -20,16 +20,17 @@ co(simmr_1_out <- simmr_mcmc(simmr_1,
 ))
 
 co(simmr_1ffvb_out <- simmr_ffvb(simmr_1,
-                                 ffvb_control = list(
-                                   n_output = 3600,
-                                   S = 10,
-                                   P = 1,
-                                   beta_1 = 0.9,
-                                   beta_2 = 0.9,
-                                   tau = 1000,
-                                   eps_0 = 0.1,
-                                   t_W = 1
-                                 )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 data(geese_data)
 simmr_2 <- with(
@@ -49,16 +50,17 @@ co(simmr_2_out <- simmr_mcmc(simmr_2,
   mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
 ))
 co(simmr_2ffvb_out <- simmr_ffvb(simmr_2,
-                                 ffvb_control = list(
-                                   n_output = 3600,
-                                   S = 10,
-                                   P = 1,
-                                   beta_1 = 0.9,
-                                   beta_2 = 0.9,
-                                   tau = 1000,
-                                   eps_0 = 0.1,
-                                   t_W = 1
-                                 )))
+  ffvb_control = list(
+    n_output = 3600,
+    S = 10,
+    P = 1,
+    beta_1 = 0.9,
+    beta_2 = 0.9,
+    tau = 1000,
+    eps_0 = 0.1,
+    t_W = 1
+  )
+))
 
 test_that("prior viz for 1 group", {
   p1 <- prior_viz(simmr_1_out)
@@ -164,6 +166,18 @@ test_that("simmr elicit function", {
     n_sources = 4,
     proportion_means = c(0.5, 0.2, 0.2, 0.1),
     proportion_sds = c(1, 1.5, 1, 0.02),
+    n_sims = 10
+  )))
+  expect_error(co(simmr_elicit(
+    n_sources = 4,
+    proportion_means = c(0.5, 0.2, 0.2, 0.1),
+    proportion_sds = c(0, 0, 0, 0),
+    n_sims = 10
+  )))
+  expect_error(co(simmr_elicit(
+    n_sources = 4,
+    proportion_means = c(0.5, 0.2, 0.2, 0.1),
+    proportion_sds = c(0, 0.02, 0.01, 0.02),
     n_sims = 10
   )))
 })

@@ -46,18 +46,18 @@
 #' data(geese_data)
 #'
 #' # Load into simmr
-# simmr_1 <- with(
-#   geese_data_day1,
-#   simmr_load(
-#     mixtures = mixtures,
-#     source_names = source_names,
-#     source_means = source_means,
-#     source_sds = source_sds,
-#     correction_means = correction_means,
-#     correction_sds = correction_sds,
-#     concentration_means = concentration_means
-#   )
-# )
+#' simmr_1 <- with(
+#'   geese_data_day1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #' # Plot
 #' plot(simmr_1)
 #'
@@ -102,7 +102,6 @@ plot.simmr_output <-
 
       # Get group names
       group_names <- levels(x$input$group)[group]
-
 
       for (i in 1:length(group)) {
         # Prep data
@@ -162,16 +161,17 @@ plot.simmr_output <-
 
         if ("matrix" %in% type) {
           modified_bar <- function(data, mapping, ...) {
-            GGally::ggally_barDiag(data, mapping, ..., binwidth = 0.025) + coord_cartesian(xlim = c(0, 1)) + theme_bw()
+            GGally::ggally_barDiag(data, mapping, ..., fill = viridis(1), binwidth = 0.025) + coord_cartesian(xlim = c(0, 1)) + theme_bw()
           }
           modified_density <- function(data, mapping, ...) {
             ggplot(data = data, mapping = mapping, ...) +
               stat_density_2d(
                 geom = "polygon", contour = TRUE,
-                aes(fill = after_stat(..level..)), colour = "black",
-                bins = 5
+                aes(fill = after_stat(..level..)),
+                bins = 5,
               ) +
-              scale_fill_distiller(palette = "Blues", direction = 1) +
+              scale_fill_viridis(alpha = 0.8) + 
+              #scale_fill_distiller(palette = "Blues", direction = 1) +
               theme_bw() +
               scale_x_continuous(limits = c(0, 1)) +
               scale_y_continuous(limits = c(0, 1))

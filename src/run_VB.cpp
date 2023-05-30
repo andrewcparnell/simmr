@@ -1,7 +1,6 @@
 #include <RcppArmadillo.h>
 #include <RcppDist.h>
 using namespace Rcpp;
-// [[Rcpp::plugins(cpp11)]]
 // [[Rcpp::depends(RcppArmadillo, RcppDist)]]
 
 static double const log2pi = std::log(2.0 * M_PI);

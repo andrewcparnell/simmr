@@ -1,5 +1,5 @@
 #' Run a \code{simmr_input} object through the Fixed Form Variational
-#' Vayes(FFVB) function
+#' Bayes(FFVB) function
 #'
 #' This is the main function of simmr. It takes a \code{simmr_input} object
 #' created via \code{\link{simmr_load}}, runs it in fixed form
@@ -20,7 +20,7 @@
 #' @return An object of class \code{simmr_output} with two named top-level
 #' components: \item{input }{The \code{simmr_input} object given to the
 #' \code{simmr_ffvb} function} \item{output }{A set of outputs produced by
-#' the ffvb function. These can be analysed using the
+#' the FFVB function. These can be analysed using the
 #' \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 #' functions.}
 #'
@@ -217,19 +217,19 @@
 #'
 #' # Do this in raw data format - Note that there's quite a few mixtures!
 #' data(geese_data)
-# simmr_5 <- with(
-#' #  geese_data,
-#' #  simmr_load(
-#' #    mixtures = mixtures,
-#' #    source_names = source_names,
-#' #    source_means = source_means,
-#' #    source_sds = source_sds,
-#' #    correction_means = correction_means,
-#' #    correction_sds = correction_sds,
-#' #    concentration_means = concentration_means,
-#' #    group = groups
-#' #  )
-# )
+#' simmr_5 <- with(
+#'   geese_data,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means,
+#'     group = groups
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_5,
@@ -239,7 +239,7 @@
 #' )
 #'
 #' # Run MCMC for each group
-#' simmr_5_out <- simmr_mcmc(simmr_5)
+#' simmr_5_out <- simmr_ffvb(simmr_5)
 #'
 #' # Summarise output
 #' summary(simmr_5_out, type = "quantiles", group = 1)
@@ -276,12 +276,8 @@ simmr_ffvb <- function(simmr_in,
                          eps_0 = 0.1,
                          t_W = 50
                        )) {
-  #### make sure this has right file name
-  # Rcpp::sourceCpp("src/run_VB.cpp")
-
   # Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
-
 
   output <- vector("list", length = simmr_in$n_groups)
   names(output) <- levels(simmr_in$group)
@@ -306,7 +302,6 @@ simmr_ffvb <- function(simmr_in,
 
   p_fun <- function(x) exp(x) / sum(exp(x))
 
-
   # Loop through all the groups
   for (i in 1:simmr_in$n_groups) {
     if (simmr_in$n_groups > 1) cat(paste("\nRunning for group", levels(simmr_in$group)[i], "\n\n"))
@@ -324,21 +319,16 @@ simmr_ffvb <- function(simmr_in,
       beta_prior = 0.001
     }
 
-
     n_tracers <- simmr_in$n_tracers
     n_sources <- simmr_in$n_sources
     s_names <- simmr_in$source_names
     K <- simmr_in$n_sources
-    S <- 100
     source_means <- simmr_in$source_means
     source_sds <- simmr_in$source_sds
     correction_means <- simmr_in$correction_means
     correction_sds <- simmr_in$correction_sds
     concentration_means <- simmr_in$concentration_means
     y <- curr_mix
-
-
-
 
     lambdastart <- c(mu_a, rep(sigma_a, (((K * (K + 1)) / 2) + n_tracers * 2)))
 
@@ -351,12 +341,8 @@ simmr_ffvb <- function(simmr_in,
       ffvb_control$eps_0, ffvb_control$t_W
     )
 
-
-
     thetares[(1 + n_output * (i - 1)):(n_output * i), ] <-
       sim_thetacpp(n_output, lambdares[, i], K, n_tracers)
-
-
 
     p <- t(apply(thetares[(1 + n_output * (i - 1)):(n_output * i), 1:K], 1, p_fun))
     sigma <- (1 / sqrt(thetares[
@@ -365,7 +351,6 @@ simmr_ffvb <- function(simmr_in,
     ]))
 
     colnames(p) <- simmr_in$source_names
-
 
     sims.matrix <- cbind(
       p,
@@ -393,9 +378,7 @@ simmr_ffvb <- function(simmr_in,
     )
   }
 
-  output_all <- vector("list")
-  output_all$input <- simmr_in
-  output_all$output <- mylist
+  output_all <- list(input = simmr_in, output = mylist)
 
   class(output_all) <- c("simmr_output", "ffvb")
 

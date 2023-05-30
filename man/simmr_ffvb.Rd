@@ -3,7 +3,7 @@
 \name{simmr_ffvb}
 \alias{simmr_ffvb}
 \title{Run a \code{simmr_input} object through the Fixed Form Variational
-Vayes(FFVB) function}
+Bayes(FFVB) function}
 \usage{
 simmr_ffvb(
   simmr_in,
@@ -29,7 +29,7 @@ exploring learning space), \code{eps_0} (fixed learning rate),
 An object of class \code{simmr_output} with two named top-level
 components: \item{input }{The \code{simmr_input} object given to the
 \code{simmr_ffvb} function} \item{output }{A set of outputs produced by
-the ffvb function. These can be analysed using the
+the FFVB function. These can be analysed using the
 \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}
 functions.}
 }
@@ -215,17 +215,19 @@ plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
 
 # Do this in raw data format - Note that there's quite a few mixtures!
 data(geese_data)
-#  geese_data,
-#  simmr_load(
-#    mixtures = mixtures,
-#    source_names = source_names,
-#    source_means = source_means,
-#    source_sds = source_sds,
-#    correction_means = correction_means,
-#    correction_sds = correction_sds,
-#    concentration_means = concentration_means,
-#    group = groups
-#  )
+simmr_5 <- with(
+  geese_data,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means,
+    group = groups
+  )
+)
 
 # Plot
 plot(simmr_5,
@@ -235,7 +237,7 @@ plot(simmr_5,
 )
 
 # Run MCMC for each group
-simmr_5_out <- simmr_mcmc(simmr_5)
+simmr_5_out <- simmr_ffvb(simmr_5)
 
 # Summarise output
 summary(simmr_5_out, type = "quantiles", group = 1)

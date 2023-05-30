@@ -106,7 +106,7 @@ summary.simmr_output <-
 
           if ("diagnostics" %in% type) {
             # Print out gelman diagnostics of the output
-            cat("Gelman diagnostics - these values should all be close to 1.\n")
+            cat("R-hat values - these values should all be close to 1.\n")
             cat("If not, try a longer run of simmr_mcmc.\n")
             print(round(out_bgr[[i]], 2))
           }
@@ -148,8 +148,6 @@ summary.simmr_output <-
         for (i in 1:length(group)) {
           cat(paste("\nSummary for", group_names[group[i]], "\n"))
           out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
-
-
 
           # Get objects
           out_quantiles[[i]] <- t(apply(out_all, 2, "quantile", probs = c(0.025, 0.25, 0.5, 0.75, 0.975)))
