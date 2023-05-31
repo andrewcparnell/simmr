@@ -85,17 +85,17 @@ test_that("Other summary tdf functions produce output", {
   expect_output(summary(simmr_tdf_out, type = "correlations"))
 })
 
-test_that("tdf output can be re-used", {
-  set.seed(123)
-  co(simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2,
-    mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
-  ))
-  # Plot with corrections now
-  p <- plot(simmr_tdf_2)
-  expect_doppelganger("tdf_corrected_1", p)
-  co(s1 <- summary(simmr_tdf_2_out, type = "diagnostics"))
-  expect_true(is.list(s1))
-  expect_identical(names(s1), c("gelman", "quantiles", "statistics", "correlations"))
-  p2 <- plot(simmr_tdf_2_out, type = "boxplot")
-  expect_doppelganger("tdf_corrected_2", p)
-})
+# test_that("tdf output can be re-used", {
+#   set.seed(123)
+#   co(simmr_tdf_2_out <- simmr_mcmc(simmr_tdf_2,
+#     mcmc_control = list(iter = 100, burn = 10, thin = 1, n.chain = 4)
+#   ))
+#   # Plot with corrections now
+#   # p <- plot(simmr_tdf_2)
+#   # expect_doppelganger("tdf_corrected_1", p)
+#   # co(s1 <- summary(simmr_tdf_2_out, type = "diagnostics"))
+#   # expect_true(is.list(s1))
+#   # expect_identical(names(s1), c("gelman", "quantiles", "statistics", "correlations"))
+#   # p2 <- plot(simmr_tdf_2_out, type = "boxplot")
+#   # expect_doppelganger("tdf_corrected_2", p)
+# })

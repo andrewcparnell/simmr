@@ -74,53 +74,17 @@ increased by e.g. a factor of 10.
 # The data
 data(simmr_data_1)
 # Load into simmr
-simmr_tdf <- with(
-  simmr_data_1,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 
 # Plot
 plot(simmr_tdf)
 
 # MCMC run
-simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-  p = matrix(
-    rep(
-      1 / simmr_tdf$n_sources,
-      simmr_tdf$n_sources
-    ),
-    ncol = simmr_tdf$n_sources,
-    nrow = simmr_tdf$n_obs,
-    byrow = TRUE
-  )
-)
-
 # Summary
 summary(simmr_tdf_out, type = "diagnostics")
 summary(simmr_tdf_out, type = "quantiles")
 
 # Now put these corrections back into the model and check the
 # iso-space plots and dietary output
-simmr_tdf_2 <- with(
-  simmr_data_1,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = simmr_tdf_out$c_mean_est,
-    correction_sds = simmr_tdf_out$c_sd_est,
-    concentration_means = concentration_means
-  )
-)
 
 # Plot with corrections now
 plot(simmr_tdf_2)
