@@ -86,7 +86,7 @@ jobs:
       - name: Install dependencies
         run: |
           remotes::install_deps(dependencies = TRUE)
-          pak::install_cran("rcmdcheck")
+          pak::pkg_install("rcmdcheck")
         shell: Rscript {0}
 
       - name: Check
