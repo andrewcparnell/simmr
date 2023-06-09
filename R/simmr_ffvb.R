@@ -48,18 +48,18 @@
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' data(geese_data_day1)
-#' simmr_1 <- with(
-#'   geese_data_day1,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means
-#'   )
-#' )
+# simmr_1 <- with(
+#   geese_data_day1,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means
+#   )
+# )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -313,8 +313,10 @@ simmr_ffvb <- function(simmr_in,
     if (nrow(curr_mix) == 1) {
       cat("Only 1 mixture value, performing a simmr solo run...\n")
       solo <- TRUE
+      beta_prior = 100
     } else {
       solo <- FALSE
+      beta_prior = 0.001
     }
 
     n_tracers <- simmr_in$n_tracers
@@ -331,7 +333,7 @@ simmr_ffvb <- function(simmr_in,
     lambdastart <- c(mu_a, rep(sigma_a, (((K * (K + 1)) / 2) + n_tracers * 2)))
 
     lambdares[, i] <- run_VB_cpp(
-      lambdastart, K, n_tracers, concentration_means,
+      lambdastart, K, n_tracers, beta_prior, concentration_means,
       source_means, correction_means, correction_sds,
       source_sds, y, ffvb_control$S,
       ffvb_control$P, ffvb_control$beta_1,

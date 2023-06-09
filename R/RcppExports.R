@@ -25,8 +25,8 @@ hfn <- function(theta, n_sources) {
     .Call(`_simmr_hfn`, theta, n_sources)
 }
 
-hcpp <- function(n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y) {
-    .Call(`_simmr_hcpp`, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y)
+hcpp <- function(n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y) {
+    .Call(`_simmr_hcpp`, n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y)
 }
 
 log_q_cpp <- function(theta, lambda, n_sources, n_tracers) {
@@ -37,27 +37,27 @@ delta_lqltcpp <- function(lambda, theta, eps, n_sources, n_tracers) {
     .Call(`_simmr_delta_lqltcpp`, lambda, theta, eps, n_sources, n_tracers)
 }
 
-h_lambdacpp <- function(n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda) {
-    .Call(`_simmr_h_lambdacpp`, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda)
+h_lambdacpp <- function(n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda) {
+    .Call(`_simmr_h_lambdacpp`, n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, theta, y, lambda)
 }
 
 cov_mat_cpp <- function(x, y) {
     .Call(`_simmr_cov_mat_cpp`, x, y)
 }
 
-nabla_LB_cpp <- function(lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c) {
-    .Call(`_simmr_nabla_LB_cpp`, lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c)
+nabla_LB_cpp <- function(lambda, theta, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c) {
+    .Call(`_simmr_nabla_LB_cpp`, lambda, theta, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, c)
 }
 
-control_var_cpp <- function(lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
-    .Call(`_simmr_control_var_cpp`, lambda, theta, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
+control_var_cpp <- function(lambda, theta, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
+    .Call(`_simmr_control_var_cpp`, lambda, theta, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 
-LB_lambda_cpp <- function(theta, lambda, p, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
-    .Call(`_simmr_LB_lambda_cpp`, theta, lambda, p, n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
+LB_lambda_cpp <- function(theta, lambda, p, n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y) {
+    .Call(`_simmr_LB_lambda_cpp`, theta, lambda, p, n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 
-run_VB_cpp <- function(lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W) {
-    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W)
+run_VB_cpp <- function(lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W) {
+    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W)
 }
 

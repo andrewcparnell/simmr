@@ -182,6 +182,7 @@ NumericVector hfn(NumericVector theta, int n_sources){
 
 //[[Rcpp::export]]
 double hcpp(int n_sources, int n_isotopes,
+            double beta_prior,
             NumericMatrix concentrationmeans, NumericMatrix sourcemeans,
             NumericMatrix correctionmeans,
             NumericMatrix corrsds, NumericMatrix sourcesds, NumericVector theta, NumericMatrix y ){
@@ -207,8 +208,8 @@ double hcpp(int n_sources, int n_isotopes,
   }
   
   for (int i = 0; i<n_isotopes; i++){
-    c_0(i) = 1;
-    d_0(i) = 1;
+    c_0(i) = 0.001;
+    d_0(i) = beta_prior;
   }
   
   
@@ -482,13 +483,14 @@ NumericVector delta_lqltcpp(NumericVector lambda, NumericVector theta,
 
 // [[Rcpp::export]]
 double h_lambdacpp(int n_sources, int n_isotopes,
+                   double beta_prior,
                    NumericMatrix concentrationmeans, NumericMatrix sourcemeans,
                    NumericMatrix correctionmeans,
                    NumericMatrix corrsds, NumericMatrix sourcesds,
                    NumericVector theta, NumericMatrix y,
                    NumericVector lambda) {
   
-  return hcpp(n_sources, n_isotopes, concentrationmeans, sourcemeans, correctionmeans,
+  return hcpp(n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans,
               corrsds, sourcesds, theta, y) - log_q_cpp(theta, lambda, n_sources, n_isotopes);
 }
 
@@ -554,7 +556,7 @@ NumericMatrix cov_mat_cpp(NumericMatrix x, NumericMatrix y) {
 
 
 // [[Rcpp::export]]
-NumericVector nabla_LB_cpp(NumericVector lambda, NumericMatrix theta, int n_sources, int n_tracers,
+NumericVector nabla_LB_cpp(NumericVector lambda, NumericMatrix theta, int n_sources, int n_tracers, double beta_prior, 
                            NumericMatrix concentrationmeans, NumericMatrix sourcemeans,
                            NumericMatrix correctionmeans,
                            NumericMatrix corrsds, NumericMatrix sourcesds, NumericMatrix y,
@@ -579,7 +581,7 @@ NumericVector nabla_LB_cpp(NumericVector lambda, NumericMatrix theta, int n_sour
   }
   
   for(int i =0; i<thetanrow; i++){
-    big_h_lambda(i) = h_lambdacpp(n_sources, n_tracers,
+    big_h_lambda(i) = h_lambdacpp(n_sources, n_tracers, beta_prior,
                  concentrationmeans, sourcemeans,
                  correctionmeans,
                  corrsds,sourcesds, theta(i,_), y,
@@ -646,6 +648,7 @@ NumericVector nabla_LB_cpp(NumericVector lambda, NumericMatrix theta, int n_sour
 NumericVector control_var_cpp(NumericVector lambda, 
                               NumericMatrix theta, 
                               int n_sources, int n_tracers,
+                              double beta_prior,
                               NumericMatrix concentrationmeans, 
                               NumericMatrix sourcemeans,
                               NumericMatrix correctionmeans,
@@ -666,7 +669,7 @@ NumericVector control_var_cpp(NumericVector lambda,
   }
   
   for(int i =0; i<S; i++){
-    big_h_lambda(i) = h_lambdacpp(n_sources, n_tracers,
+    big_h_lambda(i) = h_lambdacpp(n_sources, n_tracers, beta_prior,
                  concentrationmeans, sourcemeans,
                  correctionmeans,
                  corrsds,sourcesds, theta(i,_), y,
@@ -723,7 +726,8 @@ NumericVector control_var_cpp(NumericVector lambda,
 }
 
 // [[Rcpp::export]]
-double LB_lambda_cpp(NumericMatrix theta, NumericVector lambda, NumericVector p, int n_sources, int n_isotopes,
+double LB_lambda_cpp(NumericMatrix theta, NumericVector lambda, NumericVector p, int n_sources, int n_isotopes, 
+                     double beta_prior,
                      NumericMatrix concentrationmeans, NumericMatrix sourcemeans,
                      NumericMatrix correctionmeans,
                      NumericMatrix corrsds, NumericMatrix sourcesds, NumericMatrix y){
@@ -732,7 +736,7 @@ double LB_lambda_cpp(NumericMatrix theta, NumericVector lambda, NumericVector p,
   NumericVector hlambdaapply(S);
   
   for(int i = 0; i <S; i++){
-    hlambdaapply(i) = h_lambdacpp(n_sources, n_isotopes, concentrationmeans, sourcemeans,
+    hlambdaapply(i) = h_lambdacpp(n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans,
                  correctionmeans, corrsds, sourcesds, theta(i,_), y, lambda);
   }
   
@@ -749,6 +753,7 @@ double LB_lambda_cpp(NumericMatrix theta, NumericVector lambda, NumericVector p,
 NumericVector run_VB_cpp(NumericVector lambdastart,
                          int n_sources,
                          int n_tracers,
+                         double beta_prior,
                          NumericMatrix concentrationmeans,
                          NumericMatrix sourcemeans,
                          NumericMatrix correctionmeans,
@@ -774,7 +779,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
   
   NumericVector c(lsl);
   
-  c = control_var_cpp(lambdastart, theta, n_sources, n_tracers, 
+  c = control_var_cpp(lambdastart, theta, n_sources, n_tracers, beta_prior, 
                       concentrationmeans,
                       sourcemeans, correctionmeans,
                       corrsds, sourcesds, y);
@@ -788,6 +793,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
   
   g_0 = nabla_LB_cpp(lambdastart, theta, 
                      n_sources, n_tracers, 
+                     beta_prior,
                      concentrationmeans, sourcemeans,
                      correctionmeans, corrsds, 
                      sourcesds, y, c_0);
@@ -829,11 +835,11 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
     
     theta = sim_thetacpp(S, lambda, n_sources, n_tracers);
     
-    g_t = nabla_LB_cpp(lambda, theta, n_sources, n_tracers, concentrationmeans,
+    g_t = nabla_LB_cpp(lambda, theta, n_sources, n_tracers, beta_prior, concentrationmeans,
                        sourcemeans, correctionmeans, corrsds, sourcesds,
                        y, c);
     
-    c = control_var_cpp(lambda, theta,n_sources,n_tracers,
+    c = control_var_cpp(lambda, theta,n_sources,n_tracers, beta_prior,
                         concentrationmeans, sourcemeans,
                         correctionmeans,
                         corrsds,sourcesds, y);
@@ -872,6 +878,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
       NumericVector p = hfn(theta, n_sources);
       
       LB(t) = LB_lambda_cpp(theta,lambda, p, n_sources, n_tracers,
+         beta_prior,
          concentrationmeans, sourcemeans,
          correctionmeans,
          corrsds,sourcesds, y);
@@ -884,6 +891,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
       NumericVector p = hfn(theta, n_sources);
       
       LB(t_W) = LB_lambda_cpp(theta, lambda, p, n_sources, n_tracers,
+         beta_prior,
          concentrationmeans, sourcemeans,
          correctionmeans,
          corrsds,sourcesds, y);
