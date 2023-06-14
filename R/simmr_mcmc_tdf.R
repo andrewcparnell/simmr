@@ -70,18 +70,18 @@
 #' # The data
 #' data(simmr_data_1)
 #' # Load into simmr
-# simmr_tdf <- with(
-#   simmr_data_1,
-#   simmr_load(
-#     mixtures = mixtures,
-#     source_names = source_names,
-#     source_means = source_means,
-#     source_sds = source_sds,
-#     correction_means = correction_means,
-#     correction_sds = correction_sds,
-#     concentration_means = concentration_means
-#   )
-# )
+#' simmr_tdf <- with(
+#'   simmr_data_1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_tdf)
