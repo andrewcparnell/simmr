@@ -65,7 +65,7 @@ If, after running \code{\link{simmr_mcmc_tdf}} the convergence diagnostics in
 increased by e.g. a factor of 10.
 }
 \examples{
-\donttest{
+\dontrun{
 ## Example of estimating TDFs for a simple system with known dietary proportions
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
@@ -91,12 +91,35 @@ simmr_tdf <- with(
 plot(simmr_tdf)
 
 # MCMC run
+simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+  p = matrix(
+    rep(
+      1 / simmr_tdf$n_sources,
+      simmr_tdf$n_sources
+    ),
+    ncol = simmr_tdf$n_sources,
+    nrow = simmr_tdf$n_obs,
+    byrow = TRUE
+  )
+)
 # Summary
 summary(simmr_tdf_out, type = "diagnostics")
 summary(simmr_tdf_out, type = "quantiles")
 
 # Now put these corrections back into the model and check the
 # iso-space plots and dietary output
+simmr_tdf_2 <- with(
+  simmr_data_1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = simmr_tdf_out$c_mean_est,
+    correction_sds = simmr_tdf_out$c_sd_est,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot with corrections now
 plot(simmr_tdf_2)

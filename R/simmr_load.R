@@ -119,7 +119,7 @@ simmr_load <- function(mixtures,
 
   # Add column names if they're not there
   if (is.null(colnames(mixtures))) {
-    colnames(mixtures) <- message("tracer", 1:n_tracers)
+    colnames(mixtures) <- paste0("tracer", 1:n_tracers)
   }
 
   # source_names must be a character vector - the length of it is the number of sources
