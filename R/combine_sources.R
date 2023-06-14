@@ -73,8 +73,8 @@
 #   new_source_name = "U.lac+Ent"
 # )
 #' plot(simmr_out_combine$input)
-#' plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")
-#' }
+# plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")
+# }
 #'
 #' @export
 combine_sources <- function(simmr_out,

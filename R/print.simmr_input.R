@@ -8,14 +8,14 @@
 print.simmr_input <-
   function(x, ...) {
     message("This is a valid simmr input object with ")
-    message(paste(x$n_obs, "observations, "))
+    message(paste(x$n_obs, " observations, "))
     message(paste(x$n_tracers, "tracers, and "))
     message(paste(x$n_sources, "sources.\n"))
     if (x$n_groups > 1) cat(paste("There are", x$n_groups, "groups.\n"))
     message("The source names are: ")
-    message(x$source_names, sep = ", ")
+    print(x$source_names, sep = ", ")
     message(".\n")
     message("The tracer names are: ")
-    message(colnames(x$mixtures), sep = ", ")
-    message(".\n\n")
+    print(colnames(x$mixtures), sep = ", ")
+    message("\n\n")
   }

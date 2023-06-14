@@ -14,12 +14,12 @@ print.simmr_output <-
       if (inherits(x, "mcmc") == TRUE) {
         print(x$input)
         message("The input data has been run via simmr_mcmc and has produced ")
-        message(nrow(x$output[[1]]$BUGSoutput$sims.matrix), "iterations over", x$output[[1]]$BUGSoutput$n.chains, "MCMC chains.")
+        message(nrow(x$output[[1]]$BUGSoutput$sims.matrix), " iterations over ", x$output[[1]]$BUGSoutput$n.chains, " MCMC chains.")
         message("\n\n")
       } else if (inherits(x, "ffvb") == TRUE) {
         print(x$input)
         message("The input data has been run via simmr_ffvb and has produced ")
-        message(nrow(x$output[[1]]$BUGSoutput$sims.list$p), "samples.")
+        message(nrow(x$output[[1]]$BUGSoutput$sims.list$p), " samples.")
       }
     }
   }
