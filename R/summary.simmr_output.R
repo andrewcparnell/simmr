@@ -40,23 +40,23 @@
 #' @importFrom stats sd cor
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # A simple example with 10 observations, 2 tracers and 4 sources
 #'
 #' # The data
-#' data(geese_data_day1)
-#' simmr_1 <- with(
-#'   geese_data_day1,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds,
-#'     correction_means = correction_means,
-#'     correction_sds = correction_sds,
-#'     concentration_means = concentration_means
-#'   )
-#' )
+# data(geese_data_day1)
+# simmr_1 <- with(
+#   geese_data_day1,
+#   simmr_load(
+#     mixtures = mixtures,
+#     source_names = source_names,
+#     source_means = source_means,
+#     source_sds = source_sds,
+#     correction_means = correction_means,
+#     correction_sds = correction_sds,
+#     concentration_means = concentration_means
+#   )
+# )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -91,7 +91,7 @@ summary.simmr_output <-
 
         # Loop through groups
         for (i in 1:length(group)) {
-          cat(paste("\nSummary for", group_names[group[i]], "\n"))
+          message("\nSummary for ", group_names[group[i]], "\n")
           out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
 
           # Get objects
@@ -106,8 +106,8 @@ summary.simmr_output <-
 
           if ("diagnostics" %in% type) {
             # Print out gelman diagnostics of the output
-            cat("R-hat values - these values should all be close to 1.\n")
-            cat("If not, try a longer run of simmr_mcmc.\n")
+            message("R-hat values - these values should all be close to 1.\n")
+            message("If not, try a longer run of simmr_mcmc.\n")
             print(round(out_bgr[[i]], 2))
           }
 
@@ -146,7 +146,7 @@ summary.simmr_output <-
 
         # Loop through groups
         for (i in 1:length(group)) {
-          cat(paste("\nSummary for", group_names[group[i]], "\n"))
+          message("\nSummary for ", group_names[group[i]], "\n")
           out_all <- object$output[[group[i]]]$BUGSoutput$sims.matrix
 
           # Get objects
@@ -159,7 +159,7 @@ summary.simmr_output <-
           out_cor[[i]] <- stats::cor(out_all)
 
           if ("diagnostics" %in% type) {
-            cat("Diagnostics can't be printed for ffvb \n")
+            message("Diagnostics can't be printed for ffvb \n")
           }
 
           if ("quantiles" %in% type) {
@@ -185,6 +185,6 @@ summary.simmr_output <-
         }
       }
     } else {
-      (return(cat(paste0("incorrect object passed to function"))))
+      (return(message("incorrect object passed to function")))
     }
   }

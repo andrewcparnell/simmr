@@ -56,7 +56,7 @@ https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-
 accessed March 2023
 }
 \examples{
-\dontrun{
+\donttest{
 # A simple example with 10 observations, 2 tracers and 4 sources
 
 # The data

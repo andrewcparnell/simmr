@@ -48,7 +48,7 @@
 #' @importFrom R2jags jags
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## See the package vignette for a detailed run through of these 4 examples
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
@@ -336,14 +336,14 @@ model{
 
   # Loop through all the groups
   for (i in 1:simmr_in$n_groups) {
-    if (simmr_in$n_groups > 1) cat(paste("\nRunning for group", levels(simmr_in$group)[i], "\n\n"))
+    if (simmr_in$n_groups > 1) message("\nRunning for group", levels(simmr_in$group)[i], "\n\n")
 
     curr_rows <- which(simmr_in$group_int == i)
     curr_mix <- simmr_in$mixtures[curr_rows, , drop = FALSE]
 
     # Determine if a single observation or not
     if (nrow(curr_mix) == 1) {
-      cat("Only 1 mixture value, performing a simmr solo run...\n")
+      message("Only 1 mixture value, performing a simmr solo run...\n")
       solo <- TRUE
     } else {
       solo <- FALSE

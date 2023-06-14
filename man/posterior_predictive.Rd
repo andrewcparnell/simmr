@@ -23,7 +23,7 @@ to enable visualisation of model fit. The simulated posterior predicted
 values are returned as part of the object and can be saved for external use
 }
 \examples{
-\dontrun{
+\donttest{
 data(geese_data_day1)
 simmr_1 <- with(
   geese_data_day1,

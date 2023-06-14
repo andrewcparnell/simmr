@@ -13,7 +13,14 @@ The R-hub runs failed because it couldn't find JAGS but I think this is a missin
 When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
 
 ## Previous CRAN package checks
-There are no previous errors or warnings for the package on CRAN.
+() added to all function names in the description texts
+Added value to .Rd files to explain function results in the documentation.
+Changed dontrun to donttest.
+Changed cat/print to message.
+Removed setting options and used supressWarnings instead
+
+Package size was too large.
+Version number was not updated.
 
 ## Reverse dependencies
 There are currently no reverse dependencies

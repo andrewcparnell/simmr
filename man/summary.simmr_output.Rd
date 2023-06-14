@@ -51,23 +51,10 @@ When multiple groups are included, the output automatically includes the
 results for all groups.
 }
 \examples{
-\dontrun{
+\donttest{
 # A simple example with 10 observations, 2 tracers and 4 sources
 
 # The data
-data(geese_data_day1)
-simmr_1 <- with(
-  geese_data_day1,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds,
-    correction_means = correction_means,
-    correction_sds = correction_sds,
-    concentration_means = concentration_means
-  )
-)
 
 # Plot
 plot(simmr_1)

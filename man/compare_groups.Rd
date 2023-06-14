@@ -46,7 +46,7 @@ default and also allows for the storage of the output for further analysis if
 required.
 }
 \examples{
-\dontrun{
+\donttest{
 data(geese_data)
 simmr_in <- with(
   geese_data,

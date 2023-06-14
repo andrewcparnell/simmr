@@ -24,7 +24,7 @@
 #' @seealso See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and
 #' the associated vignette for examples.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # The data
 #' data(geese_data)
 #'

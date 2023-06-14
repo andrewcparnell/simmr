@@ -61,7 +61,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Example of estimating TDFs for a simple system with known dietary proportions
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
@@ -225,7 +225,7 @@ model {
 
   # Determine if a single observation or not
   if (nrow(curr_mix) == 1) {
-    cat("Only 1 mixture value, performing a simmr solo run...\n")
+    message("Only 1 mixture value, performing a simmr solo run...\n")
     solo <- TRUE
   } else {
     solo <- FALSE

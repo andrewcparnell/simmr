@@ -39,7 +39,7 @@ a posteriori combination). The new object can then be called with
 produce iso-space plots of summaries of the output after combination.
 }
 \examples{
-\dontrun{
+\donttest{
 # The data
 data(geese_data)
 

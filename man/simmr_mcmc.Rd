@@ -48,7 +48,7 @@ If, after running \code{\link{simmr_mcmc}} the convergence diagnostics in
 increased by a factor of 10.
 }
 \examples{
-\dontrun{
+\donttest{
 ## See the package vignette for a detailed run through of these 4 examples
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep

@@ -56,7 +56,7 @@ deviations exactly. If this problem is severe, try increasing the
 \code{n_sims} value.
 }
 \examples{
-\dontrun{
+\donttest{
 # Data set: 10 observations, 2 tracers, 4 sources
 data(geese_data_day1)
 simmr_1 <- with(
