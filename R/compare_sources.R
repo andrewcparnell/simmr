@@ -32,7 +32,7 @@
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' data(geese_data_day1)
 #' simmr_1 <- with(
 #'   geese_data_day1,
