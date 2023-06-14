@@ -31,7 +31,7 @@
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' data(geese_data)
 #' simmr_in <- with(
 #'   geese_data,
