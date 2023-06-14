@@ -15,8 +15,7 @@ When I previously submitted the package there was a note about requiring C++11 w
 ## Previous CRAN package checks
 () added to all function names in the description texts
 Added value to .Rd files to explain function results in the documentation.
-Changed dontrun to donttest. (left as dontrun in compare_groups as otherwise it leaves
-connections open).
+Changed dontrun to donttest.
 Changed cat/print to message.
 Removed setting options and used supressWarnings instead
 
