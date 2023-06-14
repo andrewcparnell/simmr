@@ -16,7 +16,7 @@ When I previously submitted the package there was a note about requiring C++11 w
 () added to all function names in the description texts
 Added value to .Rd files to explain function results in the documentation.
 Changed dontrun to donttest. (left as dontrun in compare_sources, 
-plot.simmr_output prior_viz, simmr_elicit, otherwise an error occurs with model_connection being 
+plot.simmr_output prior_viz, simmr_elicit, summary.simmr_output, otherwise an error occurs with model_connection being 
 left open).
 Changed cat/print to message.
 Removed setting options and used supressWarnings instead

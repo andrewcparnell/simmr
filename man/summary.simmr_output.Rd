@@ -51,7 +51,7 @@ When multiple groups are included, the output automatically includes the
 results for all groups.
 }
 \examples{
-\donttest{
+\dontrun{
 # A simple example with 10 observations, 2 tracers and 4 sources
 
 # The data
