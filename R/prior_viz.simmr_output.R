@@ -19,7 +19,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' data(geese_data_day1)
 #' simmr_1 <- with(
 #'   geese_data_day1,
