@@ -46,7 +46,7 @@ default and also allows for the storage of the output for further analysis if
 required.
 }
 \examples{
-\donttest{
+\dontrun{
 data(geese_data)
 simmr_in <- with(
   geese_data,
@@ -73,7 +73,7 @@ plot(simmr_in,
 )
 
 # Run MCMC for each group
-simmr_out <- simmr_mcmc(simmr_in)
+simmr_out <- simmr_ffvb(simmr_in)
 
 # Print output
 simmr_out
