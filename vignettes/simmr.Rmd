@@ -387,7 +387,7 @@ plot(simmr_out_combine,
 ```
 
 This will also work with multiple sources and/or multiple groups:
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 simmr_groups_out_combine <- combine_sources(simmr_groups_out,
   to_combine = c(
     "Zostera",
@@ -608,7 +608,7 @@ plot(simmr_in) + xlim(-100, 100) + ylim(-100, 100)
 
 or even on the output:
 
-```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
+```{r, eval = FALSE, fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(simmr_groups_out,
   type = "boxplot",
   group = 2,

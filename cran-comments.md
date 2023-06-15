@@ -13,6 +13,7 @@ The R-hub runs failed because it couldn't find JAGS but I think this is a missin
 When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
 
 ## Previous CRAN package checks
+This package is 7.8MB as it is C++ based. 
 () added to all function names in the description texts
 Added value to .Rd files to explain function results in the documentation.
 Changed dontrun to donttest. (left as dontrun in compare_sources, 
