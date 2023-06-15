@@ -259,13 +259,13 @@ A useful data set is given by Inger et al 2006 and provided as part of the origi
 
 These data are included in the package, and we can load these data into R with:
 
-```{r}
+```{r, eval = FALSE}
 data(geese_data)
 ```
 
 ...and into simmr with:
 
-```{r}
+```{r, eval = FALSE}
 simmr_groups <- with(
   geese_data,
   simmr_load(
@@ -288,7 +288,7 @@ Next it is a matter of following the `simmr` commands as before to load in, with
 
 When we create the isospace plot we can specify which groups we wish to plot:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 plot(simmr_groups,
   group = 1:8,
   xlab = expression(paste(delta^13, "C (\u2030)",
@@ -306,7 +306,7 @@ In the above code `group = 1:8` can be changed specify any of the available grou
 
 The command for running the `simmr` model is identical to before:
 
-```{r,results = 'hide'}
+```{r,, eval = FALSE, results = 'hide'}
 simmr_groups_out <- simmr_mcmc(simmr_groups)
 ```
 or
@@ -317,7 +317,7 @@ simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
 
 The `summary` command works the same as before. By default they will produce output for all groups, or you can specify the groups individually, e.g.:
 
-```{r,reults = 'hide'}
+```{r,, eval = FALSE, reults = 'hide'}
 summary(simmr_groups_out,
   type = "quantiles",
   group = 1
@@ -334,7 +334,7 @@ summary(simmr_groups_out,
 
 For plotting output with multiple groups you can only specify a single group to plot. This is so that you are not overwhelmed with plots:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 plot(simmr_groups_out,
   type = "boxplot",
   group = 2,
@@ -349,7 +349,7 @@ plot(simmr_groups_out,
 
 Whilst you can use the `compare_sources` function for multi-group data, there is also an  extra function for comparing a single source between groups via the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_groups(simmr_groups_out,
   source = "Zostera",
   groups = 1:2
@@ -360,7 +360,7 @@ This produces the probability of the group 1 dietary proportion of Zostera being
 
 If you specify more than two groups `simmr` will produce the most likely probabilistic orderings of the groups as well as the boxplot as before:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_groups(simmr_groups_out,
   source = "Zostera",
   groups = 1:3
