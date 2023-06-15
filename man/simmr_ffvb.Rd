@@ -41,7 +41,7 @@ outputs a \code{simmr_output} object for further analysis and plotting
 via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 }
 \examples{
-\donttest{
+\dontrun{
 ## See the package vignette for a detailed run through of these 4 examples
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
