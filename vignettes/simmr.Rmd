@@ -476,22 +476,22 @@ Most Bayesian models will work better when you include informative prior distrib
 
 We will use the `simmr_out` object created above. A reminder about the posterior values
 
-```{r}
+```{r, eval = FALSE}
 summary(simmr_out, type = "quantiles")
 ```
 
 All these dietary proportions are very similar. We now suppose we had prior information (e.g. from stomach or fecal contents) that the mean dietary proportions were
-```{r}
+```{r, eval = FALSE}
 proportion_means <- c(0.4, 0.3, 0.2, 0.1)
 ```
 
 ...and proportion standard deviations:
-```{r}
+```{r, eval = FALSE}
 proportion_sds <- c(0.08, 0.02, 0.01, 0.02)
 ```
 
 We put this into the `simmr_elicit` function as follows:
-```{r}
+```{r, eval = FALSE}
 prior <- simmr_elicit(
   4, proportion_means,
   proportion_sds
@@ -501,7 +501,7 @@ prior <- simmr_elicit(
 This may take a few moments to run as the code tries to optimise the parameters of a prior distribution which matches these means and standard deviations, which sometimes may not be exactly possible. 
 
 When finished, the model can be run using these prior distributions:
-```{r}
+```{r, eval = FALSE}
 simmr_out_informative <- simmr_mcmc(simmr_in,
   prior_control =
     list(
@@ -512,14 +512,14 @@ simmr_out_informative <- simmr_mcmc(simmr_in,
 ```
 
 The new quantiles are:
-```{r}
+```{r, eval = FALSE}
 summary(simmr_out_informative,
   type = "quantiles"
 )
 ```
 
 We can plot these priors with their posteriors
-```{r}
+```{r, eval = FALSE}
 prior_viz(simmr_out_informative)
 ```
 
