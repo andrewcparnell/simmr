@@ -1,6 +1,6 @@
 model{
   # Likelihood
-  for (j in 1:J) {
+  for(j in 1:J) {
     for (i in 1:N) {
       y[i,j] ~ dnorm(inprod(p*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p,q[,j]), 1/var_y[j])
     }
@@ -9,7 +9,9 @@ model{
   }
 
   # Prior on sigma
-  for(j in 1:J) { sigma[j] ~ dgamma(0.001,sig_upp) }
+  for(j in 1:J) { 
+  sigma[j] ~ dgamma(0.001,sig_upp) 
+  }
 
   # CLR prior on p
   p[1:K] <- expf/sum(expf)
