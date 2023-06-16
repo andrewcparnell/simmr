@@ -267,28 +267,7 @@ simmr_mcmc.simmr_input <- function(simmr_in,
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
 
   # Set up the model string
-  model_string <- "
-model{
-  # Likelihood
-  for (j in 1:J) {
-    for (i in 1:N) {
-      y[i,j] ~ dnorm(inprod(p*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p,q[,j]), 1/var_y[j])
-    }
-    var_y[j] <- inprod(pow(p*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p,q[,j]),2)
-+ pow(sigma[j],2)
-  }
-
-  # Prior on sigma
-  for(j in 1:J) { sigma[j] ~ dgamma(0.001,sig_upp) }
-
-  # CLR prior on p
-  p[1:K] <- expf/sum(expf)
-  for(k in 1:K) {
-    expf[k] <- exp(f[k])
-    f[k] ~ dnorm(mu_f_mean[k],1/pow(sigma_f_sd[k],2))
-  }
-}
-"
+  model_string <- system.file("jagsmodels", "mcmc.jags", package = "simmr")
 
   output <- vector("list", length = simmr_in$n_groups)
   names(output) <- levels(simmr_in$group)
@@ -328,7 +307,7 @@ model{
     output[[i]] <- R2jags::jags(
       data = data,
       parameters.to.save = c("p", "sigma"),
-      model.file = textConnection(model_string),
+      model.file = model_string,
       n.chains = mcmc_control$n.chain,
       n.iter = mcmc_control$iter,
       n.burnin = mcmc_control$burn,

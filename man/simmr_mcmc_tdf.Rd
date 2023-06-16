@@ -65,7 +65,7 @@ If, after running \code{\link{simmr_mcmc_tdf}} the convergence diagnostics in
 increased by e.g. a factor of 10.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Example of estimating TDFs for a simple system with known dietary proportions
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep

@@ -46,7 +46,7 @@ function produces boxplots by default and also allows for the storage of the
 output for further analysis if required.
 }
 \examples{
-\dontrun{
+\donttest{
 data(geese_data_day1)
 simmr_1 <- with(
   geese_data_day1,
