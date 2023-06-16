@@ -28,6 +28,8 @@
 #' black and white
 #' @param ggargs Extra arguments to be included in the ggplot (e.g. axis limits)
 #' @param ...  Not used
+#' 
+#' @return isospace plot
 #'
 #' @import ggplot2
 #' @import viridis

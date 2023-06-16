@@ -16,6 +16,9 @@ posterior_predictive(simmr_out, group = 1, prob = 0.5, plot_ppc = TRUE)
 
 \item{plot_ppc}{Whether to create a bayesplot of the posterior predictive or not.}
 }
+\value{
+plot of posterior predictives and simulated values
+}
 \description{
 This function takes the output from \code{\link{simmr_mcmc}} or
 \code{\link{simmr_ffvb}} and plots the posterior predictive distribution

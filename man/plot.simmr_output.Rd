@@ -41,6 +41,9 @@ matrix plots}
 
 \item{...}{Currently not used}
 }
+\value{
+one or more of  'histogram', 'density', 'matrix', or 'boxplot'
+}
 \description{
 This function allows for 4 different types of plots of the simmr output
 created from \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The

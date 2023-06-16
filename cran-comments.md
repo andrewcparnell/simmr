@@ -13,12 +13,11 @@ The R-hub runs failed because it couldn't find JAGS but I think this is a missin
 When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
 
 ## Previous CRAN package checks
+Added value to R files to explain function results in the documentation.
 This package is 7.8MB as it is C++ based. 
-() added to all function names in the description texts
-Added value to .Rd files to explain function results in the documentation.
+() added to all function names in the description texts.
 Changed dontrun to donttest. (left as dontrun in compare_sources, 
-plot.simmr_output prior_viz, simmr_elicit, summary.simmr_output, simmr_mcmc_tdf otherwise an error occurs with model_connection being 
-left open - error with JAGS, and left as dontrun in simmr_mcmc and simmr_ffvb due to long times otherwise).
+plot.simmr_output, prior_viz, simmr_elicit otherwise an error occurs with model_connection being left open)
 Changed cat/print to message.
 Removed setting options and used supressWarnings instead
 

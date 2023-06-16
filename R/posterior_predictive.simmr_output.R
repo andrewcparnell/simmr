@@ -11,6 +11,8 @@
 #' @param prob The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)
 #' @param plot_ppc Whether to create a bayesplot of the posterior predictive or not.
 #'
+#'@return plot of posterior predictives and simulated values
+
 #' @importFrom bayesplot ppc_intervals
 #'
 #' @export

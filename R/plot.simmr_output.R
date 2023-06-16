@@ -25,6 +25,7 @@
 #' @param ggargs Extra arguments to be included in the ggplot (e.g. axis limits)
 #' @param ...  Currently not used
 #'
+#' @return one or more of  'histogram', 'density', 'matrix', or 'boxplot'
 #' @import ggplot2
 #' @import graphics
 #' @import viridis
@@ -39,7 +40,7 @@
 #' \code{\link{summary.simmr_output}} for summarising output.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # A simple example with 10 observations, 2 tracers and 4 sources
 #'
 #' # The data

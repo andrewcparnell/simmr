@@ -48,6 +48,9 @@ black and white}
 
 \item{...}{Not used}
 }
+\value{
+isospace plot
+}
 \description{
 This function creates iso-space (AKA tracer-space or delta-space) plots.
 They are vital in determining whether the data are suitable for running in a
