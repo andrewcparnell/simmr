@@ -267,7 +267,7 @@ simmr_mcmc.simmr_input <- function(simmr_in,
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
 
   # Set up the model string
-  model_string <- system.file("jagsmodels", "mcmc.jags", package = "simmr")
+  jags_file <- system.file("jagsmodels", "mcmc.jags", package = "simmr")
 
   output <- vector("list", length = simmr_in$n_groups)
   names(output) <- levels(simmr_in$group)
@@ -307,7 +307,7 @@ simmr_mcmc.simmr_input <- function(simmr_in,
     output[[i]] <- R2jags::jags(
       data = data,
       parameters.to.save = c("p", "sigma"),
-      model.file = model_string,
+      model.file = jags_file,
       n.chains = mcmc_control$n.chain,
       n.iter = mcmc_control$iter,
       n.burnin = mcmc_control$burn,

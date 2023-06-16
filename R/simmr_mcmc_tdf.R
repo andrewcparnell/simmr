@@ -189,7 +189,7 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
 
   # Set up the model string
-  model_string <- system.file("jags_models", "mcmc_tdf.jags", package = "simmr")
+  jags_file <- system.file("jags_models", "mcmc_tdf.jags", package = "simmr")
 
   if (simmr_in$n_groups > 1) stop("TDF calculation currently only works for single group data")
 
@@ -224,7 +224,7 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
   output <- R2jags::jags(
     data = data,
     parameters.to.save = c("c_mean", "c_sd"),
-    model.file = model_string,
+    model.file = jags_file,
     n.chains = mcmc_control$n.chain,
     n.iter = mcmc_control$iter,
     n.burnin = mcmc_control$burn,

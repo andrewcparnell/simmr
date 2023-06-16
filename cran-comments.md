@@ -16,9 +16,7 @@ When I previously submitted the package there was a note about requiring C++11 w
 Added value to R files to explain function results in the documentation.
 This package is 7.8MB as it is C++ based. 
 () added to all function names in the description texts.
-Changed dontrun to donttest. (left as dontrun in compare_sources, 
-plot.simmr_output, prior_viz, simmr_elicit otherwise an error occurs with model_connection being left open)
-Changed cat/print to message.
+Changed dontrun to donttest.
 Removed setting options and used supressWarnings instead
 
 Package size was too large.
