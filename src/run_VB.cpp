@@ -364,7 +364,8 @@ double hcpp(int n_sources, int n_isotopes,
   
   double gammaprior = 0;
   for (int i=0; i <(n_isotopes); i++){
-    gammaprior += c_0(i) * log(d_0(i)) - log(tgamma(c_0(i))) +(c_0(i) - 1) * theta((i+n_sources)) -
+    //theta should be log_theta?? I think
+    gammaprior += c_0(i) * log(d_0(i)) - log(tgamma(c_0(i))) +(c_0(i) - 1) *theta((i+n_sources)) -
       d_0(i) * theta((i+n_sources));
     
   }
