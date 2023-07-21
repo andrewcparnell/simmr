@@ -10,7 +10,7 @@ model{
 
   # Prior on sigma
   for(j in 1:J) { 
-  sigma[j] ~ dgamma(0.001,sig_upp) 
+  sigma[j] ~ dgamma(1, 1)T(0, sig_upp)
   }
 
   # CLR prior on p

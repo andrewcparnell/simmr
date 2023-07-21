@@ -232,7 +232,7 @@ simmr_ffvb <- function(simmr_in,
                          P = 9,
                          beta_1 = 0.9,
                          beta_2 = 0.9,
-                         tau = 1000,
+                         tau = 100,
                          eps_0 = 0.1,
                          t_W = 50
                        )) {
@@ -273,10 +273,10 @@ simmr_ffvb <- function(simmr_in,
     if (nrow(curr_mix) == 1) {
       message("Only 1 mixture value, performing a simmr solo run...\n")
       solo <- TRUE
-      beta_prior = 100
+      beta_prior = 1000
     } else {
       solo <- FALSE
-      beta_prior = 0.001
+      beta_prior = 1
     }
 
     n_tracers <- simmr_in$n_tracers

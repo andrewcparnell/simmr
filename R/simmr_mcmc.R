@@ -300,7 +300,7 @@ simmr_mcmc.simmr_input <- function(simmr_in,
       K = n_sources,
       mu_f_mean = prior_control$means,
       sigma_f_sd = prior_control$sd,
-      sig_upp = ifelse(solo, 0.001, 1000)
+      sig_upp = ifelse(solo, 1, 1000)
     ))
 
     # Run in JAGS

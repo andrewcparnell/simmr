@@ -208,7 +208,7 @@ double hcpp(int n_sources, int n_isotopes,
   }
   
   for (int i = 0; i<n_isotopes; i++){
-    c_0(i) = 0.001;
+    c_0(i) = 1;
     d_0(i) = beta_prior;
   }
   

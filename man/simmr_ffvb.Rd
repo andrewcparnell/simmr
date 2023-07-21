@@ -9,7 +9,7 @@ simmr_ffvb(
   simmr_in,
   prior_control = list(mu_0 = rep(0, simmr_in$n_sources), sigma_0 = 1),
   ffvb_control = list(n_output = 3600, S = 100, P = 9, beta_1 = 0.9, beta_2 = 0.9, tau =
-    1000, eps_0 = 0.1, t_W = 50)
+    100, eps_0 = 0.1, t_W = 50)
 )
 }
 \arguments{
