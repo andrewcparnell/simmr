@@ -28,9 +28,11 @@
 #'
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
 #' @param p The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)
-#' @param prior_control A list of values including arguments named \code{means}
+#' @param prior_control A list of values including arguments named: \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
-#' correction factors. These can usually be left at their default values unless
+#' correction factors; ; \code{shape} and 
+#' \code{rate} which represent the prior distribution on the residual standard
+#' deviation. These can usually be left at their default values unless
 #' you wish to include to include prior information on them.
 #' @param mcmc_control A list of values including arguments named \code{iter}
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
@@ -145,7 +147,9 @@ simmr_mcmc_tdf <- function(simmr_in,
                              c_sd_est = rep(
                                2,
                                simmr_in$n_tracers
-                             )
+                             ),
+                             shape = 1,
+                             rate = 1
                            ),
                            mcmc_control = list(
                              iter = 10000,
@@ -174,7 +178,9 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
                                          c_sd_est = rep(
                                            2,
                                            simmr_in$n_tracers
-                                         )
+                                         ),
+                                         shape = 1,
+                                         rate = 1
                                        ),
                                        mcmc_control = list(
                                          iter = 10000,
@@ -217,6 +223,8 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
     K = n_sources,
     c_sd_est = prior_control$c_sd_est,
     c_mean_est = prior_control$c_mean_est,
+    sigma_shape = 1,
+    sigma_rate = 1,
     sig_upp = ifelse(solo, 0.001, 1000)
   ))
 

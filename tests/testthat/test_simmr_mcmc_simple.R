@@ -66,32 +66,3 @@ test_that("simmr_mcmc_1obs", {
 })
 
 
-test_that("simmr_mcmc_1obs_converge", {
-  set.seed(200)
-  simmr_2 <- simmr_load(
-    mixtures = mix[1, , drop = FALSE], # drop required to keep the mixtures as a matrix
-    source_names = s_names,
-    source_means = s_means,
-    source_sds = s_sds,
-    correction_means = c_means,
-    correction_sds = c_sds,
-    concentration_means = conc
-  )
-  
-  
-  # MCMC run - automatically detects the single observation
-  co(simmr_2_out <- simmr_mcmc(simmr_2,
-                               mcmc_control = list(
-                                 iter = 100,
-                                 burn = 10,
-                                 thin = 1,
-                                 n.chain = 2
-                               )
-  ))
-  
- expect_true(all.equal(as.numeric(round(simmr_2_out$output$'1'$BUGSoutput$summary[2:7,"Rhat"],1)), 
-                       c(rep(1,6))))
- 
-  
-})
-

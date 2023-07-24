@@ -10,7 +10,7 @@ simmr_mcmc_tdf(
   p = matrix(rep(1/simmr_in$n_sources, simmr_in$n_sources), ncol = simmr_in$n_sources,
     nrow = simmr_in$n_obs, byrow = TRUE),
   prior_control = list(c_mean_est = rep(2, simmr_in$n_tracers), c_sd_est = rep(2,
-    simmr_in$n_tracers)),
+    simmr_in$n_tracers), shape = 1, rate = 1),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
 )
 }
@@ -19,9 +19,11 @@ simmr_mcmc_tdf(
 
 \item{p}{The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)}
 
-\item{prior_control}{A list of values including arguments named \code{means}
+\item{prior_control}{A list of values including arguments named: \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
-correction factors. These can usually be left at their default values unless
+correction factors; ; \code{shape} and 
+\code{rate} which represent the prior distribution on the residual standard
+deviation. These can usually be left at their default values unless
 you wish to include to include prior information on them.}
 
 \item{mcmc_control}{A list of values including arguments named \code{iter}

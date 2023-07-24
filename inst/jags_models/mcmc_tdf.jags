@@ -10,7 +10,9 @@ model {
   }
 
   # Prior on sigma
-  for(j in 1:J) { sigma[j] ~ dgamma(0.001, sig_upp) }
+  for(j in 1:J) { 
+    sigma[j] ~ dgamma(sigma_shape, sigma_rate)T(0, sig_upp) 
+  }
 
   # Priors on c
   for(j in 1:J) {

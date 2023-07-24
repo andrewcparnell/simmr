@@ -1,3 +1,8 @@
+# simmr 0.5.1
+
+  - Fixed bug introduced in 0.5.0 affecting the prior distribution on the residual standard deviation
+  - Added extra argument to simmr_mcmc and simmr_mcmc_tdf to enable more control on the prior distribution on the residual standard deviation
+
 # simmr 0.5.0
 
   - Implemented new Fixed Form Variational Bayes method for fitting SIMMs (publication forthcoming)

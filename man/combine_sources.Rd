@@ -38,6 +38,59 @@ a posteriori combination). The new object can then be called with
 \code{\link{plot.simmr_input}} or \code{\link{plot.simmr_output}} to
 produce iso-space plots of summaries of the output after combination.
 }
+\examples{
+\donttest{
+# The data
+data(geese_data)
+
+# Load into simmr
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
+
+# Plot
+plot(simmr_1)
+
+# Print
+simmr_1
+
+# MCMC run
+simmr_1_out <- simmr_mcmc(simmr_1)
+
+# Print it
+print(simmr_1_out)
+
+# Summary
+summary(simmr_1_out)
+summary(simmr_1_out, type = "diagnostics")
+summary(simmr_1_out, type = "correlations")
+summary(simmr_1_out, type = "statistics")
+ans <- summary(simmr_1_out, type = c("quantiles", "statistics"))
+
+# Plot
+plot(simmr_1_out)
+plot(simmr_1_out, type = "boxplot")
+plot(simmr_1_out, type = "histogram")
+plot(simmr_1_out, type = "density")
+plot(simmr_1_out, type = "matrix")
+
+simmr_out_combine <- combine_sources(simmr_1_out,
+  to_combine = c("U.lactuca", "Enteromorpha"),
+  new_source_name = "U.lac+Ent"
+)
+plot(simmr_out_combine$input)
+plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")
+}
+}
 \seealso{
 See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and
 the associated vignette for examples.

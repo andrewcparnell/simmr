@@ -8,16 +8,18 @@ Carlo (MCMC) function}
 simmr_mcmc(
   simmr_in,
   prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
-    simmr_in$n_sources)),
+    simmr_in$n_sources), shape = 1, rate = 1),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
 )
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
-\item{prior_control}{A list of values including arguments named \code{means}
+\item{prior_control}{A list of values including arguments named: \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
-dietary proportions in centralised log-ratio space. These can usually be
+dietary proportions in centralised log-ratio space; \code{shape} and 
+\code{rate} which represent the prior distribution on the residual standard
+deviation. These can usually be
 left at their default values unless you wish to include to include prior
 information, in which case you should use the function
 \code{\link{simmr_elicit}}.}
