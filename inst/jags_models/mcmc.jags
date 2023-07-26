@@ -11,12 +11,8 @@ model{
 
   # Prior on sigma
   for(j in 1:J) { 
-<<<<<<< Updated upstream
-    sigma[j] ~ dgamma(sigma_shape, sigma_rate)T(0, sig_upp)
-=======
   sigma_raw[j] ~ dgamma(sigma_shape[j], sigma_rate[j])
   sigma[j] <- 0.001 + not_solo * sigma_raw[j]
->>>>>>> Stashed changes
   }
 
   # CLR prior on p

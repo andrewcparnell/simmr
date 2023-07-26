@@ -148,8 +148,8 @@ simmr_mcmc_tdf <- function(simmr_in,
                                2,
                                simmr_in$n_tracers
                              ),
-                             shape = 1,
-                             rate = 1
+                             sigma_shape = 1,
+                             sigma_rate = 1
                            ),
                            mcmc_control = list(
                              iter = 10000,
@@ -179,8 +179,8 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
                                            2,
                                            simmr_in$n_tracers
                                          ),
-                                         shape = 1,
-                                         rate = 1
+                                         sigma_shape = 1,
+                                         sigma_rate = 1
                                        ),
                                        mcmc_control = list(
                                          iter = 10000,
@@ -223,9 +223,9 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
     K = n_sources,
     c_sd_est = prior_control$c_sd_est,
     c_mean_est = prior_control$c_mean_est,
-    sigma_shape = 1,
-    sigma_rate = 1,
-    sig_upp = ifelse(solo, 0.001, 1000)
+    sigma_shape = prior_control$sigma_shape,
+    sigma_rate = prior_control$sigma_rate,
+    sig_upp = ifelse(solo, 0, 1)
   ))
 
   # Run in JAGS
