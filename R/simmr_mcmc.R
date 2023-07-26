@@ -241,8 +241,13 @@ simmr_mcmc <- function(simmr_in,
                            1,
                            simmr_in$n_sources
                          ),
+<<<<<<< Updated upstream
                          shape = 1,
                          rate = 1
+=======
+                         sigma_shape = rep(1, simmr_in$n_tracers),
+                         sigma_rate = rep(1, simmr_in$n_tracers)
+>>>>>>> Stashed changes
                        ),
                        mcmc_control = list(
                          iter = 10000,
@@ -257,8 +262,13 @@ simmr_mcmc.simmr_input <- function(simmr_in,
                                    prior_control = list(
                                      means = rep(0, simmr_in$n_sources),
                                      sd = rep(1, simmr_in$n_sources),
+<<<<<<< Updated upstream
                                      shape = 1,
                                      rate = 1
+=======
+                                     sigma_shape = rep(1, simmr_in$n_tracers),
+                                     sigma_rate = rep(1, simmr_in$n_tracers)
+>>>>>>> Stashed changes
                                    ),
                                    mcmc_control = list(
                                      iter = 10000,
@@ -306,9 +316,15 @@ simmr_mcmc.simmr_input <- function(simmr_in,
       K = n_sources,
       mu_f_mean = prior_control$means,
       sigma_f_sd = prior_control$sd,
+<<<<<<< Updated upstream
       sigma_shape = prior_control$shape,
       sigma_rate = prior_control$rate,
       sig_upp = ifelse(solo, 0.01, 1000)
+=======
+      sigma_shape = prior_control$sigma_shape,
+      sigma_rate = prior_control$sigma_rate,
+      not_solo = ifelse(solo, 0, 1)
+>>>>>>> Stashed changes
     ))
 
     # Run in JAGS
