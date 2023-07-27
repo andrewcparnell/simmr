@@ -241,8 +241,8 @@ simmr_mcmc <- function(simmr_in,
                            1,
                            simmr_in$n_sources
                          ),
-                         sigma_shape = rep(0.1, simmr_in$n_tracers),
-                         sigma_rate = rep(0.1, simmr_in$n_tracers)
+                         sigma_shape = rep(3, simmr_in$n_tracers),
+                         sigma_rate = rep(3/50, simmr_in$n_tracers)
 
                        ),
                        mcmc_control = list(
@@ -258,8 +258,8 @@ simmr_mcmc.simmr_input <- function(simmr_in,
                                    prior_control = list(
                                      means = rep(0, simmr_in$n_sources),
                                      sd = rep(1, simmr_in$n_sources),
-                                     sigma_shape = rep(0.1, simmr_in$n_tracers),
-                                     sigma_rate = rep(0.1, simmr_in$n_tracers)
+                                     sigma_shape = rep(3, simmr_in$n_tracers),
+                                     sigma_rate = rep(3/50, simmr_in$n_tracers)
 
                                    ),
                                    mcmc_control = list(

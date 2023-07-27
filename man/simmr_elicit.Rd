@@ -92,7 +92,11 @@ summary(simmr_1_out, "quantiles")
 # proportion sds = 0.08,0.02,0.01,0.02
 prior <- simmr_elicit(4, c(0.5, 0.2, 0.2, 0.1), c(0.08, 0.02, 0.01, 0.02))
 
-simmr_1a_out <- simmr_mcmc(simmr_1, prior_control = list(means = prior$mean, sd = prior$sd, shape = 1, rate = 1))
+simmr_1a_out <- simmr_mcmc(simmr_1, prior_control = 
+list(means = prior$mean, 
+      sd = prior$sd, 
+      shape = 1, 
+      rate = 1))
 
 #' # Look at the prior influence now
 prior_viz(simmr_1a_out)

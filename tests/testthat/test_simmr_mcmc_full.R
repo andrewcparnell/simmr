@@ -78,8 +78,8 @@ test_that("simmr_mcmc_full_run_geese", {
   co(simmr_3_out <- simmr_mcmc(simmr_1, prior_control = list(
     means = rep(0, simmr_in$n_sources),
     sd = rep(1, simmr_in$n_sources),
-    shape = 0.1,
-    rate = 0.1
+    shape = 3,
+    rate = 3/50
   )))
   
   co(rhat <- summary(simmr_3_out, type = "diagnostics")$gelman)

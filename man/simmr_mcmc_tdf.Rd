@@ -10,7 +10,8 @@ simmr_mcmc_tdf(
   p = matrix(rep(1/simmr_in$n_sources, simmr_in$n_sources), ncol = simmr_in$n_sources,
     nrow = simmr_in$n_obs, byrow = TRUE),
   prior_control = list(c_mean_est = rep(2, simmr_in$n_tracers), c_sd_est = rep(2,
-    simmr_in$n_tracers), shape = 1, rate = 1),
+    simmr_in$n_tracers), sigma_shape = rep(3, simmr_in$n_tracers), sigma_rate = rep(3/50,
+    simmr_in$n_tracers)),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
 )
 }

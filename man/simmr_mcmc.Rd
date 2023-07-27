@@ -8,7 +8,8 @@ Carlo (MCMC) function}
 simmr_mcmc(
   simmr_in,
   prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
-    simmr_in$n_sources), shape = 1, rate = 1),
+    simmr_in$n_sources), sigma_shape = rep(3, simmr_in$n_tracers), sigma_rate = rep(3/50,
+    simmr_in$n_tracers)),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
 )
 }
