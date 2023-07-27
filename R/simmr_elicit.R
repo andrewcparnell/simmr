@@ -82,8 +82,8 @@
 #' simmr_1a_out <- simmr_mcmc(simmr_1, prior_control = 
 #' list(means = prior$mean, 
 #'       sd = prior$sd, 
-#'       shape = 1, 
-#'       rate = 1))
+#'       sigma_shape = c(3,3), 
+#'       sigma_rate = c(3/50, 3/50)))
 #'
 #' #' # Look at the prior influence now
 #' prior_viz(simmr_1a_out)

@@ -74,12 +74,22 @@ test_that("simmr_mcmc_full_run_geese", {
   skip_on_ci()
   skip_on_cran()
   
+  #Load 
+  simmr_1 <- simmr_load(
+    mixtures = mix,
+    source_names = s_names,
+    source_means = s_means,
+    source_sds = s_sds,
+    correction_means = c_means,
+    correction_sds = c_sds,
+    concentration_means = conc)
+  
   # Load into simmr
   co(simmr_3_out <- simmr_mcmc(simmr_1, prior_control = list(
-    means = rep(0, simmr_in$n_sources),
-    sd = rep(1, simmr_in$n_sources),
-    shape = 3,
-    rate = 3/50
+    means = rep(0, simmr_1$n_sources),
+    sd = rep(1, simmr_1$n_sources),
+    sigma_shape = c(3, 3),
+    sigma_rate = c(3/50, 3/50)
   )))
   
   co(rhat <- summary(simmr_3_out, type = "diagnostics")$gelman)

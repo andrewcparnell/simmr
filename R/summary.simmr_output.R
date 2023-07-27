@@ -108,7 +108,11 @@ summary.simmr_output <-
             return(c(mean = mean(x), sd = stats::sd(x)))
           }))
           # coda:::summary.mcmc.list(object$output)$statistics[,1:2]
+          if(solo == TRUE){
+            out_cor[[i]] <- stats::cor(out_all[,1:(object$input$n_sources +1)])
+          }else if(solo == FALSE){
           out_cor[[i]] <- stats::cor(out_all)
+          }
 
           if ("diagnostics" %in% type) {
             # Print out gelman diagnostics of the output
