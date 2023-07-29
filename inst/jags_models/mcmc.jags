@@ -4,15 +4,14 @@ model{
     for (i in 1:N) {
       y[i,j] ~ dnorm(inprod(p*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p,q[,j]), 1/var_y[j])
     }
-    var_y[j] <- inprod(pow(p*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p,q[,j]),2)
-+ pow(sigma[j],2)
+    var_y[j] <- inprod(pow(p*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p,q[,j]),2) + pow(sigma[j],2)
   }
   
 
   # Prior on sigma
   for(j in 1:J) { 
-  sigma_raw[j] ~ dgamma(sigma_shape[j], sigma_rate[j])
-  sigma[j] <- 0.001 + not_solo * sigma_raw[j]
+    sigma_raw[j] ~ dgamma(sigma_shape[j], sigma_rate[j])
+    sigma[j] <- 0.001 + not_solo * sigma_raw[j]
   }
 
   # CLR prior on p

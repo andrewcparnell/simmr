@@ -3,8 +3,7 @@ model {
   for(j in 1:J) {
     for(i in 1:N) {
       y[i,j] ~ dnorm(inprod(p[i,]*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p[i,],q[,j]), 1/var_y[i,j])
-      var_y[i,j] <- inprod(pow(p[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p[i,],q[,j]),2)
-+ pow(sigma[j],2)
+      var_y[i,j] <- inprod(pow(p[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p[i,],q[,j]),2) + pow(sigma[j],2)
     }
 
   }

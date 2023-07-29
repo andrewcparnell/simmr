@@ -93,7 +93,7 @@ test_that("simmr_mcmc_full_run_geese", {
   )))
   
   co(rhat <- summary(simmr_3_out, type = "diagnostics")$gelman)
-  # expect_true(all(rhat < 1.05)) # THIS IS FALSE?
+  expect_true(all(rhat < 1.05)) # THIS IS FALSE?
   
   # Create a quick traceplot of sd values to ensure it worked ok
   # R2jags::traceplot(simmr_3_out$output[[1]], varname = "sigma")
