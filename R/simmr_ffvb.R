@@ -278,6 +278,7 @@ simmr_ffvb <- function(simmr_in,
       solo <- FALSE
       beta_prior = 1
     }
+  #  solo <- FALSE
 
     n_tracers <- simmr_in$n_tracers
     n_sources <- simmr_in$n_sources
@@ -298,11 +299,11 @@ simmr_ffvb <- function(simmr_in,
       source_sds, y, ffvb_control$S,
       ffvb_control$P, ffvb_control$beta_1,
       ffvb_control$beta_2, ffvb_control$tau,
-      ffvb_control$eps_0, ffvb_control$t_W
+      ffvb_control$eps_0, ffvb_control$t_W, solo
     )
 
     thetares[(1 + n_output * (i - 1)):(n_output * i), ] <-
-      sim_thetacpp(n_output, lambdares[, i], K, n_tracers)
+      sim_thetacpp(n_output, lambdares[, i], K, n_tracers, solo)
 
     p <- t(apply(thetares[(1 + n_output * (i - 1)):(n_output * i), 1:K], 1, p_fun))
     sigma <- (1 / sqrt(thetares[

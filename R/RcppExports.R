@@ -17,8 +17,8 @@ solvearma <- function(X) {
     .Call(`_simmr_solvearma`, X)
 }
 
-sim_thetacpp <- function(S, lambda, n_sources, n_tracers) {
-    .Call(`_simmr_sim_thetacpp`, S, lambda, n_sources, n_tracers)
+sim_thetacpp <- function(S, lambda, n_sources, n_tracers, solo) {
+    .Call(`_simmr_sim_thetacpp`, S, lambda, n_sources, n_tracers, solo)
 }
 
 hfn <- function(theta, n_sources) {
@@ -57,7 +57,7 @@ LB_lambda_cpp <- function(theta, lambda, p, n_sources, n_isotopes, beta_prior, c
     .Call(`_simmr_LB_lambda_cpp`, theta, lambda, p, n_sources, n_isotopes, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y)
 }
 
-run_VB_cpp <- function(lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W) {
-    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W)
+run_VB_cpp <- function(lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W, solo) {
+    .Call(`_simmr_run_VB_cpp`, lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W, solo)
 }
 

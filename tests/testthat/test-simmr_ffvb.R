@@ -27,7 +27,7 @@ test_that("simmr_ffvb_simplest", {
     correction_sds = c_sds,
     concentration_means = conc
   )
-  # MCMC run
+  # FFVB run
   co(simmr_1_out <- simmr_ffvb(simmr_1,
     ffvb_control = list(
       n_output = 3600,
@@ -66,7 +66,7 @@ test_that("simmr_ffvb_1obs", {
       P = 1,
       beta_1 = 0.9,
       beta_2 = 0.9,
-      tau = 1000,
+      tau = 100,
       eps_0 = 0.1,
       t_W = 1
     )

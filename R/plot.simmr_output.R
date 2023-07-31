@@ -162,12 +162,13 @@ plot.simmr_output <-
 
         if ("matrix" %in% type) {
           modified_bar <- function(data, mapping, ...) {
-            GGally::ggally_barDiag(data, mapping, ..., fill = viridis(1), binwidth = 0.025) + coord_cartesian(xlim = c(0, 1)) + theme_bw()
+            GGally::ggally_barDiag(data, mapping, ..., fill = viridis(1, option = "E"), binwidth = 0.025) + coord_cartesian(xlim = c(0, 1)) + theme_bw()
           }
           modified_density <- function(data, mapping, ...) {
             ggplot(data = data, mapping = mapping, ...) +
               stat_density_2d(
-                geom = "polygon", contour = TRUE,
+                geom = "density_2d_filled", contour = TRUE,
+                contour_var = "density",
                 aes(fill = after_stat(..level..)),
                 bins = 5,
               ) +

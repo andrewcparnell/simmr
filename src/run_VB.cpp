@@ -97,7 +97,7 @@ NumericMatrix solvearma(const NumericMatrix X) {
 
 //[[Rcpp::export]]
 NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources, 
-                           int n_tracers){
+                           int n_tracers, bool solo){
   NumericMatrix theta(S, (n_sources + n_tracers));
   
   NumericVector mean(n_sources);
@@ -129,12 +129,20 @@ NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources,
   
   normmat = rMVNormCpp(S, mean, chol_prec);
   
+  NumericVector solovec(S);
   
-  
-  for(int i = 0; i<n_tracers; i++){
-    theta(_,i+n_sources) = Rcpp::rgamma(S,  lambda((n_sources + (n_sources * (n_sources + 1)) / 2) + i),
-          1/lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i));
+  for(int s = 0; s<S; s++){
+    solovec(s) = 0.01;
   }
+  
+  if(solo == FALSE) for(int i = 0; i<n_tracers; i++){
+    theta(_,i+n_sources) = Rcpp::rgamma(S,  lambda((n_sources + (n_sources * (n_sources + 1)) / 2) + i),
+          1/lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i));}
+   else if(solo == TRUE) for(int i = 0; i<n_tracers; i++){
+      theta(_,i+n_sources) = solovec + 0.00001 * Rcpp::rgamma(S,  lambda((n_sources + (n_sources * (n_sources + 1)) / 2) + i),
+            1/lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i));;
+    }
+  
   
   
   for(int i=0; i<n_sources; i++){
@@ -767,7 +775,8 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
                          double beta_2,
                          int tau,
                          double eps_0,
-                         int t_W
+                         int t_W,
+                         bool solo
 ){
   
  
@@ -776,7 +785,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
   
   NumericMatrix theta(S, (n_sources + n_tracers));
   
-  theta = sim_thetacpp(S, lambdastart, n_sources, n_tracers);
+  theta = sim_thetacpp(S, lambdastart, n_sources, n_tracers, solo);
   
   NumericVector c(lsl);
   
@@ -834,7 +843,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
   
   while(stop == FALSE){
     
-    theta = sim_thetacpp(S, lambda, n_sources, n_tracers);
+    theta = sim_thetacpp(S, lambda, n_sources, n_tracers, solo);
     
     g_t = nabla_LB_cpp(lambda, theta, n_sources, n_tracers, beta_prior, concentrationmeans,
                        sourcemeans, correctionmeans, corrsds, sourcesds,

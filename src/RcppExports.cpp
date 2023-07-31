@@ -61,8 +61,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // sim_thetacpp
-NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources, int n_tracers);
-RcppExport SEXP _simmr_sim_thetacpp(SEXP SSEXP, SEXP lambdaSEXP, SEXP n_sourcesSEXP, SEXP n_tracersSEXP) {
+NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources, int n_tracers, bool solo);
+RcppExport SEXP _simmr_sim_thetacpp(SEXP SSEXP, SEXP lambdaSEXP, SEXP n_sourcesSEXP, SEXP n_tracersSEXP, SEXP soloSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -70,7 +70,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type lambda(lambdaSEXP);
     Rcpp::traits::input_parameter< int >::type n_sources(n_sourcesSEXP);
     Rcpp::traits::input_parameter< int >::type n_tracers(n_tracersSEXP);
-    rcpp_result_gen = Rcpp::wrap(sim_thetacpp(S, lambda, n_sources, n_tracers));
+    Rcpp::traits::input_parameter< bool >::type solo(soloSEXP);
+    rcpp_result_gen = Rcpp::wrap(sim_thetacpp(S, lambda, n_sources, n_tracers, solo));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -234,8 +235,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // run_VB_cpp
-NumericVector run_VB_cpp(NumericVector lambdastart, int n_sources, int n_tracers, double beta_prior, NumericMatrix concentrationmeans, NumericMatrix sourcemeans, NumericMatrix correctionmeans, NumericMatrix corrsds, NumericMatrix sourcesds, NumericMatrix y, int S, int P, double beta_1, double beta_2, int tau, double eps_0, int t_W);
-RcppExport SEXP _simmr_run_VB_cpp(SEXP lambdastartSEXP, SEXP n_sourcesSEXP, SEXP n_tracersSEXP, SEXP beta_priorSEXP, SEXP concentrationmeansSEXP, SEXP sourcemeansSEXP, SEXP correctionmeansSEXP, SEXP corrsdsSEXP, SEXP sourcesdsSEXP, SEXP ySEXP, SEXP SSEXP, SEXP PSEXP, SEXP beta_1SEXP, SEXP beta_2SEXP, SEXP tauSEXP, SEXP eps_0SEXP, SEXP t_WSEXP) {
+NumericVector run_VB_cpp(NumericVector lambdastart, int n_sources, int n_tracers, double beta_prior, NumericMatrix concentrationmeans, NumericMatrix sourcemeans, NumericMatrix correctionmeans, NumericMatrix corrsds, NumericMatrix sourcesds, NumericMatrix y, int S, int P, double beta_1, double beta_2, int tau, double eps_0, int t_W, bool solo);
+RcppExport SEXP _simmr_run_VB_cpp(SEXP lambdastartSEXP, SEXP n_sourcesSEXP, SEXP n_tracersSEXP, SEXP beta_priorSEXP, SEXP concentrationmeansSEXP, SEXP sourcemeansSEXP, SEXP correctionmeansSEXP, SEXP corrsdsSEXP, SEXP sourcesdsSEXP, SEXP ySEXP, SEXP SSEXP, SEXP PSEXP, SEXP beta_1SEXP, SEXP beta_2SEXP, SEXP tauSEXP, SEXP eps_0SEXP, SEXP t_WSEXP, SEXP soloSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -256,7 +257,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type tau(tauSEXP);
     Rcpp::traits::input_parameter< double >::type eps_0(eps_0SEXP);
     Rcpp::traits::input_parameter< int >::type t_W(t_WSEXP);
-    rcpp_result_gen = Rcpp::wrap(run_VB_cpp(lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W));
+    Rcpp::traits::input_parameter< bool >::type solo(soloSEXP);
+    rcpp_result_gen = Rcpp::wrap(run_VB_cpp(lambdastart, n_sources, n_tracers, beta_prior, concentrationmeans, sourcemeans, correctionmeans, corrsds, sourcesds, y, S, P, beta_1, beta_2, tau, eps_0, t_W, solo));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -266,7 +268,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_simmr_crossprod", (DL_FUNC) &_simmr_crossprod, 1},
     {"_simmr_rMVNormCpp", (DL_FUNC) &_simmr_rMVNormCpp, 3},
     {"_simmr_solvearma", (DL_FUNC) &_simmr_solvearma, 1},
-    {"_simmr_sim_thetacpp", (DL_FUNC) &_simmr_sim_thetacpp, 4},
+    {"_simmr_sim_thetacpp", (DL_FUNC) &_simmr_sim_thetacpp, 5},
     {"_simmr_hfn", (DL_FUNC) &_simmr_hfn, 2},
     {"_simmr_hcpp", (DL_FUNC) &_simmr_hcpp, 10},
     {"_simmr_log_q_cpp", (DL_FUNC) &_simmr_log_q_cpp, 4},
@@ -276,7 +278,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_simmr_nabla_LB_cpp", (DL_FUNC) &_simmr_nabla_LB_cpp, 12},
     {"_simmr_control_var_cpp", (DL_FUNC) &_simmr_control_var_cpp, 11},
     {"_simmr_LB_lambda_cpp", (DL_FUNC) &_simmr_LB_lambda_cpp, 12},
-    {"_simmr_run_VB_cpp", (DL_FUNC) &_simmr_run_VB_cpp, 17},
+    {"_simmr_run_VB_cpp", (DL_FUNC) &_simmr_run_VB_cpp, 18},
     {NULL, NULL, 0}
 };
 
