@@ -73,3 +73,38 @@ test_that("simmr_ffvb_1obs", {
   ))
   expect_s3_class(simmr_2_out, "simmr_output")
 })
+
+# Test that the VB version is similar (but not identical) to the MCMC version
+test_that("simmr_ffvb_compare", {
+  # Load into simmr
+  simmr_1 <- simmr_load(
+    mixtures = mix,
+    source_names = s_names,
+    source_means = s_means,
+    source_sds = s_sds,
+    correction_means = c_means,
+    correction_sds = c_sds,
+    concentration_means = conc
+  )
+  # MCMC run
+  co(simmr_1_vb <- simmr_ffvb(simmr_1))
+  co(simmr_1_mcmc <- simmr_mcmc(simmr_1))
+  
+  expect_s3_class(simmr_1_vb, "simmr_output")
+  expect_s3_class(simmr_1_mcmc, "simmr_output")
+  
+  # Compare the two output p values
+  p_mcmc <- simmr_1_mcmc$output[[1]]$BUGSoutput$mean$p
+  p_vb <- colMeans(simmr_1_vb$output[[1]]$BUGSoutput$sims.list$p)
+  
+  # Define the difference between them and some kind of tolerance
+  diff_p <- sum((p_mcmc - p_vb)^2)
+  assert_true(diff_p < 0.02)
+  
+  # Get the sigmas
+  sig_mcmc <- simmr_1_mcmc$output[[1]]$BUGSoutput$mean$sigma
+  sig_vb <- colMeans(simmr_1_vb$output[[1]]$BUGSoutput$sims.list$sigma)
+  diff_sig <- sum((sig_mcmc - sig_vb)^2)
+  assert_true(diff_sig < 0.01)
+  
+})
