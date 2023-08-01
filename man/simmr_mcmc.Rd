@@ -8,16 +8,19 @@ Carlo (MCMC) function}
 simmr_mcmc(
   simmr_in,
   prior_control = list(means = rep(0, simmr_in$n_sources), sd = rep(1,
-    simmr_in$n_sources)),
+    simmr_in$n_sources), sigma_shape = rep(3, simmr_in$n_tracers), sigma_rate = rep(3/50,
+    simmr_in$n_tracers)),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
 )
 }
 \arguments{
 \item{simmr_in}{An object created via the function \code{\link{simmr_load}}}
 
-\item{prior_control}{A list of values including arguments named \code{means}
+\item{prior_control}{A list of values including arguments named: \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
-dietary proportions in centralised log-ratio space. These can usually be
+dietary proportions in centralised log-ratio space; \code{shape} and 
+\code{rate} which represent the prior distribution on the residual standard
+deviation. These can usually be
 left at their default values unless you wish to include to include prior
 information, in which case you should use the function
 \code{\link{simmr_elicit}}.}
@@ -53,6 +56,18 @@ increased by a factor of 10.
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
@@ -166,47 +181,6 @@ plot(simmr_3_out, type = "boxplot")
 plot(simmr_3_out, type = "histogram")
 plot(simmr_3_out, type = "density")
 plot(simmr_3_out, type = "matrix")
-
-#####################################################################################
-
-# Data set 4 - identified by Fry (2014) as a failing of SIMMs
-# See the vignette for more interpreation of these data and the output
-
-# The data
-data(square_data)
-simmr_4 <- with(
-  square_data,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds
-  )
-)
-
-# Get summary
-print(simmr_4)
-
-# Plot
-plot(simmr_4)
-
-# MCMC run - needs slightly longer
-simmr_4_out <- simmr_mcmc(simmr_4)
-
-# Print it
-print(simmr_4_out)
-
-# Summary
-summary(simmr_4_out)
-summary(simmr_4_out, type = "diagnostics")
-ans <- summary(simmr_4_out, type = c("quantiles", "statistics"))
-
-# Plot
-plot(simmr_4_out)
-plot(simmr_4_out, type = "boxplot")
-plot(simmr_4_out, type = "histogram")
-plot(simmr_4_out, type = "density")
-plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
 
 #####################################################################################
 

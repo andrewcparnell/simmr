@@ -11,12 +11,14 @@
 #' @param prob The probability interval for the posterior predictives. The default is 0.5 (i.e. 50pc intervals)
 #' @param plot_ppc Whether to create a bayesplot of the posterior predictive or not.
 #'
+#'@return plot of posterior predictives and simulated values
+
 #' @importFrom bayesplot ppc_intervals
 #'
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(geese_data_day1)
 #' simmr_1 <- with(
 #'   geese_data_day1,
@@ -56,20 +58,24 @@ posterior_predictive.simmr_output <- function(simmr_out,
                                               plot_ppc = TRUE) {
   # Can't do more than 1 group for now
   assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
-
-  # Get the original jags script
-  model_string_old <- simmr_out$output[[group]]$model$model()
-
-  # Plug in y_pred
-  copy_lines <- model_string_old[6]
-  copy_lines <- sub("y\\[i", "y_pred\\[i", copy_lines)
-  model_string_new <- c(model_string_old[1:6], copy_lines, model_string_old[7:length(model_string_old)])
+# 
+#   # Get the original jags script
+#   model_string_old <- simmr_out$output[[group]]$model$model()
+#   
+#   jags_file_old <- system.file("jags_models", "mcmc_post_pred.jags", package = "simmr")
+# 
+#   # Plug in y_pred
+#   copy_lines <- model_string_old[6]
+#   copy_lines <- sub("y\\[i", "y_pred\\[i", copy_lines)
+#   model_string_new <- c(model_string_old[1:6], copy_lines, model_string_old[7:length(model_string_old)])
+  
+  jags_file <- system.file("jags_models", "mcmc_post_pred.jags", package = "simmr")
 
   # Re-Run in JAGS
   output <- R2jags::jags(
     data = simmr_out$output[[group]]$model$data(),
     parameters.to.save = c("y_pred"),
-    model.file = textConnection(paste0(model_string_new, collapse = "\n")),
+    model.file = jags_file,
     n.chains = simmr_out$output[[group]]$BUGSoutput$n.chains,
     n.iter = simmr_out$output[[group]]$BUGSoutput$n.iter,
     n.burnin = simmr_out$output[[group]]$BUGSoutput$n.burnin,

@@ -39,11 +39,23 @@ a posteriori combination). The new object can then be called with
 produce iso-space plots of summaries of the output after combination.
 }
 \examples{
-\dontrun{
+\donttest{
 # The data
 data(geese_data)
 
 # Load into simmr
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
@@ -71,10 +83,13 @@ plot(simmr_1_out, type = "histogram")
 plot(simmr_1_out, type = "density")
 plot(simmr_1_out, type = "matrix")
 
+simmr_out_combine <- combine_sources(simmr_1_out,
+  to_combine = c("U.lactuca", "Enteromorpha"),
+  new_source_name = "U.lac+Ent"
+)
 plot(simmr_out_combine$input)
 plot(simmr_out_combine, type = "boxplot", title = "simmr output: combined sources")
 }
-
 }
 \seealso{
 See \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} and

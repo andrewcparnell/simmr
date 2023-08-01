@@ -64,3 +64,5 @@ test_that("simmr_mcmc_1obs", {
   ))
   expect_s3_class(simmr_2_out, "simmr_output")
 })
+
+

@@ -32,20 +32,20 @@
 #' @author Andrew Parnell <andrew.parnell@@mu.ie>
 #' @seealso See \code{\link{simmr_mcmc}} for complete examples.
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(geese_data_day1)
-# simmr_1 <- with(
-#   geese_data_day1,
-#   simmr_load(
-#     mixtures = mixtures,
-#     source_names = source_names,
-#     source_means = source_means,
-#     source_sds = source_sds,
-#     correction_means = correction_means,
-#     correction_sds = correction_sds,
-#     concentration_means = concentration_means
-#   )
-# )
+#' simmr_1 <- with(
+#'   geese_data_day1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -121,7 +121,7 @@ compare_sources.simmr_output <- function(simmr_out,
     out_all_src_2 <- simmr_out$output[[group]]$BUGSoutput$sims.list$p[, match_names[2]]
     # Produce the difference between the two
     out_diff <- out_all_src_1 - out_all_src_2
-    cat(paste("Prob ( proportion of", source_names[1], "> proportion of", source_names[2], ") =", round(mean(out_diff > 0), 3)))
+    message("Prob ( proportion of", source_names[1], "> proportion of", source_names[2], ") =", round(mean(out_diff > 0), 3))
 
     if (plot) {
       # Stupid fix for packaging ggplot things
@@ -147,7 +147,7 @@ compare_sources.simmr_output <- function(simmr_out,
     Ordering <- rep(NA, length = nrow(ordering_num))
     for (i in 1:length(Ordering)) Ordering[i] <- paste0(source_names[ordering_num[i, ]], collapse = " > ")
     if (simmr_out$input$n_groups > 1) cat("Results for group:", group, "\n")
-    cat("Most popular orderings are as follows:\n")
+    message("Most popular orderings are as follows:\n")
     tab <- t(t(sort(table(Ordering, dnn = NULL), decreasing = TRUE)))
     colnames(tab) <- "Probability"
     # Do not print all of it if too long

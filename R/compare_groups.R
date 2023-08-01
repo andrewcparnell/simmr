@@ -58,7 +58,7 @@
 #' )
 #'
 #' # Run MCMC for each group
-#' simmr_out <- simmr_mcmc(simmr_in)
+#' simmr_out <- simmr_ffvb(simmr_in)
 #'
 #' # Print output
 #' simmr_out
@@ -124,7 +124,7 @@ compare_groups.simmr_output <- function(simmr_out,
     # Produce the difference between the two
     out_diff <- out_all_grp_1 - out_all_grp_2
 
-    cat(paste("Prob ( proportion of", source_name, "in group", group_names[1], "> proportion of", source_name, "in group", group_names[2], ") =", round(mean(out_diff > 0), 3)))
+    message("Prob ( proportion of", source_name, "in group", group_names[1], "> proportion of", source_name, "in group", group_names[2], ") =", round(mean(out_diff > 0), 3))
 
     if (plot) {
       # Stupid fix for packaging ggplot things
@@ -153,7 +153,7 @@ compare_groups.simmr_output <- function(simmr_out,
     ordering_num <- t(apply(out_all, 1, order, decreasing = TRUE))
     Ordering <- rep(NA, length = nrow(ordering_num))
     for (i in 1:length(Ordering)) Ordering[i] <- paste0(group_names[ordering_num[i, ]], collapse = " > ")
-    cat("Most popular orderings are as follows:\n")
+    message("Most popular orderings are as follows:\n")
     tab <- t(t(sort(table(Ordering, dnn = NULL), decreasing = TRUE)))
     colnames(tab) <- "Probability"
     # Do not print all of it if too long

@@ -41,6 +41,9 @@ matrix plots}
 
 \item{...}{Currently not used}
 }
+\value{
+one or more of  'histogram', 'density', 'matrix', or 'boxplot'
+}
 \description{
 This function allows for 4 different types of plots of the simmr output
 created from \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The
@@ -56,7 +59,7 @@ https://stackoverflow.com/questions/14711550/is-there-a-way-to-change-the-color-
 accessed March 2023
 }
 \examples{
-\dontrun{
+\donttest{
 # A simple example with 10 observations, 2 tracers and 4 sources
 
 # The data

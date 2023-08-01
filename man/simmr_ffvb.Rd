@@ -9,7 +9,7 @@ simmr_ffvb(
   simmr_in,
   prior_control = list(mu_0 = rep(0, simmr_in$n_sources), sigma_0 = 1),
   ffvb_control = list(n_output = 3600, S = 100, P = 9, beta_1 = 0.9, beta_2 = 0.9, tau =
-    1000, eps_0 = 0.1, t_W = 50)
+    100, eps_0 = 0.1, t_W = 50)
 )
 }
 \arguments{
@@ -46,6 +46,18 @@ via \code{\link{summary.simmr_output}} and \code{\link{plot.simmr_output}}.
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 data(geese_data_day1)
+simmr_1 <- with(
+  geese_data_day1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_1)
@@ -157,47 +169,7 @@ plot(simmr_3_out, type = "histogram")
 plot(simmr_3_out, type = "density")
 plot(simmr_3_out, type = "matrix")
 
-#####################################################################################
-
-# Data set 4 - identified by Fry (2014) as a failing of SIMMs
-# See the vignette for more interpreation of these data and the output
-
-# The data
-data(square_data)
-simmr_4 <- with(
-  square_data,
-  simmr_load(
-    mixtures = mixtures,
-    source_names = source_names,
-    source_means = source_means,
-    source_sds = source_sds
-  )
-)
-
-# Get summary
-print(simmr_4)
-
-# Plot
-plot(simmr_4)
-
-# FFVB run
-simmr_4_out <- simmr_ffvb(simmr_4)
-
-# Print it
-print(simmr_4_out)
-
-# Summary
-summary(simmr_4_out)
-ans <- summary(simmr_4_out, type = c("quantiles", "statistics"))
-
-# Plot
-plot(simmr_4_out)
-plot(simmr_4_out, type = "boxplot")
-plot(simmr_4_out, type = "histogram")
-plot(simmr_4_out, type = "density")
-plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
-
-#####################################################################################
+################################################################
 
 # Data set 5 - Multiple groups Geese data from Inger et al 2006
 

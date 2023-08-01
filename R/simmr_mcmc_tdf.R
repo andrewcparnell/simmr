@@ -28,9 +28,11 @@
 #'
 #' @param simmr_in An object created via the function \code{\link{simmr_load}}
 #' @param p The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)
-#' @param prior_control A list of values including arguments named \code{means}
+#' @param prior_control A list of values including arguments named: \code{means}
 #' and \code{sd} which represent the prior means and standard deviations of the
-#' correction factors. These can usually be left at their default values unless
+#' correction factors; ; \code{shape} and 
+#' \code{rate} which represent the prior distribution on the residual standard
+#' deviation. These can usually be left at their default values unless
 #' you wish to include to include prior information on them.
 #' @param mcmc_control A list of values including arguments named \code{iter}
 #' (number of iterations), \code{burn} (size of burn-in), \code{thin} (amount
@@ -61,7 +63,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Example of estimating TDFs for a simple system with known dietary proportions
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
@@ -70,34 +72,34 @@
 #' # The data
 #' data(simmr_data_1)
 #' # Load into simmr
-# simmr_tdf <- with(
-#   simmr_data_1,
-#   simmr_load(
-#     mixtures = mixtures,
-#     source_names = source_names,
-#     source_means = source_means,
-#     source_sds = source_sds,
-#     correction_means = correction_means,
-#     correction_sds = correction_sds,
-#     concentration_means = concentration_means
-#   )
-# )
+#' simmr_tdf <- with(
+#'   simmr_data_1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_tdf)
 #'
 #' # MCMC run
-# simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-#   p = matrix(
-#     rep(
-#       1 / simmr_tdf$n_sources,
-#       simmr_tdf$n_sources
-#     ),
-#     ncol = simmr_tdf$n_sources,
-#     nrow = simmr_tdf$n_obs,
-#     byrow = TRUE
-#   )
-# )
+#' simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+#'   p = matrix(
+#'     rep(
+#'       1 / simmr_tdf$n_sources,
+#'       simmr_tdf$n_sources
+#'     ),
+#'     ncol = simmr_tdf$n_sources,
+#'     nrow = simmr_tdf$n_obs,
+#'     byrow = TRUE
+#'   )
+#' )
 
 #' # Summary
 #' summary(simmr_tdf_out, type = "diagnostics")
@@ -105,18 +107,18 @@
 #'
 #' # Now put these corrections back into the model and check the
 #' # iso-space plots and dietary output
-# simmr_tdf_2 <- with(
-#   simmr_data_1,
-#   simmr_load(
-#     mixtures = mixtures,
-#     source_names = source_names,
-#     source_means = source_means,
-#     source_sds = source_sds,
-#     correction_means = simmr_tdf_out$c_mean_est,
-#     correction_sds = simmr_tdf_out$c_sd_est,
-#     concentration_means = concentration_means
-#   )
-# )
+#' simmr_tdf_2 <- with(
+#'   simmr_data_1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = simmr_tdf_out$c_mean_est,
+#'     correction_sds = simmr_tdf_out$c_sd_est,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot with corrections now
 #' plot(simmr_tdf_2)
@@ -145,7 +147,9 @@ simmr_mcmc_tdf <- function(simmr_in,
                              c_sd_est = rep(
                                2,
                                simmr_in$n_tracers
-                             )
+                             ),
+                             sigma_shape = rep(3, simmr_in$n_tracers),
+                             sigma_rate = rep(3/50, simmr_in$n_tracers)
                            ),
                            mcmc_control = list(
                              iter = 10000,
@@ -174,7 +178,9 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
                                          c_sd_est = rep(
                                            2,
                                            simmr_in$n_tracers
-                                         )
+                                         ),
+                                         sigma_shape = rep(3, simmr_in$n_tracers),
+                                         sigma_rate = rep(3/50, simmr_in$n_tracers)
                                        ),
                                        mcmc_control = list(
                                          iter = 10000,
@@ -189,33 +195,7 @@ simmr_mcmc_tdf.simmr_input <- function(simmr_in,
   if (min(table(simmr_in$group)) > 1 & min(table(simmr_in$group)) < 4) warning("At least 1 group has less than 4 observations - either put each observation in an individual group or use informative prior information")
 
   # Set up the model string
-  model_string <- "
-model {
-  # Likelihood
-  for (j in 1:J) {
-    for (i in 1:N) {
-      y[i,j] ~ dnorm(inprod(p[i,]*q[,j], s_mean[,j]+c_mean[,j]) / inprod(p[i,],q[,j]), 1/var_y[i,j])
-      var_y[i,j] <- inprod(pow(p[i,]*q[,j],2),pow(s_sd[,j],2)+pow(c_sd[,j],2))/pow(inprod(p[i,],q[,j]),2)
-+ pow(sigma[j],2)
-    }
-
-  }
-
-  # Prior on sigma
-  for(j in 1:J) { sigma[j] ~ dgamma(0.001, sig_upp) }
-
-  # Priors on c
-  for (j in 1:J) {
-    for (k in 1:K) {
-      c_mean[k,j] <- c_mean_j[j]
-      c_sd[k,j] <- c_sd_j[j]
-    }
-    c_mean_j[j] ~ dgamma(c_mean_est[j], 1)
-    c_sd_j[j] ~ dgamma(c_sd_est[j], 1)
-  }
-
-}
-"
+  jags_file <- system.file("jags_models", "mcmc_tdf.jags", package = "simmr")
 
   if (simmr_in$n_groups > 1) stop("TDF calculation currently only works for single group data")
 
@@ -225,7 +205,7 @@ model {
 
   # Determine if a single observation or not
   if (nrow(curr_mix) == 1) {
-    cat("Only 1 mixture value, performing a simmr solo run...\n")
+    message("Only 1 mixture value, performing a simmr solo run...\n")
     solo <- TRUE
   } else {
     solo <- FALSE
@@ -243,14 +223,16 @@ model {
     K = n_sources,
     c_sd_est = prior_control$c_sd_est,
     c_mean_est = prior_control$c_mean_est,
-    sig_upp = ifelse(solo, 0.001, 1000)
+    sigma_shape = prior_control$sigma_shape,
+    sigma_rate = prior_control$sigma_rate,
+    not_solo = ifelse(solo, 0, 1)
   ))
 
   # Run in JAGS
   output <- R2jags::jags(
     data = data,
     parameters.to.save = c("c_mean", "c_sd"),
-    model.file = textConnection(model_string),
+    model.file = jags_file,
     n.chains = mcmc_control$n.chain,
     n.iter = mcmc_control$iter,
     n.burnin = mcmc_control$burn,

@@ -54,8 +54,8 @@ summary.simmr_output_tdf <-
 
     if ("diagnostics" %in% type) {
       # Print out gelman diagnostics of the output
-      cat("Gelman diagnostics - these values should all be close to 1.\n")
-      cat("If not, try a longer run of simmr_mcmc_tdf.\n")
+      print("Gelman diagnostics - these values should all be close to 1.\n")
+      print("If not, try a longer run of simmr_mcmc_tdf.\n")
       print(round(out_bgr, 2))
     }
 

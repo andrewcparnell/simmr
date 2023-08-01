@@ -73,7 +73,7 @@ plot(simmr_in,
 )
 
 # Run MCMC for each group
-simmr_out <- simmr_mcmc(simmr_in)
+simmr_out <- simmr_ffvb(simmr_in)
 
 # Print output
 simmr_out

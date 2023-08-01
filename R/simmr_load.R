@@ -56,7 +56,7 @@
 #' @examples
 #'
 #' # A simple example with 10 observations, 2 tracers and 4 sources
-#' #' data(geese_data_day1)
+#' data(geese_data_day1)
 #' simmr_1 <- with(
 #'   geese_data_day1,
 #'   simmr_load(

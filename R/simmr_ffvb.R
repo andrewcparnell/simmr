@@ -48,18 +48,18 @@
 #'
 #' # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
 #' data(geese_data_day1)
-# simmr_1 <- with(
-#   geese_data_day1,
-#   simmr_load(
-#     mixtures = mixtures,
-#     source_names = source_names,
-#     source_means = source_means,
-#     source_sds = source_sds,
-#     correction_means = correction_means,
-#     correction_sds = correction_sds,
-#     concentration_means = concentration_means
-#   )
-# )
+#' simmr_1 <- with(
+#'   geese_data_day1,
+#'   simmr_load(
+#'     mixtures = mixtures,
+#'     source_names = source_names,
+#'     source_means = source_means,
+#'     source_sds = source_sds,
+#'     correction_means = correction_means,
+#'     correction_sds = correction_sds,
+#'     concentration_means = concentration_means
+#'   )
+#' )
 #'
 #' # Plot
 #' plot(simmr_1)
@@ -171,47 +171,7 @@
 #' plot(simmr_3_out, type = "density")
 #' plot(simmr_3_out, type = "matrix")
 #'
-#' #####################################################################################
-#'
-#' # Data set 4 - identified by Fry (2014) as a failing of SIMMs
-#' # See the vignette for more interpreation of these data and the output
-#'
-#' # The data
-#' data(square_data)
-#' simmr_4 <- with(
-#'   square_data,
-#'   simmr_load(
-#'     mixtures = mixtures,
-#'     source_names = source_names,
-#'     source_means = source_means,
-#'     source_sds = source_sds
-#'   )
-#' )
-#'
-#' # Get summary
-#' print(simmr_4)
-#'
-#' # Plot
-#' plot(simmr_4)
-#'
-#' # FFVB run
-#' simmr_4_out <- simmr_ffvb(simmr_4)
-#'
-#' # Print it
-#' print(simmr_4_out)
-#'
-#' # Summary
-#' summary(simmr_4_out)
-#' ans <- summary(simmr_4_out, type = c("quantiles", "statistics"))
-#'
-#' # Plot
-#' plot(simmr_4_out)
-#' plot(simmr_4_out, type = "boxplot")
-#' plot(simmr_4_out, type = "histogram")
-#' plot(simmr_4_out, type = "density")
-#' plot(simmr_4_out, type = "matrix") # Look at the massive correlations here
-#'
-#' #####################################################################################
+#' ################################################################
 #'
 #' # Data set 5 - Multiple groups Geese data from Inger et al 2006
 #'
@@ -272,7 +232,7 @@ simmr_ffvb <- function(simmr_in,
                          P = 9,
                          beta_1 = 0.9,
                          beta_2 = 0.9,
-                         tau = 1000,
+                         tau = 100,
                          eps_0 = 0.1,
                          t_W = 50
                        )) {
@@ -304,20 +264,21 @@ simmr_ffvb <- function(simmr_in,
 
   # Loop through all the groups
   for (i in 1:simmr_in$n_groups) {
-    if (simmr_in$n_groups > 1) cat(paste("\nRunning for group", levels(simmr_in$group)[i], "\n\n"))
+    if (simmr_in$n_groups > 1) message("\nRunning for group", levels(simmr_in$group)[i], "\n\n")
 
     curr_rows <- which(simmr_in$group_int == i)
     curr_mix <- simmr_in$mixtures[curr_rows, , drop = FALSE]
 
     # Determine if a single observation or not
     if (nrow(curr_mix) == 1) {
-      cat("Only 1 mixture value, performing a simmr solo run...\n")
+      message("Only 1 mixture value, performing a simmr solo run...\n")
       solo <- TRUE
-      beta_prior = 100
+      beta_prior = 1
     } else {
       solo <- FALSE
-      beta_prior = 0.001
+      beta_prior = 1
     }
+  #solo <- FALSE
 
     n_tracers <- simmr_in$n_tracers
     n_sources <- simmr_in$n_sources
@@ -338,11 +299,11 @@ simmr_ffvb <- function(simmr_in,
       source_sds, y, ffvb_control$S,
       ffvb_control$P, ffvb_control$beta_1,
       ffvb_control$beta_2, ffvb_control$tau,
-      ffvb_control$eps_0, ffvb_control$t_W
+      ffvb_control$eps_0, ffvb_control$t_W, solo
     )
 
     thetares[(1 + n_output * (i - 1)):(n_output * i), ] <-
-      sim_thetacpp(n_output, lambdares[, i], K, n_tracers)
+      sim_thetacpp(n_output, lambdares[, i], K, n_tracers, solo)
 
     p <- t(apply(thetares[(1 + n_output * (i - 1)):(n_output * i), 1:K], 1, p_fun))
     sigma <- (1 / sqrt(thetares[

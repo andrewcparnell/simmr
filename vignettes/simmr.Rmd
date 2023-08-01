@@ -165,7 +165,7 @@ This command takes the object `simmr_in` we created earlier and uses it as input
 
 Alternatively, it can be run using a Fixed Form Variational Bayes (FFVB) algorithm, as follows:
 
-```{r,results = 'hide'}
+```{r, eval = FALSE, results = 'hide'}
 simmr_out_ffvb <- simmr_ffvb(simmr_in)
 ```
 
@@ -259,13 +259,13 @@ A useful data set is given by Inger et al 2006 and provided as part of the origi
 
 These data are included in the package, and we can load these data into R with:
 
-```{r}
+```{r, eval = FALSE}
 data(geese_data)
 ```
 
 ...and into simmr with:
 
-```{r}
+```{r, eval = FALSE}
 simmr_groups <- with(
   geese_data,
   simmr_load(
@@ -288,7 +288,7 @@ Next it is a matter of following the `simmr` commands as before to load in, with
 
 When we create the isospace plot we can specify which groups we wish to plot:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 plot(simmr_groups,
   group = 1:8,
   xlab = expression(paste(delta^13, "C (\u2030)",
@@ -306,18 +306,18 @@ In the above code `group = 1:8` can be changed specify any of the available grou
 
 The command for running the `simmr` model is identical to before:
 
-```{r,results = 'hide'}
+```{r,, eval = FALSE, results = 'hide'}
 simmr_groups_out <- simmr_mcmc(simmr_groups)
 ```
 or
-```{r,results = 'hide'}
+```{r,eval = FALSE, results = 'hide'}
 simmr_groups_out_ffvb <- simmr_ffvb(simmr_groups)
 ```
 `simmr` will automatically run the model for each group in turn. This may take slightly longer than a standard single group run.
 
 The `summary` command works the same as before. By default they will produce output for all groups, or you can specify the groups individually, e.g.:
 
-```{r,reults = 'hide'}
+```{r,, eval = FALSE, reults = 'hide'}
 summary(simmr_groups_out,
   type = "quantiles",
   group = 1
@@ -334,7 +334,7 @@ summary(simmr_groups_out,
 
 For plotting output with multiple groups you can only specify a single group to plot. This is so that you are not overwhelmed with plots:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 plot(simmr_groups_out,
   type = "boxplot",
   group = 2,
@@ -349,7 +349,7 @@ plot(simmr_groups_out,
 
 Whilst you can use the `compare_sources` function for multi-group data, there is also an  extra function for comparing a single source between groups via the `compare_groups` function. This allows for probabilistic output and plots comparing a single source across different groups. The simplest use is where you want to compare just two groups:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_groups(simmr_groups_out,
   source = "Zostera",
   groups = 1:2
@@ -360,7 +360,7 @@ This produces the probability of the group 1 dietary proportion of Zostera being
 
 If you specify more than two groups `simmr` will produce the most likely probabilistic orderings of the groups as well as the boxplot as before:
 
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r,, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 compare_groups(simmr_groups_out,
   source = "Zostera",
   groups = 1:3
@@ -387,7 +387,7 @@ plot(simmr_out_combine,
 ```
 
 This will also work with multiple sources and/or multiple groups:
-```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
+```{r, eval = FALSE, fig.align = 'center',fig.width = 7, fig.height = 5}
 simmr_groups_out_combine <- combine_sources(simmr_groups_out,
   to_combine = c(
     "Zostera",
@@ -459,7 +459,7 @@ Now run simmr:
 simmr_run_1D <- simmr_mcmc(simmr_in_1D)
 ```
 or
-```{r}
+```{r, eval = FALSE}
 simmr_run_1D_ffvb <- simmr_ffvb(simmr_in_1D)
 ```
 Plot output
@@ -476,22 +476,22 @@ Most Bayesian models will work better when you include informative prior distrib
 
 We will use the `simmr_out` object created above. A reminder about the posterior values
 
-```{r}
+```{r, eval = FALSE}
 summary(simmr_out, type = "quantiles")
 ```
 
 All these dietary proportions are very similar. We now suppose we had prior information (e.g. from stomach or fecal contents) that the mean dietary proportions were
-```{r}
+```{r, eval = FALSE}
 proportion_means <- c(0.4, 0.3, 0.2, 0.1)
 ```
 
 ...and proportion standard deviations:
-```{r}
+```{r, eval = FALSE}
 proportion_sds <- c(0.08, 0.02, 0.01, 0.02)
 ```
 
 We put this into the `simmr_elicit` function as follows:
-```{r}
+```{r, eval = FALSE}
 prior <- simmr_elicit(
   4, proportion_means,
   proportion_sds
@@ -501,7 +501,7 @@ prior <- simmr_elicit(
 This may take a few moments to run as the code tries to optimise the parameters of a prior distribution which matches these means and standard deviations, which sometimes may not be exactly possible. 
 
 When finished, the model can be run using these prior distributions:
-```{r}
+```{r, eval = FALSE}
 simmr_out_informative <- simmr_mcmc(simmr_in,
   prior_control =
     list(
@@ -512,14 +512,14 @@ simmr_out_informative <- simmr_mcmc(simmr_in,
 ```
 
 The new quantiles are:
-```{r}
+```{r, eval = FALSE}
 summary(simmr_out_informative,
   type = "quantiles"
 )
 ```
 
 We can plot these priors with their posteriors
-```{r}
+```{r, eval = FALSE}
 prior_viz(simmr_out_informative)
 ```
 
@@ -608,7 +608,7 @@ plot(simmr_in) + xlim(-100, 100) + ylim(-100, 100)
 
 or even on the output:
 
-```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
+```{r, eval = FALSE, fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(simmr_groups_out,
   type = "boxplot",
   group = 2,

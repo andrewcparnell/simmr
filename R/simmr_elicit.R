@@ -43,7 +43,7 @@
 #' @importFrom boot logit
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Data set: 10 observations, 2 tracers, 4 sources
 #' data(geese_data_day1)
 #' simmr_1 <- with(
@@ -79,7 +79,11 @@
 #' # proportion sds = 0.08,0.02,0.01,0.02
 #' prior <- simmr_elicit(4, c(0.5, 0.2, 0.2, 0.1), c(0.08, 0.02, 0.01, 0.02))
 #'
-#' simmr_1a_out <- simmr_mcmc(simmr_1, prior_control = list(means = prior$mean, sd = prior$sd))
+#' simmr_1a_out <- simmr_mcmc(simmr_1, prior_control = 
+#' list(means = prior$mean, 
+#'       sd = prior$sd, 
+#'       sigma_shape = c(3,3), 
+#'       sigma_rate = c(3/50, 3/50)))
 #'
 #' #' # Look at the prior influence now
 #' prior_viz(simmr_1a_out)
@@ -119,6 +123,7 @@ simmr_elicit <-
     clr_opt_mean <- function(pars) {
       means <- c(pars[(1:(n_sources - 1))], -sum(pars[(1:(n_sources - 1))]))
       # Generate n_sims observations from this normal distribution
+      suppressWarnings(
       f <- matrix(
         stats::rnorm(
           n_sims * n_sources,
@@ -128,6 +133,7 @@ simmr_elicit <-
         ncol = n_sources,
         nrow = n_sims,
         byrow = TRUE
+      ), classes = "warning"
       )
       p <- as.matrix(compositions::clrInv(f))
       return(sum((
@@ -144,11 +150,10 @@ simmr_elicit <-
         "Optimisation for means did not converge properly. Please either increase n_sims or adjust proportion_means and proportion_sds"
       )
     } else {
-      cat("Mean optimisation successful.\n")
+      message("Mean optimisation successful.\n")
     }
     best_mean <- c(opt_mean$par, -sum(opt_mean$par))
-
-    options(warn = -1)
+suppressWarnings({
     clr_opt_sd <- function(pars) {
       sd <- pars[1:(n_sources)]
       # Generate n_sims observations from this normal distribution
@@ -170,10 +175,10 @@ simmr_elicit <-
         "Optimisation for stand deviations did not converge properly. Please either increase n_sims or adjust proportion_means and proportion_sds"
       )
     } else {
-      cat("Standard deviation optimisation successful.\n")
+      message("Standard deviation optimisation successful.\n")
     }
     best_sd <- opt_sd$par
-    options(warn = 0)
+})
 
     best_f <- matrix(
       stats::rnorm(n_sims * n_sources, mean = best_mean, sd = best_sd),
@@ -181,15 +186,16 @@ simmr_elicit <-
       nrow = n_sims,
       byrow = TRUE
     )
+
     best_p <- as.matrix(compositions::clrInv(best_f))
 
-    cat("Best fit estimates provide proportion means of:\n")
-    cat(round(apply(best_p, 2, "mean"), 3))
-    cat("\n")
-    cat("... and best fit standard deviations of:\n")
-    cat(round(apply(best_p, 2, "sd"), 3))
-    cat("\n")
-    cat("Check these match the input values before proceeding with a model run.\n")
+    message("Best fit estimates provide proportion means of:\n")
+    message(round(apply(best_p, 2, "mean"), 3))
+    message("\n")
+    message("... and best fit standard deviations of:\n")
+    message(round(apply(best_p, 2, "sd"), 3))
+    message("\n")
+    message("Check these match the input values before proceeding with a model run.\n")
 
     return(list(mean = best_mean, sd = best_sd))
   }

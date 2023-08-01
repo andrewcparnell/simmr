@@ -10,6 +10,7 @@ simmr_mcmc_tdf(
   p = matrix(rep(1/simmr_in$n_sources, simmr_in$n_sources), ncol = simmr_in$n_sources,
     nrow = simmr_in$n_obs, byrow = TRUE),
   prior_control = list(c_mean_est = rep(2, simmr_in$n_tracers), c_sd_est = rep(2,
+    simmr_in$n_tracers), sigma_shape = rep(3, simmr_in$n_tracers), sigma_rate = rep(3/50,
     simmr_in$n_tracers)),
   mcmc_control = list(iter = 10000, burn = 1000, thin = 10, n.chain = 4)
 )
@@ -19,9 +20,11 @@ simmr_mcmc_tdf(
 
 \item{p}{The known dietary proportions for the feeding study. Dietary proportions should be given per individual (even if they are all identical)}
 
-\item{prior_control}{A list of values including arguments named \code{means}
+\item{prior_control}{A list of values including arguments named: \code{means}
 and \code{sd} which represent the prior means and standard deviations of the
-correction factors. These can usually be left at their default values unless
+correction factors; ; \code{shape} and 
+\code{rate} which represent the prior distribution on the residual standard
+deviation. These can usually be left at their default values unless
 you wish to include to include prior information on them.}
 
 \item{mcmc_control}{A list of values including arguments named \code{iter}
@@ -65,7 +68,7 @@ If, after running \code{\link{simmr_mcmc_tdf}} the convergence diagnostics in
 increased by e.g. a factor of 10.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Example of estimating TDFs for a simple system with known dietary proportions
 
 # Data set 1: 10 obs on 2 isos, 4 sources, with tefs and concdep
@@ -74,17 +77,52 @@ increased by e.g. a factor of 10.
 # The data
 data(simmr_data_1)
 # Load into simmr
+simmr_tdf <- with(
+  simmr_data_1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = correction_means,
+    correction_sds = correction_sds,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot
 plot(simmr_tdf)
 
 # MCMC run
+simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
+  p = matrix(
+    rep(
+      1 / simmr_tdf$n_sources,
+      simmr_tdf$n_sources
+    ),
+    ncol = simmr_tdf$n_sources,
+    nrow = simmr_tdf$n_obs,
+    byrow = TRUE
+  )
+)
 # Summary
 summary(simmr_tdf_out, type = "diagnostics")
 summary(simmr_tdf_out, type = "quantiles")
 
 # Now put these corrections back into the model and check the
 # iso-space plots and dietary output
+simmr_tdf_2 <- with(
+  simmr_data_1,
+  simmr_load(
+    mixtures = mixtures,
+    source_names = source_names,
+    source_means = source_means,
+    source_sds = source_sds,
+    correction_means = simmr_tdf_out$c_mean_est,
+    correction_sds = simmr_tdf_out$c_sd_est,
+    concentration_means = concentration_means
+  )
+)
 
 # Plot with corrections now
 plot(simmr_tdf_2)

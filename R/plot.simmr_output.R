@@ -25,6 +25,7 @@
 #' @param ggargs Extra arguments to be included in the ggplot (e.g. axis limits)
 #' @param ...  Currently not used
 #'
+#' @return one or more of  'histogram', 'density', 'matrix', or 'boxplot'
 #' @import ggplot2
 #' @import graphics
 #' @import viridis
@@ -39,7 +40,7 @@
 #' \code{\link{summary.simmr_output}} for summarising output.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # A simple example with 10 observations, 2 tracers and 4 sources
 #'
 #' # The data
@@ -161,12 +162,13 @@ plot.simmr_output <-
 
         if ("matrix" %in% type) {
           modified_bar <- function(data, mapping, ...) {
-            GGally::ggally_barDiag(data, mapping, ..., fill = viridis(1), binwidth = 0.025) + coord_cartesian(xlim = c(0, 1)) + theme_bw()
+            GGally::ggally_barDiag(data, mapping, ..., fill = viridis(1, option = "E"), binwidth = 0.025) + coord_cartesian(xlim = c(0, 1)) + theme_bw()
           }
           modified_density <- function(data, mapping, ...) {
             ggplot(data = data, mapping = mapping, ...) +
               stat_density_2d(
-                geom = "polygon", contour = TRUE,
+                geom = "density_2d_filled", contour = TRUE,
+                contour_var = "density",
                 aes(fill = after_stat(..level..)),
                 bins = 5,
               ) +
