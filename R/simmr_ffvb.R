@@ -273,12 +273,12 @@ simmr_ffvb <- function(simmr_in,
     if (nrow(curr_mix) == 1) {
       message("Only 1 mixture value, performing a simmr solo run...\n")
       solo <- TRUE
-      beta_prior = 1000
+      beta_prior = 1
     } else {
       solo <- FALSE
       beta_prior = 1
     }
-  #  solo <- FALSE
+  #solo <- FALSE
 
     n_tracers <- simmr_in$n_tracers
     n_sources <- simmr_in$n_sources

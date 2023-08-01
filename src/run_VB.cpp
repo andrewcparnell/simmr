@@ -132,7 +132,7 @@ NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources,
   NumericVector solovec(S);
   
   for(int s = 0; s<S; s++){
-    solovec(s) = 0.01;
+    solovec(s) = 1000;
   }
   
   if(solo == FALSE) for(int i = 0; i<n_tracers; i++){
