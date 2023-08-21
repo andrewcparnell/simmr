@@ -14,7 +14,7 @@
 #' allows for more detailed random effects and the inclusion of covariates.
 #'
 #' @name simmr
-#' @docType package
+#' @aliases simmr-package
 #' @author Andrew Parnell <andrew.parnell@mu.ie>
 #'
 #' @references Andrew C. Parnell, Donald L. Phillips, Stuart Bearhop, Brice X.
