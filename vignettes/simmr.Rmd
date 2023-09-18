@@ -17,6 +17,8 @@ editor_options:
 
 tl;dr see the [Quick Start](https://cran.r-project.org/package=simmr/vignettes/quick_start.html) vignette
 
+test
+
 `simmr` is a package designed to solve mixing equations for stable isotopic data within a Bayesian framework. This guide is designed to get researchers up and running with the package and giving them a full list of all the available features. No expertise is required in the use of R. 
 
 `simmr` is designed as an upgrade to the [SIAR](https://CRAN.R-project.org/package=siar) package and contains many of the same features. This new version contains a slightly more sophisticated mixing model, a simpler user interface, and more advanced plotting features. The key differences between SIAR and `simmr` are:
