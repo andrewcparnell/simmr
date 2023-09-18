@@ -17,7 +17,6 @@ editor_options:
 
 tl;dr see the [Quick Start](https://cran.r-project.org/package=simmr/vignettes/quick_start.html) vignette
 
-test
 
 `simmr` is a package designed to solve mixing equations for stable isotopic data within a Bayesian framework. This guide is designed to get researchers up and running with the package and giving them a full list of all the available features. No expertise is required in the use of R. 
 
@@ -376,7 +375,7 @@ A common request is that of combining sources. We would recommend always doing t
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 simmr_out_combine <- combine_sources(simmr_out,
   to_combine = c(
-    "U.lactuca",
+    "Grass",
     "Enteromorpha"
   ),
   new_source_name = "U.lac+Ent"

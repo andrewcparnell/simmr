@@ -63,7 +63,7 @@ prior_viz.simmr_output <- function(simmr_out,
                                    include_posterior = TRUE,
                                    n_sims = 10000,
                                    scales = "free") {
-  if (inherits(simmr_out, "mcmc")) {
+  if (inherits(simmr_out, "simmr_mcmc")) {
     # Can't do more than 1 group for now
     assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
 
@@ -137,7 +137,7 @@ prior_viz.simmr_output <- function(simmr_out,
     } else {
       invisible(p_prior_sim)
     }
-  } else if (inherits(simmr_out, "ffvb") == TRUE) {
+  } else if (inherits(simmr_out, "simmr_ffvb") == TRUE) {
     # Can't do more than 1 group for now
     assert_int(group, lower = 1, upper = simmr_out$input$n_groups)
 

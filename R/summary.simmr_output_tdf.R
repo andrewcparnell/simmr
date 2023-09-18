@@ -54,8 +54,8 @@ summary.simmr_output_tdf <-
 
     if ("diagnostics" %in% type) {
       # Print out gelman diagnostics of the output
-      print("Gelman diagnostics - these values should all be close to 1.\n")
-      print("If not, try a longer run of simmr_mcmc_tdf.\n")
+      message("R-hat values - these values should all be close to 1.\n")
+      message("If not, try a longer run of simmr_mcmc.\n")
       print(round(out_bgr, 2))
     }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/print.simmr_output.R
 \name{print.simmr_output}
 \alias{print.simmr_output}
-\title{Print a simmr output object}
+\title{Print simmr output object}
 \usage{
 \method{print}{simmr_output}(x, ...)
 }
@@ -15,7 +15,7 @@
 Returns a neat summary of the object
 }
 \description{
-Print a simmr output object
+Print simmr output object
 }
 \seealso{
 \code{\link{simmr_mcmc}} and \code{\link{simmr_ffvb}} for creating

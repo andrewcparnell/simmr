@@ -10,7 +10,8 @@
 #' the different pairs of the food sources. See the vignette for further
 #' details of richer plots.
 #'
-#' @param x An object created via the function \code{\link{simmr_load}}
+#' @param x An object of class \code{simmr_input} created via the function 
+#' \code{\link{simmr_load}}
 #' @param tracers The choice of tracers to plot. If there are more than two
 #' tracers, it is recommended to plot every pair of tracers to determine
 #' whether the mixtures lie in the mixing polygon defined by the sources

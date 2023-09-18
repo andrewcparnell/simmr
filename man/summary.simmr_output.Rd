@@ -2,7 +2,8 @@
 % Please edit documentation in R/summary.simmr_output.R
 \name{summary.simmr_output}
 \alias{summary.simmr_output}
-\title{Summarises the output created with \code{\link{simmr_mcmc}}}
+\title{Summarises the output created with \code{\link{simmr_mcmc}} or 
+\code{\link{simmr_ffvb}}}
 \usage{
 \method{summary}{simmr_output}(
   object,
@@ -33,7 +34,7 @@ as in the example below.
 }
 \description{
 Produces textual summaries and convergence diagnostics for an object created
-with \code{\link{simmr_mcmc}} or \code{\link{simmr_mcmc}}. The different
+with \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The different
 options are: 'diagnostics' which produces Brooks-Gelman-Rubin diagnostics
 to assess MCMC convergence, 'quantiles' which produces credible intervals
 for the parameters, 'statistics' which produces means and standard

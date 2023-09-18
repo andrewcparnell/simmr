@@ -19,7 +19,8 @@
 )
 }
 \arguments{
-\item{x}{An object created via the function \code{\link{simmr_load}}}
+\item{x}{An object of class \code{simmr_input} created via the function 
+\code{\link{simmr_load}}}
 
 \item{tracers}{The choice of tracers to plot. If there are more than two
 tracers, it is recommended to plot every pair of tracers to determine

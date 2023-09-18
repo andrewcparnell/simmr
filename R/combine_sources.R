@@ -85,7 +85,7 @@ combine_sources <- function(simmr_out,
 combine_sources.simmr_output <- function(simmr_out,
                                          to_combine = simmr_out$input$source_names[1:2],
                                          new_source_name = "combined_source") {
-  if (inherits(simmr_out, "mcmc") == TRUE) {
+  if (inherits(simmr_out, "simmr_mcmc") == TRUE) {
     # Check that to_combine is in the list of sources
     assert_true(all(to_combine %in% simmr_out$input$source_names))
 
@@ -174,7 +174,7 @@ combine_sources.simmr_output <- function(simmr_out,
       simmr_new_out$output[[j]]$BUGSoutput$sims.list <- new_sims.list
     }
   }
-  if (inherits(simmr_out, "ffvb") == TRUE) {
+  if (inherits(simmr_out, "simmr_ffvb") == TRUE) {
     # Check that to_combine is in the list of sources
     assert_true(all(to_combine %in% simmr_out$input$source_names))
 
@@ -263,10 +263,10 @@ combine_sources.simmr_output <- function(simmr_out,
   }
 
 
-  a <- c("ffvb", "mcmc")
-  if (inherits(simmr_out, "ffvb") == TRUE) {
+  a <- c("simmr_ffvb", "simmr_mcmc")
+  if (inherits(simmr_out, "simmr_ffvb") == TRUE) {
     i <- 1
-  } else if (inherits(simmr_out, "mcmc") == TRUE) {
+  } else if (inherits(simmr_out, "simmr_mcmc") == TRUE) {
     i <- 2
   }
   class(simmr_new_out) <- c("simmr_output", a[i])
