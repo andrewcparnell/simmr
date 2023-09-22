@@ -77,15 +77,18 @@
 #' }
 #' @export
 combine_sources <- function(simmr_out,
-                            to_combine = simmr_out$input$source_names[1:2],
+                            to_combine = NULL,
                             new_source_name = "combined_source") {
   UseMethod("combine_sources")
 }
 #' @export
 combine_sources.simmr_output <- function(simmr_out,
-                                         to_combine = simmr_out$input$source_names[1:2],
+                                         to_combine = NULL,
                                          new_source_name = "combined_source") {
   if (inherits(simmr_out, "simmr_mcmc") == TRUE) {
+    if(is.null(to_combine) == TRUE){
+      to_combine = simmr_out$input$source_names[1:2]
+    }
     # Check that to_combine is in the list of sources
     assert_true(all(to_combine %in% simmr_out$input$source_names))
 
@@ -175,6 +178,9 @@ combine_sources.simmr_output <- function(simmr_out,
     }
   }
   if (inherits(simmr_out, "simmr_ffvb") == TRUE) {
+    if(is.null(to_combine) == TRUE){
+      to_combine = simmr_out$input$source_names[1:2]
+    }
     # Check that to_combine is in the list of sources
     assert_true(all(to_combine %in% simmr_out$input$source_names))
 
