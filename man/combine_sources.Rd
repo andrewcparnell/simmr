@@ -6,7 +6,7 @@
 \usage{
 combine_sources(
   simmr_out,
-  to_combine = simmr_out$input$source_names[1:2],
+  to_combine = NULL,
   new_source_name = "combined_source"
 )
 }

@@ -103,8 +103,8 @@
 #'
 #' # Plot
 #' plot(simmr_4,
-#'   xlab = expression(paste(delta^13, "C (\u2030)", sep = "")),
-#'   ylab = expression(paste(delta^15, "N (\u2030)", sep = "")),
+#'   xlab = expression(paste(delta^13, "C (‰)", sep = "")),
+#'   ylab = expression(paste(delta^15, "N (‰)", sep = "")),
 #'   title = "Isospace plot of Inger et al Geese data"
 #' ) #'
 #' @export

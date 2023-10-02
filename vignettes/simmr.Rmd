@@ -140,10 +140,10 @@ This will produce a biplot with the isotope that is in the first column on the x
 
 ```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(simmr_in,
-  xlab = expression(paste(delta^13, "C (\u2030)",
+  xlab = expression(paste(delta^13, "C (‰)",
     sep = ""
   )),
-  ylab = expression(paste(delta^15, "N (\u2030)",
+  ylab = expression(paste(delta^15, "N (‰)",
     sep = ""
   )),
   title = "Isospace plot of example data"

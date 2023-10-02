@@ -20,7 +20,7 @@ values are returned as part of the object and can be saved for external use"><!-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.214</span>
       </span>
     </div>
 
@@ -97,10 +97,16 @@ values are returned as part of the object and can be saved for external use</p>
 <dd><p>Whether to create a bayesplot of the posterior predictive or not.</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>plot of posterior predictives and simulated values</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
@@ -117,16 +123,49 @@ values are returned as part of the object and can be saved for external use</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="posterior_predictive-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Print</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This is a valid simmr input object with </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 9  observations, </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2 tracers, and </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 4 sources.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The source names are: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Zostera"      "Grass"        "U.lactuca"    "Enteromorpha"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> .</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The tracer names are: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "d13C_Pl" "d15N_Pl"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># MCMC run</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Prior predictive</span></span></span>
 <span class="r-in"><span><span class="va">post_pred</span> <span class="op">&lt;-</span> <span class="fu">posterior_predictive</span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-plt img"><img src="posterior_predictive-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -137,7 +176,7 @@ values are returned as part of the object and can be saved for external use</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
+  <p></p><p>Developed by Emma Govan, Andrew Parnell.</p>
 </div>
 
 <div class="pkgdown">
