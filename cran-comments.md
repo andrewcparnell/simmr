@@ -12,6 +12,8 @@ The R-hub runs failed because it couldn't find JAGS but I think this is a missin
 
 When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
 
+TDF functions have been removed as these can be carried out using the SIDER package.
+
 ## Previous CRAN package checks
 Added value to R files to explain function results in the documentation.
 This package is 7.8MB as it is C++ based. 
