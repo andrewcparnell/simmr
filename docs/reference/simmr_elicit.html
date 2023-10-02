@@ -24,7 +24,7 @@ simmr_mcmc."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.214</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@ deviations exactly. If this problem is severe, try increasing the
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="co"># Data set: 10 observations, 2 tracers, 4 sources</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
@@ -167,12 +167,33 @@ deviations exactly. If this problem is severe, try increasing the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># MCMC run</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Look at the prior influence</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="simmr_elicit-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Summary</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1_out</span>, <span class="st">"quantiles"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Summary for 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                2.5%    25%    50%    75%  97.5%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> deviance     52.958 56.611 59.555 63.534 73.575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zostera       0.336  0.501  0.583  0.665  0.806</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Grass         0.026  0.057  0.075  0.093  0.139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> U.lactuca     0.021  0.077  0.136  0.208  0.379</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Enteromorpha  0.023  0.093  0.167  0.267  0.476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd[d13C_Pl]   0.560  1.149  1.558  2.072  3.836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd[d15N_Pl]   0.266  0.645  0.972  1.362  2.661</span>
 <span class="r-in"><span><span class="co"># A bit vague:</span></span></span>
 <span class="r-in"><span><span class="co">#           2.5%   25%   50%   75% 97.5%</span></span></span>
 <span class="r-in"><span><span class="co"># Source A 0.029 0.115 0.203 0.312 0.498</span></span></span>
@@ -184,20 +205,55 @@ deviations exactly. If this problem is severe, try increasing the
 <span class="r-in"><span><span class="co"># proportion means = 0.5,0.2,0.2,0.1</span></span></span>
 <span class="r-in"><span><span class="co"># proportion sds = 0.08,0.02,0.01,0.02</span></span></span>
 <span class="r-in"><span><span class="va">prior</span> <span class="op">&lt;-</span> <span class="fu">simmr_elicit</span><span class="op">(</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.08</span>, <span class="fl">0.02</span>, <span class="fl">0.01</span>, <span class="fl">0.02</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Running elicitation optimisation routine...</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Mean optimisation successful.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Standard deviation optimisation successful.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Best fit estimates provide proportion means of:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 0.5620.1680.1780.092</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> ... and best fit standard deviations of:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 0.0450.0190.0180.02</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Check these match the input values before proceeding with a model run.</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">simmr_1a_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span>, prior_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>means <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">mean</span>, sd <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">sd</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">simmr_1a_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span>, prior_control <span class="op">=</span> </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>means <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">mean</span>, </span></span>
+<span class="r-in"><span>      sd <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">sd</span>, </span></span>
+<span class="r-in"><span>      sigma_shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, </span></span>
+<span class="r-in"><span>      sigma_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span><span class="op">/</span><span class="fl">50</span>, <span class="fl">3</span><span class="op">/</span><span class="fl">50</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#' # Look at the prior influence now</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="prior_viz.html">prior_viz</a></span><span class="op">(</span><span class="va">simmr_1a_out</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="simmr_elicit-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_1a_out</span>, <span class="st">"quantiles"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Summary for 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                2.5%    25%    50%    75%  97.5%</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> deviance     57.654 62.648 65.497 69.102 78.303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zostera       0.509  0.572  0.602  0.631  0.686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Grass         0.117  0.138  0.150  0.163  0.189</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> U.lactuca     0.130  0.151  0.163  0.176  0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Enteromorpha  0.053  0.071  0.083  0.096  0.128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd[d13C_Pl]   1.106  1.976  2.592  3.384  5.907</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sd[d15N_Pl]   0.237  0.572  0.841  1.189  2.428</span>
 <span class="r-in"><span><span class="co"># Much more precise:</span></span></span>
 <span class="r-in"><span><span class="co">#           2.5%   25%   50%   75% 97.5%</span></span></span>
 <span class="r-in"><span><span class="co"># Source A 0.441 0.494 0.523 0.553 0.610</span></span></span>
 <span class="r-in"><span><span class="co"># Source B 0.144 0.173 0.188 0.204 0.236</span></span></span>
 <span class="r-in"><span><span class="co"># Source C 0.160 0.183 0.196 0.207 0.228</span></span></span>
 <span class="r-in"><span><span class="co"># Source D 0.060 0.079 0.091 0.105 0.135</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -208,7 +264,7 @@ deviations exactly. If this problem is severe, try increasing the
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
+  <p></p><p>Developed by Emma Govan, Andrew Parnell.</p>
 </div>
 
 <div class="pkgdown">

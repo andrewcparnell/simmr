@@ -4,7 +4,7 @@ author: "Andrew Parnell"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{advanced_plotting}
+  %\VignetteIndexEntry{Creating-more-advanced-plots-with-simmr}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

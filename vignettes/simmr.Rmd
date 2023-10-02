@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette:
      toc: true
 vignette: >
-  %\VignetteIndexEntry{simmr}
+  %\VignetteIndexEntry{guide-to-using-simmr}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -16,6 +16,7 @@ editor_options:
 ## Introduction
 
 tl;dr see the [Quick Start](https://cran.r-project.org/package=simmr/vignettes/quick_start.html) vignette
+
 
 `simmr` is a package designed to solve mixing equations for stable isotopic data within a Bayesian framework. This guide is designed to get researchers up and running with the package and giving them a full list of all the available features. No expertise is required in the use of R. 
 
@@ -139,10 +140,10 @@ This will produce a biplot with the isotope that is in the first column on the x
 
 ```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 plot(simmr_in,
-  xlab = expression(paste(delta^13, "C (\u2030)",
+  xlab = expression(paste(delta^13, "C (‰)",
     sep = ""
   )),
-  ylab = expression(paste(delta^15, "N (\u2030)",
+  ylab = expression(paste(delta^15, "N (‰)",
     sep = ""
   )),
   title = "Isospace plot of example data"
@@ -374,7 +375,7 @@ A common request is that of combining sources. We would recommend always doing t
 ```{r,fig.align = 'center',fig.width = 7, fig.height = 5}
 simmr_out_combine <- combine_sources(simmr_out,
   to_combine = c(
-    "U.lactuca",
+    "Grass",
     "Enteromorpha"
   ),
   new_source_name = "U.lac+Ent"
@@ -523,80 +524,6 @@ We can plot these priors with their posteriors
 prior_viz(simmr_out_informative)
 ```
 
-## Estimating trophic discrimination factors from feeding studies
-
-The `simmr_mcmc_tdf` function runs a slightly different version of the main
-`simmr_mcmc` function with the key difference that it estimates
-the correction factors (i.e. trophic enrichment or trophic
-discrimination factors; TEFs/TDFs) for a *known* set of dietary proportions. However, these dietary proportions can change in a single model run; see the example below.
-
-The idea is that this code can be used for feeding studies where an
-organism is fed a known proportional diet with a view to estimating
-the correction factors to be used in a later stable isotope mixing
-model when the organisms are observed in the field.
-
-To run this model, we first load data into `simmr` as normal using `simmr_load`. Correction factors/TDFs should not be provided at this stage, though if they are they will be ignored during a run of `simmr_mcmc_tdf`.
-
-```{r}
-simmr_tdf <- simmr_load(
-  mixtures = mix,
-  source_names = s_names,
-  source_means = s_means,
-  source_sds = s_sds,
-  concentration_means = conc
-)
-```
-
-If we plot this data we end up with the mixtures being shifted slightly outside the mixing polygon. The job of this model is to move the values so that they match the known dietary proportions.
-
-```{r}
-plot(simmr_tdf)
-```
-
-We now run the model with some known dietary proportions. These dietary proportions should be given _for each individual_ in a matrix, even if they are the same for each individual. This example uses the same dietary proportions:
-```{r}
-p_known <- matrix(
-  rep(
-    1 / simmr_tdf$n_sources,
-    simmr_tdf$n_sources
-  ),
-  ncol = simmr_tdf$n_sources,
-  nrow = simmr_tdf$n_obs,
-  byrow = TRUE
-)
-```
-
-We can then run the model with:
-```{r, results = 'hide'}
-simmr_tdf_out <- simmr_mcmc_tdf(simmr_tdf,
-  p = p_known
-)
-```
-
-Seeing as this is another Bayesian statistical model, we can look at the:
-```{r}
-summary(simmr_tdf_out, type = "diagnostics")
-```
-
-... and then look at the predicted TDFs:
-```{r}
-summary(simmr_tdf_out, type = "quantiles")
-```
-
-We can put the predicted TDFs back into a new model and check that the iso-space plot now is correct
-
-```{r}
-simmr_tdf_2 <- simmr_load(
-  mixtures = mix,
-  source_names = s_names,
-  source_means = s_means,
-  source_sds = s_sds,
-  correction_means = simmr_tdf_out$c_mean_est,
-  correction_sds = simmr_tdf_out$c_sd_est,
-  concentration_means = conc
-)
-plot(simmr_tdf_2)
-```
 
 ## Customising plots
 

@@ -21,7 +21,7 @@ the prior on the posterior distribution."><!-- mathjax --><script src="https://c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.214</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ the prior on the posterior distribution.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">geese_data_day1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">geese_data_day1</span>,</span></span>
@@ -140,18 +140,55 @@ the prior on the posterior distribution.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="prior_viz-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Print</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This is a valid simmr input object with </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 9  observations, </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2 tracers, and </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 4 sources.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The source names are: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Zostera"      "Grass"        "U.lactuca"    "Enteromorpha"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> .</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The tracer names are: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "d13C_Pl" "d15N_Pl"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># MCMC run</span></span></span>
 <span class="r-in"><span><span class="va">simmr_1_out</span> <span class="op">&lt;-</span> <span class="fu"><a href="simmr_mcmc.html">simmr_mcmc</a></span><span class="op">(</span><span class="va">simmr_1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Compiling model graph</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Resolving undeclared variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Allocating nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Graph information:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Observed stochastic nodes: 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unobserved stochastic nodes: 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Total graph size: 136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Initializing model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Prior predictive</span></span></span>
 <span class="r-in"><span><span class="va">prior</span> <span class="op">&lt;-</span> <span class="fu">prior_viz</span><span class="op">(</span><span class="va">simmr_1_out</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="prior_viz-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">prior</span><span class="op">$</span><span class="va">p_prior_sim</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         Zostera      Grass  U.lactuca Enteromorpha</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.11125055 0.50782235 0.16057041    0.2203567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.30315528 0.03802215 0.22835748    0.4304651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.06421583 0.07846496 0.64796855    0.2093507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.19975569 0.41345227 0.09966346    0.2871286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.17558331 0.01396909 0.13745578    0.6729918</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 0.64905839 0.05856445 0.15216098    0.1402162</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">prior</span><span class="op">$</span><span class="va">p_prior_sim</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     Zostera             Grass            U.lactuca         Enteromorpha     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :0.002618   Min.   :0.001705   Min.   :0.003284   Min.   :0.003137  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:0.100569   1st Qu.:0.101379   1st Qu.:0.100336   1st Qu.:0.100507  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :0.198472   Median :0.205419   Median :0.199496   Median :0.198163  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :0.248404   Mean   :0.255343   Mean   :0.248030   Mean   :0.248223  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:0.353848   3rd Qu.:0.368590   3rd Qu.:0.349940   3rd Qu.:0.353399  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :0.952701   Max.   :0.943423   Max.   :0.947195   Max.   :0.947482  </span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -162,7 +199,7 @@ the prior on the posterior distribution.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
+  <p></p><p>Developed by Emma Govan, Andrew Parnell.</p>
 </div>
 
 <div class="pkgdown">

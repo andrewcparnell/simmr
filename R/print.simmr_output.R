@@ -1,4 +1,4 @@
-#' Print a simmr output object
+#' Print simmr output object
 #'
 #' @param x An object of class \code{simmr_output}
 #' @param ... Other arguments (not supported)
@@ -11,12 +11,12 @@
 print.simmr_output <-
   function(x, ...) {
     if (inherits(x, "simmr_output") == TRUE) {
-      if (inherits(x, "mcmc") == TRUE) {
+      if (inherits(x, "simmr_mcmc") == TRUE) {
         print(x$input)
         message("The input data has been run via simmr_mcmc and has produced ")
         message(nrow(x$output[[1]]$BUGSoutput$sims.matrix), " iterations over ", x$output[[1]]$BUGSoutput$n.chains, " MCMC chains.")
         message("\n\n")
-      } else if (inherits(x, "ffvb") == TRUE) {
+      } else if (inherits(x, "simmr_ffvb") == TRUE) {
         print(x$input)
         message("The input data has been run via simmr_ffvb and has produced ")
         message(nrow(x$output[[1]]$BUGSoutput$sims.list$p), " samples.")

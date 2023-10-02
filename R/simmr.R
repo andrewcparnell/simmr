@@ -1,4 +1,5 @@
-#' simmr: A package for fitting stable isotope mixing models via JAGS in R
+#' simmr: A package for fitting stable isotope mixing models via JAGS and
+#' FFVB in R
 #'
 #' This package runs a
 #' simple Stable Isotope Mixing Model (SIMM) and is meant as a longer term
@@ -6,9 +7,10 @@
 #' proportions of organisms consuming various food sources from observations on
 #' the stable isotope values taken from the organisms' tissue samples. However
 #' SIMMs can also be used in other scenarios, such as in sediment mixing or the
-#' composition of fatty acids. The main functions are \code{\link{simmr_load}}
-#' and \code{\link{simmr_mcmc}}. The help files contain examples of the use of
-#' this package. See also the vignette for a longer walkthrough.
+#' composition of fatty acids. The main functions are \code{\link{simmr_load}},
+#'  \code{\link{simmr_mcmc}}, and \code{\link{simmr_ffvb}}. The help files 
+#' contain examples of the use of this package. See also the vignette for a 
+#' longer walkthrough.
 #'
 #' An even longer term replacement for properly running SIMMs is MixSIAR, which
 #' allows for more detailed random effects and the inclusion of covariates.
@@ -27,7 +29,7 @@
 #' PLoS ONE, 5(3):5, 2010.
 #' @keywords multivariate
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # A first example with 2 tracers (isotopes), 10 observations, and 4 food sources
 #' data(geese_data_day1)
 #' simmr_in <- with(

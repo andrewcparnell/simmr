@@ -1,7 +1,8 @@
-#' Summarises the output created with \code{\link{simmr_mcmc}}
+#' Summarises the output created with \code{\link{simmr_mcmc}} or 
+#' \code{\link{simmr_ffvb}}
 #'
 #' Produces textual summaries and convergence diagnostics for an object created
-#' with \code{\link{simmr_mcmc}} or \code{\link{simmr_mcmc}}. The different
+#' with \code{\link{simmr_mcmc}} or \code{\link{simmr_ffvb}}. The different
 #' options are: 'diagnostics' which produces Brooks-Gelman-Rubin diagnostics
 #' to assess MCMC convergence, 'quantiles' which produces credible intervals
 #' for the parameters, 'statistics' which produces means and standard
@@ -77,7 +78,7 @@
 summary.simmr_output <-
   function(object, type = c("diagnostics", "quantiles", "statistics", "correlations"), group = 1, ...) {
     if (inherits(object, "simmr_output") == TRUE) {
-      if (inherits(object, "mcmc") == TRUE) {
+      if (inherits(object, "simmr_mcmc") == TRUE) {
         #simmr solo run determine if true or not
         if (nrow(object$input$mixtures) == 1) {
           solo <- TRUE
@@ -147,7 +148,7 @@ summary.simmr_output <-
         } else {
           invisible(list(gelman = out_bgr, quantiles = out_quantiles, statistics = out_statistics, correlations = out_cor))
         }
-      } else if (inherits(object, "ffvb") == TRUE) {
+      } else if (inherits(object, "simmr_ffvb") == TRUE) {
         # Get the specified type
         type <- match.arg(type, several.ok = TRUE)
 

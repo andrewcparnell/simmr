@@ -23,7 +23,7 @@ plot.simmr_output."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/aj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.214</span>
       </span>
     </div>
 
@@ -83,7 +83,8 @@ analysis and plotting via <code><a href="summary.simmr_output.html">summary.simm
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">simmr_mcmc</span><span class="op">(</span></span>
 <span>  <span class="va">simmr_in</span>,</span>
 <span>  prior_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>means <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,</span>
-<span>    <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_sources</span><span class="op">)</span>, sigma_shape <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span>, <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_tracers</span><span class="op">)</span>, sigma_rate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">3</span><span class="op">/</span><span class="fl">50</span>,</span>
+<span>    <span class="va">simmr_in</span><span class="op">$</span><span class="va">n_tracers</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  mcmc_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>iter <span class="op">=</span> <span class="fl">10000</span>, burn <span class="op">=</span> <span class="fl">1000</span>, thin <span class="op">=</span> <span class="fl">10</span>, n.chain <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,9 +96,11 @@ analysis and plotting via <code><a href="summary.simmr_output.html">summary.simm
 
 
 <dt>prior_control</dt>
-<dd><p>A list of values including arguments named <code>means</code>
+<dd><p>A list of values including arguments named: <code>means</code>
 and <code>sd</code> which represent the prior means and standard deviations of the
-dietary proportions in centralised log-ratio space. These can usually be
+dietary proportions in centralised log-ratio space; <code>shape</code> and 
+<code>rate</code> which represent the prior distribution on the residual standard
+deviation. These can usually be
 left at their default values unless you wish to include to include prior
 information, in which case you should use the function
 <code><a href="simmr_elicit.html">simmr_elicit</a></code>.</p></dd>
@@ -289,47 +292,6 @@ function, <code><a href="plot.simmr_input.html">plot.simmr_input</a></code> for 
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#####################################################################################</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Data set 4 - identified by Fry (2014) as a failing of SIMMs</span></span></span>
-<span class="r-in"><span><span class="co"># See the vignette for more interpreation of these data and the output</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># The data</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">square_data</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">simmr_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">square_data</span>,</span></span>
-<span class="r-in"><span>  <span class="fu"><a href="simmr_load.html">simmr_load</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    mixtures <span class="op">=</span> <span class="va">mixtures</span>,</span></span>
-<span class="r-in"><span>    source_names <span class="op">=</span> <span class="va">source_names</span>,</span></span>
-<span class="r-in"><span>    source_means <span class="op">=</span> <span class="va">source_means</span>,</span></span>
-<span class="r-in"><span>    source_sds <span class="op">=</span> <span class="va">source_sds</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Get summary</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">simmr_4</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Plot</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># MCMC run - needs slightly longer</span></span></span>
-<span class="r-in"><span><span class="va">simmr_4_out</span> <span class="op">&lt;-</span> <span class="fu">simmr_mcmc</span><span class="op">(</span><span class="va">simmr_4</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Print it</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">simmr_4_out</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Summary</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_4_out</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_4_out</span>, type <span class="op">=</span> <span class="st">"diagnostics"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_4_out</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"quantiles"</span>, <span class="st">"statistics"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Plot</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4_out</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4_out</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4_out</span>, type <span class="op">=</span> <span class="st">"histogram"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4_out</span>, type <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4_out</span>, type <span class="op">=</span> <span class="st">"matrix"</span><span class="op">)</span> <span class="co"># Look at the massive correlations here</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#####################################################################################</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Data set 5 - Multiple groups Geese data from Inger et al 2006</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Do this in raw data format - Note that there's quite a few mixtures!</span></span></span>
@@ -387,7 +349,7 @@ function, <code><a href="plot.simmr_input.html">plot.simmr_input</a></code> for 
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
+  <p></p><p>Developed by Emma Govan, Andrew Parnell.</p>
 </div>
 
 <div class="pkgdown">

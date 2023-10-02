@@ -4,7 +4,7 @@ author: "Andrew Parnell"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{quick_start}
+  %\VignetteIndexEntry{guide-to-quick-start-using-simmr}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

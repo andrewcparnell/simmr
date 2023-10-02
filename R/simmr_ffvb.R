@@ -341,7 +341,7 @@ simmr_ffvb <- function(simmr_in,
 
   output_all <- list(input = simmr_in, output = mylist)
 
-  class(output_all) <- c("simmr_output", "ffvb")
+  class(output_all) <- c("simmr_output", "simmr_ffvb")
 
   return(output_all)
 }

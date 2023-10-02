@@ -19,7 +19,7 @@ SIMM."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathj
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.214</span>
       </span>
     </div>
 
@@ -92,7 +92,8 @@ SIMM.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
-<dd><p>An object created via the function <code><a href="simmr_load.html">simmr_load</a></code></p></dd>
+<dd><p>An object of class <code>simmr_input</code> created via the function 
+<code><a href="simmr_load.html">simmr_load</a></code></p></dd>
 
 
 <dt>tracers</dt>
@@ -142,6 +143,12 @@ black and white</p></dd>
 <dd><p>Not used</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>isospace plot</p>
+    </div>
     <div id="details">
     <h2>Details</h2>
     <p>It is desirable to have the vast majority of the mixture observations to be
@@ -227,16 +234,23 @@ iso-space is deemed acceptable.</p></div>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Print</span></span></span>
 <span class="r-in"><span><span class="va">simmr_4</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> This is a valid simmr input object with 251 observations, 2 tracers, and 4 sources.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This is a valid simmr input object with </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 251  observations, </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 2 tracers, and </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> 4 sources.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> There are 8 groups.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The source names are: Zostera, Grass, U.lactuca, Enteromorpha.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> The tracer names are: d13C_Pl, d15N_Pl.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The source names are: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Zostera"      "Grass"        "U.lactuca"    "Enteromorpha"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> .</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> The tracer names are: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "d13C_Pl" "d15N_Pl"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_4</span>,</span></span>
-<span class="r-in"><span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (\u2030)"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (\u2030)"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (‰)"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (‰)"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Isospace plot of Inger et al Geese data"</span></span></span>
 <span class="r-in"><span><span class="op">)</span> <span class="co">#'</span></span></span>
 <span class="r-plt img"><img src="plot.simmr_input-5.png" alt="" width="700" height="433"></span>
@@ -250,7 +264,7 @@ iso-space is deemed acceptable.</p></div>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Andrew Parnell, Emma Govan.</p>
+  <p></p><p>Developed by Emma Govan, Andrew Parnell.</p>
 </div>
 
 <div class="pkgdown">
