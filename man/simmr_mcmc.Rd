@@ -204,8 +204,8 @@ simmr_5 <- with(
 
 # Plot
 plot(simmr_5,
-  xlab = expression(paste(delta^13, "C (\\\\u2030)", sep = "")),
-  ylab = expression(paste(delta^15, "N (\\\\u2030)", sep = "")),
+  xlab = expression(paste(delta^13, "C (per mille)", sep = "")),
+  ylab = expression(paste(delta^15, "N (per mille)", sep = "")),
   title = "Isospace plot of Inger et al Geese data"
 )
 

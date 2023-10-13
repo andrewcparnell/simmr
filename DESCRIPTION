@@ -1,7 +1,7 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-Version: 0.5.1.214
+Version: 0.5.1.215
 Date: 2023-10-02
 Authors@R: c(
     person("Emma", "Govan", email = "emma.govan.2021@mumail.ie", role = c("cre", "aut")),

@@ -193,8 +193,8 @@
 #'
 #' # Plot
 #' plot(simmr_5,
-#'   xlab = expression(paste(delta^13, "C (\\u2030)", sep = "")),
-#'   ylab = expression(paste(delta^15, "N (\\u2030)", sep = "")),
+#'   xlab = expression(paste(delta^13, "C (per mille)", sep = "")),
+#'   ylab = expression(paste(delta^15, "N (per mille)", sep = "")),
 #'   title = "Isospace plot of Inger et al Geese data"
 #' )
 #'
@@ -229,11 +229,11 @@ simmr_ffvb <- function(simmr_in,
                        ffvb_control = list(
                          n_output = 3600,
                          S = 100,
-                         P = 9,
+                         P = 10,
                          beta_1 = 0.9,
                          beta_2 = 0.9,
                          tau = 100,
-                         eps_0 = 0.1,
+                         eps_0 = 0.02,
                          t_W = 50
                        )) {
   # Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run

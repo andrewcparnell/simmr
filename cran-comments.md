@@ -10,11 +10,13 @@ On win-builder I got a warning about a possibly invalid DOI in the DESCRIPTION. 
 
 The R-hub runs failed because it couldn't find JAGS but I think this is a missing dependency on R-hub rather than a problem with the package (or a missing option that I need to add in somehow).
 
-When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
+Error occuring on macOS 14 with plotting per mille symbol, have replaced this in the examples/vignette
 
-TDF functions have been removed as these can be carried out using the SIDER package.
+Updated version number
 
 ## Previous CRAN package checks
+When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
+TDF functions have been removed as these can be carried out using the SIDER package.
 Added value to R files to explain function results in the documentation.
 This package is 7.8MB as it is C++ based. 
 () added to all function names in the description texts.

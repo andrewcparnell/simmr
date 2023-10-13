@@ -8,8 +8,8 @@ Bayes(FFVB) function}
 simmr_ffvb(
   simmr_in,
   prior_control = list(mu_0 = rep(0, simmr_in$n_sources), sigma_0 = 1),
-  ffvb_control = list(n_output = 3600, S = 100, P = 9, beta_1 = 0.9, beta_2 = 0.9, tau =
-    100, eps_0 = 0.1, t_W = 50)
+  ffvb_control = list(n_output = 3600, S = 100, P = 10, beta_1 = 0.9, beta_2 = 0.9, tau =
+    100, eps_0 = 0.02, t_W = 50)
 )
 }
 \arguments{
@@ -191,8 +191,8 @@ simmr_5 <- with(
 
 # Plot
 plot(simmr_5,
-  xlab = expression(paste(delta^13, "C (\\\\u2030)", sep = "")),
-  ylab = expression(paste(delta^15, "N (\\\\u2030)", sep = "")),
+  xlab = expression(paste(delta^13, "C (per mille)", sep = "")),
+  ylab = expression(paste(delta^15, "N (per mille)", sep = "")),
   title = "Isospace plot of Inger et al Geese data"
 )
 

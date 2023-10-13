@@ -67,8 +67,8 @@ simmr_in
 
 # Plot
 plot(simmr_in,
-  group = 1:8, xlab = expression(paste(delta^13, "C (\\\\u2030)", sep = "")),
-  ylab = expression(paste(delta^15, "N (\\\\u2030)", sep = "")),
+  group = 1:8, xlab = expression(paste(delta^13, "C (per mille)", sep = "")),
+  ylab = expression(paste(delta^15, "N (per mille)", sep = "")),
   title = "Isospace plot of Inger et al Geese data"
 )
 
