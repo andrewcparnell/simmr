@@ -128,8 +128,8 @@ simmr_4
 
 # Plot
 plot(simmr_4,
-  xlab = expression(paste(delta^13, "C (‰)", sep = "")),
-  ylab = expression(paste(delta^15, "N (‰)", sep = "")),
+  xlab = expression(paste(delta^13, "C (per mille)", sep = "")),
+  ylab = expression(paste(delta^15, "N (per mille)", sep = "")),
   title = "Isospace plot of Inger et al Geese data"
 ) #'
 }

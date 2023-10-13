@@ -5,6 +5,7 @@ using namespace Rcpp;
 
 static double const log2pi = std::log(2.0 * M_PI);
 
+
 void inplace_tri_mat_mult(arma::rowvec &x, arma::mat const &trimat){
   arma::uword const n = trimat.n_cols;
   
@@ -16,68 +17,121 @@ void inplace_tri_mat_mult(arma::rowvec &x, arma::mat const &trimat){
   }
 }
 
-
+// this is calculating the determinant specifically of an upper triangular matrix
+// via calculating the product of the diagonal
 // [[Rcpp::export]]
-arma::vec dmvnrm_arma_fast(arma::mat const &x,  
-                           arma::rowvec const &mean,  
-                           arma::mat const &sigma, 
-                           bool const logd = true) { 
-  using arma::uword;
-  uword const n = x.n_rows, 
-    xdim = x.n_cols;
-  arma::vec out(n);
-  arma::mat const rooti = arma::inv(trimatu(arma::chol(sigma)));
-  double const rootisum = arma::sum(log(rooti.diag())), 
-    constants = -(double)xdim/2.0 * log2pi, 
-    other_terms = rootisum + constants;
-  
-  arma::rowvec z;
-  for (uword i = 0; i < n; i++) {
-    z = (x.row(i) - mean);
-    inplace_tri_mat_mult(z, rooti);
-    out(i) = other_terms - 0.5 * arma::dot(z, z);     
-  }  
-  
-  if (logd)
-    return out;
-  return exp(out);
+double proddiag(NumericMatrix x) { 
+  double a = x.ncol();
+  double b = x.nrow();
+  double ans = 0;
+  for(int i=0; i<a; i++){
+    for(int j = 0; j<b; j++){
+      if(i==j){
+        ans += log(x(i,j));
+        
+      }
+    }
+  }
+  return(exp(ans));
 }
 
+//no longer actually using this function
+// // [[Rcpp::export]]
+// arma::vec dmvnrm_arma_fast(arma::mat const &x,  
+//                            arma::rowvec const &mean,  
+//                            arma::mat const &sigma, 
+//                            bool const logd = true) { 
+//   using arma::uword;
+//   uword const n = x.n_rows, 
+//     xdim = x.n_cols;
+//   arma::vec out(n);
+//   arma::mat const rooti = arma::inv(trimatu(arma::chol(sigma)));
+//   double const rootisum = arma::sum(log(rooti.diag())), 
+//     constants = -(double)xdim/2.0 * log2pi, 
+//     other_terms = rootisum + constants;
+//   
+//   arma::rowvec z;
+//   for (uword i = 0; i < n; i++) {
+//     z = (x.row(i) - mean);
+//     inplace_tri_mat_mult(z, rooti);
+//     out(i) = other_terms - 0.5 * arma::dot(z, z);     
+//   }  
+//   
+//   if (logd)
+//     return out;
+//   return exp(out);
+// }
+
+
+//matrix multiplication
+// [[Rcpp::export]]
+NumericMatrix matmult(NumericMatrix x, NumericMatrix y) {
+  NumericMatrix ans(x.nrow(), y.ncol());
+  
+  for(int i = 0; i<x.nrow(); i++){
+    for(int j=0; j<y.ncol(); j++){
+      for(int k =0; k<y.nrow(); k++){
+        
+        ans(i,j) += x(i,k) * y(k,j);
+      }
+    }}
+  
+  return ans;
+}
+
+
+//for our specific q we are technically using the transpose of the chol...
 // [[Rcpp::export]]
 NumericMatrix crossprod(NumericMatrix X){
+  
+  NumericMatrix tX(X.ncol(), X.nrow());
+  
+  for(int i=0; i<X.nrow(); i++){
+    for (int j=0; j < X.ncol(); j++){
+      tX(j,i) = X(i,j);
+    }}
+  
+  
   NumericMatrix ans(X.nrow(), X.ncol());
   
   for(int i = 0; i<X.ncol(); i++){
     for(int j=0; j<X.ncol(); j++){
       for(int n =0; n<X.nrow(); n++){
         
-        ans(i,j) += X(n,i) * X(n,j);
+        ans(i,j) += tX(i,n) * X(n,j);
       }
     }}
   return(ans);
 }
 
 // [[Rcpp::export]]
-NumericMatrix rMVNormCpp(const double n,
-                         const arma::vec mu,
-                         const NumericMatrix U) {
-  
-  
-  // Dimension of MVN
-  int p = mu.size();
-  
-  // Simulate iid standard normals
-  arma::mat Z(p, n);
-  Z.imbue(norm_rand);
-  
-  // Now backsolve and add back on the means
-  arma::mat X = solve(as<arma::mat>(U), Z);
-  for ( int i = 0; i < n; ++i ) {
-    X.col(i) += mu;
-  }
-  
-  return Rcpp::wrap(X.t());
+NumericMatrix rMVNormCpp(int n, arma::vec Mean, arma::mat Var) {
+  int ncols = Var.n_cols;
+  arma::mat Y = arma::randn(n, ncols);
+  return Rcpp::wrap(arma::repmat(Mean, 1, n).t() + Y * arma::chol(Var));
 }
+
+// // [[Rcpp::export]]
+// NumericMatrix rMVNormCpp(const double n,
+//                          const arma::vec mu,
+//                          const NumericMatrix U) {
+//   
+//   
+//   // Dimension of MVN
+//   int p = mu.size();
+//   
+//   // Simulate iid standard normals
+//   arma::mat Z(p, n);
+//   Z.imbue(norm_rand);
+//   
+//   // Now backsolve and add back on the means
+//   arma::mat X = solve(as<arma::mat>(U), Z);
+//   for ( int i = 0; i < n; ++i ) {
+//     X.col(i) += mu;
+//   }
+//   
+//   return Rcpp::wrap(X.t());
+// }
 
 
 // [[Rcpp::export]]
@@ -109,8 +163,8 @@ NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources,
   
   NumericMatrix chol_prec(n_sources, n_sources);
   int count = 0;
-  for(int j = 0; j< n_sources; j++){ 
-    for(int i = 0; i<n_sources; i++){
+  for(int i = 0; i< n_sources; i++){ 
+    for(int j = 0; j<n_sources; j++){
       if (i <= j){
         count +=1;
         chol_prec((i),(j)) = lambda(n_sources -1 +count);
@@ -126,8 +180,24 @@ NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources,
   
   NumericMatrix normmat(S, n_sources);
   
+  NumericMatrix prec(n_sources, n_sources);
+  prec = crossprod(chol_prec);
   
-  normmat = rMVNormCpp(S, mean, chol_prec);
+  NumericMatrix solve_prec(n_sources, n_sources);
+  solve_prec = solvearma(prec);
+  
+  // solvearma returns the transpose of the inverse of the precision matrix
+  //so need to transpose it back
+  NumericMatrix var(n_sources, n_sources);
+  for(int i=0; i<n_sources; i++){
+    for(int j=0; j<n_sources; j++){
+      var(i,j) = solve_prec(j,i);
+    }
+  }
+  
+  
+  normmat = rMVNormCpp(S, mean, as<arma::mat>(var));
+  
   
   NumericVector solovec(S);
   
@@ -138,10 +208,10 @@ NumericMatrix sim_thetacpp(int S, NumericVector lambda, int n_sources,
   if(solo == FALSE) for(int i = 0; i<n_tracers; i++){
     theta(_,i+n_sources) = Rcpp::rgamma(S,  lambda((n_sources + (n_sources * (n_sources + 1)) / 2) + i),
           1/lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i));}
-   else if(solo == TRUE) for(int i = 0; i<n_tracers; i++){
-      theta(_,i+n_sources) = solovec + 0.00001 * Rcpp::rgamma(S,  lambda((n_sources + (n_sources * (n_sources + 1)) / 2) + i),
-            1/lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i));;
-    }
+  else if(solo == TRUE) for(int i = 0; i<n_tracers; i++){
+    theta(_,i+n_sources) = solovec + 0.00001 * Rcpp::rgamma(S,  lambda((n_sources + (n_sources * (n_sources + 1)) / 2) + i),
+          1/lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i));;
+  }
   
   
   
@@ -193,9 +263,10 @@ double hcpp(int n_sources, int n_isotopes,
             double beta_prior,
             NumericMatrix concentrationmeans, NumericMatrix sourcemeans,
             NumericMatrix correctionmeans,
-            NumericMatrix corrsds, NumericMatrix sourcesds, NumericVector theta, NumericMatrix y ){
+            NumericMatrix corrsds, NumericMatrix sourcesds, 
+            NumericVector theta, NumericMatrix y ){
   
-  double x =0;
+  double x = 0;
   
   NumericVector p(n_sources);
   
@@ -390,16 +461,12 @@ double hcpp(int n_sources, int n_isotopes,
 double log_q_cpp(NumericVector theta, NumericVector lambda, 
                  int n_sources, int n_tracers){
   
-  NumericMatrix thetaminusmean(1, n_sources);
-  
-  for(int i = 0; i <n_sources; i++){
-    thetaminusmean(0,i) = theta(i) - lambda(i);
-  }
   
   NumericMatrix chol_prec(n_sources, n_sources);
   int count = 0;
-  for(int j = 0; j< n_sources; j++){ 
-    for(int i = 0; i<n_sources; i++){
+  
+  for(int i = 0; i< n_sources; i++){ 
+    for(int j = 0; j<n_sources; j++){
       if (i <= j){
         count +=1;
         chol_prec((i),(j)) = lambda(n_sources -1 +count);
@@ -412,51 +479,97 @@ double log_q_cpp(NumericVector theta, NumericVector lambda,
       
     }
   }
+  
   NumericMatrix prec(n_sources, n_sources);
   prec = crossprod(chol_prec);
   
   NumericMatrix solve_prec(n_sources, n_sources);
   solve_prec = solvearma(prec);
   
-  NumericMatrix y(1, n_sources);
-  NumericVector mean(n_sources);
+  NumericMatrix var(n_sources, n_sources);
   
-  for(int i = 0; i<n_sources; i++){
-    y(0,i) = theta(i);
-    mean(i) = lambda(i);
+  for(int i=0; i<n_sources; i++){
+    for(int j=0; j<n_sources; j++){
+      var(i,j) = solve_prec(j,i);
+    }
   }
   
   
+  // NumericMatrix y(1, n_sources);
+  // 
+  // NumericVector mean(n_sources);
+  
+  NumericMatrix yminusmean(1, n_sources);
+  
+  for(int i = 0; i<n_sources; i++){
+    // y(0,i) = theta(i);
+    // mean(i) = lambda(i);
+    yminusmean(0,i) = theta(i) - lambda(i);
+  }
   
   
+  NumericMatrix Z(1, n_sources);
+  
+  NumericMatrix tcholprec(n_sources, n_sources);
+  for(int i=0; i<n_sources; i++){
+    for(int j=0; j<n_sources; j++){
+      tcholprec(i,j) = chol_prec(j,i);
+    }
+  }
+  
+  Z = matmult(yminusmean, tcholprec);
+  
+  NumericMatrix tZ(n_sources, 1);
+  
+  // tZ  = transpose(Z);
+  
+  for(int i = 0; i<n_sources; i++){
+    tZ(i,0) = Z(0,i);
+  }
+  
+  
+  NumericMatrix ZtZmat(1,1);
+  
+  ZtZmat = matmult(Z, tZ);
+  
+  double ZtZ = ZtZmat(0,0);
+  
+  // for(int i = 0; i<1; i++){
+  //   for(int j=0; j<1; j++){
+  //     for(int k =0; k<n_sources; k++){
+  //       
+  //       ZtZ += Z(i,k) * tZ(k,j);
+  //     }
+  //   }}
+  
+  
+  
+  // thetanorm = 
+  //   *REAL(Rcpp::wrap(dmvnrm_arma_fast(as<arma::mat>(y), mean, as<arma::mat>(var))));
+  
+  double prod_sig;
+  
+  NumericVector sig(n_sources);
+  
+  
+  prod_sig = log(proddiag(tcholprec));
   double thetanorm = 0;
   
-  thetanorm = 
-    *REAL(Rcpp::wrap(dmvnrm_arma_fast(as<arma::mat>(y), mean, as<arma::mat>(solve_prec))));
-    
-    
-    
-    
-    
-    double gamman = 0;
-    for (int i=0; i <(n_tracers); i++){
-      gamman += lambda(((n_sources + (n_sources * (n_sources + 1)) / 2) + i)) * 
-        log(lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i)) 
-      - log(tgamma(lambda(((n_sources + (n_sources * (n_sources + 1)) / 2) + i)))) 
-      +(lambda(((n_sources + (n_sources * (n_sources + 1)) / 2) + i)) - 1) * log(theta((i+n_sources))) - 
-      lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i) * theta((i+n_sources));
-    }
-    
-    
-    
-    
-    double x = thetanorm + gamman;
-    
-    return x;
-    
-    
-    
-    
+  thetanorm = -  (n_sources/2) * log(2 * M_PI) + prod_sig - 0.5 * ZtZ;
+  
+  
+  double gamman = 0;
+  for (int i=0; i <(n_tracers); i++){
+    gamman += lambda(((n_sources + (n_sources * (n_sources + 1)) / 2) + i)) * 
+      log(lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i)) 
+    - log(tgamma(lambda(((n_sources + (n_sources * (n_sources + 1)) / 2) + i)))) 
+    +(lambda(((n_sources + (n_sources * (n_sources + 1)) / 2) + i)) - 1) * log(theta((i+n_sources))) - 
+    lambda(((n_sources + (n_sources * (n_sources + 1)) / 2)) + n_tracers + i) * theta((i+n_sources));
+  }
+  
+  double x = thetanorm + gamman;
+  
+  return x;
 }
 
 // [[Rcpp::export]]
@@ -468,7 +581,6 @@ NumericVector delta_lqltcpp(NumericVector lambda, NumericVector theta,
   NumericVector d(k);
   NumericVector lambdaplusd(k);
   NumericVector lambdaminusd(k);
-  
   
   
   for(int i = 0; i<k; i++){
@@ -551,6 +663,8 @@ NumericMatrix cov_mat_cpp(NumericMatrix x, NumericMatrix y) {
       }
     }}
   
+  //sumxy = matmult(xminusmean, yminusmean);
+  
   
   for(int i=0; i<xcol; i++){
     for(int j = 0; j<ycol; j++){
@@ -612,8 +726,6 @@ NumericVector nabla_LB_cpp(NumericVector lambda, NumericMatrix theta, int n_sour
   for(int i =0; i<thetanrow; i++){
     big_c(i,_) = c;
   }
-  
-  
   
   
   
@@ -779,7 +891,7 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
                          bool solo
 ){
   
- 
+  
   
   int lsl = lambdastart.length();
   
