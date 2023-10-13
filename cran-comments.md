@@ -12,6 +12,8 @@ The R-hub runs failed because it couldn't find JAGS but I think this is a missin
 
 Error occuring on macOS 14 with plotting per mille symbol, have replaced this in the examples/vignette
 
+Updated version number
+
 ## Previous CRAN package checks
 When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
 TDF functions have been removed as these can be carried out using the SIDER package.
