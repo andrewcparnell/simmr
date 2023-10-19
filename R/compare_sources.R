@@ -121,7 +121,7 @@ compare_sources.simmr_output <- function(simmr_out,
     out_all_src_2 <- simmr_out$output[[group]]$BUGSoutput$sims.list$p[, match_names[2]]
     # Produce the difference between the two
     out_diff <- out_all_src_1 - out_all_src_2
-    message("Prob ( proportion of", source_names[1], "> proportion of", source_names[2], ") =", round(mean(out_diff > 0), 3))
+    message("Prob (proportion of ", source_names[1], " > proportion of ", source_names[2], ") = ", round(mean(out_diff > 0), 3))
 
     if (plot) {
       # Stupid fix for packaging ggplot things
@@ -131,7 +131,7 @@ compare_sources.simmr_output <- function(simmr_out,
         geom_boxplot(alpha = 0.5, outlier.size = 0) +
         theme_bw() +
         theme(legend.position = "none") +
-        ggtitle(paste("Comparison of dietary proportions for sources", source_names[1], "and", source_names[2]))
+        ggtitle(paste("Comparison of dietary proportions for sources ", source_names[1], " and ", source_names[2]))
       print(p)
     }
   }
@@ -146,7 +146,7 @@ compare_sources.simmr_output <- function(simmr_out,
     ordering_num <- t(apply(out_all, 1, order, decreasing = TRUE))
     Ordering <- rep(NA, length = nrow(ordering_num))
     for (i in 1:length(Ordering)) Ordering[i] <- paste0(source_names[ordering_num[i, ]], collapse = " > ")
-    if (simmr_out$input$n_groups > 1) cat("Results for group:", group, "\n")
+    if (simmr_out$input$n_groups > 1) cat("Results for group: ", group, "\n")
     message("Most popular orderings are as follows:\n")
     tab <- t(t(sort(table(Ordering, dnn = NULL), decreasing = TRUE)))
     colnames(tab) <- "Probability"
