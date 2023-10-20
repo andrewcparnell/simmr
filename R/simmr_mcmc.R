@@ -282,7 +282,7 @@ simmr_mcmc.simmr_input <- function(simmr_in,
 
   # Loop through all the groups
   for (i in 1:simmr_in$n_groups) {
-    if (simmr_in$n_groups > 1) message("\nRunning for group", levels(simmr_in$group)[i], "\n\n")
+    if (simmr_in$n_groups > 1) message("\nRunning for group ", levels(simmr_in$group)[i], "\n\n")
 
     curr_rows <- which(simmr_in$group_int == i)
     curr_mix <- simmr_in$mixtures[curr_rows, , drop = FALSE]
