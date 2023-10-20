@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simmr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.214</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.5.1.215</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ simmr</h1>
                         <h4 data-toc-skip class="author">Andrew Parnell
 and Richard Inger</h4>
             
-            <h4 data-toc-skip class="date">2023-10-02</h4>
+            <h4 data-toc-skip class="date">2023-10-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/andrewcparnell/simmr/blob/HEAD/vignettes/simmr.Rmd" class="external-link"><code>vignettes/simmr.Rmd</code></a></small>
       <div class="hidden name"><code>simmr.Rmd</code></div>
@@ -300,10 +300,10 @@ y-axis. You can make the plot slightly nicer with some extra
 arguments:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_in</span>,</span>
-<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (‰)"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (per mille)"</span>,</span>
 <span>    sep <span class="op">=</span> <span class="st">""</span></span>
 <span>  <span class="op">)</span><span class="op">)</span>,</span>
-<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (‰)"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (per mille)"</span>,</span>
 <span>    sep <span class="op">=</span> <span class="st">""</span></span>
 <span>  <span class="op">)</span><span class="op">)</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Isospace plot of example data"</span></span>
@@ -405,25 +405,25 @@ equivalent of a confidence interval) with:</p>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for 1</span></span></code></pre>
 <pre><code><span><span class="co">##                mean    sd</span></span>
-<span><span class="co">## deviance     39.302 5.002</span></span>
-<span><span class="co">## Zostera       0.230 0.138</span></span>
-<span><span class="co">## Grass         0.277 0.090</span></span>
-<span><span class="co">## U.lactuca     0.272 0.038</span></span>
-<span><span class="co">## Enteromorpha  0.221 0.126</span></span>
-<span><span class="co">## sd[d13C]      0.746 0.310</span></span>
-<span><span class="co">## sd[d15N]      0.662 0.299</span></span></code></pre>
+<span><span class="co">## deviance     39.167 4.808</span></span>
+<span><span class="co">## Zostera       0.230 0.137</span></span>
+<span><span class="co">## Grass         0.277 0.087</span></span>
+<span><span class="co">## U.lactuca     0.272 0.036</span></span>
+<span><span class="co">## Enteromorpha  0.221 0.124</span></span>
+<span><span class="co">## sd[d13C]      0.748 0.298</span></span>
+<span><span class="co">## sd[d15N]      0.656 0.293</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">simmr_out</span>, type <span class="op">=</span> <span class="st">"quantiles"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Summary for 1</span></span></code></pre>
 <pre><code><span><span class="co">##                2.5%    25%    50%    75%  97.5%</span></span>
-<span><span class="co">## deviance     32.721 35.644 38.325 41.885 52.014</span></span>
-<span><span class="co">## Zostera       0.029  0.117  0.213  0.325  0.521</span></span>
-<span><span class="co">## Grass         0.122  0.214  0.270  0.334  0.474</span></span>
-<span><span class="co">## U.lactuca     0.201  0.246  0.270  0.296  0.354</span></span>
-<span><span class="co">## Enteromorpha  0.030  0.121  0.206  0.305  0.495</span></span>
-<span><span class="co">## sd[d13C]      0.322  0.538  0.689  0.893  1.474</span></span>
-<span><span class="co">## sd[d15N]      0.251  0.466  0.609  0.791  1.415</span></span></code></pre>
+<span><span class="co">## deviance     32.657 35.562 38.236 41.725 50.663</span></span>
+<span><span class="co">## Zostera       0.029  0.117  0.212  0.324  0.523</span></span>
+<span><span class="co">## Grass         0.121  0.216  0.271  0.332  0.470</span></span>
+<span><span class="co">## U.lactuca     0.202  0.248  0.271  0.295  0.344</span></span>
+<span><span class="co">## Enteromorpha  0.030  0.121  0.207  0.308  0.492</span></span>
+<span><span class="co">## sd[d13C]      0.336  0.543  0.690  0.888  1.501</span></span>
+<span><span class="co">## sd[d15N]      0.250  0.459  0.598  0.798  1.393</span></span></code></pre>
 <p>These suggest that the dietary proportions for this model are quite
 uncertain. However we can see that the credible interval for U.lactuca
 is the narrowest, running from approximately 20% to 35% of the diet. The
@@ -466,7 +466,7 @@ optional plot. For example:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/compare_sources.html">compare_sources</a></span><span class="op">(</span><span class="va">simmr_out</span>,</span>
 <span>  source_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Zostera"</span>, <span class="st">"U.lactuca"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Prob ( proportion ofZostera&gt; proportion ofU.lactuca) =0.376</span></span></code></pre>
+<pre><code><span><span class="co">## Prob ( proportion ofZostera&gt; proportion ofU.lactuca) =0.368</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>This produces a direct probability that the dietary proportion for
 the first source is bigger than that of the second. If you want to
@@ -481,12 +481,12 @@ compare more than two sources, specify them with:</p>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Most popular orderings are as follows:</span></span></code></pre>
 <pre><code><span><span class="co">##                                    Probability</span></span>
-<span><span class="co">## Zostera &gt; U.lactuca &gt; Enteromorpha      0.3133</span></span>
-<span><span class="co">## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2661</span></span>
-<span><span class="co">## U.lactuca &gt; Enteromorpha &gt; Zostera      0.1961</span></span>
+<span><span class="co">## Zostera &gt; U.lactuca &gt; Enteromorpha      0.3114</span></span>
+<span><span class="co">## Enteromorpha &gt; U.lactuca &gt; Zostera      0.2744</span></span>
+<span><span class="co">## U.lactuca &gt; Enteromorpha &gt; Zostera      0.1958</span></span>
 <span><span class="co">## U.lactuca &gt; Zostera &gt; Enteromorpha      0.1614</span></span>
-<span><span class="co">## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0372</span></span>
-<span><span class="co">## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0258</span></span></code></pre>
+<span><span class="co">## Zostera &gt; Enteromorpha &gt; U.lactuca      0.0333</span></span>
+<span><span class="co">## Enteromorpha &gt; Zostera &gt; U.lactuca      0.0236</span></span></code></pre>
 <p><img src="simmr_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>For further information and options on comparing sources, see
 <code><a href="../reference/compare_sources.html">help(compare_sources)</a></code>.</p>
@@ -533,10 +533,10 @@ to plot:</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">simmr_groups</span>,</span>
 <span>  group <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>,</span>
-<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (\u2030)"</span>,</span>
+<span>  xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">13</span>, <span class="st">"C (per mille)"</span>,</span>
 <span>    sep <span class="op">=</span> <span class="st">""</span></span>
 <span>  <span class="op">)</span><span class="op">)</span>,</span>
-<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (\u2030)"</span>,</span>
+<span>  ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">delta</span><span class="op">^</span><span class="fl">15</span>, <span class="st">"N (per mille)"</span>,</span>
 <span>    sep <span class="op">=</span> <span class="st">""</span></span>
 <span>  <span class="op">)</span><span class="op">)</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">"Isospace plot of Inger et al Geese data"</span>,</span>
@@ -844,14 +844,14 @@ proportion samples. We can calculate for example the mean of the Zostera
 dietary proportion on the first (or only) group:</p>
 <div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.2304707</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.2304006</span></span></code></pre>
 <p>The backquotes around the 1 are required above because they specify
 which group (the first). We can thus find the probability that the
 posterior dietary proportion for Zostera is bigger than for Grass:</p>
 <div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Zostera"</span><span class="op">]</span></span>
 <span><span class="op">&gt;</span> <span class="va">simmr_out</span><span class="op">$</span><span class="va">output</span><span class="op">$</span><span class="va">`1`</span><span class="op">$</span><span class="va">BUGSoutput</span><span class="op">$</span><span class="va">sims.list</span><span class="op">$</span><span class="va">p</span><span class="op">[</span>, <span class="st">"Grass"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 0.3833333</span></span></code></pre>
+<pre><code><span><span class="co">## [1] 0.3788889</span></span></code></pre>
 <p>With more detailed R knowledge, it is possible to create scripts
 which run multiple data sets in richer fashions than the default
 <code>simmr</code> functions. See the help file
