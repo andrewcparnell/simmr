@@ -342,7 +342,7 @@ simmr_mcmc.simmr_input <- function(simmr_in,
   output_all <- vector("list")
   output_all$input <- simmr_in
   output_all$output <- output
-  class(output_all) <- c("simmr_output", "simmr_mcmc")
+  class(output_all) <- c("simmr_output", "simmr_mcmc_object")
 
   return(output_all)
 }

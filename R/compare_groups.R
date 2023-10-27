@@ -134,7 +134,7 @@ compare_groups.simmr_output <- function(simmr_out,
         geom_boxplot(alpha = 0.5, outlier.size = 0) +
         theme_bw() +
         theme(legend.position = "none") +
-        ggtitle(paste("Comparison of dietary proportions for groups ", group_names[1], " and ", group_names[2], " for source ", source_name))
+        ggtitle(paste("Comparison of dietary proportions for groups \n", group_names[1], " and ", group_names[2], " for source ", source_name))
       print(p)
     }
   }
