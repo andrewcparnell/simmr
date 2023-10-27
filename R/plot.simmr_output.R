@@ -183,7 +183,7 @@ plot.simmr_output <-
             upper = list(continuous = GGally::wrap(modified_density)),
             diag = list(continuous = GGally::wrap(modified_bar)),
             lower = list(continuous = GGally::wrap("cor", stars = FALSE))
-          )
+          ) + ggtitle(title[i]) 
 
 
 

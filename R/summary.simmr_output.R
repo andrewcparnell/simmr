@@ -78,7 +78,7 @@
 summary.simmr_output <-
   function(object, type = c("diagnostics", "quantiles", "statistics", "correlations"), group = 1, ...) {
     if (inherits(object, "simmr_output") == TRUE) {
-      if (inherits(object, "simmr_mcmc") == TRUE) {
+      if (inherits(object, "simmr_mcmc_object") == TRUE) {
         #simmr solo run determine if true or not
         if (nrow(object$input$mixtures) == 1) {
           solo <- TRUE
@@ -148,7 +148,7 @@ summary.simmr_output <-
         } else {
           invisible(list(gelman = out_bgr, quantiles = out_quantiles, statistics = out_statistics, correlations = out_cor))
         }
-      } else if (inherits(object, "simmr_ffvb") == TRUE) {
+      } else if (inherits(object, "simmr_ffvb_object") == TRUE) {
         # Get the specified type
         type <- match.arg(type, several.ok = TRUE)
 

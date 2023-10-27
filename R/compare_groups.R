@@ -124,7 +124,7 @@ compare_groups.simmr_output <- function(simmr_out,
     # Produce the difference between the two
     out_diff <- out_all_grp_1 - out_all_grp_2
 
-    message("Prob ( proportion of", source_name, "in group", group_names[1], "> proportion of", source_name, "in group", group_names[2], ") =", round(mean(out_diff > 0), 3))
+    message("Prob (proportion of ", source_name, " in group ", group_names[1], " > proportion of ", source_name, " in group ", group_names[2], ") = ", round(mean(out_diff > 0), 3))
 
     if (plot) {
       # Stupid fix for packaging ggplot things
@@ -134,7 +134,7 @@ compare_groups.simmr_output <- function(simmr_out,
         geom_boxplot(alpha = 0.5, outlier.size = 0) +
         theme_bw() +
         theme(legend.position = "none") +
-        ggtitle(paste("Comparison of dietary proportions for groups", group_names[1], "and", group_names[2], "for source", source_name))
+        ggtitle(paste("Comparison of dietary proportions for groups \n", group_names[1], " and ", group_names[2], " for source ", source_name))
       print(p)
     }
   }
@@ -174,7 +174,7 @@ compare_groups.simmr_output <- function(simmr_out,
         xlab("Group") +
         theme_bw() +
         theme(legend.position = "none") +
-        ggtitle(paste("Comparison of dietary proportions for source", source_name))
+        ggtitle(paste("Comparison of dietary proportions for source ", source_name))
       print(p)
     }
   }

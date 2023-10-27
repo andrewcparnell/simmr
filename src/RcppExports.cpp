@@ -11,6 +11,16 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// set_seed
+void set_seed(double seed);
+RcppExport SEXP _simmr_set_seed(SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type seed(seedSEXP);
+    set_seed(seed);
+    return R_NilValue;
+END_RCPP
+}
 // proddiag
 double proddiag(NumericMatrix x);
 RcppExport SEXP _simmr_proddiag(SEXP xSEXP) {
@@ -273,6 +283,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_simmr_set_seed", (DL_FUNC) &_simmr_set_seed, 1},
     {"_simmr_proddiag", (DL_FUNC) &_simmr_proddiag, 1},
     {"_simmr_matmult", (DL_FUNC) &_simmr_matmult, 2},
     {"_simmr_crossprod", (DL_FUNC) &_simmr_crossprod, 1},

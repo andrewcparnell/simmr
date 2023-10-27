@@ -7,8 +7,7 @@
 posterior_predictive(simmr_out, group = 1, prob = 0.5, plot_ppc = TRUE)
 }
 \arguments{
-\item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}} or
-\code{\link{simmr_ffvb}}.}
+\item{simmr_out}{A run of the simmr model from \code{\link{simmr_mcmc}}}
 
 \item{group}{Which group to run it for (currently only numeric rather than group names)}
 

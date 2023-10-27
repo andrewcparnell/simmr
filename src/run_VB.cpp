@@ -5,6 +5,13 @@ using namespace Rcpp;
 
 static double const log2pi = std::log(2.0 * M_PI);
 
+// [[Rcpp::export]]
+void set_seed(double seed) {
+  Rcpp::Environment base_env("package:base");
+  Rcpp::Function set_seed_r = base_env["set.seed"];
+  set_seed_r(std::floor(std::fabs(seed)));
+}
+
 
 void inplace_tri_mat_mult(arma::rowvec &x, arma::mat const &trimat){
   arma::uword const n = trimat.n_cols;
@@ -991,6 +998,24 @@ NumericVector run_VB_cpp(NumericVector lambdastart,
       //lambda(i) = lambda(i) + alpha_t * 1/pow(nu_bar(i), 0.5);
       lambda(i) = lambda(i) + alpha_t * (g_bar(i)/(pow(nu_bar(i), 0.5)));
     }
+    
+    Rcout << "Iteration : " << t << "\n";
+    
+    
+    //////////// This was written by Ahmed
+    
+    int r = t;
+    int inn = 0;
+    while(1){
+      inn++;
+      r = r/10;
+      if(r == 0) break;
+    }
+    
+    for(int j = 0 ; j < (13+inn) ;j++){
+      Rcout<<"\b";
+    }
+    
     
     
     //# Compute the moving average LB if out of warm-up

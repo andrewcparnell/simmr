@@ -233,7 +233,7 @@ simmr_ffvb <- function(simmr_in,
                          beta_1 = 0.9,
                          beta_2 = 0.9,
                          tau = 100,
-                         eps_0 = 0.02,
+                         eps_0 = 0.0225,
                          t_W = 50
                        )) {
   # Throw a warning if less than 4 observations in a group - 1 is ok as it wil do a solo run
@@ -246,6 +246,7 @@ simmr_ffvb <- function(simmr_in,
   n_output <- ffvb_control$n_output
   mu_a <- prior_control$mu_0
   sigma_a <- prior_control$sigma_0
+  seed <- ffvb_control$seed
 
   lambdares <- matrix(rep(NA, (((K + (K * (K + 1)) / 2)) + n_tracers * 2) * simmr_in$n_groups),
     nrow = (((K + (K * (K + 1)) / 2)) + n_tracers * 2),
@@ -264,7 +265,7 @@ simmr_ffvb <- function(simmr_in,
 
   # Loop through all the groups
   for (i in 1:simmr_in$n_groups) {
-    if (simmr_in$n_groups > 1) message("\nRunning for group", levels(simmr_in$group)[i], "\n\n")
+    if (simmr_in$n_groups > 1) message("\nRunning for group ", levels(simmr_in$group)[i], "\n\n")
 
     curr_rows <- which(simmr_in$group_int == i)
     curr_mix <- simmr_in$mixtures[curr_rows, , drop = FALSE]
@@ -341,7 +342,7 @@ simmr_ffvb <- function(simmr_in,
 
   output_all <- list(input = simmr_in, output = mylist)
 
-  class(output_all) <- c("simmr_output", "simmr_ffvb")
+  class(output_all) <- c("simmr_output", "simmr_ffvb_object")
 
   return(output_all)
 }
