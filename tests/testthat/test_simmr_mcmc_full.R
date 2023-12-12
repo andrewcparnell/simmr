@@ -172,7 +172,7 @@ test_that("simmr_mcmc_fletcher", {
   expect_true(all(rhat < 1.05))
   
   # Create a quick traceplot of sd values to ensure it worked ok
-  # R2jags::traceplot(simmr_1_out$output[[1]], varname = "sigma")
+  # R2jags::traceplot(simmr_out$output[[1]], varname = "sigma")
 })
 
 
