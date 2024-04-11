@@ -150,6 +150,14 @@ test_that("simmr elicit function", {
   expect_true(is.list(np1))
   expect_true(length(np1$mean) == 4)
   expect_true(length(np1$sd) == 4)
+  # Run the simmr_mcmc function with this informative prior
+  co(simmr_1a_out <- simmr_mcmc(simmr_1,
+                            prior_control=list(means = np1$mean,
+                                               sd = np1$sd,
+                                               sigma_shape = c(3,3), 
+                                               sigma_rate = c(3/50, 3/50))))
+  expect_list(simmr_1a_out)
+  
   expect_warning(co(simmr_elicit(
     n_sources = 4,
     proportion_means = c(0.5, 0.2, 0.2, 0.1),
