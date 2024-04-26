@@ -91,13 +91,37 @@ posterior_predictive.simmr_output <- function(simmr_out,
     "quantile",
     prob = c(low_prob, high_prob)
   )
-  y_post_pred_out <- data.frame(
-    interval = matrix(y_post_pred_ci,
-      ncol = simmr_out$input$n_tracers,
-      byrow = TRUE
-    ),
+  n_obs = simmr_out$output[[group]]$model$data()$N
+  n_tracers = simmr_out$output[[group]]$model$data()$J
+  
+  # interval = matrix(NA, nrow = n_obs*n_tracers, ncol = 2) # col for high and col for low
+  # for(i in 1:n_tracers){
+  #   for(k in 1:n_obs){
+  #     for(j in 1:2){
+  #       interval[(k+(i-1)*n_obs),j] = y_post_pred_ci[j,k,i]
+  #     }
+  #   }
+  # }
+  interval <- aperm(y_post_pred_ci, c(2, 3, 1))
+  
+  interval <- matrix(interval, nrow = n_obs * n_tracers, ncol = 2, byrow = FALSE)
+  
+  
+  
+  y_post_pred_out = data.frame(
+    interval = interval,
     data = as.vector(simmr_out$input$mixtures[simmr_out$input$group_int == group, ])
   )
+  
+  # y_post_pred_out <- data.frame(
+  #   interval = matrix(y_post_pred_ci,
+  #                     ncol = simmr_out$input$n_tracers,
+  #                     byrow = TRUE
+  #   ),
+  #   data = as.vector(simmr_out$input$mixtures[simmr_out$input$group_int == group, ])
+  # )
+  
+
 
   y_post_pred_out$outside <- y_post_pred_out[, 3] > y_post_pred_out[, 2] |
     y_post_pred_out[, 3] < y_post_pred_out[, 1]
