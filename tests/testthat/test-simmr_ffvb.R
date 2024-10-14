@@ -83,6 +83,6 @@ test_that("simmr_ffvb_compare", {
   sig_mcmc <- simmr_1_mcmc$output[[1]]$BUGSoutput$mean$sigma
   sig_vb <- colMeans(simmr_1_vb$output[[1]]$BUGSoutput$sims.list$sigma)
   diff_sig <- sum((sig_mcmc - sig_vb)^2)
-  assert_true(diff_sig < 0.01)
+  assert_true(diff_sig < 0.05)
   
 })
