@@ -1,7 +1,7 @@
 Package: simmr
 Type: Package
 Title: A Stable Isotope Mixing Model
-Version: 0.5.1.216
+Version: 0.5.1.217
 Date: 2023-10-02
 Authors@R: c(
     person("Emma", "Govan", email = "emma.govan.2021@mumail.ie", role = c("cre", "aut")),
@@ -38,7 +38,7 @@ Suggests:
 VignetteBuilder: knitr
 NeedsCompilation: no
 Packaged: 2019-07-03 17:48:43 UTC; andrewparnell
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Repository: CRAN
 Date/Publication: 2019-07-03 18:20:03 UTC
 LinkingTo: 

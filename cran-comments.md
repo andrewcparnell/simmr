@@ -4,6 +4,7 @@
 * win-builder (devel and release)
 
 ## R CMD check results
+Updated version number
 There were no notes, errors or warnings.
 
 On win-builder I got a warning about a possibly invalid DOI in the DESCRIPTION. But when I checked this the DOI worked perfectly. 
@@ -12,7 +13,7 @@ The R-hub runs failed because it couldn't find JAGS but I think this is a missin
 
 Error occuring on macOS 14 with plotting per mille symbol, have replaced this in the examples/vignette
 
-Updated version number
+
 
 ## Previous CRAN package checks
 When I previously submitted the package there was a note about requiring C++11 which I have now fixed by removing that specification.
