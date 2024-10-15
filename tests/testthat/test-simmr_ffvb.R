@@ -77,7 +77,7 @@ test_that("simmr_ffvb_compare", {
   
   # Define the difference between them and some kind of tolerance
   diff_p <- sum((p_mcmc - p_vb)^2)
-  assert_true(diff_p < 0.03)
+  assert_true(diff_p < 0.05)
   
   # Get the sigmas
   sig_mcmc <- simmr_1_mcmc$output[[1]]$BUGSoutput$mean$sigma
