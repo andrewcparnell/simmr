@@ -378,7 +378,7 @@ simmr_out_combine <- combine_sources(simmr_out,
     "Grass",
     "Enteromorpha"
   ),
-  new_source_name = "U.lac+Ent"
+  new_source_name = "Grass+Ent"
 )
 plot(simmr_out_combine$input)
 plot(simmr_out_combine,
