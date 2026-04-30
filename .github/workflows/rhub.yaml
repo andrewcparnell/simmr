@@ -19,9 +19,11 @@ on:
       name:
         description: 'Run name. You can leave this empty now.'
         type: string
+        default: ''
       id:
         description: 'Unique ID. You can leave this empty now.'
         type: string
+        default: ''
 
 jobs:
 
@@ -52,6 +54,14 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
+      
+      # Install JAGS for Linux containers
+      - name: Install JAGS (Linux)
+        run: |
+          apt-get update
+          apt-get install -y jags || sudo apt-get install -y jags
+        shell: bash
+
       - uses: r-hub/actions/platform-info@v1
         with:
           token: ${{ secrets.RHUB_TOKEN }}
@@ -77,6 +87,15 @@ jobs:
 
     steps:
       - uses: r-hub/actions/checkout@v1
+      
+      # Install JAGS for macOS and Windows
+      - name: Install JAGS (macOS)
+        if: runner.os == 'macOS'
+        run: brew install jags
+      
+      # Windows runners usually handle rjags via binary, 
+      # but brew-equivalent for Windows (choco) can be added if needed.
+
       - uses: r-hub/actions/setup-r@v1
         with:
           job-config: ${{ matrix.config.job-config }}

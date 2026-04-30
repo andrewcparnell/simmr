@@ -11,7 +11,9 @@ macos-arm64
 windows
 
 ## R CMD check results
-There were no notes, errors or warnings.
+There were no notes, errors or warnings on the local install. 
+
+On winbuilder there was a note because we have changed the maintainer's email address (back to me from a PhD student)
 
 ## Previous CRAN package checks
 There were no previous flags
