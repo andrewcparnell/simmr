@@ -4,8 +4,8 @@ Title: A Stable Isotope Mixing Model
 Version: 0.5.2
 Date: 2026-4-30
 Authors@R: c(
-    person("Emma", "Govan", email = "andrew.parnell1@ucd.ie", role = c("cre", "aut")),
-    person("Andrew", "Parnell", role = "aut")
+    person("Emma", "Govan", role = "aut"),
+    person("Andrew", "Parnell", email = "andrew.parnell1@ucd.ie",  role = c("cre", "aut"))
     )
 URL: https://github.com/andrewcparnell/simmr, https://andrewcparnell.github.io/simmr/
 BugReports: https://github.com/andrewcparnell/simmr/issues

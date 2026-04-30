@@ -190,7 +190,7 @@ Fixed Form Variational Bayes (FFVB) is an optimisation based technique. It doesn
 
 You can check the fit of the model with a posterior predictive check. This is similar to a fitted values plot in a linear regression. If the data points (denoted by the plot as $y$) broadly lie in the fitted value intervals (denoted $y_rep$; the default is a 50% interval) then the model is fitting well:
 
-```{r,results = 'hide',fig.align = 'center',fig.width = 7,fig.height = 5}
+```{r,fig.align = 'center',fig.width = 7,fig.height = 5}
 post_pred <- posterior_predictive(simmr_out)
 print(post_pred)
 ```
