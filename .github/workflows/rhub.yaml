@@ -93,8 +93,10 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install jags
       
-      # Windows runners usually handle rjags via binary, 
-      # but brew-equivalent for Windows (choco) can be added if needed.
+      # Install JAGS for Windows
+      - name: Install JAGS (Windows)
+        if: runner.os == 'Windows'
+        run: choco install jags --version=4.3.1 -y.
 
       - uses: r-hub/actions/setup-r@v1
         with:
