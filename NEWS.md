@@ -1,3 +1,7 @@
+# simmr 0.5.2
+
+  - Fixed posterior predictives to facet correctly and highlight 'outside' points
+
 # simmr 0.5.1
 
   - Fixed bug introduced in 0.5.0 affecting the prior distribution on the residual standard deviation

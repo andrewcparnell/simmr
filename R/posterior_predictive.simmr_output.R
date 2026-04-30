@@ -12,7 +12,7 @@
 #'
 #'@return plot of posterior predictives and simulated values
 
-#' @importFrom bayesplot ppc_intervals
+#' @importFrom bayesplot ppc_intervals ppc_intervals_grouped
 #'
 #' @export
 #'
@@ -110,16 +110,40 @@ posterior_predictive.simmr_output <- function(simmr_out,
     curr_mix <- simmr_out$input$mixtures[curr_rows, , drop = FALSE]
     bayesplot::color_scheme_set("viridis")
     bayesplot::bayesplot_theme_set(new = theme_bw())
-    g <- ppc_intervals(
-      y = unlist(as.vector(curr_mix)),
+    y = unlist(as.vector(curr_mix))
+    x <- rep(1:length(unlist(as.vector(curr_mix))))
+    group <- paste("Tracer",rep(1:simmr_out$input$n_tracers, each = nrow(curr_mix)))
+    g <- ppc_intervals_grouped(
+      y = y,
       yrep = y_rep,
-      x = rep(1:nrow(curr_mix), simmr_out$input$n_tracers),
+      #x = rep(1:nrow(curr_mix), simmr_out$input$n_tracers),
+      x = x,
+      group = group,
       prob = prob,
+      prob_outer = 0.5,
       fatten = 1
     ) + ggplot2::ylab("Tracer value") +
       ggplot2::xlab("Observation") +
-      ggplot2::ggtitle(paste0(prob * 100, "% posterior predictive")) +
-      ggplot2::scale_x_continuous(breaks = 1:simmr_out$input$n_obs)
+      ggplot2::ggtitle(paste0(prob * 100, "% posterior predictive: red = outside range")) +
+      ggplot2::scale_x_continuous(breaks = 1:length(unlist(as.vector(curr_mix))))
+    
+    outlier_df <- data.frame(
+      x = rep(1:length(unlist(as.vector(curr_mix)))),
+      y = unlist(as.vector(curr_mix)),
+      group = group,
+      outside = y_post_pred_out$outside
+    )
+    
+    # Add extr points
+    if(any(y_post_pred_out$outside == TRUE)) {
+      g <- g + ggplot2::geom_point(
+        data = outlier_df[outlier_df$outside == TRUE, ],
+        ggplot2::aes(x = x, y = y),
+        color = "red",
+        size = 2.5, 
+        inherit.aes = FALSE
+      )
+    }
     print(g)
   }
   # Return the simulations

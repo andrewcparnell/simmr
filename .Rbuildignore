@@ -18,3 +18,5 @@
 ^NUL$
 ^tests/testthat/NUL$
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$
