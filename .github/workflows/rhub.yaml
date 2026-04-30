@@ -93,12 +93,14 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install jags
       
-      # Install JAGS for Windows
       - name: Install JAGS (Windows)
         if: runner.os == 'Windows'
         run: |
-          curl.exe -L -o jags_installer.exe "https://downloads.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1.exe"
-          ./jags_installer.exe /S
+          $tempDir = [System.IO.Path]::GetTempPath()
+          $dest = Join-Path $tempDir "jags_installer.exe"
+          curl.exe -L -o $dest "https://downloads.sourceforge.net/project/mcmc-jags/JAGS/4.x/Windows/JAGS-4.3.1.exe"
+          Start-Process -FilePath $dest -ArgumentList "/S" -Wait
+          Remove-Item $dest
         shell: pwsh
 
       - uses: r-hub/actions/setup-r@v1
