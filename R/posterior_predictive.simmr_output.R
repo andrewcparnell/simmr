@@ -96,7 +96,7 @@ posterior_predictive.simmr_output <- function(simmr_out,
       ncol = simmr_out$input$n_tracers,
       byrow = TRUE
     ),
-    data = as.vector(simmr_out$input$mixtures[simmr_out$input$group_int == group, ])
+    data = as.vector(as.matrix(simmr_out$input$mixtures[simmr_out$input$group_int == group, ]))
   )
 
   y_post_pred_out$outside <- y_post_pred_out[, 3] > y_post_pred_out[, 2] |

@@ -1,3 +1,7 @@
+# simmr 0.5.3
+
+  - Fixed bug in posterior predictives when using a tibble as input
+
 # simmr 0.5.2
 
   - Fixed posterior predictives to facet correctly and highlight 'outside' points
